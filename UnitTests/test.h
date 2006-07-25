@@ -77,7 +77,7 @@ public:
 
 protected:
   template <class T>
-  Assertion<T> Test::assert(const T& value) const throw() {
+  Assertion<T> assert(const T& value) const throw() {
     return Assertion<T>(value, this);
   }
 
