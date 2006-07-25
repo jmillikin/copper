@@ -37,18 +37,46 @@ public:
   /**
     Assert that the two values are equal
 
-    @param value A value that can be checked for exact equality. For floating
-    point equality checking, use @nearly_equals
+    @param expected The expected value of this assertion
   */
   void equals(const T& expected) const throw();
 
   /**
     Check that the two values are nearly equal within a certain delta
 
-    @param A floating-point number
+    @param expected The expected floating-point number
+    @param delta The allowable difference between the expected and actual
+    values
   */
   void nearly_equals(const T& expected, const T& delta) const throw();
 
+  /**
+    Check that the result is greater than some expected value
+
+    @param limit The number the result must be above
+  */
+  void greater_than(const T& limit) const throw();
+
+  /**
+    Check that the result is greater than or equal to some expected value
+
+    @param limit The number the result must be above or equal to
+  */
+  void greater_than_or_equal(const T& limit) const throw();
+
+  /**
+    Check that the result is less than some expected value
+
+    @param limit The number the result must be below
+  */
+  void less_than(const T& limit) const throw();
+
+  /**
+    Check that the result is less than or equal to some expected value
+
+    @param limit The number the result must be below or equal to
+  */
+  void less_than_or_equal(const T& limit) const throw();
 
   /**
     Check that the value can be evaluated to the boolean value 'true'
@@ -68,12 +96,12 @@ protected:
 class Test {
   friend class DefaultOutputHandler;
 public:
-  Test(const char* _name, const char* _suite_name) throw();
+  Test(const std::string& _name, const std::string& _suite_name) throw();
   virtual ~Test(){}
 
   void pass() const throw();
 
-  void fail(const char* message) const throw();
+  void fail(const std::string& message) const throw();
 
   /** Run the test code in an optional try/catch */
   void run() const throw();
@@ -87,8 +115,8 @@ protected:
   /** Run the user's test code */
   virtual void _run() const throw() = 0;
 
-  const char* name;
-  const char* suite_name;
+  const std::string name;
+  const std::string suite_name;
 };
 
 template <class T>
@@ -98,19 +126,18 @@ Assertion<T>::Assertion(const T& value, const Test* _test) throw():
 template <class T>
 void Assertion<T>::equals(const T& expected) const throw() {
   if (result == expected){
-    // This test has passed
     test->pass();
   }
 
   else {
     std::stringstream ss;
     ss << "Unequal values: expected '" << expected << "', got '" << result << "'";
-    test->fail(ss.str().c_str());
+    test->fail(ss.str());
   }
 }
 
 template <class T>
-void Assertion<T>::nearly_equals(const T& expected, const T& delta) const throw() {
+void Assertion<T>::nearly_equals(const T& expected, const T& delta) const throw(){
   if (fabs(expected - result) < delta){
     test->pass();
   }
@@ -119,7 +146,60 @@ void Assertion<T>::nearly_equals(const T& expected, const T& delta) const throw(
     std::stringstream ss;
     ss << "Result '" << result << "' is not within '" << delta << "' of '"
       << expected << "'";
-    test->fail(ss.str().c_str());
+    test->fail(ss.str());
+  }
+}
+
+template <class T>
+void Assertion<T>::greater_than(const T& limit) const throw(){
+  if (result > limit){
+    test->pass();
+  }
+
+  else {
+    std::stringstream ss;
+    ss << "'" << result << "' is not greater than '" << limit << "'";
+    test->fail(ss.str());
+  }
+}
+
+template <class T>
+void Assertion<T>::greater_than_or_equal(const T& limit) const throw(){
+  if (result >= limit){
+    test->pass();
+  }
+
+  else {
+    std::stringstream ss;
+    ss << "'" << result << "' is not greater than or equal to '" << limit
+      << "'";
+    test->fail(ss.str());
+  }
+}
+
+template <class T>
+void Assertion<T>::less_than(const T& limit) const throw(){
+  if (result > limit){
+    test->pass();
+  }
+
+  else {
+    std::stringstream ss;
+    ss << "'" << result << "' is not less than '" << limit << "'";
+    test->fail(ss.str());
+  }
+}
+
+template <class T>
+void Assertion<T>::less_than_or_equal(const T& limit) const throw(){
+  if (result > limit){
+    test->pass();
+  }
+
+  else {
+    std::stringstream ss;
+    ss << "'" << result << "' is not less than or equal to '" << limit << "'";
+    test->fail(ss.str());
   }
 }
 

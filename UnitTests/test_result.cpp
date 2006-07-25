@@ -12,7 +12,7 @@ void TestResult::pass(const Test* test) throw() {
   }
 }
 
-void TestResult::fail(const Test* test, const char* message) throw() {
+void TestResult::fail(const Test* test, const std::string& message) throw() {
   if (handler){
     handler->fail(test, message);
   }

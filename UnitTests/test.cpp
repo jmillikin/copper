@@ -5,7 +5,7 @@
 
 namespace UnitTests {
 
-Test::Test(const char* _name, const char* _suite_name) throw():
+Test::Test(const std::string& _name, const std::string& _suite_name) throw():
   name(_name), suite_name(_suite_name){
 
   TestRegistry::add(this);
@@ -27,7 +27,7 @@ void Test::pass() const throw() {
   TestResult::pass(this);
 }
 
-void Test::fail(const char* message) const throw() {
+void Test::fail(const std::string& message) const throw() {
   TestResult::fail(this, message);
 }
 

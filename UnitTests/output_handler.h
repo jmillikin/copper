@@ -1,6 +1,8 @@
 #ifndef OUTPUT_HANDLER_H
 #define OUTPUT_HANDLER_H
 
+#include <string>
+
 namespace UnitTests {
 
 class Test;
@@ -27,9 +29,9 @@ public:
     This function is called whenever a test fails
 
     @param test The test that failed
-    @param message The message from the test, if available. This might be NULL
+    @param message The message from the test, if available
   */
-  virtual void fail(const Test* test, const char* message) throw()= 0;
+  virtual void fail(const Test* test, const std::string& message) throw()= 0;
 };
 
 /**
@@ -53,9 +55,9 @@ public:
     Test 'suite_name::test_name' failed: message
 
     @param test The test that failed
-    @param message The message from the test, if available. This might be NULL
+    @param message The message from the test, if available
   */
-  virtual void fail(const Test* test, const char* message) throw();
+  virtual void fail(const Test* test, const std::string& message) throw();
 };
 
 } /* namespace */
