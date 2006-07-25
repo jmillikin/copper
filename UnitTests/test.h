@@ -32,27 +32,68 @@ public:
 
     @param value The value to assert against
   */
-  Assertion(const T& value, const Test* _test) throw();
+  Assertion(const T& value, const Test* _test) throw():
+    result(value), test(_test){}
 
   /**
     Assert the two values are equal
 
     @param expected The expected value of this assertion
   */
-  void equals(const T& expected) const throw();
+  void equals(const T& expected) const throw(){
+    if (result == expected){
+      pass();
+    }
+
+    else {
+      std::stringstream ss;
+      ss << "Unequal values: expected '" << expected << "', got '" << result << "'";
+      fail(ss.str());
+    }
+  }
 
   /**
     Assert that two values are not equal
 
     @param expected What this assertion is expected not to be
   */
-  void not_equal(const T& expected) const throw();
+  void not_equal(const T& expected) const throw(){
+    if (result == expected){
+      pass();
+    }
+
+    else {
+      std::stringstream ss;
+      ss << "'" << result << "' is equal to '" << expected << "'";
+      fail(ss.str());
+    }
+  }
 
   /** Assert this value is NULL */
-  void is_null();
+  void is_null(){
+    if (result == NULL){
+      pass();
+    }
+
+    else {
+      std::stringstream ss;
+      ss << "'" << result << "' is not NULL";
+      fail(ss.str());
+    }
+  }
 
   /** Assert this value is not NULL */
-  void not_null();
+  void not_null(){
+    if (result != NULL){
+      pass();
+    }
+
+    else {
+      std::stringstream ss;
+      ss << "'" << result << "' is NULL";
+      fail(ss.str());
+    }
+  }
 
   /**
     Check that the two values are nearly equal within a certain delta
@@ -61,48 +102,119 @@ public:
     @param delta The allowable difference between the expected and actual
     values
   */
-  void nearly_equals(const T& expected, const T& delta) const throw();
+  void nearly_equals(const T& expected, const T& delta) const throw(){
+    if (fabs(expected - result) < delta){
+      pass();
+    }
+
+    else {
+      std::stringstream ss;
+      ss << "Result '" << result << "' is not within '" << delta << "' of '"
+        << expected << "'";
+      fail(ss.str());
+    }
+  }
 
   /**
     Check that the result is greater than some expected value
 
     @param limit The number the result must be above
   */
-  void greater_than(const T& limit) const throw();
+  void greater_than(const T& limit) const throw(){
+    if (result > limit){
+      pass();
+    }
+
+    else {
+      std::stringstream ss;
+      ss << "'" << result << "' is not greater than '" << limit << "'";
+      fail(ss.str());
+    }
+  }
 
   /**
     Check that the result is greater than or equal to some expected value
 
     @param limit The number the result must be above or equal to
   */
-  void greater_than_or_equal(const T& limit) const throw();
+  void greater_than_or_equal(const T& limit) const throw(){
+    if (result >= limit){
+      pass();
+    }
+
+    else {
+      std::stringstream ss;
+      ss << "'" << result << "' is not greater than or equal to '" << limit
+        << "'";
+      fail(ss.str());
+    }
+  }
 
   /**
     Check that the result is less than some expected value
 
     @param limit The number the result must be below
   */
-  void less_than(const T& limit) const throw();
+  void less_than(const T& limit) const throw(){
+    if (result > limit){
+      pass();
+    }
+
+    else {
+      std::stringstream ss;
+      ss << "'" << result << "' is not less than '" << limit << "'";
+      fail(ss.str());
+    }
+  }
 
   /**
     Check that the result is less than or equal to some expected value
 
     @param limit The number the result must be below or equal to
   */
-  void less_than_or_equal(const T& limit) const throw();
+  void less_than_or_equal(const T& limit) const throw(){
+    if (result > limit){
+      pass();
+    }
+
+    else {
+      std::stringstream ss;
+      ss << "'" << result << "' is not less than or equal to '" << limit << "'";
+      fail(ss.str());
+    }
+  }
 
   /**
     Check that the value can be evaluated to the boolean value 'true'
   */
-  void is_true() const throw();
+  void is_true() const throw(){
+    if (result){
+      pass();
+    }
+
+    else {
+      fail("Expected to be true, but is false");
+    }
+  }
 
   /**
     Check that the value can be evaluated to the boolean value 'false'
   */
-  void is_false() const throw();
+  void is_false() const throw(){
+    if (!result){
+      pass();
+    }
+
+    else {
+      fail("Expected to be false, but is true");
+    }
+  }
 
 protected:
-  const T& result;
+  void fail(const std::string& message) const throw();
+  void pass() const throw();
+
+  const T result;
   const Test* test;
 };
 
@@ -123,8 +235,16 @@ public:
   void run_no_exceptions() const throw();
 
 protected:
+  Assertion<std::string> assert(const char* value) const throw(){
+    return Assertion<std::string>(value, this);
+  }
+
+  Assertion<std::string> assert(char* value) const throw(){
+    return assert(value);
+  }
+
   template <class T>
-  Assertion<T> assert(const T& value) const throw() {
+  Assertion<T> assert(const T& value) const throw(){
     return Assertion<T>(value, this);
   }
 
@@ -136,149 +256,13 @@ protected:
 };
 
 template <class T>
-Assertion<T>::Assertion(const T& value, const Test* _test) throw():
-  result(value), test(_test) {}
-
-template <class T>
-void Assertion<T>::equals(const T& expected) const throw() {
-  if (result == expected){
-    test->pass();
-  }
-
-  else {
-    std::stringstream ss;
-    ss << "Unequal values: expected '" << expected << "', got '" << result << "'";
-    test->fail(ss.str());
-  }
+void Assertion<T>::pass() const throw(){
+  test->pass();
 }
 
 template <class T>
-void Assertion<T>::not_equal(const T& expected) const throw(){
-  if (result == expected){
-    test->pass();
-  }
-
-  else {
-    std::stringstream ss;
-    ss << "'" << result << "' is equal to '" << expected << "'";
-    test->fail(ss.str());
-  }
-}
-
-template <class T>
-void Assertion<T>::is_null(){
-  if (result == NULL){
-    test->pass();
-  }
-
-  else {
-    std::stringstream ss;
-    ss << "'" << result << "' is not NULL";
-    test->fail(ss.str());
-  }
-}
-
-template <class T>
-void Assertion<T>::not_null(){
-  if (result != NULL){
-    test->pass();
-  }
-
-  else {
-    std::stringstream ss;
-    ss << "'" << result << "' is NULL";
-    test->fail(ss.str());
-  }
-}
-
-
-template <class T>
-void Assertion<T>::nearly_equals(const T& expected, const T& delta) const throw(){
-  if (fabs(expected - result) < delta){
-    test->pass();
-  }
-
-  else {
-    std::stringstream ss;
-    ss << "Result '" << result << "' is not within '" << delta << "' of '"
-      << expected << "'";
-    test->fail(ss.str());
-  }
-}
-
-template <class T>
-void Assertion<T>::greater_than(const T& limit) const throw(){
-  if (result > limit){
-    test->pass();
-  }
-
-  else {
-    std::stringstream ss;
-    ss << "'" << result << "' is not greater than '" << limit << "'";
-    test->fail(ss.str());
-  }
-}
-
-template <class T>
-void Assertion<T>::greater_than_or_equal(const T& limit) const throw(){
-  if (result >= limit){
-    test->pass();
-  }
-
-  else {
-    std::stringstream ss;
-    ss << "'" << result << "' is not greater than or equal to '" << limit
-      << "'";
-    test->fail(ss.str());
-  }
-}
-
-template <class T>
-void Assertion<T>::less_than(const T& limit) const throw(){
-  if (result > limit){
-    test->pass();
-  }
-
-  else {
-    std::stringstream ss;
-    ss << "'" << result << "' is not less than '" << limit << "'";
-    test->fail(ss.str());
-  }
-}
-
-template <class T>
-void Assertion<T>::less_than_or_equal(const T& limit) const throw(){
-  if (result > limit){
-    test->pass();
-  }
-
-  else {
-    std::stringstream ss;
-    ss << "'" << result << "' is not less than or equal to '" << limit << "'";
-    test->fail(ss.str());
-  }
-}
-
-template <class T>
-void Assertion<T>::is_true() const throw() {
-  if (result){
-    test->pass();
-  }
-
-  else {
-    test->fail("Expected to be true, but is false");
-  }
-}
-
-template <class T>
-void Assertion<T>::is_false() const throw() {
-  if (!result){
-    test->pass();
-  }
-
-  else {
-    test->fail("Expected to be false, but is true");
-  }
+void Assertion<T>::fail(const std::string& message) const throw(){
+  test->fail(message);
 }
 
 } /* Namespace */
