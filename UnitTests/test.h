@@ -4,6 +4,9 @@
 /* For fabs() */
 #include <cmath>
 
+/* For formatting error strings */
+#include <sstream>
+
 #define TEST_SUITE(NAME) namespace suite_##NAME { \
                            static const char* static_suite_name=#NAME;
 
@@ -100,8 +103,9 @@ void Assertion<T>::equals(const T& expected) const throw() {
   }
 
   else {
-    // This test has failed
-    test->fail("equals() failed");
+    std::stringstream ss;
+    ss << "Unequal values: expected '" << expected << "', got '" << result << "'";
+    test->fail(ss.str().c_str());
   }
 }
 
@@ -112,7 +116,10 @@ void Assertion<T>::nearly_equals(const T& expected, const T& delta) const throw(
   }
 
   else {
-    test->fail("nearly_equals() failed");
+    std::stringstream ss;
+    ss << "Result '" << result << "' is not within '" << delta << "' of '"
+      << expected << "'";
+    test->fail(ss.str().c_str());
   }
 }
 
@@ -123,7 +130,7 @@ void Assertion<T>::is_true() const throw() {
   }
 
   else {
-    test->fail("is_true() failed");
+    test->fail("Expected to be true, but is false");
   }
 }
 
@@ -134,7 +141,7 @@ void Assertion<T>::is_false() const throw() {
   }
 
   else {
-    test->fail("is_false() failed");
+    test->fail("Expected to be false, but is true");
   }
 }
 
