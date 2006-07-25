@@ -16,9 +16,9 @@
                    public: \
                      test_##NAME(): UnitTests::Test(#NAME, static_suite_name){} \
                    protected: \
-                     virtual void _run() const throw(); \
+                     virtual void _run() const; \
                    } test_instance_##NAME; \
-                   void test_##NAME::_run() const throw()
+                   void test_##NAME::_run() const
 
 namespace UnitTests {
 
@@ -35,11 +35,24 @@ public:
   Assertion(const T& value, const Test* _test) throw();
 
   /**
-    Assert that the two values are equal
+    Assert the two values are equal
 
     @param expected The expected value of this assertion
   */
   void equals(const T& expected) const throw();
+
+  /**
+    Assert that two values are not equal
+
+    @param expected What this assertion is expected not to be
+  */
+  void not_equal(const T& expected) const throw();
+
+  /** Assert this value is NULL */
+  void is_null();
+
+  /** Assert this value is not NULL */
+  void not_null();
 
   /**
     Check that the two values are nearly equal within a certain delta
@@ -103,8 +116,11 @@ public:
 
   void fail(const std::string& message) const throw();
 
-  /** Run the test code in an optional try/catch */
+  /** Run the test code in a try/catch */
   void run() const throw();
+
+  /** Run the test code, and abort on uncaught exceptions */
+  void run_no_exceptions() const throw();
 
 protected:
   template <class T>
@@ -113,7 +129,7 @@ protected:
   }
 
   /** Run the user's test code */
-  virtual void _run() const throw() = 0;
+  virtual void _run() const = 0;
 
   const std::string name;
   const std::string suite_name;
@@ -135,6 +151,46 @@ void Assertion<T>::equals(const T& expected) const throw() {
     test->fail(ss.str());
   }
 }
+
+template <class T>
+void Assertion<T>::not_equal(const T& expected) const throw(){
+  if (result == expected){
+    test->pass();
+  }
+
+  else {
+    std::stringstream ss;
+    ss << "'" << result << "' is equal to '" << expected << "'";
+    test->fail(ss.str());
+  }
+}
+
+template <class T>
+void Assertion<T>::is_null(){
+  if (result == NULL){
+    test->pass();
+  }
+
+  else {
+    std::stringstream ss;
+    ss << "'" << result << "' is not NULL";
+    test->fail(ss.str());
+  }
+}
+
+template <class T>
+void Assertion<T>::not_null(){
+  if (result != NULL){
+    test->pass();
+  }
+
+  else {
+    std::stringstream ss;
+    ss << "'" << result << "' is NULL";
+    test->fail(ss.str());
+  }
+}
+
 
 template <class T>
 void Assertion<T>::nearly_equals(const T& expected, const T& delta) const throw(){

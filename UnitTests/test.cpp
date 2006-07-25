@@ -12,15 +12,21 @@ Test::Test(const std::string& _name, const std::string& _suite_name) throw():
 }
 
 void Test::run() const throw() {
-#ifdef CATCH_EXCEPTIONS
   try {
-#endif
     _run();
-#ifdef CATCH_EXCEPTIONS
-  } catch (...){
-    fail("Unhandled exception");
   }
-#endif
+
+  catch (const std::exception& e){
+    fail(std::string("Unhandled exception: ") + e.what());
+  }
+
+  catch (...){
+    fail("Unhandled, unknown exception");
+  }
+}
+
+void Test::run_no_exceptions() const throw(){
+  _run();
 }
 
 void Test::pass() const throw() {
