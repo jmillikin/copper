@@ -17,11 +17,6 @@ TEST(boolean_test){
   assert(var).is_true();
 }
 
-TEST(div_by_zero){
-  int i = 1, j = 0;
-  i = i / j;
-}
-
 TEST(string_equality){
   char* var = "test";
   assert(var).equals("test");
