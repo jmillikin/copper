@@ -17,3 +17,5 @@ SOURCES += output_handler.cpp \
            test.cpp \
            test_registry.cpp \
            test_result.cpp
+
+DEFINES += CATCH_EXCEPTIONS
