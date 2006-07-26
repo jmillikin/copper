@@ -5,15 +5,19 @@
 
 namespace UnitTests {
 
-Test::Test(const std::string& _name, const std::string& _suite_name) throw():
-  failed(false), name(_name), suite_name(_suite_name){
+Test::Test(const std::string& _name, const std::string& _suite_name,
+  bool _has_fixture) throw():
+  failed(false), name(_name), suite_name(_suite_name),
+  has_fixture(_has_fixture){
 
   TestRegistry::add(this);
 }
 
 void Test::run() throw() {
   try {
+    set_up();
     _run();
+    tear_down();
   }
 
   catch (const std::exception& e){
@@ -28,7 +32,9 @@ void Test::run() throw() {
 }
 
 void Test::run_no_exceptions() throw(){
+  set_up();
   _run();
+  tear_down();
 
   pass();
 }

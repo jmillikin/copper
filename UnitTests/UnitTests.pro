@@ -11,11 +11,21 @@ INCLUDEPATH += .
 OBJECTS_DIR = build
 
 # Input
-HEADERS += output_handler.h test.h test_registry.h test_result.h
-SOURCES += output_handler.cpp \
-           sample_suite.cpp \
-           test.cpp \
-           test_registry.cpp \
-           test_result.cpp
+HEADERS += \
+            assertion.h \
+            fixture.h \
+            output_handler.h \
+            test.h \
+            test_registry.h \
+            test_result.h
+
+SOURCES += \
+            assertion.cpp \
+            fixture.cpp \
+            output_handler.cpp \
+            sample_suite.cpp \
+            test.cpp \
+            test_registry.cpp \
+            test_result.cpp
 
 DEFINES += CATCH_EXCEPTIONS

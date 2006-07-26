@@ -12,31 +12,44 @@
 #undef assert
 #endif
 
-#define TEST_SUITE(NAME) namespace suite_##NAME { \
-                           static const char* static_suite_name=#NAME;
-
-#define END_TEST_SUITE }
+#define TEST_SUITE(NAME) \
+  namespace suite_##NAME { \
+    static const char* static_suite_name=#NAME;
 
 #define TEST(NAME) \
   class test_##NAME : public UnitTests::Test { \
   public: \
     test_##NAME(): UnitTests::Test(#NAME, static_suite_name){} \
   protected: \
+    void set_up(){} \
+    void tear_down(){} \
     virtual void _run(); \
   } test_instance_##NAME; \
   void test_##NAME::_run(){
 
-#define TEST_WITH_FIXTURE(TEST_NAME, FIXTURE_NAME) \
-  class test_##NAME : public UnitTests::Test { \
-  public \
-    test_##TEST_NAME(): UnitTests::Test(#TEST_NAME, static_suite_name){} \
+#define FIXTURE(NAME) \
+  class fixture_##NAME : public UnitTests::Fixture { \
+    public: \
+      fixture_##NAME(): UnitTests::Fixture(){} \
+    protected:
+
+#define FIXTURE_TEST(NAME, FIXTURE) \
+  class test_##NAME : public UnitTests::Test, public fixture_##FIXTURE { \
+  public: \
+    test_##NAME(): \
+      UnitTests::Test(#NAME, static_suite_name, true), \
+      fixture_##FIXTURE() \
+      {} \
   protected: \
     virtual void _run(); \
-  } test_instance_##TEST_NAME; \
-  void test_##TEST_NAME::_run(){ \
-    set_up();
-
-#define END_FIXTURE_TEST tear_down(); }
+    virtual void set_up(){ \
+      fixture_##FIXTURE::set_up(); \
+    } \
+    virtual void tear_down(){ \
+      fixture_##FIXTURE::tear_down(); \
+    } \
+  } test_instance_##NAME; \
+  void test_##NAME::_run(){
 
 #include "assertion.h"
 
@@ -45,7 +58,9 @@ namespace UnitTests {
 class Test {
   friend class DefaultOutputHandler;
 public:
-  Test(const std::string& _name, const std::string& _suite_name) throw();
+  Test(const std::string& _name,
+    const std::string& _suite_name = "",
+    bool has_fixture = false) throw();
   virtual ~Test(){}
 
   void pass() const throw();
@@ -79,6 +94,14 @@ protected:
 
   const std::string name;
   const std::string suite_name;
+
+  /** Used to set up this test's fixture, if it exists */
+  virtual void set_up() = 0;
+
+  /** Used to tear down this test's fixture, if it exists */
+  virtual void tear_down() = 0;
+
+  bool has_fixture;
 };
 
 } /* Namespace */

@@ -1,4 +1,5 @@
 #include "test.h"
+#include "fixture.h"
 
 // for strdup, in test 'string_equals'
 #include <cstring>
@@ -15,6 +16,7 @@ TEST(string_equals)
   char* var2 = strdup("test");
 
   // Confirm that the addresses are not being compared
+  // Can't use not_equal for this
   assert(var1 != var2).is_true();
 
   assert(var1).equals(var2);
@@ -67,4 +69,24 @@ TEST(is_false)
   assert(false).is_false();
 }
 
-END_TEST_SUITE
+FIXTURE(the_fixture)
+
+void set_up(){
+  fixture_var = 1;
+  set_up_finished = true;
+}
+
+void tear_down(){
+}
+
+int fixture_var;
+bool set_up_finished;
+
+};
+
+FIXTURE_TEST(fixture_test, the_fixture)
+  assert(fixture_var).equals(1);
+  assert(set_up_finished).is_true();
+}
+
+}

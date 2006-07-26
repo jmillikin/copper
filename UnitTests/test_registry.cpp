@@ -1,6 +1,5 @@
 #include "test_registry.h"
 #include "test.h"
-#include <iostream>
 
 namespace UnitTests {
 
