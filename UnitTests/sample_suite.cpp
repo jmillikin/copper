@@ -2,28 +2,58 @@
 
 TEST_SUITE(suite1)
 
-TEST(integer_equals){
+TEST(integer_equals)
   int var = 2;
   assert(var).equals(2);
 }
 
-TEST(nearly_equals){
-  float var = 2.0f;
-  assert(var).nearly_equals(2.0f, 0.1f);
-}
-
-TEST(boolean_test){
-  bool var = true;
-  assert(var).is_true();
-}
-
-TEST(string_equality){
+TEST(string_equals)
   char* var = "test";
   assert(var).equals("test");
 }
 
-TEST(failed_assertion){
-  assert(2).equals(3);
+TEST(not_equal)
+  assert(2).not_equal(3);
+}
+
+TEST(is_null)
+  assert(0).is_null();
+}
+
+TEST(not_null)
+  int var;
+  assert(&var).not_null();
+}
+
+TEST(nearly_equals)
+  float var = 2.0f;
+  assert(var).nearly_equals(2.0001f, 0.001f);
+}
+
+TEST(greater_than)
+  assert(3).greater_than(2);
+}
+
+TEST(greater_than_or_equal)
+  assert(4).greater_than_or_equal(4);
+  assert(4).greater_than_or_equal(3);
+}
+
+TEST(less_than)
+  assert(10).less_than(12);
+}
+
+TEST(less_than_or_equal)
+  assert(9).less_than_or_equal(9);
+  assert(9).less_than_or_equal(10);
+}
+
+TEST(is_true)
+  assert(true).is_true();
+}
+
+TEST(is_false)
+  assert(false).is_false();
 }
 
 END_TEST_SUITE
