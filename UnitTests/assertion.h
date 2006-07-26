@@ -22,17 +22,14 @@ public:
 
     @param test The test this assertion was created in
   */
-  BaseAssertion(const Test* test) throw();
+  BaseAssertion(Test* test) throw();
 
 protected:
   /** Cause this assertion to fail, with a message */
-  void fail(const std::string& message) const throw();
-
-  /** Cause this assertion to pass */
-  void pass() const throw();
+  void fail(const std::string& message) throw();
 
   /** The test this assertion was created in */
-  const Test* test;
+  Test* test;
 };
 
 template <class T>
@@ -44,7 +41,7 @@ public:
     @param value The value to assert against
     param test The test this assertion was created in
   */
-  Assertion(const T& value, const Test* test) throw():
+  Assertion(const T& value, Test* test) throw():
     BaseAssertion(test), result(value){}
 
   /**
@@ -52,12 +49,8 @@ public:
 
     @param expected The expected value of this assertion
   */
-  void equals(const T& expected) const throw(){
-    if (result == expected){
-      pass();
-    }
-
-    else {
+  void equals(const T& expected) throw(){
+    if (result != expected){
       std::stringstream ss;
       ss << "Unequal values: expected '" << expected << "', got '" << result << "'";
       fail(ss.str());
@@ -67,27 +60,19 @@ public:
   /**
     Assert that two values are not equal
 
-    @param expected What this assertion is expected not to be
+    @param unexpected What this assertion is expected not to be
   */
-  void not_equal(const T& expected) const throw(){
-    if (result == expected){
-      pass();
-    }
-
-    else {
+  void not_equal(const T& unexpected) throw(){
+    if (result == unexpected){
       std::stringstream ss;
-      ss << "'" << result << "' is equal to '" << expected << "'";
+      ss << "'" << result << "' is equal to '" << unexpected << "'";
       fail(ss.str());
     }
   }
 
   /** Assert this value is NULL */
   void is_null(){
-    if (result == NULL){
-      pass();
-    }
-
-    else {
+    if (result != NULL){
       std::stringstream ss;
       ss << "'" << result << "' is not NULL";
       fail(ss.str());
@@ -96,11 +81,7 @@ public:
 
   /** Assert this value is not NULL */
   void not_null(){
-    if (result != NULL){
-      pass();
-    }
-
-    else {
+    if (result == NULL){
       std::stringstream ss;
       ss << "'" << result << "' is NULL";
       fail(ss.str());
@@ -114,12 +95,8 @@ public:
     @param delta The allowable difference between the expected and actual
     values
   */
-  void nearly_equals(const T& expected, const T& delta) const throw(){
-    if (fabs(expected - result) < delta){
-      pass();
-    }
-
-    else {
+  void nearly_equals(const T& expected, const T& delta) throw(){
+    if (fabs(expected - result) > delta){
       std::stringstream ss;
       ss << "Result '" << result << "' is not within '" << delta << "' of '"
         << expected << "'";
@@ -132,12 +109,8 @@ public:
 
     @param limit The number the result must be above
   */
-  void greater_than(const T& limit) const throw(){
-    if (result > limit){
-      pass();
-    }
-
-    else {
+  void greater_than(const T& limit) throw(){
+    if (result <= limit){
       std::stringstream ss;
       ss << "'" << result << "' is not greater than '" << limit << "'";
       fail(ss.str());
@@ -149,12 +122,8 @@ public:
 
     @param limit The number the result must be above or equal to
   */
-  void greater_than_or_equal(const T& limit) const throw(){
-    if (result >= limit){
-      pass();
-    }
-
-    else {
+  void greater_than_or_equal(const T& limit) throw(){
+    if (result < limit){
       std::stringstream ss;
       ss << "'" << result << "' is not greater than or equal to '" << limit
         << "'";
@@ -167,12 +136,8 @@ public:
 
     @param limit The number the result must be below
   */
-  void less_than(const T& limit) const throw(){
-    if (result > limit){
-      pass();
-    }
-
-    else {
+  void less_than(const T& limit) throw(){
+    if (result >= limit){
       std::stringstream ss;
       ss << "'" << result << "' is not less than '" << limit << "'";
       fail(ss.str());
@@ -184,12 +149,8 @@ public:
 
     @param limit The number the result must be below or equal to
   */
-  void less_than_or_equal(const T& limit) const throw(){
+  void less_than_or_equal(const T& limit) throw(){
     if (result > limit){
-      pass();
-    }
-
-    else {
       std::stringstream ss;
       ss << "'" << result << "' is not less than or equal to '" << limit << "'";
       fail(ss.str());
@@ -199,12 +160,8 @@ public:
   /**
     Check that the value can be evaluated to the boolean value 'true'
   */
-  void is_true() const throw(){
-    if (result){
-      pass();
-    }
-
-    else {
+  void is_true() throw(){
+    if (!result){
       fail("Expected to be true, but is false");
     }
   }
@@ -212,12 +169,8 @@ public:
   /**
     Check that the value can be evaluated to the boolean value 'false'
   */
-  void is_false() const throw(){
-    if (!result){
-      pass();
-    }
-
-    else {
+  void is_false() throw(){
+    if (result){
       fail("Expected to be false, but is true");
     }
   }

@@ -12,13 +12,26 @@
 
 #define END_TEST_SUITE }
 
-#define TEST(NAME) class test_##NAME : public UnitTests::Test { \
-                   public: \
-                     test_##NAME(): UnitTests::Test(#NAME, static_suite_name){} \
-                   protected: \
-                     virtual void _run() const; \
-                   } test_instance_##NAME; \
-                   void test_##NAME::_run() const
+#define TEST(NAME) \
+  class test_##NAME : public UnitTests::Test { \
+  public: \
+    test_##NAME(): UnitTests::Test(#NAME, static_suite_name){} \
+  protected: \
+    virtual void _run(); \
+  } test_instance_##NAME; \
+  void test_##NAME::_run(){
+
+#define TEST_WITH_FIXTURE(TEST_NAME, FIXTURE_NAME) \
+  class test_##NAME : public UnitTests::Test { \
+  public \
+    test_##TEST_NAME(): UnitTests::Test(#TEST_NAME, static_suite_name){} \
+  protected: \
+    virtual void _run(); \
+  } test_instance_##TEST_NAME; \
+  void test_##TEST_NAME::_run(){ \
+    set_up();
+
+#define END_FIXTURE_TEST tear_down(); }
 
 #include "assertion.h"
 
@@ -32,30 +45,32 @@ public:
 
   void pass() const throw();
 
-  void fail(const std::string& message) const throw();
+  void fail(const std::string& message) throw();
 
   /** Run the test code in a try/catch */
-  void run() const throw();
+  void run() throw();
 
   /** Run the test code, and abort on uncaught exceptions */
-  void run_no_exceptions() const throw();
+  void run_no_exceptions() throw();
 
 protected:
-  Assertion<std::string> assert(const char* value) const throw(){
+  Assertion<std::string> assert(const char* value) throw(){
     return Assertion<std::string>(value, this);
   }
 
-  Assertion<std::string> assert(char* value) const throw(){
+  Assertion<std::string> assert(char* value) throw(){
     return Assertion<std::string>(value, this);
   }
 
   template <class T>
-  Assertion<T> assert(const T& value) const throw(){
+  Assertion<T> assert(const T& value) throw(){
     return Assertion<T>(value, this);
   }
 
   /** Run the user's test code */
-  virtual void _run() const = 0;
+  virtual void _run() = 0;
+
+  bool failed;
 
   const std::string name;
   const std::string suite_name;

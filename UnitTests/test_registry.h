@@ -13,7 +13,7 @@ class TestNode;
 class TestRegistry {
 public:
   TestRegistry() throw();
-  static void add(const Test* test) throw();
+  static void add(Test* test) throw();
   static void run_all() throw();
 
 protected:

@@ -6,12 +6,12 @@
 namespace UnitTests {
 
 Test::Test(const std::string& _name, const std::string& _suite_name) throw():
-  name(_name), suite_name(_suite_name){
+  failed(false), name(_name), suite_name(_suite_name){
 
   TestRegistry::add(this);
 }
 
-void Test::run() const throw() {
+void Test::run() throw() {
   try {
     _run();
   }
@@ -23,18 +23,27 @@ void Test::run() const throw() {
   catch (...){
     fail("Unhandled, unknown exception");
   }
+
+  pass();
 }
 
-void Test::run_no_exceptions() const throw(){
+void Test::run_no_exceptions() throw(){
   _run();
+
+  pass();
 }
 
 void Test::pass() const throw() {
-  TestResult::pass(this);
+  if (!failed){
+    TestResult::pass(this);
+  }
 }
 
-void Test::fail(const std::string& message) const throw() {
-  TestResult::fail(this, message);
+void Test::fail(const std::string& message) throw() {
+  if (!failed){
+    TestResult::fail(this, message);
+    failed = true;
+  }
 }
 
 } // namespace

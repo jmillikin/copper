@@ -6,14 +6,14 @@ namespace UnitTests {
 
 class TestNode {
 public:
-  TestNode(const Test* _test):
+  TestNode(Test* _test):
     test(_test), next(0){
 
     static unsigned int next_id = 0;
     id = next_id;
     ++next_id;
   }
-  const Test* test;
+  Test* test;
   unsigned int id;
 
   TestNode* next;
@@ -23,7 +23,7 @@ TestRegistry::TestRegistry() throw() {}
 
 TestNode* TestRegistry::first(0);
 
-void TestRegistry::add(const Test* test) throw() {
+void TestRegistry::add(Test* test) throw() {
   TestNode* node = new TestNode(test);
 
   if (!first){

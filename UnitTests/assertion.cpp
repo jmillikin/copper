@@ -3,13 +3,9 @@
 
 namespace UnitTests {
 
-BaseAssertion::BaseAssertion(const Test* _test) throw(): test(_test){}
+BaseAssertion::BaseAssertion(Test* _test) throw(): test(_test){}
 
-void BaseAssertion::pass() const throw(){
-  test->pass();
-}
-
-void BaseAssertion::fail(const std::string& message) const throw(){
+void BaseAssertion::fail(const std::string& message) throw(){
   test->fail(message);
 }
 
