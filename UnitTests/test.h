@@ -240,7 +240,7 @@ protected:
   }
 
   Assertion<std::string> assert(char* value) const throw(){
-    return assert(value);
+    return Assertion<std::string>(value, this);
   }
 
   template <class T>
