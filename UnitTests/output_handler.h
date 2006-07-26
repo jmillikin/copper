@@ -40,24 +40,33 @@ public:
 */
 class DefaultOutputHandler : public OutputHandler {
 public:
-  /** Empty constructor */
-  DefaultOutputHandler(){}
+  /** Default constructor */
+  DefaultOutputHandler() throw();
 
-  /** Empty destructor */
-  virtual ~DefaultOutputHandler(){}
+  /** Default destructor */
+  virtual ~DefaultOutputHandler() throw();
 
-  /** Does nothing */
+  /**
+    Outputs nothing, but keeps track of how many tests passed
+
+    @param test The test that passed
+  */
   virtual void pass(const Test* test) throw();
 
   /**
-    Outputs to the standard error stream in this form
+    Outputs failures to the standard error stream in this form:
 
     Test 'suite_name::test_name' failed: message
+
+    Also keeps track of how many tests failed
 
     @param test The test that failed
     @param message The message from the test, if available
   */
   virtual void fail(const Test* test, const std::string& message) throw();
+
+protected:
+  unsigned int passed, failed;
 };
 
 } /* namespace */
