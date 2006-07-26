@@ -7,6 +7,11 @@
 /* For formatting error strings */
 #include <sstream>
 
+/* Block any macro shenanigans from the standard library */
+#ifdef assert
+#undef assert
+#endif
+
 #define TEST_SUITE(NAME) namespace suite_##NAME { \
                            static const char* static_suite_name=#NAME;
 
