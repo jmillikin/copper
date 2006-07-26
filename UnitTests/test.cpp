@@ -42,8 +42,10 @@ void Test::fail(const std::string& message) const throw() {
 using namespace UnitTests;
 
 int main(){
-  TestResult::set_output_handler(new DefaultOutputHandler);
+  DefaultOutputHandler* handler = new DefaultOutputHandler;
+  TestResult::set_output_handler(handler);
   TestRegistry::run_all();
+  delete handler;
 
   return 0;
 }
