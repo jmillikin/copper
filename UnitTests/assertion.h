@@ -72,7 +72,7 @@ public:
 
   /** Assert this value is NULL */
   void is_null(){
-    if (result != NULL){
+    if (result != 0){
       std::stringstream ss;
       ss << "'" << result << "' is not NULL";
       fail(ss.str());
@@ -81,7 +81,7 @@ public:
 
   /** Assert this value is not NULL */
   void not_null(){
-    if (result == NULL){
+    if (result == 0){
       std::stringstream ss;
       ss << "'" << result << "' is NULL";
       fail(ss.str());
