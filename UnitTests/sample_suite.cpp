@@ -1,5 +1,8 @@
 #include "test.h"
 
+// for strdup, in test 'string_equals'
+#include <cstring>
+
 TEST_SUITE(suite1)
 
 TEST(integer_equals)
@@ -8,8 +11,16 @@ TEST(integer_equals)
 }
 
 TEST(string_equals)
-  char* var = "test";
-  assert(var).equals("test");
+  char* var1 = strdup("test");
+  char* var2 = strdup("test");
+
+  // Confirm that the addresses are not being compared
+  assert(var1 != var2).is_true();
+
+  assert(var1).equals(var2);
+
+  free(var1);
+  free(var2);
 }
 
 TEST(not_equal)
