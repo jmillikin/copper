@@ -21,8 +21,8 @@ void DefaultOutputHandler::fail(const Test* test, const std::string& message)
 
   ++failed;
 
-  std::cerr << test->suite_name << "::" << test->name << " failed: "
-    << message << "\n";
+  std::cerr << test->get_string() << " failed:\n\t" << message << "\n"
+    <<"====================\n";
 }
 
 } /* namespace */

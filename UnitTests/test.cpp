@@ -1,19 +1,24 @@
 #include "test.h"
 #include "test_registry.h"
-#include "test_result.h"
 #include "output_handler.h"
+#include "failure_exception.h"
 
 namespace UnitTests {
 
-Test::Test(const std::string& _name, const std::string& _suite_name,
-  bool _has_fixture) throw():
-  failed(false), name(_name), suite_name(_suite_name),
-  has_fixture(_has_fixture){
+Test::Test(
+  const std::string& name,
+  const std::string& suite_name,
+  const unsigned int line_number) throw ():
+
+  test_failed(false),
+  test_name(name),
+  test_suite_name(suite_name),
+  test_line_number(line_number){
 
   TestRegistry::add(this);
 }
 
-void Test::run() throw() {
+void Test::run() throw (FailureException) {
   try {
     set_up();
     _run();
@@ -21,45 +26,45 @@ void Test::run() throw() {
   }
 
   catch (const std::exception& e){
-    fail(std::string("Unhandled exception: ") + e.what());
+    throw FailureException(std::string("Unhandled exception: ") + e.what());
+  }
+
+  catch (const FailureException&){
+    throw;
   }
 
   catch (...){
-    fail("Unhandled, unknown exception");
+    throw FailureException("Unhandled, unknown exception");
   }
-
-  pass();
 }
 
-void Test::run_no_exceptions() throw(){
+void Test::run_no_exceptions() throw (FailureException) {
   set_up();
   _run();
   tear_down();
-
-  pass();
 }
 
-void Test::pass() const throw() {
-  if (!failed){
-    TestResult::pass(this);
-  }
-}
-
-void Test::fail(const std::string& message) throw() {
-  if (!failed){
-    TestResult::fail(this, message);
-    failed = true;
-  }
+std::string Test::get_string() const throw (){
+  std::stringstream ss;
+  ss << test_suite_name << "::" << test_name << " (line "
+    << test_line_number << ")";
+  return ss.str();
 }
 
 } // namespace
 
 using namespace UnitTests;
 
-int main(){
+int main(int argc, char** argv){
   DefaultOutputHandler* handler = new DefaultOutputHandler;
-  TestResult::set_output_handler(handler);
-  TestRegistry::run_all();
+  bool catch_exceptions = true;
+  if (argc > 1){
+    if (std::string(argv[1]) == "--no-exceptions"){
+      catch_exceptions = false;
+    }
+  }
+
+  TestRegistry::run_all(handler, catch_exceptions);
   delete handler;
 
   return 0;

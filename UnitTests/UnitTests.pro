@@ -13,19 +13,19 @@ OBJECTS_DIR = build
 # Input
 HEADERS += \
             assertion.h \
+            failure_exception.h \
             fixture.h \
             output_handler.h \
             test.h \
-            test_registry.h \
-            test_result.h
+            test_registry.h
 
 SOURCES += \
             assertion.cpp \
+            failure_exception.cpp \
             fixture.cpp \
             output_handler.cpp \
             sample_suite.cpp \
             test.cpp \
-            test_registry.cpp \
-            test_result.cpp
+            test_registry.cpp
 
 DEFINES += CATCH_EXCEPTIONS

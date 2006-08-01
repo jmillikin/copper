@@ -19,7 +19,7 @@
 #define TEST(NAME) \
   class test_##NAME : public UnitTests::Test { \
   public: \
-    test_##NAME(): UnitTests::Test(#NAME, static_suite_name){} \
+    test_##NAME(): UnitTests::Test(#NAME, static_suite_name, __LINE__){} \
   protected: \
     void set_up(){} \
     void tear_down(){} \
@@ -37,7 +37,7 @@
   class test_##NAME : public UnitTests::Test, public fixture_##FIXTURE { \
   public: \
     test_##NAME(): \
-      UnitTests::Test(#NAME, static_suite_name, true), \
+      UnitTests::Test(#NAME, static_suite_name, __LINE__), \
       fixture_##FIXTURE() \
       {} \
   protected: \
@@ -55,53 +55,52 @@
 
 namespace UnitTests {
 
+class FailureException;
+
 class Test {
-  friend class DefaultOutputHandler;
 public:
-  Test(const std::string& _name,
-    const std::string& _suite_name = "",
-    bool has_fixture = false) throw();
+  Test(const std::string& name,
+    const std::string& suite_name,
+    const unsigned int line_number) throw ();
   virtual ~Test(){}
 
-  void pass() const throw();
-
-  void fail(const std::string& message) throw();
-
   /** Run the test code in a try/catch */
-  void run() throw();
+  void run() throw (FailureException);
 
   /** Run the test code, and abort on uncaught exceptions */
-  void run_no_exceptions() throw();
+  void run_no_exceptions() throw (FailureException);
+
+  /** Get a string to represent this test */
+  std::string get_string() const throw ();
 
 protected:
-  Assertion<std::string> assert(const char* value) throw(){
+  Assertion<std::string> assert(const char* value) throw () {
     return Assertion<std::string>(value, this);
   }
 
-  Assertion<std::string> assert(char* value) throw(){
+  Assertion<std::string> assert(char* value) throw () {
     return Assertion<std::string>(value, this);
   }
 
   template <class T>
-  Assertion<T> assert(const T& value) throw(){
+  Assertion<T> assert(const T& value) throw () {
     return Assertion<T>(value, this);
   }
 
   /** Run the user's test code */
   virtual void _run() = 0;
 
-  bool failed;
+  bool test_failed;
 
-  const std::string name;
-  const std::string suite_name;
+  const std::string test_name;
+  const std::string test_suite_name;
+  const unsigned int test_line_number;
 
   /** Used to set up this test's fixture, if it exists */
   virtual void set_up() = 0;
 
   /** Used to tear down this test's fixture, if it exists */
   virtual void tear_down() = 0;
-
-  bool has_fixture;
 };
 
 } /* Namespace */

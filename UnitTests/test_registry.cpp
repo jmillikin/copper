@@ -1,5 +1,6 @@
 #include "test_registry.h"
 #include "test.h"
+#include "output_handler.h"
 
 namespace UnitTests {
 
@@ -18,11 +19,13 @@ public:
   TestNode* next;
 };
 
-TestRegistry::TestRegistry() throw() {}
-
 TestNode* TestRegistry::first(0);
 
-void TestRegistry::add(Test* test) throw() {
+TestRegistry::TestRegistry() throw() {}
+
+TestRegistry::~TestRegistry() throw () {}
+
+void TestRegistry::add(Test* test) throw () {
   TestNode* node = new TestNode(test);
 
   if (!first){
@@ -39,11 +42,27 @@ void TestRegistry::add(Test* test) throw() {
   }
 }
 
-void TestRegistry::run_all() throw() {
+void TestRegistry::run_all(OutputHandler* output, bool catch_exceptions)
+  throw () {
+
   TestNode* node = first;
 
   while (node){
-    node->test->run();
+    try {
+      if (catch_exceptions){
+        node->test->run();
+      }
+
+      else {
+        node->test->run_no_exceptions();
+      }
+
+      output->pass(node->test);
+    }
+
+    catch (const FailureException& e){
+      output->fail(node->test, e.get_message());
+    }
     node = node->next;
   }
 }
