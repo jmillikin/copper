@@ -10,7 +10,6 @@ Test::Test(
   const std::string& suite_name,
   const unsigned int line_number) throw ():
 
-  test_failed(false),
   test_name(name),
   test_suite_name(suite_name),
   test_line_number(line_number){

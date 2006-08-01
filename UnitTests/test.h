@@ -109,8 +109,6 @@ protected:
   /** Run the user's test code */
   virtual void _run() = 0;
 
-  bool test_failed;
-
   const std::string test_name;
   const std::string test_suite_name;
   const unsigned int test_line_number;
