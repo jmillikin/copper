@@ -4,29 +4,24 @@
 // for strdup, in test 'string_equals'
 #include <cstring>
 
-TEST_SUITE(suite1)
+TEST_SUITE(sample_suite)
 
 TEST(integer_equals)
-  int var = 2;
-  assert(var).equals(2);
+  assert(2).equals(2);
 }
 
-TEST(string_equals)
-  char* var1 = strdup("test");
-  char* var2 = strdup("test");
+TEST(char_string_equals)
+  std::string var1("test"), var2("test");
 
   // Confirm that the addresses are not being compared
   // Can't use not_equal for this
-  assert(var1 != var2).is_true();
+  assert(var1.c_str() != var2.c_str()).is_true();
 
-  assert(var1).equals(var2);
-
-  free(var1);
-  free(var2);
+  assert(var1.c_str()).equals(var2.c_str());
 }
 
 TEST(not_equal)
-  assert(2).not_equal(3);
+  assert(2).not_equals(3);
 }
 
 TEST(is_null)
@@ -61,12 +56,45 @@ TEST(less_than_or_equal)
   assert(9).less_than_or_equal(10);
 }
 
+TEST(between)
+  assert(2).between(1, 3);
+}
+
+TEST(between_inclusive)
+  assert(2).between_inclusive(1, 3);
+  assert(2).between_inclusive(2, 3);
+}
+
 TEST(is_true)
   assert(true).is_true();
 }
 
 TEST(is_false)
   assert(false).is_false();
+}
+
+class TestException {
+public:
+  TestException() throw () {}
+  ~TestException() throw() {}
+};
+
+TEST(expected_exceptions)
+  throw TestException();
+/*
+  bool caught_TestException = false;
+  try {
+    throw TestException();
+  }
+
+  catch (const TestException& e){
+    caught_TestException = true;
+  }
+
+  if (!caught_TestException){
+    fail("Failed to catch TestException");
+  }
+*/
 }
 
 FIXTURE(the_fixture)
