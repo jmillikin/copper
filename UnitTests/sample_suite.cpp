@@ -6,6 +6,14 @@
 
 TEST_SUITE(sample_suite)
 
+TEST(assert_failed)
+  // Check that a failed test will result in a pass
+  assert_failed(assert(false).is_true());
+
+  // Check that a passing test will result in a fail
+  assert_failed(assert_failed(assert(true).is_true()));
+}
+
 TEST(integer_equals)
   assert(2).equals(2);
 }

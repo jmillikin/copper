@@ -51,6 +51,25 @@
   } test_instance_##NAME; \
   void test_##NAME::_run(){
 
+/*
+  Custom code for the "assert_failed" functionality. This would be very
+  hard to implement as a function
+*/
+#define assert_failed(ASSERTION) \
+  { \
+    bool assert_failed_failed = false;\
+    try { \
+      ASSERTION; \
+      assert_failed_failed = true; \
+    } \
+\
+    catch (const UnitTests::FailureException &){} \
+    if (assert_failed_failed){ \
+      throw UnitTests::FailureException( \
+        "Expected '"#ASSERTION"' to fail, but it passed"); \
+    } \
+  }
+
 #include "assertion.h"
 
 namespace UnitTests {
