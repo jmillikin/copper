@@ -34,8 +34,7 @@ public:
     during testing. If this is set to false, the testing program will terminate
     when it cannot deal with an exception
   */
-  static void run_all(OutputHandler* output, bool catch_exceptions = true)
-    throw ();
+  static void run_all(OutputHandler* output, bool catch_exceptions = true);
 
 protected:
   static TestNode* first;

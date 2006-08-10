@@ -87,7 +87,7 @@ public:
   void run() throw (FailureException);
 
   /** Run the test code, and abort on uncaught exceptions */
-  void run_no_exceptions() throw (FailureException);
+  void run_no_exceptions();
 
   /** Get a string to represent this test */
   std::string get_string() const throw ();

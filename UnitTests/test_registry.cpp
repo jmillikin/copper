@@ -42,8 +42,7 @@ void TestRegistry::add(Test* test) throw () {
   }
 }
 
-void TestRegistry::run_all(OutputHandler* output, bool catch_exceptions)
-  throw () {
+void TestRegistry::run_all(OutputHandler* output, bool catch_exceptions) {
 
   TestNode* node = first;
 

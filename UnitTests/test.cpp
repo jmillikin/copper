@@ -37,7 +37,7 @@ void Test::run() throw (FailureException) {
   }
 }
 
-void Test::run_no_exceptions() throw (FailureException) {
+void Test::run_no_exceptions() {
   set_up();
   _run();
   tear_down();
