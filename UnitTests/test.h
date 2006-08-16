@@ -12,6 +12,9 @@
 #undef assert
 #endif
 
+// Disable warnings about throw specifications in VS 2003
+#pragma warning(disable: 4290)
+
 #define TEST_SUITE(NAME) \
   namespace suite_##NAME { \
     static const char* static_suite_name=#NAME;

@@ -7,6 +7,9 @@
 /* For formatting error strings */
 #include <sstream>
 
+// Disable warnings about throw specifications in VS 2003
+#pragma warning(disable: 4290)
+
 #include "failure_exception.h"
 
 namespace UnitTests {
