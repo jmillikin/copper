@@ -7,7 +7,9 @@
 #include "failure_exception.h"
 
 // Disable warnings about throw specifications in VS 2003
+#ifdef _MSC_VER
 #pragma warning(disable: 4290)
+#endif
 
 /* Block any macro shenanigans from the standard library */
 #ifdef assert

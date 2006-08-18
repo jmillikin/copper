@@ -33,7 +33,9 @@ protected:
 } /* Namespace */
 
 // Disable warnings about throw specifications in VS 2003
+#ifdef _MSC_VER
 #pragma warning(disable: 4290)
+#endif
 
 #define TEST_SUITE(NAME) \
   namespace suite_##NAME { \
