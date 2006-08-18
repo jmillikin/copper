@@ -37,3 +37,8 @@ std::string failed(const std::string& assertion, const bool result) throw () {
 
   return "Boolean assertion '" + assertion + "' succeeded";
 }
+
+
+std::string equal(char const*  result, char const*  expected) throw () {
+  return equal<std::string, std::string>(result, expected);
+}

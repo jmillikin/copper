@@ -30,13 +30,13 @@ std::string failed(const std::string& assertion, const bool result) throw ();
 /**
   Assert two values are equal
 
-  @param expected The expected value of this assertion
   @param result The value which should be tested against the expected value
+  @param expected The expected value of this assertion
 
   @returns An error string if the values are unequal, or "" if they are equal
 */
 template <class T, class U>
-std::string equal(const T& expected, const U& result) throw () {
+std::string equal(const T& result, const U& expected) throw () {
   if (result != expected) {
     std::stringstream ss;
     ss << "Unequal values: expected '" << expected
@@ -50,24 +50,18 @@ std::string equal(const T& expected, const U& result) throw () {
   An overloaded form of equal(), used for character strings. This transforms
   the char*s into std::strings
 
-  @param expected The expected value of this assertion
   @param result The value which should be tested against the expected value
+  @param expected The expected value of this assertion
 
   @returns An error string if the values are unequal, or "" if they are equal
 */
-template <>
-inline std::string equal<const char*>(
-  const char* const& expected,
-  const char* const &result) throw () {
-
-  return equal<std::string, std::string>(expected, result);
-}
+std::string equal(char const*  result, char const*  expected) throw ();
 
 /**
   Check that the two values are nearly equal within a certain delta
 
-  @param expected The expected value of this assertion
   @param result The value which should be tested against the expected value
+  @param expected The expected value of this assertion
   @param delta The allowable difference between the expected and actual
   values
 
@@ -75,7 +69,7 @@ inline std::string equal<const char*>(
   within the delta
 */
 template <class T>
-std::string equal_within(const T& expected, const T& result, const T& delta)
+std::string equal_within(const T& result, const T& expected, const T& delta)
   throw () {
 
   if ((result < expected - delta) || (result > expected + delta)) {
