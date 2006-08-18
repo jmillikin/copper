@@ -1,28 +1,56 @@
+#include <iostream>
 #include "output_handler.h"
 #include "test.h"
-#include <iostream>
+#include "error_exception.h"
 
 namespace UnitTests {
 
-DefaultOutputHandler::DefaultOutputHandler() throw():
-  passed(0), failed(0){}
+OutputHandler::OutputHandler() {}
 
-DefaultOutputHandler::~DefaultOutputHandler() throw(){
+OutputHandler::~OutputHandler() {}
+
+DefaultOutputHandler::DefaultOutputHandler() throw ():
+  OutputHandler(),
+  num_passed(0),
+  num_failed(0),
+  num_errors(0) {
+
+  num_errors = 0;
+}
+
+DefaultOutputHandler::~DefaultOutputHandler() throw (){
   // Print statistics
-  std::cout<< passed << " tests passed\n" << failed << " tests failed\n";
+  std::cout
+    << num_passed << " tests passed\n"
+    << num_failed << " tests failed\n"
+    << num_errors << " errors\n";
 }
 
-void DefaultOutputHandler::pass(const Test*) throw(){
-  ++passed;
+void DefaultOutputHandler::begin(const Test*) throw () {}
+
+void DefaultOutputHandler::pass(const Test*) throw (){
+  ++num_passed;
 }
 
-void DefaultOutputHandler::fail(const Test* test, const std::string& message)
-  throw() {
+void DefaultOutputHandler::fail(const Test* test,
+  const FailureException& failure) throw () {
 
-  ++failed;
+  ++num_failed;
 
-  std::cerr << test->get_string() << " failed:\n\t" << message << "\n"
-    <<"====================\n";
+  std::cerr << "FAILED:\t" << test->suite_name << "::" << test->name << "\n"
+    << "\tassertion '" << failure.assertion << "' (" << failure.line << "):\n"
+    << "\t\t" << failure.error
+    << "\n====================\n";
+}
+
+void DefaultOutputHandler::error(const Test* test,
+  const ErrorException& error) throw () {
+
+  ++num_errors;
+
+  std::cerr << "ERROR:\t" << error.message << "\n"
+    << "\tIn " << test->suite_name << "::" << test->name
+    << "\n====================\n";
 }
 
 } /* namespace */

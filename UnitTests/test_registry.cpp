@@ -1,6 +1,8 @@
 #include "test_registry.h"
 #include "test.h"
 #include "output_handler.h"
+#include "protector.h"
+#include "protectors/exception_protector.h"
 
 namespace UnitTests {
 
@@ -19,50 +21,34 @@ public:
   TestNode* next;
 };
 
-TestNode* TestRegistry::first(0);
-
-TestRegistry::TestRegistry() throw() {}
-
-TestRegistry::~TestRegistry() throw () {}
+std::list<Test*> TestRegistry::tests;
 
 void TestRegistry::add(Test* test) throw () {
-  TestNode* node = new TestNode(test);
-
-  if (!first){
-    first = node;
-  }
-
-  else {
-    TestNode* parent = first;
-    while (parent->next){
-      parent = parent->next;
-    }
-
-    parent->next = node;
-  }
+  tests.push_back(test);
 }
 
 void TestRegistry::run_all(OutputHandler* output, bool catch_exceptions) {
+  ExceptionProtector exception_protector;
 
-  TestNode* node = first;
+  if (catch_exceptions) {
+    Protector::add(&exception_protector);
+  }
 
-  while (node){
+  std::list<Test*>::iterator test;
+  for (test = tests.begin(); test != tests.end(); test++) {
     try {
-      if (catch_exceptions){
-        node->test->run();
-      }
-
-      else {
-        node->test->run_no_exceptions();
-      }
-
-      output->pass(node->test);
+      output->begin(*test);
+      Protector::guard(*test);
+      output->pass(*test);
     }
 
-    catch (const FailureException& e){
-      output->fail(node->test, e.get_message());
+    catch (const FailureException& e) {
+      output->fail(*test, e);
     }
-    node = node->next;
+
+    catch (const ErrorException& e) {
+      output->error(*test, e);
+    }
   }
 }
 

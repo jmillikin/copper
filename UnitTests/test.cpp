@@ -6,65 +6,36 @@
 namespace UnitTests {
 
 Test::Test(
-  const std::string& name,
-  const std::string& suite_name,
-  const unsigned int line_number) throw ():
-
-  test_name(name),
-  test_suite_name(suite_name),
-  test_line_number(line_number){
+  const std::string& _name,
+  const std::string& _suite_name) throw ():
+  name(_name),
+  suite_name(_suite_name) {
 
   TestRegistry::add(this);
 }
 
-void Test::run() throw (FailureException) {
-  try {
-    set_up();
-    _run();
-    tear_down();
-  }
+Test::~Test() {}
 
-  catch (const std::exception& e){
-    throw FailureException(std::string("Unhandled exception: ") + e.what());
-  }
-
-  catch (const FailureException&){
-    throw;
-  }
-
-  catch (...){
-    throw FailureException("Unhandled, unknown exception");
-  }
-}
-
-void Test::run_no_exceptions() {
+void Test::run() {
   set_up();
   _run();
   tear_down();
-}
-
-std::string Test::get_string() const throw (){
-  std::stringstream ss;
-  ss << test_suite_name << "::" << test_name << " (line "
-    << test_line_number << ")";
-  return ss.str();
 }
 
 } // namespace
 
 using namespace UnitTests;
 
-int main(int argc, char** argv){
-  DefaultOutputHandler* handler = new DefaultOutputHandler;
+int main(int argc, char** argv) {
+  DefaultOutputHandler handler;
   bool catch_exceptions = true;
-  if (argc > 1){
-    if (std::string(argv[1]) == "--no-exceptions"){
+  if (argc > 1) {
+    if (strcmp(argv[1], "--no-exceptions") == 0) {
       catch_exceptions = false;
     }
   }
 
-  TestRegistry::run_all(handler, catch_exceptions);
-  delete handler;
+  TestRegistry::run_all(&handler, catch_exceptions);
 
   return 0;
 }

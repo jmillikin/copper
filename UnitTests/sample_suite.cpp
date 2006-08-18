@@ -8,103 +8,80 @@ TEST_SUITE(sample_suite)
 
 TEST(assert_failed)
   // Check that a failed test will result in a pass
-  assert_failed(assert(false).is_true());
+  assert(failed(false));
 
   // Check that a passing test will result in a fail
-  assert_failed(assert_failed(assert(true).is_true()));
+  assert(failed(failed(true)));
 }
 
 TEST(integer_equals)
-  assert(2).equals(2);
-  assert_failed(assert(1).equals(2));
+  assert(equal(2, 2));
+  assert(failed(equal(1, 2)));
 }
 
 TEST(char_string_equals)
-  std::string var1("test"), var2("test"), var3("other");
+  std::string _var1("test"), _var2("test"), _var3("other");
+  const char
+    *var1 = _var1.c_str(),
+    *var2 = _var2.c_str(),
+    *var3 = _var3.c_str();
 
   // Confirm that the addresses are not being compared
-  // Can't use not_equal for this
-  assert(var1.c_str() != var2.c_str()).is_true();
+  // Can't use unequal for this
+  assert(var1 != var2);
 
-  assert(var1.c_str()).equals(var2.c_str());
-  assert_failed(assert(var1.c_str()).equals(var3.c_str()));
+  assert(equal(var1, var2));
+  assert(failed(equal(var1, var3)));
 }
 
-TEST(not_equal)
-  assert(2).not_equals(3);
-  assert_failed(assert(2).not_equals(2));
+TEST(equal_within)
+  assert(equal_within(2.0, 2.0001, 0.001));
+  assert(failed(equal_within(2.0, 2.01, 0.001)));
+}
+
+TEST(unequal)
+  assert(unequal(1, 2));
+  assert(failed(unequal(2, 2)));
 }
 
 TEST(is_null)
-  int var;
-  assert(0).is_null();
-  assert_failed(assert(&var).is_null());
+  int* var1 = 0, var2;
+  assert(null(var1));
+  assert(failed(null(&var2)));
 }
 
 TEST(not_null)
-  int var;
-  assert(&var).not_null();
-  assert_failed(assert(0).not_null());
-}
-
-TEST(nearly_equals)
-  assert(2.0).nearly_equals(2.0001, 0.001);
-  assert_failed(assert(2.0).nearly_equals(2.01, 0.001));
+  int* var1 = 0, var2;
+  assert(not_null(&var2));
+  assert(failed(not_null(var1)));
 }
 
 TEST(greater_than)
-  assert(3).greater_than(2);
+  assert(greater_than(2, 1));
 
-  assert_failed(assert(2).greater_than(2));
-  assert_failed(assert(2).greater_than(3));
+  assert(failed(greater_than(2, 2)));
+  assert(failed(greater_than(2, 3)));
 }
 
 TEST(greater_than_or_equal)
-  assert(4).greater_than_or_equal(4);
-  assert(4).greater_than_or_equal(3);
+  assert(greater_than_or_equal(2, 2));
+  assert(greater_than_or_equal(2, 1));
 
-  assert_failed(assert(3).greater_than_or_equal(4));
+  assert(failed(greater_than_or_equal(1, 2)));
 }
 
 TEST(less_than)
-  assert(10).less_than(12);
+  assert(less_than(1, 2));
 
-  assert_failed(assert(10).less_than(10));
-  assert_failed(assert(12).less_than(10));
+  assert(failed(less_than(2, 2)));
+  assert(failed(less_than(2, 1)));
 }
 
 TEST(less_than_or_equal)
-  assert(9).less_than_or_equal(9);
-  assert(9).less_than_or_equal(10);
+  assert(less_than_or_equal(1, 2));
+  assert(less_than_or_equal(2, 2));
 
-  assert_failed(assert(10).less_than_or_equal(9));
-}
-
-TEST(between)
-  assert(2).between(1, 3);
-
-  assert_failed(assert(1).between(2, 3));
-  assert_failed(assert(3).between(1, 2));
-}
-
-TEST(between_inclusive)
-  assert(2).between_inclusive(1, 3);
-  assert(2).between_inclusive(2, 3);
-
-  assert_failed(assert(2).between_inclusive(3, 4));
-  assert_failed(assert(5).between_inclusive(3, 4));
-}
-
-TEST(is_true)
-  assert(true).is_true();
-
-  assert_failed(assert(false).is_true());
-}
-
-TEST(is_false)
-  assert(false).is_false();
-
-  assert_failed(assert(true).is_false());
+  assert(failed(less_than_or_equal(2, 1)));
 }
 
 class TestException {
@@ -112,6 +89,10 @@ public:
   TestException() throw () {}
   ~TestException() throw() {}
 };
+
+TEST(thrown_exception)
+  throw TestException();
+}
 
 /*
 TEST(expected_exceptions)
@@ -145,8 +126,8 @@ bool set_up_finished;
 };
 
 FIXTURE_TEST(fixture_test, the_fixture)
-  assert(fixture_var).equals(1);
-  assert(set_up_finished).is_true();
+  assert(equal(fixture_var, 1));
+  assert(set_up_finished);
 }
 
 }

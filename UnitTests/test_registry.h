@@ -1,10 +1,11 @@
 #ifndef TEST_REGISTRY_H
 #define TEST_REGISTRY_H
 
+#include <list>
+
 namespace UnitTests {
 
 class Test;
-class TestNode;
 class OutputHandler;
 
 /**
@@ -12,12 +13,6 @@ class OutputHandler;
 */
 class TestRegistry {
 public:
-  /** Create a new test registry, which will output to the given */
-  TestRegistry() throw ();
-
-  /** Default destructor */
-  ~TestRegistry() throw ();
-
   /**
     Add a new test to the test list. The test list is shared among all
     test registries
@@ -37,7 +32,7 @@ public:
   static void run_all(OutputHandler* output, bool catch_exceptions = true);
 
 protected:
-  static TestNode* first;
+  static std::list<Test*> tests;
 };
 
 } /* namespace */

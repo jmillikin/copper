@@ -1,205 +1,208 @@
 #ifndef ASSERTION_H
 #define ASSERTION_H
 
-/* For fabs() */
-#include <cmath>
-
-/* For formatting error strings */
+// For formatting error strings
 #include <sstream>
+
+#include "failure_exception.h"
 
 // Disable warnings about throw specifications in VS 2003
 #pragma warning(disable: 4290)
 
-#include "failure_exception.h"
+/* Block any macro shenanigans from the standard library */
+#ifdef assert
+#undef assert
+#endif
 
-namespace UnitTests {
+void assert(const std::string& assertion, const bool result,
+  const unsigned int line) throw (UnitTests::FailureException);
 
-class Test;
+void assert(const std::string& assertion, const std::string& result,
+  const unsigned int line) throw (UnitTests::FailureException);
 
+std::string failed(const std::string& assertion,
+  const std::string& result) throw ();
+
+std::string failed(const std::string& assertion, const bool result) throw ();
+
+/**
+  Assert two values are equal
+
+  @param expected The expected value of this assertion
+  @param result The value which should be tested against the expected value
+
+  @returns An error string if the values are unequal, or "" if they are equal
+*/
 template <class T>
-class Assertion {
-public:
-  /**
-    Create an assertion
-
-    @param value The value to assert against
-    @param test The test this assertion was created in
-  */
-  Assertion(const T& value, Test* _test) throw ():
-    test(_test), result(value){}
-
-  /**
-    Assert the two values are equal
-
-    @param expected The expected value of this assertion
-  */
-  void equals(const T& expected) const throw (FailureException) {
-    if (result != expected){
-      std::stringstream ss;
-      ss << "Unequal values: expected '" << expected << "', got '" << result << "'";
-      throw FailureException(ss.str());
-    }
+std::string equal(const T& expected, const T& result) throw () {
+  if (result != expected) {
+    std::stringstream ss;
+    ss << "Unequal values: expected '" << expected
+      << "', got '" << result << "'";
+    return ss.str();
   }
+  return "";
+}
 
-  /**
-    Assert that two values are not equal
+/**
+  An overloaded form of equal(), used for character strings. This transforms
+  the char*s into std::strings
 
-    @param unexpected What this assertion is expected not to be
-  */
-  void not_equals(const T& unexpected) const throw (FailureException) {
-    if (result == unexpected){
-      std::stringstream ss;
-      ss << "'" << result << "' is equal to '" << unexpected << "'";
-      throw FailureException(ss.str());
-    }
-  }
+  @param expected The expected value of this assertion
+  @param result The value which should be tested against the expected value
 
-  /** Assert this value is NULL */
-  void is_null() const throw (FailureException) {
-    if (result != 0){
-      std::stringstream ss;
-      ss << "'" << result << "' is not NULL";
-      throw FailureException(ss.str());
-    }
-  }
+  @returns An error string if the values are unequal, or "" if they are equal
+*/
+std::string equal(const char* expected, const char* result) throw ();
 
-  /** Assert this value is not NULL */
-  void not_null() const throw (FailureException) {
-    if (result == 0){
-      std::stringstream ss;
-      ss << "'" << result << "' is NULL";
-      throw FailureException(ss.str());
-    }
-  }
+/**
+  Check that the two values are nearly equal within a certain delta
 
-  /**
-    Check that the two values are nearly equal within a certain delta
+  @param expected The expected value of this assertion
+  @param result The value which should be tested against the expected value
+  @param delta The allowable difference between the expected and actual
+  values
 
-    @param expected The expected floating-point number
-    @param delta The allowable difference between the expected and actual
-    values
-  */
-  void nearly_equals(const T& expected, const T& delta)
-    const throw (FailureException) {
+  @returns An error string if the values are unequal, or "" if they are equal
+  within the delta
+*/
+template <class T>
+std::string equal_within(const T& expected, const T& result, const T& delta)
+  throw () {
 
-    if (fabs(expected - result) > delta){
-      std::stringstream ss;
-      ss << "Result '" << result << "' is not within '" << delta << "' of '"
+  if ((result < expected - delta) || (result > expected + delta)) {
+    std::stringstream ss;
+    ss << "Result '" << result << "' is not within '" << delta << "' of '"
         << expected << "'";
-      throw FailureException(ss.str());
-    }
+    return ss.str();
   }
+  return "";
+}
 
-  /**
-    Check that the result is greater than some expected value
+/**
+  Assert two values are unequal
 
-    @param limit The number the result must be above
-  */
-  void greater_than(const T& limit) const throw (FailureException) {
-    if (result <= limit){
-      std::stringstream ss;
-      ss << "'" << result << "' is not greater than '" << limit << "'";
-      throw FailureException(ss.str());
-    }
+  @param bad Something that #actual should not be
+  @param result The value which should be tested against the expected value
+
+  @returns An error string if the values are equal, or "" if they are equal
+*/
+template <class T>
+std::string unequal(const T& bad, const T& result) throw () {
+  if (result == bad) {
+    std::stringstream ss;
+    ss << "'" << result << "' is equal to '" << bad << "'";
+    return ss.str();
   }
+  return "";
+}
 
-  /**
-    Check that the result is greater than or equal to some expected value
+/**
+  Assert some pointer is NULL
 
-    @param limit The number the result must be above or equal to
-  */
-  void greater_than_or_equal(const T& limit) const throw (FailureException) {
-    if (result < limit){
-      std::stringstream ss;
-      ss << "'" << result << "' is not greater than or equal to '" << limit
-        << "'";
-      throw FailureException(ss.str());
-    }
+  @param pointer The pointer to check for NULL-ness
+
+  @returns An error string if the pointer is not NULL, or "" if it is
+*/
+template <class T>
+std::string null(const T* value) throw () {
+  if (value != 0){
+    return "Expected value to be NULL";
   }
+  return "";
+}
 
-  /**
-    Check that the result is less than some expected value
+/**
+  Assert some pointer is not NULL
 
-    @param limit The number the result must be below
-  */
-  void less_than(const T& limit) const throw (FailureException) {
-    if (result >= limit){
-      std::stringstream ss;
-      ss << "'" << result << "' is not less than '" << limit << "'";
-      throw FailureException(ss.str());
-    }
+  @param pointer The pointer to check for NULL-ness
+
+  @returns An error string if the pointer is NULL, or "" if it isn't
+*/
+template <class T>
+std::string not_null(const T* value) throw () {
+  if (value == 0){
+    return "Expected value to be non-NULL";
   }
+  return "";
+}
 
-  /**
-    Check that the result is less than or equal to some expected value
+/**
+  Check that the result is greater than some expected value
 
-    @param limit The number the result must be below or equal to
-  */
-  void less_than_or_equal(const T& limit) const throw (FailureException) {
-    if (result > limit){
-      std::stringstream ss;
-      ss << "'" << result << "' is not less than or equal to '" << limit << "'";
-      throw FailureException(ss.str());
-    }
+  @param result The value which should be tested against the limit
+  @param limit The number the result must be above
+
+  @returns An error string if result <= limit, or "" if not
+*/
+template <class T>
+std::string greater_than(const T& result, const T& limit) throw () {
+  if (result <= limit){
+    std::stringstream ss;
+    ss << "'" << result << "' is not greater than '" << limit << "'";
+    return ss.str();
   }
+  return "";
+}
 
-  /**
-    Check that the result is between two numbers. This will fail if the result
-    equals one of the numbers - for an inclusive test, use @between_inclusive
+/**
+  Check that the result is greater than or equal to some expected value
 
-    @param lower The lower bound of the range
-    @param upper The upper bound of the range
-  */
-  void between(const T& lower, const T& upper) const throw (FailureException) {
-    if (result <= lower || result >= upper){
-      std::stringstream ss;
-      ss << "'" << result << "' is not between '" << lower << "' and '"
-        << upper << "'";
-      throw FailureException(ss.str());
-    }
+  @param result The value which should be tested against the limit
+  @param limit The number the result must be above or equal to
+
+  @returns An error string if result < limit, or "" if not
+*/
+template <class T>
+std::string greater_than_or_equal(const T& result, const T& limit) throw () {
+  if (result < limit){
+    std::stringstream ss;
+    ss << "'" << result << "' is not greater than or equal to '" << limit
+      << "'";
+    return ss.str();
   }
+  return "";
+}
 
-  /**
-    Check that the result is between two numbers. This test is inclusive, and
-    will pass if the result equals one of the boundary values
+/**
+  Check that the result is less than some expected value
 
-    @param lower The lower bound of the range
-    @param upper The upper bound of the range
-  */
-  void between_inclusive(const T& lower, const T& upper)
-    const throw (FailureException) {
+  @param result The value which should be tested against the limit
+  @param limit The number the result must be below
 
-    if (result < lower || result > upper){
-      std::stringstream ss;
-      ss << "'" << result << "' is not between or equal to '"
-        << lower << "' and '" << upper << "'";
-      throw FailureException(ss.str());
-    }
+  @returns An error string if result >= limit, or "" if not
+*/
+template <class T>
+std::string less_than(const T& result, const T& limit) throw () {
+  if (result >= limit){
+    std::stringstream ss;
+    ss << "'" << result << "' is not less than '" << limit << "'";
+    return ss.str();
   }
+  return "";
+}
 
-  /**
-    Check that the value can be evaluated to the boolean value 'true'
-  */
-  void is_true() const throw (FailureException) {
-    if (!result){
-      throw FailureException("Expected to be true, but is false");
-    }
+/**
+  Check that the result is less than or equal to some expected value
+
+  @param result The value which should be tested against the limit
+  @param limit The number the result must be below or equal to
+
+  @returns An error string if result > limit, or "" if not
+*/
+template <class T>
+std::string less_than_or_equal(const T& result, const T& limit) throw () {
+  if (result > limit){
+    std::stringstream ss;
+    ss << "'" << result << "' is not less than or equal to '" << limit << "'";
+    return ss.str();
   }
+  return "";
+}
 
-  /**
-    Check that the value can be evaluated to the boolean value 'false'
-  */
-  void is_false() const throw (FailureException) {
-    if (result){
-      throw FailureException("Expected to be false, but is true");
-    }
-  }
+// Some macros for easier calling of assert() and failed()
+#define assert(ASSERTION) assert(#ASSERTION, (ASSERTION), __LINE__)
 
-protected:
-  Test* test;
-  const T result;
-};
+#define failed(ASSERTION) failed(#ASSERTION, (ASSERTION))
 
-} /* Namespace */
-
-#endif /* TEST_H */
+#endif /* ASSERTION_H */

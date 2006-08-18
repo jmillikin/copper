@@ -7,13 +7,29 @@ namespace UnitTests {
 
 class FailureException {
 public:
-  FailureException(const std::string& message) throw ();
+  /**
+    Default constructor
+
+    @param assertion The assertion that failed
+    @param error The error string from the assertion
+    @param line Which line of source code the assertion is at
+  */
+  FailureException(
+    const std::string& assertion,
+    const std::string& error,
+    const unsigned int line) throw ();
+
+  /** Default constructor */
   ~FailureException() throw ();
 
-  const std::string& get_message() const throw ();
+  /** The assertion that failed */
+  const std::string assertion;
 
-protected:
-  const std::string message;
+  /** The error string from the assertion */
+  const std::string error;
+
+  /** Which line of source code the assertion is at */
+  const unsigned int line;
 };
 
 } // namespace
