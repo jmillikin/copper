@@ -60,7 +60,6 @@ inline std::string equal<const char*>(
   const char* const& expected,
   const char* const &result) throw () {
 
-  std::cout<<"Special string comparison between '" << expected << "' and '" << result << "'\n";
   return equal<std::string, std::string>(expected, result);
 }
 
