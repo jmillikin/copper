@@ -34,6 +34,13 @@ TEST(char_string_equals)
   assert(failed(equal(var1, var3)));
 }
 
+TEST(mixed_string_equality)
+  std::string var1("test"), _var2("test");
+  const char* var2 = _var2.c_str();
+
+  assert(equal(var1, var2));
+}
+
 TEST(equal_within)
   assert(equal_within(2.0, 2.0001, 0.001));
   assert(failed(equal_within(2.0, 2.01, 0.001)));
