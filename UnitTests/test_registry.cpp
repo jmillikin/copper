@@ -6,21 +6,6 @@
 
 namespace UnitTests {
 
-class TestNode {
-public:
-  TestNode(Test* _test):
-    test(_test), next(0){
-
-    static unsigned int next_id = 0;
-    id = next_id;
-    ++next_id;
-  }
-  Test* test;
-  unsigned int id;
-
-  TestNode* next;
-};
-
 std::list<Test*> TestRegistry::tests;
 
 void TestRegistry::add(Test* test) throw () {
