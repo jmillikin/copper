@@ -41,10 +41,6 @@ TEST(mixed_string_equality)
   assert(equal(var1, var2));
 }
 
-TEST(mixed_signedness_equality)
-  assert(equal(1, 1u));
-}
-
 TEST(equal_within)
   assert(equal_within(2.0, 2.0001, 0.001));
   assert(failed(equal_within(2.0, 2.01, 0.001)));
@@ -102,7 +98,7 @@ public:
 };
 
 TEST(thrown_exception)
-  throw TestException();
+//  throw TestException();
 }
 
 /*
