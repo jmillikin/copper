@@ -30,6 +30,7 @@ TEST(char_string_equals)
   // Can't use unequal for this
   assert(var1 != var2);
 
+  assert(equal(var1, "test"));
   assert(equal(var1, var2));
   assert(failed(equal(var1, var3)));
 }
