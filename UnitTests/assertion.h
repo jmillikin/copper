@@ -33,8 +33,8 @@ std::string failed(const std::string& assertion, const bool result) throw ();
 
   @returns An error string if the values are unequal, or "" if they are equal
 */
-template <class T>
-std::string equal(const T& expected, const T& result) throw () {
+template <class T, class U>
+std::string equal(const T& expected, const U& result) throw () {
   if (result != expected) {
     std::stringstream ss;
     ss << "Unequal values: expected '" << expected
@@ -53,8 +53,13 @@ std::string equal(const T& expected, const T& result) throw () {
 
   @returns An error string if the values are unequal, or "" if they are equal
 */
-std::string equal(const char* expected, const char* result) throw ();
-std::string equal(const std::string& expected, const std::string& result) throw ();
+template <>
+inline std::string equal<const char*>(
+  const char* const& expected,
+  const char* const &result) throw () {
+
+  return equal<std::string, std::string>(expected, result);
+}
 
 /**
   Check that the two values are nearly equal within a certain delta
