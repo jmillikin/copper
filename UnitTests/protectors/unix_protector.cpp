@@ -2,6 +2,12 @@
 #include <setjmp.h>
 #include "unix_protector.h"
 
+int signals[] = {
+  SIGSEGV,
+  SIGFPE,
+  SIGBUS
+};
+
 jmp_buf jb;
 
 /** Small signal handler */
@@ -29,9 +35,11 @@ void guard_test(void* protector, void* test) {
 */
 void trap(void* protector, void* test) {
   int sig;
-  signal(SIGSEGV, handler);
-  signal(SIGFPE, handler);
-  signal(SIGBUS, handler);
+  unsigned int ii;
+
+  for (ii = 0; ii < sizeof(signals); ii++) {
+    signal(ii, handler);
+  }
 
   sig = setjmp(jb);
   if (sig) {
@@ -40,9 +48,9 @@ void trap(void* protector, void* test) {
 
   else {
     guard_test(protector, test);
-    signal(SIGSEGV, SIG_DFL);
-    signal(SIGFPE, SIG_DFL);
-    signal(SIGBUS, SIG_DFL);
+    for (ii = 0; ii < sizeof(signals); ii++) {
+      signal(ii, SIG_DFL);
+    }
   }
 }
 
