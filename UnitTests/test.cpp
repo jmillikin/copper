@@ -1,9 +1,12 @@
 #include "test.h"
-#include "test_registry.h"
 #include "output_handler.h"
 #include "failure_exception.h"
+#include "protectors/exception_protector.h"
+#include <list>
 
 namespace UnitTests {
+
+std::list<Test*> tests;
 
 Test::Test(
   const std::string& _name,
@@ -11,7 +14,7 @@ Test::Test(
   name(_name),
   suite_name(_suite_name) {
 
-  TestRegistry::add(this);
+  tests.push_back(this);
 }
 
 Test::~Test() {}
@@ -20,6 +23,31 @@ void Test::run() {
   set_up();
   _run();
   tear_down();
+}
+
+void Test::run_all(OutputHandler* output, bool catch_exceptions) {
+  ExceptionProtector exception_protector;
+
+  if (catch_exceptions) {
+    Protector::add(&exception_protector);
+  }
+
+  std::list<Test*>::iterator test;
+  for (test = tests.begin(); test != tests.end(); test++) {
+    try {
+      output->begin(*test);
+      Protector::guard(*test);
+      output->pass(*test);
+    }   
+
+    catch (const FailureException& e) {
+      output->fail(*test, e); 
+    }   
+
+    catch (const ErrorException& e) {
+      output->error(*test, e); 
+    }   
+  }
 }
 
 } // namespace
@@ -35,7 +63,7 @@ int main(int argc, char** argv) {
     }
   }
 
-  TestRegistry::run_all(&handler, catch_exceptions);
+  Test::run_all(&handler, catch_exceptions);
 
   return 0;
 }

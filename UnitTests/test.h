@@ -7,6 +7,8 @@ namespace UnitTests {
 
 class FailureException;
 
+class OutputHandler;
+
 class Test {
 public:
   Test(const std::string& name,
@@ -15,6 +17,16 @@ public:
 
   /** Run the test */
   void run();
+
+  /**
+    Run all tests, sending results to the given output handler
+
+    @param output The output handler to output to
+    @param catch_exceptions Whether to catch unknown exceptions encountered
+    during testing. If this is set to false, the testing program will terminate
+    when it cannot deal with an exception
+  */
+  static void run_all(OutputHandler* output, bool catch_exceptions);
 
   const std::string name;
   const std::string suite_name;
