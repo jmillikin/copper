@@ -6,7 +6,7 @@
 
 namespace UnitTests {
 
-std::list<Test*> tests;
+std::list<Test*>* tests = 0;
 
 Test::Test(
   const std::string& _name,
@@ -14,7 +14,11 @@ Test::Test(
   name(_name),
   suite_name(_suite_name) {
 
-  tests.push_back(this);
+  static std::list<Test*> _tests;
+  if (!tests) {
+    tests = &_tests;
+  }
+  tests->push_back(this);
 }
 
 Test::~Test() {}
@@ -26,6 +30,10 @@ void Test::run() {
 }
 
 void Test::run_all(OutputHandler* output, bool catch_exceptions) {
+  if (!tests) {
+    return;
+  }
+
   ExceptionProtector exception_protector;
 
   if (catch_exceptions) {
@@ -33,7 +41,7 @@ void Test::run_all(OutputHandler* output, bool catch_exceptions) {
   }
 
   std::list<Test*>::iterator test;
-  for (test = tests.begin(); test != tests.end(); test++) {
+  for (test = tests->begin(); test != tests->end(); test++) {
     try {
       output->begin(*test);
       Protector::guard(*test);
