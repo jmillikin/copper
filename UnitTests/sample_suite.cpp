@@ -94,11 +94,4 @@ TEST(div_by_zero)
   int i = 1 / 0;
 }
 
-// Double-freeing (or deleting) some value
-TEST(double_free)
-  int* i = new int;
-  delete i;
-  delete i;
-}
-
 }
