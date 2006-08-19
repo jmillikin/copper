@@ -10,9 +10,11 @@ std::list<Test*>* tests = 0;
 
 Test::Test(
   const std::string& _name,
-  const std::string& _suite_name) throw ():
+  const std::string& _suite_name,
+  const std::string& _file_name) throw ():
   name(_name),
-  suite_name(_suite_name) {
+  suite_name(_suite_name),
+  file_name(_file_name) {
 
   static std::list<Test*> _tests;
   if (!tests) {

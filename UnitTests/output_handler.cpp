@@ -37,10 +37,10 @@ void DefaultOutputHandler::fail(const Test* test,
 
   ++num_failed;
 
-  std::cerr << "FAILED:\t" << test->suite_name << "::" << test->name << "\n"
-    << "\tassertion '" << failure.assertion << "' (" << failure.line << "):\n"
-    << "\t\t" << failure.error
-    << "\n====================\n";
+  std::cerr
+    << "FAILURE in " << test->suite_name << "::" << test->name << ":\n"
+    << test->file_name << ":" << failure.line << ":"
+    << " " << failure.error << "\n\n";
 }
 
 void DefaultOutputHandler::error(const Test* test,
@@ -48,9 +48,10 @@ void DefaultOutputHandler::error(const Test* test,
 
   ++num_errors;
 
-  std::cerr << "ERROR:\t" << error.message << "\n"
-    << "\tIn " << test->suite_name << "::" << test->name
-    << "\n====================\n";
+  std::cerr
+    << "ERROR  in " << test->suite_name << "::" << test->name << ":\n"
+    << test->file_name << ":"
+    << " " << error.message << "\n\n";
 }
 
 } /* namespace */

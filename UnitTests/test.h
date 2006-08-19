@@ -11,8 +11,10 @@ class OutputHandler;
 
 class Test {
 public:
-  Test(const std::string& name,
-    const std::string& suite_name) throw ();
+  Test(
+    const std::string& name,
+    const std::string& suite_name,
+    const std::string& file_name) throw ();
   virtual ~Test();
 
   /** Run the test */
@@ -28,8 +30,14 @@ public:
   */
   static void run_all(OutputHandler* output, bool catch_exceptions);
 
+  /** The name of this test */
   const std::string name;
+
+  /** The name of the suite this test is in */
   const std::string suite_name;
+
+  /** The file this test's implementation is in */
+  const std::string file_name;
 
 protected:
   /** Run the user's test code */
@@ -56,7 +64,7 @@ protected:
 #define TEST(NAME) \
   class test_##NAME : public UnitTests::Test { \
   public: \
-    test_##NAME(): UnitTests::Test(#NAME, static_suite_name){} \
+    test_##NAME(): UnitTests::Test(#NAME, static_suite_name, __FILE__){} \
   protected: \
     void set_up(){} \
     void tear_down(){} \
@@ -74,7 +82,7 @@ protected:
   class test_##NAME : public UnitTests::Test, public fixture_##FIXTURE { \
   public: \
     test_##NAME(): \
-      UnitTests::Test(#NAME, static_suite_name), \
+      UnitTests::Test(#NAME, static_suite_name, __FILE__), \
       fixture_##FIXTURE() \
       {} \
   protected: \
