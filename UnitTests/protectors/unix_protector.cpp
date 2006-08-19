@@ -1,6 +1,6 @@
 #include <signal.h>
 #include <setjmp.h>
-#include "linux_protector.h"
+#include "unix_protector.h"
 
 jmp_buf jb;
 
@@ -19,7 +19,7 @@ void throw_error(int sig) throw (UnitTests::ErrorException) {
   C++
 */
 void guard_test(void* protector, void* test) {
-  reinterpret_cast<UnitTests::LinuxProtector*>(protector)->guard_test(
+  reinterpret_cast<UnitTests::UnixProtector*>(protector)->guard_test(
     reinterpret_cast<UnitTests::Test*>(test));
 }
 
@@ -46,21 +46,21 @@ void trap(void* protector, void* test) {
 
 namespace UnitTests {
 
-LinuxProtector::LinuxProtector() throw ():
+UnixProtector::UnixProtector() throw ():
   Protector() {
 
   add(this);
 }
 
-LinuxProtector::~LinuxProtector() throw () {}
+UnixProtector::~UnixProtector() throw () {}
 
-void LinuxProtector::_guard(Test* test)
+void UnixProtector::_guard(Test* test)
   throw (FailureException, ErrorException) {
 
   trap(this, test);
 }
 
-void LinuxProtector::guard_test(Test* test)
+void UnixProtector::guard_test(Test* test)
   throw (FailureException, ErrorException) {
 
   next_protector(test);

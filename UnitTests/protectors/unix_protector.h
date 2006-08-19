@@ -1,5 +1,5 @@
-#ifndef LINUX_PROTECTOR_H
-#define LINUX_PROTECTOR_H
+#ifndef UNIX_PROTECTOR_H
+#define UNIX_PROTECTOR_H
 
 #include "../protector.h"
 
@@ -7,15 +7,15 @@ namespace UnitTests {
 
 /**
   Guard against things like segmentation faults or double-frees, using
-  Linux-specific functions
+  Unix-specific functions
 */
-class LinuxProtector : public Protector {
+class UnixProtector : public Protector {
 public:
   /** Default constructor */
-  LinuxProtector() throw ();
+  UnixProtector() throw ();
 
   /** Default destructor */
-  ~LinuxProtector() throw ();
+  ~UnixProtector() throw ();
 
   /** Used by external guard_test */
   void guard_test(Test* test) throw (FailureException, ErrorException);
@@ -33,4 +33,4 @@ protected:
 
 } // namespace
 
-#endif /* LINUX_PROTECTOR_H */
+#endif /* UNIX_PROTECTOR_H */

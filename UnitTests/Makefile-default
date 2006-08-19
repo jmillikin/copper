@@ -8,7 +8,7 @@ OBJECTS= \
 	build/exception_protector.o \
   build/failure_exception.o \
   build/fixture.o \
-  build/linux_protector.o \
+  build/unix_protector.o \
   build/output_handler.o \
   build/protector.o \
   build/self_tests.o \
@@ -32,7 +32,7 @@ build/failure_exception.o: failure_exception.cpp
 build/fixture.o: fixture.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
-build/linux_protector.o: protectors/linux_protector.cpp
+build/unix_protector.o: protectors/unix_protector.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 build/output_handler.o: output_handler.cpp
