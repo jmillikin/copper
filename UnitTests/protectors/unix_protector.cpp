@@ -31,6 +31,7 @@ void trap(void* protector, void* test) {
   int sig;
   signal(SIGSEGV, handler);
   signal(SIGFPE, handler);
+  signal(SIGBUS, handler);
 
   sig = setjmp(jb);
   if (sig) {
@@ -41,6 +42,7 @@ void trap(void* protector, void* test) {
     guard_test(protector, test);
     signal(SIGSEGV, SIG_DFL);
     signal(SIGFPE, SIG_DFL);
+    signal(SIGBUS, SIG_DFL);
   }
 }
 
