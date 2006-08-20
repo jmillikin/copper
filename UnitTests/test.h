@@ -70,7 +70,7 @@ protected:
     void tear_down(){} \
     void _run(); \
   } test_instance_##NAME; \
-  void test_##NAME::_run(){
+  void test_##NAME::_run()
 
 #define FIXTURE(NAME) \
   class fixture_##NAME : public UnitTests::Fixture { \
@@ -94,6 +94,6 @@ protected:
       fixture_##FIXTURE::tear_down(); \
     } \
   } test_instance_##NAME; \
-  void test_##NAME::_run(){
+  void test_##NAME::_run()
 
 #endif /* TEST_H */

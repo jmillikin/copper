@@ -7,7 +7,7 @@
 // Various self-tests of the framework, to try and avoid bugs
 TEST_SUITE(self_tests)
 
-TEST(assert_failed)
+TEST(assert_failed) {
   // Check that a failed test will result in a pass
   assert(failed(false));
 
@@ -15,12 +15,12 @@ TEST(assert_failed)
   assert(failed(failed(true)));
 }
 
-TEST(integer_equals)
+TEST(integer_equals) {
   assert(equal(2, 2));
   assert(failed(equal(1, 2)));
 }
 
-TEST(char_string_equals)
+TEST(char_string_equals) {
   std::string _var1("test"), _var2("test"), _var3("other");
   const char
     *var1 = _var1.c_str(),
@@ -36,57 +36,57 @@ TEST(char_string_equals)
   assert(failed(equal(var1, var3)));
 }
 
-TEST(mixed_string_equality)
+TEST(mixed_string_equality) {
   std::string var1("test"), _var2("test");
   const char* var2 = _var2.c_str();
 
   assert(equal(var1, var2));
 }
 
-TEST(equal_within)
+TEST(equal_within) {
   assert(equal_within(2.0, 2.0001, 0.001));
   assert(failed(equal_within(2.0, 2.01, 0.001)));
 }
 
-TEST(unequal)
+TEST(unequal) {
   assert(unequal(1, 2));
   assert(failed(unequal(2, 2)));
 }
 
-TEST(is_null)
+TEST(is_null) {
   int* var1 = 0, var2;
   assert(null(var1));
   assert(failed(null(&var2)));
 }
 
-TEST(not_null)
+TEST(not_null) {
   int* var1 = 0, var2;
   assert(not_null(&var2));
   assert(failed(not_null(var1)));
 }
 
-TEST(greater_than)
+TEST(greater_than) {
   assert(greater_than(2, 1));
 
   assert(failed(greater_than(2, 2)));
   assert(failed(greater_than(2, 3)));
 }
 
-TEST(greater_than_or_equal)
+TEST(greater_than_or_equal) {
   assert(greater_than_or_equal(2, 2));
   assert(greater_than_or_equal(2, 1));
 
   assert(failed(greater_than_or_equal(1, 2)));
 }
 
-TEST(less_than)
+TEST(less_than) {
   assert(less_than(1, 2));
 
   assert(failed(less_than(2, 2)));
   assert(failed(less_than(2, 1)));
 }
 
-TEST(less_than_or_equal)
+TEST(less_than_or_equal) {
   assert(less_than_or_equal(1, 2));
   assert(less_than_or_equal(2, 2));
 
@@ -99,12 +99,12 @@ public:
   ~TestException() throw() {}
 };
 
-TEST(thrown_exception)
+TEST(thrown_exception) {
 //  throw TestException();
 }
 
 /*
-TEST(expected_exceptions)
+TEST(expected_exceptions) {
   bool caught_TestException = false;
   try {
     throw TestException();
@@ -134,7 +134,7 @@ bool set_up_finished;
 
 };
 
-FIXTURE_TEST(fixture_test, the_fixture)
+FIXTURE_TEST(fixture_test, the_fixture) {
   assert(equal(fixture_var, 1));
   assert(set_up_finished);
 }
