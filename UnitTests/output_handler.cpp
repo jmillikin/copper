@@ -38,9 +38,9 @@ void DefaultOutputHandler::fail(const Test* test,
   ++num_failed;
 
   std::cerr
-    << "FAILURE in " << test->suite_name << "::" << test->name << ":\n"
-    << test->file_name << ":" << failure.line << ":"
-    << " " << failure.error << "\n\n";
+    << "FAILURE in " << test->file_name << ":" << failure.line << ":\n"
+    << test->suite_name << "::" << test->name << ":\n"
+    << "  " << failure.error << "\n\n";
 }
 
 void DefaultOutputHandler::error(const Test* test,
@@ -49,9 +49,9 @@ void DefaultOutputHandler::error(const Test* test,
   ++num_errors;
 
   std::cerr
-    << "ERROR  in " << test->suite_name << "::" << test->name << ":\n"
-    << test->file_name << ":"
-    << " " << error.message << "\n\n";
+    << "ERROR in " << test->file_name << ":\n"
+    << test->suite_name << "::" << test->name << ":\n"
+    << "  " << error.message << "\n\n";
 }
 
 } /* namespace */
