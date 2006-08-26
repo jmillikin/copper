@@ -1,5 +1,5 @@
 #include "test.h"
-#include "output_handler.h"
+#include "output_handlers/default_output_handler.h"
 #include "failure_exception.h"
 #include "protectors/exception_protector.h"
 #include <list>
