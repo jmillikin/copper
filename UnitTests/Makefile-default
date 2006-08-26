@@ -4,6 +4,7 @@ RM=rm -f
 
 OBJECTS= \
   build/assertion.o \
+  build/default_output_handler.o \
 	build/error_exception.o \
 	build/exception_protector.o \
   build/failure_exception.o \
@@ -18,6 +19,9 @@ OBJECTS= \
 all: builddir tests
 
 build/assertion.o: assertion.cpp
+	$(CXX) $(CXXFLAGS) -c $? -o $@
+
+build/default_output_handler.o: output_handlers/default_output_handler.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 build/error_exception.o: error_exception.cpp
