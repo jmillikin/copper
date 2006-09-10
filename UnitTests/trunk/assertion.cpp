@@ -40,5 +40,6 @@ std::string failed(const std::string& assertion, const bool result) throw () {
 
 
 std::string equal(char const*  result, char const*  expected) throw () {
-  return equal<std::string, std::string>(result, expected);
+  std::string s_result = result, s_expected = expected;
+  return equal(s_result, s_expected);
 }
