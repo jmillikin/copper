@@ -4,6 +4,11 @@
 #include "failure_exception.h"
 #include "error_exception.h"
 
+// Disable warnings about throw specifications in VS 2003
+#ifdef _MSC_VER
+#pragma warning(disable: 4290)
+#endif
+
 namespace UnitTests {
 
 class Test;
