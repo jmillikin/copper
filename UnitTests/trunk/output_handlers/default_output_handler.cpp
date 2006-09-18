@@ -11,7 +11,7 @@ DefaultOutputHandler::DefaultOutputHandler() throw ():
   num_failed(0),
   num_errors(0) {}
 
-DefaultOutputHandler::~DefaultOutputHandler() throw (){
+DefaultOutputHandler::~DefaultOutputHandler() throw () {
   // Print statistics
   std::cout
     << num_passed << " tests passed\n"
@@ -21,7 +21,7 @@ DefaultOutputHandler::~DefaultOutputHandler() throw (){
 
 void DefaultOutputHandler::begin(const Test*) throw () {}
 
-void DefaultOutputHandler::pass(const Test*) throw (){
+void DefaultOutputHandler::pass(const Test*) throw () {
   ++num_passed;
 }
 
