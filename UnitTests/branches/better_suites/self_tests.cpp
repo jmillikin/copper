@@ -7,6 +7,10 @@
 // Various self-tests of the framework, to try and avoid bugs
 TEST_SUITE(self_tests)
 
+TEST(boolean_assertions) {
+  assert(true);
+}
+
 TEST(assert_failed) {
   // Check that a failed test will result in a pass
   assert(failed(false));
