@@ -42,14 +42,28 @@ public:
     throw ()= 0;
 
   /**
-    Outputs errors to the standard error stream. Also keeps track of how
-    many tests errored out
+    This function is called whenever a test encounters an error while running
 
     @param test The test that failed
     @param error The error that was thrown
   */
   virtual void error(const Test* test, const ErrorException& error)
     throw () = 0;
+
+  /**
+    Run this output handler. The simplest implementations will run every test,
+    the more complex ones may allow selection of which tests to run
+  */
+  virtual void run() = 0;
+
+protected:
+  /**
+    Run a single test. This function automatically manages Protectors and
+    exception handling
+
+    @param test The test to run
+  */
+  void run_test(Test* test);
 };
 
 } /* namespace */

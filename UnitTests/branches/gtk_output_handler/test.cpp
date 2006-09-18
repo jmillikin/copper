@@ -50,28 +50,7 @@ int main(int argc, char** argv) {
 
   // Where output will be directed to
   DefaultOutputHandler output;
-  std::list<Suite*> suites = Suite::all_suites();
-  std::list<Suite*>::const_iterator suite;
-  for (suite = suites.begin(); suite != suites.end(); suite++) {
-
-    std::list<Test*> tests = (*suite)->get_tests();
-    std::list<Test*>::const_iterator test;
-    for (test = tests.begin(); test != tests.end(); test++) {
-      try {
-        output.begin(*test);
-        Protector::guard(*test);
-        output.pass(*test);
-      }
-
-      catch (const FailureException& e) {
-        output.fail(*test, e); 
-      }
-
-      catch (const ErrorException& e) {
-        output.error(*test, e); 
-      }
-    }
-  }
+  output.run();
 
   return 0;
 }
