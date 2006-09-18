@@ -2,12 +2,12 @@
 #define TEST_H
 
 #include "assertion.h"
+#include "suite.h"
 
 namespace UnitTests {
 
 class FailureException;
 class OutputHandler;
-class Suite;
 
 class Test {
 public:
@@ -49,16 +49,12 @@ protected:
 
 #define TEST_SUITE(NAME) \
   namespace suite_namespace_##NAME { \
-    class suite_##NAME : public UnitTests::Suite {\
-    public: \
-      suite_##NAME(): UnitTests::Suite(#NAME) {} \
-    }; \
-    static suite_##NAME suite_instance;
+    static UnitTests::Suite current_suite(#NAME);
 
 #define TEST(NAME) \
   class test_##NAME : public UnitTests::Test { \
   public: \
-    test_##NAME(): UnitTests::Test(#NAME, &suite_instance, __FILE__){} \
+    test_##NAME(): UnitTests::Test(#NAME, &current_suite, __FILE__){} \
   protected: \
     void set_up(){} \
     void tear_down(){} \
@@ -76,7 +72,7 @@ protected:
   class test_##NAME : public UnitTests::Test, public fixture_##FIXTURE { \
   public: \
     test_##NAME(): \
-      UnitTests::Test(#NAME, &suite_instance, __FILE__), \
+      UnitTests::Test(#NAME, &current_suite, __FILE__), \
       fixture_##FIXTURE() \
       {} \
   protected: \

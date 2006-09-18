@@ -35,7 +35,7 @@ void DefaultOutputHandler::fail(const Test* test,
 
   std::cerr
     << "FAILURE in " << test->file_name << ":" << failure.line << ":\n"
-    << test->suite_name << "::" << test->name << ":\n"
+    << test->suite->name << "::" << test->name << ":\n"
     << "  " << failure.error << "\n\n";
 }
 
@@ -46,7 +46,7 @@ void DefaultOutputHandler::error(const Test* test,
 
   std::cerr
     << "ERROR in " << test->file_name << ":\n"
-    << test->suite_name << "::" << test->name << ":\n"
+    << test->suite->name << "::" << test->name << ":\n"
     << "  " << error.message << "\n\n";
 }
 

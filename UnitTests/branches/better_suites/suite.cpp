@@ -5,8 +5,16 @@
 
 namespace UnitTests {
 
+std::list<Suite*>* suites() throw () {
+  static std::list<Suite*> _suites;
+  return &_suites;
+}
+
 Suite::Suite(const std::string& _name) throw ():
-  name(_name) {}
+  name(_name) {
+
+  suites()->push_back(this);
+}
 
 Suite::~Suite() throw () {}
 
@@ -18,8 +26,8 @@ std::list<Test*> Suite::get_tests() const throw () {
   return tests;
 }
 
-std::string Suite::get_name() const throw () {
-  return name;
+std::list<Suite*> Suite::all_suites() throw () {
+  return *suites();
 }
 
 } // namespace

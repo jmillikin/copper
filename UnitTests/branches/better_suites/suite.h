@@ -33,19 +33,15 @@ public:
   */
   std::list<Test*> get_tests() const throw ();
 
-  /**
-    Get this suite's name
+  /** Get a list of all test suites */
+  static std::list<Suite*> all_suites() throw ();
 
-    @return The name of this test suite
-  */
-  std::string get_name() const throw ();
+  /** This suite's name */
+  const std::string name;
 
 protected:
   /** All tests in this suite, in no particular order */
   std::list<Test*> tests;
-
-  /** The name of this test suite */
-  std::string name;
 };
 
 } // namespace
