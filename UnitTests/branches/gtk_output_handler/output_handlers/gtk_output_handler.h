@@ -1,12 +1,11 @@
 #ifndef GTK_OUTPUT_HANDLER_H
 #define GTK_OUTPUT_HANDLER_H
 
-#include "../output_handler.h"
 #include <gtk/gtk.h>
 
-namespace UnitTests {
+#include "../output_handler.h"
 
-struct 
+namespace UnitTests {
 
 /**
   Use the GTK+ library to output to a window
@@ -51,6 +50,11 @@ public:
   void error(const Test* test, const ErrorException& error) throw ();
 
 protected:
+  /** Main window of the test runner */
+  GtkWindow* window;
+
+  /** Shows the progress of running tests */
+  GtkProgressBar* progress;
 };
 
 } /* namespace */

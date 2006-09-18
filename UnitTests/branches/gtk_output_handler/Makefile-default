@@ -1,5 +1,6 @@
 CXX=g++
-CXXFLAGS=-Wall -Wextra -g3 -O0
+CXXFLAGS=-Wall -Wextra -g3 -O0 `pkg-config --cflags gtk+-2.0`
+LFLAGS=`pkg-config --libs gtk+-2.0`
 RM=rm -f
 
 OBJECTS= \
@@ -9,6 +10,7 @@ OBJECTS= \
 	build/exception_protector.o \
   build/failure_exception.o \
   build/fixture.o \
+  build/gtk_output_handler.o \
   build/output_handler.o \
   build/protector.o \
   build/sample_suite.o \
@@ -35,6 +37,9 @@ build/failure_exception.o: failure_exception.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 build/fixture.o: fixture.cpp
+	$(CXX) $(CXXFLAGS) -c $? -o $@
+
+build/gtk_output_handler.o: output_handlers/gtk_output_handler.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 build/output_handler.o: output_handler.cpp
