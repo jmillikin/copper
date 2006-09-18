@@ -49,6 +49,9 @@ public:
   */
   void error(const Test* test, const ErrorException& error) throw ();
 
+  /** show the window, and start the GTK+ main loop */
+  void run();
+
 protected:
   /** Main window of the test runner */
   GtkWindow* window;

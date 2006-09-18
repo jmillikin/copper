@@ -29,4 +29,9 @@ void GtkOutputHandler::fail(const Test* test,
 void GtkOutputHandler::error(const Test* test,
   const ErrorException& error) throw () {}
 
+void GtkOutputHandler::run() {
+  gtk_widget_show_all(GTK_WIDGET(window));
+  gtk_main();
+}
+
 } /* namespace */
