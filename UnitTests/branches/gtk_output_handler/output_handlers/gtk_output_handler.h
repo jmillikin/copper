@@ -13,7 +13,7 @@ namespace UnitTests {
 class GtkOutputHandler : public OutputHandler {
 public:
   /** Default constructor */
-  GtkOutputHandler() throw ();
+  GtkOutputHandler(int& argc, char**& argv) throw ();
 
   /** Default destructor */
   ~GtkOutputHandler() throw ();

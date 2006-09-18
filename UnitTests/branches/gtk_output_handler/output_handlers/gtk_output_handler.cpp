@@ -4,8 +4,10 @@
 
 namespace UnitTests {
 
-GtkOutputHandler::GtkOutputHandler() throw ():
+GtkOutputHandler::GtkOutputHandler(int& argc, char**& argv) throw ():
   OutputHandler() {
+
+  gtk_init(&argc, &argv);
 
   window = GTK_WINDOW(gtk_window_new(GTK_WINDOW_TOPLEVEL));
   progress = GTK_PROGRESS_BAR(gtk_progress_bar_new());
