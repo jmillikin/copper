@@ -1,26 +1,22 @@
+#include <list>
 #include "test.h"
+#include "suite.h"
 #include "output_handlers/default_output_handler.h"
 #include "failure_exception.h"
 #include "protectors/exception_protector.h"
-#include <list>
 
 namespace UnitTests {
 
-std::list<Test*>* tests = 0;
-
 Test::Test(
   const std::string& _name,
-  const std::string& _suite_name,
+  Suite* _suite,
   const std::string& _file_name) throw ():
+
   name(_name),
-  suite_name(_suite_name),
+  suite(_suite),
   file_name(_file_name) {
 
-  static std::list<Test*> _tests;
-  if (!tests) {
-    tests = &_tests;
-  }
-  tests->push_back(this);
+  _suite->add_test(this);
 }
 
 Test::~Test() {}
@@ -31,9 +27,19 @@ void Test::run() {
   tear_down();
 }
 
-void Test::run_all(OutputHandler* output, bool catch_exceptions) {
-  if (!tests) {
-    return;
+} // namespace
+
+using namespace UnitTests;
+
+#include <iostream>
+
+int main(int argc, char** argv) {
+  // Allow exception catching to be toggled on or off at runtime
+  bool catch_exceptions = true;
+  if (argc > 1) {
+    if (strcmp(argv[1], "--no-exceptions") == 0) {
+      catch_exceptions = false;
+    }
   }
 
   ExceptionProtector exception_protector;
@@ -42,38 +48,30 @@ void Test::run_all(OutputHandler* output, bool catch_exceptions) {
     Protector::add(&exception_protector);
   }
 
-  std::list<Test*>::iterator test;
-  for (test = tests->begin(); test != tests->end(); test++) {
-    try {
-      output->begin(*test);
-      Protector::guard(*test);
-      output->pass(*test);
-    }   
+  // Where output will be directed to
+  DefaultOutputHandler output;
+  std::list<Suite*> suites = Suite::all_suites();
+  std::list<Suite*>::const_iterator suite;
+  for (suite = suites.begin(); suite != suites.end(); suite++) {
 
-    catch (const FailureException& e) {
-      output->fail(*test, e); 
-    }   
+    std::list<Test*> tests = (*suite)->get_tests();
+    std::list<Test*>::const_iterator test;
+    for (test = tests.begin(); test != tests.end(); test++) {
+      try {
+        output.begin(*test);
+        Protector::guard(*test);
+        output.pass(*test);
+      }
 
-    catch (const ErrorException& e) {
-      output->error(*test, e); 
-    }   
-  }
-}
+      catch (const FailureException& e) {
+        output.fail(*test, e); 
+      }
 
-} // namespace
-
-using namespace UnitTests;
-
-int main(int argc, char** argv) {
-  DefaultOutputHandler handler;
-  bool catch_exceptions = true;
-  if (argc > 1) {
-    if (strcmp(argv[1], "--no-exceptions") == 0) {
-      catch_exceptions = false;
+      catch (const ErrorException& e) {
+        output.error(*test, e); 
+      }
     }
   }
-
-  Test::run_all(&handler, catch_exceptions);
 
   return 0;
 }
