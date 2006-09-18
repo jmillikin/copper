@@ -9,10 +9,7 @@ DefaultOutputHandler::DefaultOutputHandler() throw ():
   OutputHandler(),
   num_passed(0),
   num_failed(0),
-  num_errors(0) {
-
-  num_errors = 0;
-}
+  num_errors(0) {}
 
 DefaultOutputHandler::~DefaultOutputHandler() throw (){
   // Print statistics
