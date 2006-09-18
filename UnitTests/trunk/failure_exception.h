@@ -11,12 +11,12 @@ public:
     Default constructor
 
     @param assertion The assertion that failed
-    @param error The error string from the assertion
+    @param message The error string from the assertion
     @param line Which line of source code the assertion is at
   */
   FailureException(
     const std::string& assertion,
-    const std::string& error,
+    const std::string& message,
     const unsigned int line) throw ();
 
   /** Default constructor */
@@ -26,7 +26,7 @@ public:
   const std::string assertion;
 
   /** The error string from the assertion */
-  const std::string error;
+  const std::string message;
 
   /** Which line of source code the assertion is at */
   const unsigned int line;
