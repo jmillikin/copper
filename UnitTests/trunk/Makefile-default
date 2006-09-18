@@ -13,7 +13,6 @@ OBJECTS= \
   build/gtk_output_handler.o \
   build/output_handler.o \
   build/protector.o \
-  build/sample_suite.o \
   build/self_tests.o \
   build/suite.o \
   build/test.o \
