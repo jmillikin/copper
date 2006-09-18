@@ -2,7 +2,8 @@
 #include <setjmp.h>
 #include "unix_protector.h"
 
-int signals[] = {
+const unsigned int SIGNAL_COUNT = 3;
+int signals[SIGNAL_COUNT] = {
   SIGSEGV,
   SIGFPE,
   SIGBUS
@@ -37,8 +38,8 @@ void trap(void* protector, void* test) {
   int sig;
   unsigned int ii;
 
-  for (ii = 0; ii < sizeof(signals); ii++) {
-    signal(ii, handler);
+  for (ii = 0; ii < SIGNAL_COUNT; ii++) {
+    signal(signals[ii], handler);
   }
 
   sig = setjmp(jb);
@@ -48,8 +49,8 @@ void trap(void* protector, void* test) {
 
   else {
     guard_test(protector, test);
-    for (ii = 0; ii < sizeof(signals); ii++) {
-      signal(ii, SIG_DFL);
+    for (ii = 0; ii < SIGNAL_COUNT; ii++) {
+      signal(signals[ii], SIG_DFL);
     }
   }
 }
