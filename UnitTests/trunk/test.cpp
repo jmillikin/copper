@@ -31,8 +31,6 @@ void Test::run() {
 
 using namespace UnitTests;
 
-#include <iostream>
-
 int main(int argc, char** argv) {
   // Allow exception catching to be toggled on or off at runtime
   bool catch_exceptions = true;
