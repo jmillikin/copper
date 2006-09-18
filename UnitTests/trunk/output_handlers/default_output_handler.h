@@ -46,6 +46,9 @@ public:
   */
   void error(const Test* test, const ErrorException& error) throw ();
 
+  /** Run every test available */
+  void run();
+
 protected:
   /** The number of tests that have passed */
   unsigned int num_passed;

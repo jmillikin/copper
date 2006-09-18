@@ -47,4 +47,17 @@ void DefaultOutputHandler::error(const Test* test,
     << "  " << error.message << "\n\n";
 }
 
+void DefaultOutputHandler::run() {
+  std::list<Suite*> suites = Suite::all_suites();
+  std::list<Suite*>::const_iterator suite;
+  for (suite = suites.begin(); suite != suites.end(); suite++) {
+
+    std::list<Test*> tests = (*suite)->get_tests();
+    std::list<Test*>::const_iterator test;
+    for (test = tests.begin(); test != tests.end(); test++) {
+      run_test(*test);
+    }
+  }
+}
+
 } /* namespace */

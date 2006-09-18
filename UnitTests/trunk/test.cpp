@@ -1,7 +1,7 @@
 #include <list>
 #include "test.h"
 #include "suite.h"
-#include "output_handlers/default_output_handler.h"
+#include "output_handlers/gtk_output_handler.h"
 #include "failure_exception.h"
 #include "protectors/exception_protector.h"
 
@@ -47,29 +47,8 @@ int main(int argc, char** argv) {
   }
 
   // Where output will be directed to
-  DefaultOutputHandler output;
-  std::list<Suite*> suites = Suite::all_suites();
-  std::list<Suite*>::const_iterator suite;
-  for (suite = suites.begin(); suite != suites.end(); suite++) {
-
-    std::list<Test*> tests = (*suite)->get_tests();
-    std::list<Test*>::const_iterator test;
-    for (test = tests.begin(); test != tests.end(); test++) {
-      try {
-        output.begin(*test);
-        Protector::guard(*test);
-        output.pass(*test);
-      }
-
-      catch (const FailureException& e) {
-        output.fail(*test, e); 
-      }
-
-      catch (const ErrorException& e) {
-        output.error(*test, e); 
-      }
-    }
-  }
+  GtkOutputHandler output(argc, argv);
+  output.run();
 
   return 0;
 }
