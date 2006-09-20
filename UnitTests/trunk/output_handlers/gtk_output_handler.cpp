@@ -121,6 +121,10 @@ GtkOutputHandler::GtkOutputHandler(int& argc, char**& argv) throw ():
   gtk_box_pack_start(GTK_BOX(vbox), GTK_WIDGET(progress), false, false, 5);
   gtk_progress_bar_set_fraction(progress, 0);
 
+  // Shows statistics after completed test runs
+  statistics = GTK_LABEL(gtk_label_new(""));
+  gtk_box_pack_start(GTK_BOX(vbox), GTK_WIDGET(statistics), false, false, 5);
+
   // Contains two tabs, one for failed tests and one for errors
   GtkWidget* results = gtk_notebook_new();
 
@@ -233,6 +237,7 @@ void GtkOutputHandler::error(const Test* test,
 void GtkOutputHandler::run() {
   gtk_widget_show_all(GTK_WIDGET(window));
   gtk_widget_hide(GTK_WIDGET(progress));
+  gtk_widget_hide(GTK_WIDGET(statistics));
   gtk_main();
 }
 
@@ -253,11 +258,20 @@ void GtkOutputHandler::update() throw () {
   gtk_label_set_text(error_label, error_string);
   g_free(error_string);
 
-  // If the test run has completed, re-enable the 'Execute' button
+  // If the test run has completed, re-enable the 'Execute' button and
+  // show statistics about the test
   if (passed + failures + errors >= tests.size()) {
     gtk_widget_hide(GTK_WIDGET(progress));
-    gtk_progress_bar_set_fraction(progress, 0);
     gtk_widget_set_sensitive(GTK_WIDGET(test_execution_button), true);
+
+    gchar* statistics_string = g_strdup_printf(
+      "%u of %u tests passed (%lf%%)", passed, tests.size(),
+      static_cast<double>(passed) / static_cast<double>(tests.size())
+    );
+    gtk_label_set_text(statistics, statistics_string);
+    g_free(statistics_string);
+    gtk_widget_show(GTK_WIDGET(statistics));
+
     running_tests = false;
   }
 
@@ -290,7 +304,11 @@ void GtkOutputHandler::reset() throw () {
   gtk_list_store_clear(error_list);
 
   // Show the progress bar
+  gtk_progress_bar_set_fraction(progress, 0);
   gtk_widget_show(GTK_WIDGET(progress));
+
+  // Hide previous statistics
+  gtk_widget_hide(GTK_WIDGET(statistics));
 }
 
 } /* namespace */

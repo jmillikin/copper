@@ -72,6 +72,9 @@ protected:
   /** Shows the progress of running tests */
   GtkProgressBar* progress;
 
+  /** Shows statistics about run tests */
+  GtkLabel* statistics;
+
   /** List of test failures */
   GtkListStore* failure_list;
 
