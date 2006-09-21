@@ -1,7 +1,7 @@
 #include <list>
 #include "test.h"
 #include "suite.h"
-#include "output_handlers/gtk_output_handler.h"
+#include "output_handlers/default_output_handler.h"
 #include "failure_exception.h"
 #include "protectors/exception_protector.h"
 
@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
   }
 
   // Where output will be directed to
-  GtkOutputHandler output(argc, argv);
+  DefaultOutputHandler output;
   output.run();
 
   return 0;
