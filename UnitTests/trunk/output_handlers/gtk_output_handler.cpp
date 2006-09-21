@@ -265,8 +265,8 @@ void GtkOutputHandler::update() throw () {
     gtk_widget_set_sensitive(GTK_WIDGET(test_execution_button), true);
 
     gchar* statistics_string = g_strdup_printf(
-      "%u of %u tests passed (%lf%%)", passed, tests.size(),
-      static_cast<double>(passed) / static_cast<double>(tests.size())
+      "%u of %u tests passed (%lg%%)", passed, tests.size(),
+      (static_cast<double>(passed) / static_cast<double>(tests.size()) * 100.0)
     );
     gtk_label_set_text(statistics, statistics_string);
     g_free(statistics_string);
