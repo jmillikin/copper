@@ -257,9 +257,9 @@ void Qt4OutputHandler_Window::tests_finished() {
 
   // Show statistics about the test
   unsigned int test_count = passed + failures + errors;
-  QString statistics_string = QString("%1 of %2 tests passed (%3%%)")
+  QString statistics_string = QString("%1 of %2 tests passed (%3%)")
     .arg(passed).arg(test_count)
-    .arg(static_cast<double>(passed) / static_cast<double>(test_count));
+    .arg(static_cast<double>(passed) / static_cast<double>(test_count) * 100);
   statistics->setText(statistics_string);
   statistics->show();
   test_execution_button->setEnabled(true);
