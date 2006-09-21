@@ -131,7 +131,7 @@ void set_up(){
   set_up_finished = true;
 }
 
-// If desired, include a "void tear_down(){...
+// If desired, include a "void tear_down(){..."
 
 int fixture_var;
 bool set_up_finished;
