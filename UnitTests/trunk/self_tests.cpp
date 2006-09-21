@@ -125,17 +125,15 @@ TEST(expected_exceptions) {
 */
 
 FIXTURE(the_fixture)
+  void set_up(){
+    fixture_var = 1;
+    set_up_finished = true;
+  }
 
-void set_up(){
-  fixture_var = 1;
-  set_up_finished = true;
-}
+  // If desired, include a "void tear_down(){..."
 
-// If desired, include a "void tear_down(){..."
-
-int fixture_var;
-bool set_up_finished;
-
+  int fixture_var;
+  bool set_up_finished;
 };
 
 FIXTURE_TEST(fixture_test, the_fixture) {
