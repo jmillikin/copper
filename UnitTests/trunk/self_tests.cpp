@@ -104,25 +104,11 @@ public:
 };
 
 TEST(thrown_exception) {
-//  throw TestException();
+  assert_throws(throw TestException(), TestException);
+  // Standard assert(failed(...)) doesn't work for freaky macros
+  assert_throws(assert_throws(true, TestException),
+    UnitTests::FailureException);
 }
-
-/*
-TEST(expected_exceptions) {
-  bool caught_TestException = false;
-  try {
-    throw TestException();
-  }
-
-  catch (const TestException& e){
-    caught_TestException = true;
-  }
-
-  if (!caught_TestException){
-    fail("Failed to catch TestException");
-  }
-}
-*/
 
 FIXTURE(the_fixture)
   void set_up(){
