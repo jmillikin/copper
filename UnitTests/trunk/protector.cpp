@@ -21,11 +21,8 @@ void Protector::add(Protector* protector) {
 
 void Protector::guard(Test* test) {
   if (protectors && protectors->size() > 0) {
-    std::list<Protector*>::iterator iter;
-
-    for (iter = protectors->begin(); iter != protectors->end(); iter++) {
-      (*iter)->_guard(test);
-    }
+    std::list<Protector*>::iterator iter = protectors->begin();
+    (*iter)->_guard(test);
   }
 
   else {
