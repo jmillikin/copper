@@ -16,16 +16,16 @@
 #undef assert
 #endif
 
-void assert(const std::string& assertion, const bool result,
+void assert_func(const std::string& assertion, const bool result,
   const unsigned int line) throw (UnitTests::FailureException);
 
-void assert(const std::string& assertion, const std::string& result,
+void assert_func(const std::string& assertion, const std::string& result,
   const unsigned int line) throw (UnitTests::FailureException);
 
-std::string failed(const std::string& assertion,
+std::string failed_func(const std::string& assertion,
   const std::string& result) throw ();
 
-std::string failed(const std::string& assertion, const bool result) throw ();
+std::string failed_func(const std::string& assertion, const bool result) throw ();
 
 /**
   Assert two values are equal
@@ -203,8 +203,8 @@ std::string less_than_or_equal(const T& result, const T& limit) throw () {
 }
 
 // Some macros for easier calling of assert() and failed()
-#define assert(ASSERTION) assert(#ASSERTION, (ASSERTION), __LINE__)
+#define assert(ASSERTION) assert_func(#ASSERTION, (ASSERTION), __LINE__)
 
-#define failed(ASSERTION) failed(#ASSERTION, (ASSERTION))
+#define failed(ASSERTION) failed_func(#ASSERTION, (ASSERTION))
 
 #endif /* ASSERTION_H */

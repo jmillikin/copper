@@ -3,7 +3,7 @@
 #undef assert
 #undef failed
 
-void assert(const std::string& assertion, const bool result,
+void assert_func(const std::string& assertion, const bool result,
   const unsigned int line) throw (UnitTests::FailureException) {
 
   if (!result) {
@@ -12,7 +12,7 @@ void assert(const std::string& assertion, const bool result,
   }
 }
 
-void assert(const std::string& assertion, const std::string& result,
+void assert_func(const std::string& assertion, const std::string& result,
   const unsigned int line) throw (UnitTests::FailureException) {
 
   if (result.size() > 0) {
@@ -20,7 +20,7 @@ void assert(const std::string& assertion, const std::string& result,
   }
 }
 
-std::string failed(const std::string& assertion,
+std::string failed_func(const std::string& assertion,
   const std::string& result) throw () {
 
   if (result.size() > 0) {
@@ -30,7 +30,7 @@ std::string failed(const std::string& assertion,
   return "Unexpected sucess of assertion '" + assertion + "'";
 }
 
-std::string failed(const std::string& assertion, const bool result) throw () {
+std::string failed_func(const std::string& assertion, const bool result) throw () {
   if (!result) {
     return "";
   }
