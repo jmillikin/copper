@@ -97,16 +97,10 @@ TEST(less_than_or_equal) {
   assert(failed(less_than_or_equal(2, 1)));
 }
 
-class TestException {
-public:
-  TestException() throw () {}
-  ~TestException() throw() {}
-};
-
 TEST(thrown_exception) {
-  assert_throws(throw TestException(), TestException);
+  assert_throws(throw 0, int);
   // Standard assert(failed(...)) doesn't work for freaky macros
-  assert_throws(assert_throws(true, TestException),
+  assert_throws(assert_throws(true, int),
     UnitTests::FailureException);
 }
 
