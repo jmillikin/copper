@@ -188,7 +188,7 @@ void GtkOutputHandler::begin(const Test* test) throw () {
   gdk_threads_enter();
   // Set the text of the progress bar
   gchar* progress_text = g_strdup_printf("%s::%s",
-    test->suite->name.c_str(), test->name.c_str());
+    test->suite->name, test->name);
   gtk_progress_bar_set_text(progress, progress_text);
   g_free(progress_text);
 
@@ -207,11 +207,11 @@ void GtkOutputHandler::fail(const Test* test,
   GtkTreeIter iter;
   gtk_list_store_append (failure_list, &iter);
   gtk_list_store_set (failure_list, &iter,
-    FAILURE_COL_SUITE, test->suite->name.c_str(),
-    FAILURE_COL_TEST, test->name.c_str(),
-    FAILURE_COL_FILE, test->file_name.c_str(),
+    FAILURE_COL_SUITE, test->suite->name,
+    FAILURE_COL_TEST, test->name,
+    FAILURE_COL_FILE, test->file_name,
     FAILURE_COL_LINE, failure.line,
-    FAILURE_COL_MESSAGE, failure.message.c_str(),
+    FAILURE_COL_MESSAGE, failure.message,
     -1);
 
   failures++;
@@ -224,10 +224,10 @@ void GtkOutputHandler::error(const Test* test,
   GtkTreeIter iter;
   gtk_list_store_append (error_list, &iter);
   gtk_list_store_set (error_list, &iter,
-    ERROR_COL_SUITE, test->suite->name.c_str(),
-    ERROR_COL_TEST, test->name.c_str(),
-    ERROR_COL_FILE, test->file_name.c_str(),
-    ERROR_COL_MESSAGE, error.message.c_str(),
+    ERROR_COL_SUITE, test->suite->name,
+    ERROR_COL_TEST, test->name,
+    ERROR_COL_FILE, test->file_name,
+    ERROR_COL_MESSAGE, error.message,
     -1);
 
   errors++;

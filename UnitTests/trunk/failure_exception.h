@@ -23,10 +23,10 @@ public:
   ~FailureException() throw ();
 
   /** The assertion that failed */
-  const std::string assertion;
+  const char* assertion;
 
   /** The error string from the assertion */
-  const std::string message;
+  const char* message;
 
   /** Which line of source code the assertion is at */
   const unsigned int line;

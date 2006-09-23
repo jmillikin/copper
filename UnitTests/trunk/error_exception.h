@@ -21,7 +21,7 @@ public:
   ~ErrorException() throw ();
 
   /** The error that occurred */
-  const std::string message;
+  const char* message;
 };
 
 } // namespace

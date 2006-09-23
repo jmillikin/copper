@@ -8,9 +8,9 @@
 namespace UnitTests {
 
 Test::Test(
-  const std::string& _name,
+  const char* _name,
   Suite* _suite,
-  const std::string& _file_name) throw ():
+  const char* _file_name) throw ():
 
   name(_name),
   suite(_suite),

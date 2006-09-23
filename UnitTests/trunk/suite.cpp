@@ -10,7 +10,7 @@ std::list<Suite*>* suites() throw () {
   return &_suites;
 }
 
-Suite::Suite(const std::string& _name) throw ():
+Suite::Suite(const char* _name) throw ():
   name(_name) {
 
   suites()->push_back(this);

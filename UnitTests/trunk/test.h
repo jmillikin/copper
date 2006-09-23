@@ -12,22 +12,22 @@ class OutputHandler;
 class Test {
 public:
   Test(
-    const std::string& name,
+    const char* name,
     Suite* suite,
-    const std::string& file_name) throw ();
+    const char* file_name) throw ();
   virtual ~Test();
 
   /** Run the test */
   void run();
 
   /** The name of this test */
-  const std::string name;
+  const char* name;
 
   /** The suite this test is part of */
   const Suite* suite;
 
   /** The file this test's implementation is in */
-  const std::string file_name;
+  const char* file_name;
 
 protected:
   /** Run the user's test code */

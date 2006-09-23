@@ -15,7 +15,7 @@ public:
 
     @param name The name of the test suite
   */
-  Suite(const std::string& name) throw ();
+  Suite(const char* name) throw ();
 
   /** Default destructor */
   ~Suite() throw ();
@@ -37,7 +37,7 @@ public:
   static std::list<Suite*> all_suites() throw ();
 
   /** This suite's name */
-  const std::string name;
+  const char* name;
 
 protected:
   /** All tests in this suite, in no particular order */

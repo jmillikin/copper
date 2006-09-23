@@ -3,8 +3,10 @@
 namespace UnitTests {
 
 ErrorException::ErrorException(const std::string& _message) throw ():
-  message(_message) {}
+  message(strdup(_message.c_str())) {}
 
-ErrorException::~ErrorException() throw () {}
+ErrorException::~ErrorException() throw () {
+  free(const_cast<char*>(message));
+}
 
 } // namespace
