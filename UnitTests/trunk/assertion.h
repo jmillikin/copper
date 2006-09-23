@@ -211,7 +211,7 @@ std::string less_than_or_equal(const T& result, const T& limit) throw () {
 #define assert_throws(CODE, EXCEPTION_TYPE) \
   try {\
     CODE;\
-    assert_func("throws_exception("#CODE", "#EXCEPTION_TYPE")",\
+    assert_func("assert_throws("#CODE", "#EXCEPTION_TYPE")",\
       std::string(#CODE" threw no exceptions"), __LINE__);\
   }\
   catch (const EXCEPTION_TYPE&) {}
