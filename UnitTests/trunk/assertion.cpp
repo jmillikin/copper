@@ -39,7 +39,12 @@ std::string failed_func(const std::string& assertion, const bool result) throw (
 }
 
 
-std::string equal(char const*  result, char const*  expected) throw () {
+std::string equal(char const* result, char const* expected) throw () {
   std::string s_result = result, s_expected = expected;
   return equal(s_result, s_expected);
+}
+
+std::string unequal(char const* bad, char const* result) throw () {
+  std::string s_result = result, s_bad = bad;
+  return unequal(s_bad, s_result);
 }

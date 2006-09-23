@@ -89,8 +89,8 @@ std::string equal_within(const T& result, const T& expected, const T& delta)
 
   @returns An error string if the values are equal, or "" if they are equal
 */
-template <class T>
-std::string unequal(const T& bad, const T& result) throw () {
+template <class T, class U>
+std::string unequal(const T& bad, const U& result) throw () {
   if (result == bad) {
     std::stringstream ss;
     ss << "'" << result << "' is equal to '" << bad << "'";
@@ -98,6 +98,17 @@ std::string unequal(const T& bad, const T& result) throw () {
   }
   return "";
 }
+
+/**
+  An overloaded form of unequal(), used for character strings. This transforms
+  the char*s into std::strings
+
+  @param bad Something that #actual should not be
+  @param result The value which should be tested against the expected value
+
+  @returns An error string if the values are equal, or "" if they are equal
+*/
+std::string unequal(char const* bad, char const* result) throw ();
 
 /**
   Assert some pointer is NULL
