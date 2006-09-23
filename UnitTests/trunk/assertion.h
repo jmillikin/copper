@@ -55,7 +55,7 @@ std::string equal(const T& result, const U& expected) throw () {
 
   @returns An error string if the values are unequal, or "" if they are equal
 */
-std::string equal(char const*  result, char const*  expected) throw ();
+std::string equal(char const* result, char const* expected) throw ();
 
 /**
   Check that the two values are nearly equal within a certain delta
