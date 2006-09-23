@@ -1,16 +1,29 @@
 CXX=g++
-CXXFLAGS=-Wall -Wextra -g3 -O0 `pkg-config --cflags gtk+-2.0`
-LFLAGS=`pkg-config --libs gtk+-2.0 gthread-2.0`
+# For the default output handler
+CXXFLAGS=-Wall -Wextra -g3 -O0
+LFLAGS=
+
+# For the QT 4 output handler
+#CXXFLAGS=-Wall -Wextra -g3 -O0 `pkg-config --cflags QtGui_debug QtCore_debug`
+#LFLAGS=`pkg-config --libs QtGui_debug QtCore_debug`
+#QT_OBJECTS=build/qt4_output_handler.o build/qt4_output_handler.moc.o
+
+# For the GTK+ output handler
+#CXXFLAGS=-Wall -Wextra -g3 -O0 `pkg-config --cflags gtk+-2.0`
+#LFLAGS=`pkg-config --libs gtk+-2.0 gthread-2.0`
+#GTK_OBJECTS=build/gtk_output_handler.o
+
 RM=rm -f
 
 OBJECTS= \
+  $(GTK_OBJECTS) \
+  $(QT_OBJECTS) \
   build/assertion.o \
   build/default_output_handler.o \
-	build/error_exception.o \
-	build/exception_protector.o \
+  build/error_exception.o \
+  build/exception_protector.o \
   build/failure_exception.o \
   build/fixture.o \
-  build/gtk_output_handler.o \
   build/output_handler.o \
   build/protector.o \
   build/self_tests.o \
@@ -37,6 +50,15 @@ build/failure_exception.o: failure_exception.cpp
 
 build/fixture.o: fixture.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
+
+build/qt4_output_handler.o: output_handlers/qt4_output_handler.cpp
+	$(CXX) $(CXXFLAGS) -c $? -o $@
+
+build/qt4_output_handler.moc.o: qt4_output_handler.moc.cpp
+	$(CXX) $(CXXFLAGS) -c $? -o $@
+
+qt4_output_handler.moc.cpp: output_handlers/qt4_output_handler.h
+	moc-qt4 $? > $@
 
 build/gtk_output_handler.o: output_handlers/gtk_output_handler.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
