@@ -1,7 +1,7 @@
 #include "test.h"
 #include "fixture.h"
 
-TEST_SUITE(sample_suite)
+TEST_SUITE(sample_suite) {
 
 TEST(equal) {
   // Equality is performed with the 'equal' function. Equality works

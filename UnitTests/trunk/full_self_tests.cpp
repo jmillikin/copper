@@ -6,7 +6,7 @@
 // This isn't usually included, since it can cause false errors for otherwise
 // fine programs
 
-TEST_SUITE(full_self_tests)
+TEST_SUITE(full_self_tests) {
 
 TEST(failure_exception) {
   throw UnitTests::FailureException("self-thrown FailureException", "No error", 0);

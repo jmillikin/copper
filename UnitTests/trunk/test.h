@@ -47,9 +47,12 @@ protected:
 #pragma warning(disable: 4290)
 #endif
 
+// The reason the namespace is used twice is to allow the use of this macro
+// as TEST_SUITE(name) {
 #define TEST_SUITE(NAME) \
   namespace suite_namespace_##NAME { \
-    static UnitTests::Suite current_suite(#NAME);
+    static UnitTests::Suite current_suite(#NAME); } \
+  namespace suite_namespace_##NAME
 
 #define TEST(NAME) \
   class test_##NAME : public UnitTests::Test { \

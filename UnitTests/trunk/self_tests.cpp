@@ -2,7 +2,7 @@
 #include "fixture.h"
 
 // Various self-tests of the framework, to try and avoid bugs
-TEST_SUITE(self_tests)
+TEST_SUITE(self_tests) {
 
 TEST(boolean_true) {
   assert(true);
