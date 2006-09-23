@@ -34,8 +34,8 @@ using namespace UnitTests;
 int main(int argc, char** argv) {
   // Allow exception catching to be toggled on or off at runtime
   bool catch_exceptions = true;
-  if (argc > 1) {
-    if (strcmp(argv[1], "--no-exceptions") == 0) {
+  for (int ii = 1; ii < argc; ii++) {
+    if (strcmp(argv[ii], "--no-exceptions") == 0) {
       catch_exceptions = false;
     }
   }
