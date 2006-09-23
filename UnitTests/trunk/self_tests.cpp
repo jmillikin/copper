@@ -1,9 +1,6 @@
 #include "test.h"
 #include "fixture.h"
 
-// for strdup, in test 'string_equals'
-#include <cstring>
-
 // Various self-tests of the framework, to try and avoid bugs
 TEST_SUITE(self_tests)
 
