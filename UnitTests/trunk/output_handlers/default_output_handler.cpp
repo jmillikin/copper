@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sys/time.h>
 #include "default_output_handler.h"
 #include "../test.h"
 #include "../error_exception.h"
@@ -17,6 +18,9 @@ DefaultOutputHandler::~DefaultOutputHandler() throw () {
     << num_passed << " tests passed\n"
     << num_failed << " tests failed\n"
     << num_errors << " errors\n";
+
+  // Print running time
+  std::cout << "Completed in " << running_time << " seconds\n";
 }
 
 void DefaultOutputHandler::begin(const Test*) throw () {}
@@ -49,6 +53,10 @@ void DefaultOutputHandler::error(const Test* test,
 }
 
 void DefaultOutputHandler::run() {
+  // Store when the tests started
+  timeval start_time;
+  gettimeofday(&start_time, 0);
+
   std::list<Suite*> suites = Suite::all_suites();
   std::list<Suite*>::const_iterator suite;
   for (suite = suites.begin(); suite != suites.end(); suite++) {
@@ -59,6 +67,14 @@ void DefaultOutputHandler::run() {
       run_test(*test);
     }
   }
+
+  // Calculate running time
+  timeval now;
+  gettimeofday(&now, 0);
+  running_time = now.tv_sec - start_time.tv_sec;
+  
+  running_time += static_cast<double>(now.tv_usec - start_time.tv_usec) /
+    1000000.0; // 1,000,000 microseconds in a second
 }
 
 } /* namespace */
