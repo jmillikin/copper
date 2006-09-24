@@ -1,3 +1,8 @@
+/* unix_protector.h -- Guards against unexpected UNIX signals
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #ifndef UNIX_PROTECTOR_H
 #define UNIX_PROTECTOR_H
 

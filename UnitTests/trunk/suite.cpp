@@ -1,3 +1,8 @@
+/* suite.cpp -- Groups tests into logical groups
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #include "suite.h"
 #include "failure_exception.h"
 #include "protectors/exception_protector.h"

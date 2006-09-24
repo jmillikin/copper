@@ -1,3 +1,8 @@
+/* output_handler.cpp -- Base class for all output handlers
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #include "output_handler.h"
 #include "protector.h"
 #include "protectors/exception_protector.h"

@@ -1,3 +1,8 @@
+/* failure_exception.cpp -- Thrown when an assertion fails
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #include "failure_exception.h"
 
 namespace UnitTests {

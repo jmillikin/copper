@@ -1,3 +1,8 @@
+/* self_tests.cpp - Various self-tests of the framework
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #include "test.h"
 #include "fixture.h"
 

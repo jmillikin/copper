@@ -1,3 +1,8 @@
+/* failure_exception.h -- Thrown when an assertion fails
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #ifndef FAILURE_EXCEPTION_H
 #define FAILURE_EXCEPTION_H
 

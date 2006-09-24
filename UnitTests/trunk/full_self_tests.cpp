@@ -1,3 +1,9 @@
+/* full_self_tests.cpp -- Tests that may cause false negatives, but are
+ *   useful for testing the framework
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #include "test.h"
 #include "fixture.h"
 #include "error_exception.h"

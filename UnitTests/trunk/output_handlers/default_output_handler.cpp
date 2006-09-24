@@ -1,3 +1,8 @@
+/* default_output_handler.cpp -- Outputs to stdout and stderr
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #include <iostream>
 #include <sys/time.h>
 #include "default_output_handler.h"

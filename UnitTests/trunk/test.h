@@ -1,3 +1,8 @@
+/* test.h -- Runs a single unit test
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #ifndef TEST_H
 #define TEST_H
 

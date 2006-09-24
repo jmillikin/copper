@@ -1,3 +1,8 @@
+/* main.cpp -- Runs an output handler
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #include "output_handlers/default_output_handler.h"
 
 int main(int argc, char** argv) {

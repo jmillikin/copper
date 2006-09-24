@@ -1,3 +1,8 @@
+/* output_handler.h -- Base class for all output handlers
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #ifndef OUTPUT_HANDLER_H
 #define OUTPUT_HANDLER_H
 

@@ -1,3 +1,8 @@
+/* gtk_output_handler.cpp -- Runs in a window constructed using GTK+
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #include "gtk_output_handler.h"
 #include "../test.h"
 #include "../error_exception.h"

@@ -1,3 +1,8 @@
+/* gtk_output_handler.h -- Runs in a window constructed using GTK+
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #ifndef GTK_OUTPUT_HANDLER_H
 #define GTK_OUTPUT_HANDLER_H
 

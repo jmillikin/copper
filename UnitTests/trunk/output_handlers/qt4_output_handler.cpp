@@ -1,3 +1,8 @@
+/* qt4_output_handler.cpp -- Runs in a window constructed using QT 4
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #include <QVBoxLayout>
 #include <QThread>
 #include <QTreeView>

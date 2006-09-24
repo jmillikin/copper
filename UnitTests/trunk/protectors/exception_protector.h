@@ -1,3 +1,8 @@
+/* exception_protector.h -- Guards against unexpected exceptions
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #ifndef EXCEPTION_PROTECTOR_H
 #define EXCEPTION_PROTECTOR_H
 

@@ -1,3 +1,8 @@
+/* protector.cpp - Base class for all protectors
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #include <list>
 #include <algorithm>
 #include "protector.h"

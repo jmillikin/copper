@@ -1,3 +1,8 @@
+/* exception_protector.cpp -- Guards against unexpected exceptions
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #include "exception_protector.h"
 
 namespace UnitTests {

@@ -1,3 +1,8 @@
+/* error_exception.h - Thrown when an error occurs
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #ifndef ERROR_EXCEPTION_H
 #define ERROR_EXCEPTION_H
 

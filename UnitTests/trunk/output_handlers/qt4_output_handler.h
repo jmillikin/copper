@@ -1,3 +1,8 @@
+/* qt4_output_handler.h -- Runs in a window constructed using QT 4
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
 #ifndef QT4_OUTPUT_HANDLER_H
 #define QT4_OUTPUT_HANDLER_H
 
