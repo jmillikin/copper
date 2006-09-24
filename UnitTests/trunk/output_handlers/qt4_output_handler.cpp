@@ -267,7 +267,7 @@ void Qt4OutputHandler_Window::tests_finished() {
 }
 
 Qt4OutputHandler::Qt4OutputHandler(int& argc, char**& argv):
-  OutputHandler(), app(argc, argv) {
+  OutputHandler(argc, argv), app(argc, argv) {
   window = new Qt4OutputHandler_Window(this);
 }
 

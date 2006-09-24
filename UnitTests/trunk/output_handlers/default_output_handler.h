@@ -12,7 +12,7 @@ namespace UnitTests {
 class DefaultOutputHandler : public OutputHandler {
 public:
   /** Default constructor */
-  DefaultOutputHandler() throw ();
+  DefaultOutputHandler(int& argc, char**& argv) throw ();
 
   /** Default destructor */
   ~DefaultOutputHandler() throw ();

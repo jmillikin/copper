@@ -1,9 +1,23 @@
 #include "output_handler.h"
 #include "protector.h"
+#include "protectors/exception_protector.h"
 
 namespace UnitTests {
 
-OutputHandler::OutputHandler() {}
+OutputHandler::OutputHandler(int& argc, char**& argv) {
+  // Allow exception catching to be toggled on or off at runtime
+  bool catch_exceptions = true;
+  for (int ii = 1; ii < argc; ii++) {
+    if (strcmp(argv[ii], "--no-exceptions") == 0) {
+      catch_exceptions = false;
+    }   
+  }
+
+  if (catch_exceptions) {
+    static ExceptionProtector exception_protector;
+    Protector::add(&exception_protector);
+  }
+}
 
 OutputHandler::~OutputHandler() {}
 

@@ -1,9 +1,7 @@
 #include <list>
 #include "test.h"
 #include "suite.h"
-#include "output_handlers/default_output_handler.h"
 #include "failure_exception.h"
-#include "protectors/exception_protector.h"
 
 namespace UnitTests {
 
@@ -31,23 +29,10 @@ void Test::run() {
 
 using namespace UnitTests;
 
+#include "output_handlers/default_output_handler.h"
 int main(int argc, char** argv) {
-  // Allow exception catching to be toggled on or off at runtime
-  bool catch_exceptions = true;
-  for (int ii = 1; ii < argc; ii++) {
-    if (strcmp(argv[ii], "--no-exceptions") == 0) {
-      catch_exceptions = false;
-    }
-  }
-
-  ExceptionProtector exception_protector;
-
-  if (catch_exceptions) {
-    Protector::add(&exception_protector);
-  }
-
   // Where output will be directed to
-  DefaultOutputHandler output;
+  DefaultOutputHandler output(argc, argv);
   output.run();
 
   return 0;

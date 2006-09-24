@@ -88,7 +88,7 @@ void GtkOutputHandler::on_execute_button_clicked(GtkButton* button,
 }
 
 GtkOutputHandler::GtkOutputHandler(int& argc, char**& argv) throw ():
-  OutputHandler(), running_tests(false) {
+  OutputHandler(argc, argv), running_tests(false) {
 
   if (!g_thread_supported()) {
     g_thread_init(NULL);

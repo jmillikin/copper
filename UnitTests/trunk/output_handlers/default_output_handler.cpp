@@ -6,8 +6,9 @@
 
 namespace UnitTests {
 
-DefaultOutputHandler::DefaultOutputHandler() throw ():
-  OutputHandler(),
+DefaultOutputHandler::DefaultOutputHandler(int& argc, char**& argv)
+  throw ():
+  OutputHandler(argc, argv),
   num_passed(0),
   num_failed(0),
   num_errors(0) {}

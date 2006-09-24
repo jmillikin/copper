@@ -13,7 +13,7 @@ class ErrorException;
 class OutputHandler {
 public:
   /** Default constructor */
-  OutputHandler();
+  OutputHandler(int& argc, char**& argv);
 
   /** Default destructor */
   virtual ~OutputHandler();
