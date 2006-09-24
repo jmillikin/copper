@@ -10,23 +10,22 @@
 
 namespace UnitTests {
 
-std::list<Protector*>* protectors = 0;
+std::list<Protector*>* protectors() {
+  static std::list<Protector*> _protectors;
+  return &_protectors;
+}
 
 Protector::Protector() throw () {}
 
 Protector::~Protector() throw () {}
 
 void Protector::add(Protector* protector) {
-  if (!protectors) {
-    static std::list<Protector*> _protectors;
-    protectors = &_protectors;
-  }
-  protectors->push_back(protector);
+  protectors()->push_back(protector);
 }
 
 void Protector::guard(Test* test) {
-  if (protectors && protectors->size() > 0) {
-    std::list<Protector*>::iterator iter = protectors->begin();
+  if (protectors()->size() > 0) {
+    std::list<Protector*>::iterator iter = protectors()->begin();
     (*iter)->_guard(test);
   }
 
@@ -37,11 +36,11 @@ void Protector::guard(Test* test) {
 
 void Protector::next_protector(Test* test) {
   std::list<Protector*>::iterator iter =
-    std::find(protectors->begin(), protectors->end(), this);
+    std::find(protectors()->begin(), protectors()->end(), this);
 
-  if (iter != protectors->end()) {
+  if (iter != protectors()->end()) {
     ++iter;
-    if (iter != protectors->end()) {
+    if (iter != protectors()->end()) {
       (*iter)->_guard(test);
     }
     else {
