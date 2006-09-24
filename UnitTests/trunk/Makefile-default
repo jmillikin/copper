@@ -24,6 +24,7 @@ OBJECTS= \
   build/exception_protector.o \
   build/failure_exception.o \
   build/fixture.o \
+  build/main.o \
   build/output_handler.o \
   build/protector.o \
   build/self_tests.o \
@@ -49,6 +50,9 @@ build/failure_exception.o: failure_exception.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 build/fixture.o: fixture.cpp
+	$(CXX) $(CXXFLAGS) -c $? -o $@
+
+build/main.o: main.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 build/qt4_output_handler.o: output_handlers/qt4_output_handler.cpp
