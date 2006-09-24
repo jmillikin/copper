@@ -5,9 +5,6 @@
 
 #include "assertion.h"
 
-#undef assert
-#undef failed
-
 void assert_func(const std::string& assertion, const bool result,
   const unsigned int line) throw (UnitTests::FailureException) {
 
