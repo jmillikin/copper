@@ -13,15 +13,15 @@ ExceptionProtector::ExceptionProtector() throw ():
 ExceptionProtector::~ExceptionProtector() throw () {}
 
 void ExceptionProtector::_guard(Test* test)
-  throw (FailureException, ErrorException) {
+  throw (ErrorException) {
 
   try {
     next_protector(test);
   }
 
-  catch (const FailureException&){
-    throw;
-  }
+//  catch (const FailureException&){
+//    throw;
+//  }
 
   catch (const std::exception& e){
     throw ErrorException(std::string("Unhandled exception: ") + e.what());

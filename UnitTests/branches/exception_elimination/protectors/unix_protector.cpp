@@ -71,13 +71,13 @@ UnixProtector::UnixProtector() throw ():
 UnixProtector::~UnixProtector() throw () {}
 
 void UnixProtector::_guard(Test* test)
-  throw (FailureException, ErrorException) {
+  throw (ErrorException) {
 
   trap(this, test);
 }
 
 void UnixProtector::guard_test(Test* test)
-  throw (FailureException, ErrorException) {
+  throw (ErrorException) {
 
   next_protector(test);
 }

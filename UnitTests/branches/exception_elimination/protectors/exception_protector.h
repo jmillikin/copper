@@ -30,7 +30,7 @@ protected:
     @param test The test to guard
   */
   virtual void _guard(Test* test)
-    throw (FailureException, ErrorException);
+    throw (ErrorException);
 };
 
 } // namespace

@@ -23,7 +23,7 @@ public:
   ~UnixProtector() throw ();
 
   /** Used by external guard_test */
-  void guard_test(Test* test) throw (FailureException, ErrorException);
+  void guard_test(Test* test) throw (ErrorException);
 
 protected:
   /**
@@ -33,7 +33,7 @@ protected:
     @param test The test to guard
   */
   virtual void _guard(Test* test)
-    throw (FailureException, ErrorException);
+    throw (ErrorException);
 } linux_protector_instance;
 
 } // namespace

@@ -6,7 +6,6 @@
 #ifndef PROTECTOR_H
 #define PROTECTOR_H
 
-#include "failure_exception.h"
 #include "error_exception.h"
 
 // Disable warnings about throw specifications in VS 2003
@@ -58,7 +57,7 @@ protected:
 
     @param test The Test to guard
   */
-  virtual void _guard(Test* test) throw (FailureException, ErrorException) = 0;
+  virtual void _guard(Test* test) throw (ErrorException) = 0;
 };
 
 } // namespace

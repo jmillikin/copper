@@ -4,7 +4,6 @@
  */
 
 #include "suite.h"
-#include "failure_exception.h"
 #include "protectors/exception_protector.h"
 #include <list>
 
