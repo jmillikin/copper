@@ -3,7 +3,6 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include <iostream>
 #include <sys/time.h>
 #include "default_output_handler.h"
 #include "../test.h"
@@ -20,13 +19,13 @@ DefaultOutputHandler::DefaultOutputHandler(int& argc, char**& argv)
 
 DefaultOutputHandler::~DefaultOutputHandler() throw () {
   // Print statistics
-  std::cout
-    << num_passed << " tests passed\n"
-    << num_failed << " tests failed\n"
-    << num_errors << " errors\n";
+  printf(
+    "%u tests passed\n"
+    "%u tests failed\n"
+    "%u errors\n", num_passed, num_failed, num_errors);
 
   // Print running time
-  std::cout << "Completed in " << running_time << " seconds\n";
+  printf("Completed in %lf seconds\n", running_time);
 }
 
 void DefaultOutputHandler::begin(const Test*) throw () {}
@@ -40,11 +39,14 @@ void DefaultOutputHandler::fail(const Test* test,
 
   ++num_failed;
 
-  std::cerr
-    << "FAILURE in " << test->file_name << ":" << failure.line << ":\n"
-    << test->suite->name << "::" << test->name << ":\n"
-    << "  " << failure.assertion << "\n"
-    << "  " << failure.message << "\n\n";
+  fprintf(stderr,
+    "FAILURE in %s:%u:\n"
+    "%s::%s:\n"
+    "  %s\n"
+    "  %s\n\n",
+    test->file_name, failure.line,
+    test->suite->name, test->name,
+    failure.assertion, failure.message);
 }
 
 void DefaultOutputHandler::error(const Test* test,
@@ -52,10 +54,13 @@ void DefaultOutputHandler::error(const Test* test,
 
   ++num_errors;
 
-  std::cerr
-    << "ERROR in " << test->file_name << ":\n"
-    << test->suite->name << "::" << test->name << ":\n"
-    << "  " << error.message << "\n\n";
+  fprintf(stderr,
+    "ERROR in %s:\n"
+    "%s::%s:\n"
+    "  %s\n\n",
+    test->file_name,
+    test->suite->name, test->name,
+    error.message);
 }
 
 void DefaultOutputHandler::run() {
