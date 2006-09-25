@@ -18,6 +18,26 @@ AssertionResult::AssertionResult(bool result) throw ():
   }
 }
 
+AssertionResult::AssertionResult(const AssertionResult& other) throw () {
+  m_finished = other.m_finished;
+  m_passed = other.m_passed;
+  if (m_finished && !m_passed) {
+    m_failure_message = strdup(other.m_failure_message);
+  }
+}
+
+AssertionResult& AssertionResult::operator=(const AssertionResult& other)
+  throw () {
+
+  m_finished = other.m_finished;
+  m_passed = other.m_passed;
+  if (m_finished && !m_passed) {
+    m_failure_message = strdup(other.m_failure_message);
+  }
+
+  return *this;
+}
+
 AssertionResult::~AssertionResult() throw () {
   if (failure_message()) {
     free(m_failure_message);

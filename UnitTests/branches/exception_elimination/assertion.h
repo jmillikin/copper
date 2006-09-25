@@ -29,6 +29,11 @@ public:
   /** Construct from a boolean value */
   AssertionResult(bool result) throw ();
 
+  /** Copy constructor */
+  AssertionResult(const AssertionResult& other) throw ();
+
+  AssertionResult& operator=(const AssertionResult& other) throw ();
+
   /** Default destructor */
   ~AssertionResult() throw ();
 
