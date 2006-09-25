@@ -5,48 +5,103 @@
 
 #include "assertion.h"
 
-void assert_func(const std::string& assertion, const bool result,
-  const unsigned int line) throw (UnitTests::FailureException) {
+namespace UnitTests {
 
-  if (!result) {
-    throw UnitTests::FailureException(assertion,
-      "Boolean assertion failed", line);
+AssertionResult::AssertionResult() throw ():
+  m_finished(false) {}
+
+AssertionResult::AssertionResult(bool result) throw ():
+  m_finished(true), m_passed(result) {
+
+  if (!passed()) {
+    m_failure_message = strdup("Boolean asssertion failed");
   }
 }
 
-void assert_func(const std::string& assertion, const std::string& result,
-  const unsigned int line) throw (UnitTests::FailureException) {
-
-  if (result.size() > 0) {
-    throw UnitTests::FailureException(assertion, result, line);
+AssertionResult::~AssertionResult() throw () {
+  if (failure_message()) {
+    free(m_failure_message);
   }
 }
 
-std::string failed_func(const std::string& assertion,
-  const std::string& result) throw () {
-
-  if (result.size() > 0) {
-    return "";
+void AssertionResult::pass() throw () {
+  if (!m_finished) {
+    m_passed = true;
+    m_finished = true;
   }
-
-  return "Unexpected sucess of assertion '" + assertion + "'";
 }
 
-std::string failed_func(const std::string& assertion, const bool result) throw () {
-  if (!result) {
-    return "";
+void AssertionResult::fail(const char* _failure_message) throw () {
+  if (!m_finished) {
+    m_passed = false;
+    m_failure_message = strdup(_failure_message);
+    m_finished = true;
   }
-
-  return "Boolean assertion '" + assertion + "' succeeded";
 }
 
+bool AssertionResult::passed() const throw () {
+  return m_finished && m_passed;
+}
 
-std::string equal(char const* result, char const* expected) throw () {
+const char* AssertionResult::failure_message() const throw () {
+  if (m_finished && !m_passed) {
+    return m_failure_message;
+  }
+  else {
+    return 0;
+  }
+}
+
+Assertion::Assertion(const AssertionResult& result, const char* _text,
+  const unsigned int line) throw ():
+
+  m_result(result), m_text(strdup(_text)), m_line(line) {}
+
+Assertion::~Assertion() throw () {
+  free(m_text);
+}
+
+bool Assertion::passed() const throw () {
+  return m_result.passed();
+}
+
+const char* Assertion::text() const throw () {
+  return m_text;
+}
+
+unsigned int Assertion::line() const throw () {
+  return m_line;
+}
+
+const char* Assertion::failure_message() const throw () {
+  return m_result.failure_message();
+}
+
+}
+
+UnitTests::AssertionResult failed(const UnitTests::AssertionResult& result)
+  throw () {
+
+  UnitTests::AssertionResult new_result;
+  if (result.passed()) {
+    new_result.fail("Unexpected sucess of assertion");
+  }
+  else {
+    new_result.pass();
+  }
+  return new_result;
+}
+
+UnitTests::AssertionResult equal(char const* result, char const* expected)
+  throw () {
+
   std::string s_result = result, s_expected = expected;
   return equal(s_result, s_expected);
 }
 
-std::string unequal(char const* bad, char const* result) throw () {
+UnitTests::AssertionResult unequal(char const* bad, char const* result)
+  throw () {
+
   std::string s_result = result, s_bad = bad;
   return unequal(s_bad, s_result);
 }

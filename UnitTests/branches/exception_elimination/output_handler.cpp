@@ -33,9 +33,9 @@ void OutputHandler::run_test(Test* test) {
     pass(test);
   }
 
-  catch (const FailureException& e) {
-    fail(test, e); 
-  }
+//  catch (const FailureException& e) {
+//    fail(test, e); 
+//  }
 
   catch (const ErrorException& e) {
     error(test, e); 

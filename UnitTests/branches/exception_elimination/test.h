@@ -11,7 +11,6 @@
 
 namespace UnitTests {
 
-class FailureException;
 class OutputHandler;
 
 class Test {

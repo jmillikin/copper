@@ -178,11 +178,15 @@ TEST(thrown_exception) {
   assert_throws(throw 0, int);
 }
 
+
+/*
+FIXME: currently no way to check this
 TEST(thrown_exception_fail) {
   // Standard assert(failed(...)) doesn't work for freaky macros
   assert_throws(assert_throws(true, int),
     UnitTests::FailureException);
 }
+*/
 
 FIXTURE(the_fixture)
   void set_up(){
@@ -199,6 +203,74 @@ FIXTURE(the_fixture)
 FIXTURE_TEST(fixture_test, the_fixture) {
   assert(equal(fixture_var, 1));
   assert(set_up_finished);
+}
+
+// Tests of implementation details
+
+TEST(assertion_result_pass) {
+  UnitTests::AssertionResult ar;
+  ar.pass();
+
+  assert(ar.passed());
+}
+
+TEST(assertion_result_failure) {
+  UnitTests::AssertionResult ar;
+  ar.fail("Error goes here");
+
+  assert(!ar.passed());
+  assert(equal(ar.failure_message(), "Error goes here"));
+}
+
+TEST(assertion_pass) {
+  UnitTests::AssertionResult ar;
+  ar.pass();
+  UnitTests::Assertion a(ar, "Assertion text", 12345);
+
+  assert(a.passed());
+  assert(equal(a.text(), "Assertion text"));
+  assert(equal(a.line(), 12345u));
+}
+
+TEST(assertion_failure) {
+  UnitTests::AssertionResult ar;
+  ar.fail("Error goes here");
+  UnitTests::Assertion a(ar, "Assertion text", 12345);
+
+  assert(!a.passed());
+  assert(equal(a.text(), "Assertion text"));
+  assert(equal(a.line(), 12345u));
+  assert(equal(a.failure_message(), "Error goes here"));
+}
+
+TEST(boolean_assertion_pass) {
+  UnitTests::AssertionResult ar(true);
+
+  assert(ar.passed());
+}
+
+TEST(boolean_assertion_failure) {
+  UnitTests::AssertionResult ar(false);
+
+  assert(!ar.passed());
+  assert(equal(ar.failure_message(), "Boolean assertion failed"));
+}
+
+TEST(reverse_passed_assertion) {
+  UnitTests::AssertionResult ar;
+  ar.pass();
+  UnitTests::AssertionResult reversed_ar = failed(ar);
+
+  assert(!reversed_ar.passed());
+  assert(equal(reversed_ar.failure_message(), "Unexpected sucess of assertion"));
+}
+
+TEST(reverse_failed_assertion) {
+  UnitTests::AssertionResult ar;
+  ar.fail("");
+  UnitTests::AssertionResult reversed_ar = failed(ar);
+
+  assert(reversed_ar.passed());
 }
 
 }
