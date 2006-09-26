@@ -7,7 +7,6 @@
 #define SUITE_H
 
 #include <list>
-#include <string>
 
 namespace UnitTests {
 
