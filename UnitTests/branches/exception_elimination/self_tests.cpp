@@ -178,13 +178,10 @@ TEST(thrown_exception) {
   assert_throws(throw 0, int);
 }
 
-
 /*
-FIXME: currently no way to check this
+FIXME: currently no way to test this
 TEST(thrown_exception_fail) {
-  // Standard assert(failed(...)) doesn't work for freaky macros
-  assert_throws(assert_throws(true, int),
-    UnitTests::FailureException);
+  assert(failed(assert_throws(true, int)));
 }
 */
 
