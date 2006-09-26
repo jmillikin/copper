@@ -32,7 +32,7 @@ OBJECTS= \
   build/test.o \
   build/unix_protector.o
 
-all: builddir tests
+all: build tests
 
 build/assertion.o: assertion.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
@@ -91,7 +91,7 @@ build/unix_protector.o: protectors/unix_protector.cpp
 tests: $(OBJECTS)
 	$(CXX) $(LFLAGS) $(OBJECTS) -o $@
 
-builddir:
+build:
 	@mkdir -p build
 
 clean:
