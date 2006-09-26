@@ -45,6 +45,9 @@ public:
   const char* name;
 
 protected:
+  Suite(const Suite& other) throw ();
+  Suite& operator=(const Suite& other) throw ();
+
   /** All tests in this suite, in no particular order */
   std::list<Test*> tests;
 };

@@ -34,6 +34,9 @@ public:
   const char* file_name;
 
 protected:
+  Test(const Test& other) throw ();
+  Test& operator=(const Test& other) throw ();
+
   /** Run the user's test code */
   virtual void _run() = 0;
 

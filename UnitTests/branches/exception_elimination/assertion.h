@@ -92,6 +92,9 @@ public:
   const char* failure_message() const throw ();
 
 protected:
+  Assertion(const Assertion& other) throw ();
+  Assertion& operator=(const Assertion& other) throw ();
+
   /** The result of running this assertion */
   const AssertionResult m_result;
 
