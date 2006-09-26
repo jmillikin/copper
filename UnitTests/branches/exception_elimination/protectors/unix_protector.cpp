@@ -6,6 +6,7 @@
 #include <signal.h>
 #include <setjmp.h>
 #include "unix_protector.h"
+#include "../assertion.h"
 
 const unsigned int SIGNAL_COUNT = 3;
 int signals[SIGNAL_COUNT] = {
@@ -30,8 +31,8 @@ void throw_error(int sig) throw (UnitTests::ErrorException) {
   Small function for running the test, since trap() can't do anything
   C++
 */
-void guard_test(void* protector, void* test) {
-  reinterpret_cast<UnitTests::UnixProtector*>(protector)->guard_test(
+UnitTests::Assertion* guard_test(void* protector, void* test) {
+  return reinterpret_cast<UnitTests::UnixProtector*>(protector)->guard_test(
     reinterpret_cast<UnitTests::Test*>(test));
 }
 
@@ -39,7 +40,7 @@ void guard_test(void* protector, void* test) {
   This function traps signals, and sends them to throw_error() for conversion
   into an exception
 */
-void trap(void* protector, void* test) {
+UnitTests::Assertion* trap(void* protector, void* test) {
   int sig;
   unsigned int ii;
 
@@ -50,13 +51,15 @@ void trap(void* protector, void* test) {
   sig = setjmp(jb);
   if (sig) {
     throw_error(sig);
+    return 0;
   }
 
   else {
-    guard_test(protector, test);
+    UnitTests::Assertion* result = guard_test(protector, test);
     for (ii = 0; ii < SIGNAL_COUNT; ii++) {
       signal(signals[ii], SIG_DFL);
     }
+    return result;
   }
 }
 
@@ -70,16 +73,16 @@ UnixProtector::UnixProtector() throw ():
 
 UnixProtector::~UnixProtector() throw () {}
 
-void UnixProtector::_guard(Test* test)
+Assertion* UnixProtector::_guard(Test* test)
   throw (ErrorException) {
 
-  trap(this, test);
+  return trap(this, test);
 }
 
-void UnixProtector::guard_test(Test* test)
+Assertion* UnixProtector::guard_test(Test* test)
   throw (ErrorException) {
 
-  next_protector(test);
+  return next_protector(test);
 }
 
 } // namespace

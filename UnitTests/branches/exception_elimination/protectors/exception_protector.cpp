@@ -12,11 +12,11 @@ ExceptionProtector::ExceptionProtector() throw ():
 
 ExceptionProtector::~ExceptionProtector() throw () {}
 
-void ExceptionProtector::_guard(Test* test)
+Assertion* ExceptionProtector::_guard(Test* test)
   throw (ErrorException) {
 
   try {
-    next_protector(test);
+    return next_protector(test);
   }
 
 //  catch (const FailureException&){

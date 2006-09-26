@@ -29,7 +29,7 @@ protected:
 
     @param test The test to guard
   */
-  virtual void _guard(Test* test)
+  virtual Assertion* _guard(Test* test)
     throw (ErrorException);
 };
 

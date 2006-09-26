@@ -16,6 +16,7 @@
 namespace UnitTests {
 
 class Test;
+class Assertion;
 
 /**
   Protectors guard against possible errors while running a test. This is an
@@ -41,7 +42,7 @@ public:
 
     @param test The Test to guard
   */
-  static void guard(Test* test);
+  static Assertion* guard(Test* test);
 
 protected:
   /**
@@ -49,7 +50,7 @@ protected:
 
     @param test The Test to guard
   */
-  void next_protector(Test* test);
+  Assertion* next_protector(Test* test);
 
   /**
     Guard a test with this Protector. It is important that protectors be
@@ -57,7 +58,7 @@ protected:
 
     @param test The Test to guard
   */
-  virtual void _guard(Test* test) throw (ErrorException) = 0;
+  virtual Assertion* _guard(Test* test) throw (ErrorException) = 0;
 };
 
 } // namespace
