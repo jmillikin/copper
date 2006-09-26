@@ -229,7 +229,7 @@ UnitTests::AssertionResult null(const T* value) throw () {
 
   UnitTests::AssertionResult cmp_result;
   if (value != 0){
-    return "Expected value to be NULL";
+    cmp_result.fail("Expected value to be NULL");
   }
   else {
     cmp_result.pass();
@@ -249,7 +249,7 @@ UnitTests::AssertionResult not_null(const T* value) throw () {
 
   UnitTests::AssertionResult cmp_result;
   if (value == 0){
-    return "Expected value to be non-NULL";
+    cmp_result.fail("Expected value to be non-NULL");
   }
   else {
     cmp_result.pass();
