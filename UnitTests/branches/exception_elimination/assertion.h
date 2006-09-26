@@ -353,8 +353,8 @@ UnitTests::AssertionResult less_than_or_equal(const T& result, const T& limit) t
 // Macro for checking if an exception was thrown
 #define assert_throws(CODE, EXCEPTION_TYPE) \
   try {\
-    UnitTests::AssertionResult test_ar;\
     CODE;\
+    UnitTests::AssertionResult test_ar;\
     test_ar.fail(#CODE" threw no exceptions");\
     assert(test_ar);\
   }\
