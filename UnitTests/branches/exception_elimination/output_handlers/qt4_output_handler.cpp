@@ -114,7 +114,7 @@ void Qt4OutputHandler_Window::pass(const Test*) throw () {
 }
 
 void Qt4OutputHandler_Window::fail(const Test* test,
-  const FailureException& failure) throw () {
+  const Assertion* assertion) throw () {
 
   int new_row = failure_list->rowCount();
   failure_list->insertRows(new_row, 1);
@@ -130,10 +130,10 @@ void Qt4OutputHandler_Window::fail(const Test* test,
   failure_list->setData(idx, test->file_name);
 
   idx = failure_list->index(new_row, FAILURE_COL_LINE);
-  failure_list->setData(idx, failure.line);
+  failure_list->setData(idx, assertion->line());
 
   idx = failure_list->index(new_row, FAILURE_COL_MESSAGE);
-  failure_list->setData(idx, failure.message);
+  failure_list->setData(idx, assertion->failure_message());
 
   failures++;
   update_window();

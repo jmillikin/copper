@@ -35,7 +35,7 @@ void DefaultOutputHandler::pass(const Test*) throw () {
 }
 
 void DefaultOutputHandler::fail(const Test* test,
-  const Assertion& assertion) throw () {
+  const Assertion* assertion) throw () {
 
   ++num_failed;
 
@@ -44,9 +44,9 @@ void DefaultOutputHandler::fail(const Test* test,
     "%s::%s:\n"
     "  %s\n"
     "  %s\n\n",
-    test->file_name, assertion.line(),
+    test->file_name, assertion->line(),
     test->suite->name, test->name,
-    assertion.text(), assertion.failure_message());
+    assertion->text(), assertion->failure_message());
 }
 
 void DefaultOutputHandler::error(const Test* test,

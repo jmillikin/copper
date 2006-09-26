@@ -39,7 +39,7 @@ public:
     @param test The test that failed
     @param assertion The assertion that failed
   */
-  void fail(const Test* test, const Assertion& assertion)
+  void fail(const Test* test, const Assertion* assertion)
     throw ();
 
   /**
