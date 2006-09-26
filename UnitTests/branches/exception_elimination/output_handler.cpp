@@ -30,8 +30,7 @@ OutputHandler::~OutputHandler() {}
 void OutputHandler::run_test(Test* test) {
   try {
     begin(test);
-//    Assertion* result = Protector::guard(test);
-    Assertion* result = test->run();
+    Assertion* result = Protector::guard(test);
     if (result) {
       fail(test, result); 
     }
