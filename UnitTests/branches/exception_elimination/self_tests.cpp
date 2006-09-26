@@ -318,7 +318,7 @@ protected:
 TEST(successful_test__run) {
   self_test_pass self_test_instance;
 
-  UnitTests::Assertion* failed;
+  UnitTests::Assertion* failed = 0;
   self_test_instance._run(&failed);
   assert(null(failed));
 }
