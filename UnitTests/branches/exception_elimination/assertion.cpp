@@ -14,7 +14,7 @@ AssertionResult::AssertionResult(bool result) throw ():
   m_finished(true), m_passed(result) {
 
   if (!passed()) {
-    m_failure_message = strdup("Boolean asssertion failed");
+    m_failure_message = strdup("Boolean assertion failed");
   }
 }
 
