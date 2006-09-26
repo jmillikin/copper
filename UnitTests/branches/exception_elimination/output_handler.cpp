@@ -6,6 +6,7 @@
 #include "output_handler.h"
 #include "protector.h"
 #include "protectors/exception_protector.h"
+#include "test.h"
 
 namespace UnitTests {
 
@@ -29,13 +30,15 @@ OutputHandler::~OutputHandler() {}
 void OutputHandler::run_test(Test* test) {
   try {
     begin(test);
-    Protector::guard(test);
-    pass(test);
+//    Assertion* result = Protector::guard(test);
+    Assertion* result = test->run();
+    if (result) {
+      fail(test, result); 
+    }
+    else {
+      pass(test);
+    }
   }
-
-//  catch (const FailureException& e) {
-//    fail(test, e); 
-//  }
 
   catch (const ErrorException& e) {
     error(test, e); 
