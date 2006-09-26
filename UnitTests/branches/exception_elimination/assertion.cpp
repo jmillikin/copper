@@ -77,6 +77,21 @@ Assertion::Assertion(const AssertionResult& result, const char* _text,
 
   m_result(result), m_text(strdup(_text)), m_line(line) {}
 
+Assertion::Assertion(const Assertion& other) throw () {
+  m_result = other.m_result;
+  m_text = strdup(other.m_text);
+  m_line = other.m_line;
+}
+
+Assertion& Assertion::operator=(const Assertion& other)
+  throw () {
+
+  m_result = other.m_result;
+  m_text = strdup(other.m_text);
+  m_line = other.m_line;
+  return *this;
+}
+
 Assertion::~Assertion() throw () {
   free(m_text);
 }

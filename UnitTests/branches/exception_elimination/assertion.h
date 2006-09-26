@@ -32,6 +32,7 @@ public:
   /** Copy constructor */
   AssertionResult(const AssertionResult& other) throw ();
 
+  /** Assignment operator */
   AssertionResult& operator=(const AssertionResult& other) throw ();
 
   /** Default destructor */
@@ -76,6 +77,12 @@ public:
   Assertion(const AssertionResult& result, const char* text,
     const unsigned int line) throw ();
 
+  /** Copy constructor */
+  Assertion(const Assertion& other) throw ();
+
+  /** Assignment operator */
+  Assertion& operator=(const Assertion& other) throw ();
+
   /** Default destructor */
   ~Assertion() throw ();
 
@@ -92,11 +99,8 @@ public:
   const char* failure_message() const throw ();
 
 protected:
-  Assertion(const Assertion& other) throw ();
-  Assertion& operator=(const Assertion& other) throw ();
-
   /** The result of running this assertion */
-  const AssertionResult m_result;
+  AssertionResult m_result;
 
   /** The code that this Assertion tests */
   char* m_text;
