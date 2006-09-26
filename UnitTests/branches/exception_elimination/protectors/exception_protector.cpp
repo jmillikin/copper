@@ -19,10 +19,6 @@ Assertion* ExceptionProtector::_guard(Test* test)
     return next_protector(test);
   }
 
-//  catch (const FailureException&){
-//    throw;
-//  }
-
   catch (const std::exception& e){
     throw ErrorException(std::string("Unhandled exception: ") + e.what());
   }
