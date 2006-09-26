@@ -351,8 +351,12 @@ UnitTests::AssertionResult less_than_or_equal(const T& result, const T& limit) t
 }
 
 // Some macros for easier calling of assert() and failed()
-#define assert(ASSERTION) UnitTests::Assertion(\
-  (ASSERTION), #ASSERTION, __LINE__)
+#define assert(ASSERTION){\
+  UnitTests::Assertion test_assertion((ASSERTION), #ASSERTION, __LINE__);\
+  if (!test_assertion.passed()) {\
+    *bad_assertion = new UnitTests::Assertion(test_assertion);\
+    return;\
+  }}
 
 // Macro for checking if an exception was thrown
 #define assert_throws(CODE, EXCEPTION_TYPE) \

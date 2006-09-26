@@ -22,10 +22,12 @@ Test::Test(
 
 Test::~Test() {}
 
-void Test::run() {
+Assertion* Test::run() {
+  Assertion* result = 0;
   set_up();
-  _run();
+  _run(&result);
   tear_down();
+  return result;
 }
 
 } // namespace

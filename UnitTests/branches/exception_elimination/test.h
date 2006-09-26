@@ -22,7 +22,7 @@ public:
   virtual ~Test();
 
   /** Run the test */
-  void run();
+  Assertion* run();
 
   /** The name of this test */
   const char* name;
@@ -38,7 +38,7 @@ protected:
   Test& operator=(const Test& other) throw ();
 
   /** Run the user's test code */
-  virtual void _run() = 0;
+  virtual void _run(UnitTests::Assertion** bad_assertion) = 0;
 
   /** Used to set up this test's fixture, if it exists */
   virtual void set_up() = 0;
@@ -68,9 +68,9 @@ protected:
   protected: \
     void set_up(){} \
     void tear_down(){} \
-    void _run(); \
+    void _run(UnitTests::Assertion** bad_assertion); \
   } test_instance_##NAME; \
-  void test_##NAME::_run()
+  void test_##NAME::_run(UnitTests::Assertion** bad_assertion)
 
 #define FIXTURE(NAME) \
   class fixture_##NAME : public UnitTests::Fixture { \
@@ -86,7 +86,7 @@ protected:
       fixture_##FIXTURE() \
       {} \
   protected: \
-    void _run(); \
+    void _run(UnitTests::Assertion** bad_assertion); \
     void set_up(){ \
       fixture_##FIXTURE::set_up(); \
     } \
@@ -94,6 +94,6 @@ protected:
       fixture_##FIXTURE::tear_down(); \
     } \
   } test_instance_##NAME; \
-  void test_##NAME::_run()
+  void test_##NAME::_run(UnitTests::Assertion** bad_assertion)
 
 #endif /* TEST_H */
