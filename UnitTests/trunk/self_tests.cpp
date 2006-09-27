@@ -230,5 +230,43 @@ TEST(boolean_assertion_failure) {
   assert(!ar.passed());
   assert(equal(ar.failure_message(), "Boolean assertion failed"));
 }
+/*
+TEST(assertion_pass) {
+  UnitTests::AssertionResult ar;
+  ar.pass();
+  UnitTests::Assertion a(ar, "Assertion text", 12345);
 
+  assert(a.passed());
+  assert(equal(a.text(), "Assertion text"));
+  assert(equal(a.line(), 12345u));
+}
+
+TEST(assertion_failure) {
+  UnitTests::AssertionResult ar;
+  ar.fail("Error goes here");
+  UnitTests::Assertion a(ar, "Assertion text", 12345);
+
+  assert(!a.passed());
+  assert(equal(a.text(), "Assertion text"));
+  assert(equal(a.line(), 12345u));
+  assert(equal(a.failure_message(), "Error goes here"));
+}
+
+TEST(reverse_passed_assertion) {
+  UnitTests::AssertionResult ar;
+  ar.pass();
+  UnitTests::AssertionResult reversed_ar = failed(ar);
+
+  assert(!reversed_ar.passed());
+  assert(equal(reversed_ar.failure_message(), "Unexpected sucess of assertion"));
+}
+
+TEST(reverse_failed_assertion) {
+  UnitTests::AssertionResult ar;
+  ar.fail("");
+  UnitTests::AssertionResult reversed_ar = failed(ar);
+
+  assert(reversed_ar.passed());
+}
+*/
 }

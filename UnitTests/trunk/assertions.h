@@ -11,22 +11,14 @@
 
 #include "failure_exception.h"
 #include "assertion_result.h"
+#include "assertion.h"
 
 // Disable warnings about throw specifications in VS 2003
 #ifdef _MSC_VER
 #pragma warning(disable: 4290)
 #endif
 
-/* Block any macro shenanigans from the standard library */
-#ifdef assert
-#undef assert
-#endif
-
-void assert_func(const std::string& assertion, const UnitTests::AssertionResult& result,
-  const unsigned int line) throw (UnitTests::FailureException);
-
-UnitTests::AssertionResult failed_func(const std::string& assertion,
-  const UnitTests::AssertionResult& result) throw ();
+UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) throw ();
 
 /**
   Assert two values are equal

@@ -5,28 +5,18 @@
 
 #include "assertions.h"
 
-void assert_func(const std::string& assertion, const UnitTests::AssertionResult& result,
-  const unsigned int line) throw (UnitTests::FailureException) {
+UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) throw () {
+  UnitTests::AssertionResult result;
 
-  if (!result.passed()) {
-    throw UnitTests::FailureException(assertion, result.failure_message(), line);
-  }
-}
-
-UnitTests::AssertionResult failed_func(const std::string& assertion,
-  const UnitTests::AssertionResult& result) throw () {
-
-  UnitTests::AssertionResult this_result;
-
-  if (!result.passed()) {
-    this_result.pass();
+  if (!assertion.passed()) {
+    result.pass();
   }
 
   else {
-    this_result.fail(("Unexpected sucess of assertion '" + assertion + "'").c_str());
+    result.fail("Assertion passed");
   }
 
-  return this_result;
+  return result;
 }
 
 UnitTests::AssertionResult equal(char const* result, char const* expected) throw () {

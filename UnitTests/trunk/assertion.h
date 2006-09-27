@@ -9,11 +9,61 @@
 #ifndef ASSERTION_H
 #define ASSERTION_H
 
+namespace UnitTests {
+
+class Assertion {
+public:
+  /**
+    Create a new assertion with the result of an assertion function
+
+    @param result The result of running this Assertion
+    @param text The code that this Assertion tests
+    @param line The line this Assertion is located on
+  */
+  Assertion(const AssertionResult& result, const char* text,
+    const unsigned int line) throw ();
+
+  /** Copy constructor */
+  Assertion(const Assertion& other) throw ();
+
+  /** Assignment operator */
+  Assertion& operator=(const Assertion& other) throw ();
+
+  /** Default destructor */
+  ~Assertion() throw ();
+
+  /** Whether this Assertion has pased or failed */
+  bool passed() const throw ();
+
+  /** Get the code that this Assertion tests */
+  const char* text() const throw ();
+
+  /** Get the line this Assertion is located on */
+  unsigned int line() const throw ();
+
+  /** If this Assertion failed, get the failure message */
+  const char* failure_message() const throw ();
+
+  /** TEMPORARY */
+  void check() const throw (FailureException);
+
+protected:
+  /** The result of running this assertion */
+  AssertionResult m_result;
+
+  /** The code that this Assertion tests */
+  char* m_text;
+
+  /** The line this Assertion is located on */
+  unsigned int m_line;
+};
+
+} // namespace
 
 // Some macros for easier calling of assert() and failed()
-#define assert(ASSERTION) assert_func(#ASSERTION, (ASSERTION), __LINE__)
+#define assert(ASSERTION) UnitTests::Assertion(ASSERTION, #ASSERTION, __LINE__).check()
 
-#define failed(ASSERTION) failed_func(#ASSERTION, (ASSERTION))
+#define failed(ASSERTION) failed_func(UnitTests::Assertion(ASSERTION, #ASSERTION, __LINE__))
 
 // Macro for checking if an exception was thrown
 /*
@@ -26,6 +76,6 @@
   catch (const EXCEPTION_TYPE&) {}
 */
 #define assert_throws(CODE, EXCEPTION_TYPE) \
-  assert_func("assert_throws unimplemented", false, __LINE__)
+  UnitTests::Assertion(false, "assert_throws unimplemented", __LINE__).check()
 
 #endif /* ASSERTION_H */
