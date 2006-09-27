@@ -19,6 +19,7 @@ OBJECTS= \
   $(GTK_OBJECTS) \
   $(QT_OBJECTS) \
   build/assertion.o \
+  build/assertions.o \
   build/default_output_handler.o \
   build/error_exception.o \
   build/exception_protector.o \
@@ -35,6 +36,9 @@ OBJECTS= \
 all: build tests
 
 build/assertion.o: assertion.cpp
+	$(CXX) $(CXXFLAGS) -c $? -o $@
+
+build/assertions.o: assertions.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 build/default_output_handler.o: output_handlers/default_output_handler.cpp
