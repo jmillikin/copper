@@ -203,17 +203,32 @@ FIXTURE_TEST(fixture_test, the_fixture) {
 
 // Tests of implementation details
 
+TEST(assertion_result_fresh) {
+  UnitTests::AssertionResult ar;
+  assert(!ar.passed());
+  assert(equal(ar.failure_message(), "Unitialized AssertionResult"));
+}
+
 TEST(assertion_result_pass) {
   UnitTests::AssertionResult ar;
   ar.pass();
 
   assert(ar.passed());
+  assert(equal(ar.failure_message(), "No Error"));
+
+  ar.fail("Bad fail");
+  assert(ar.passed());
+  assert(equal(ar.failure_message(), "No Error"));
 }
 
 TEST(assertion_result_failure) {
   UnitTests::AssertionResult ar;
   ar.fail("Error goes here");
 
+  assert(!ar.passed());
+  assert(equal(ar.failure_message(), "Error goes here"));
+
+  ar.pass();
   assert(!ar.passed());
   assert(equal(ar.failure_message(), "Error goes here"));
 }
