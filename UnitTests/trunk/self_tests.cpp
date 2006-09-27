@@ -230,7 +230,7 @@ TEST(boolean_assertion_failure) {
   assert(!ar.passed());
   assert(equal(ar.failure_message(), "Boolean assertion failed"));
 }
-/*
+
 TEST(assertion_pass) {
   UnitTests::AssertionResult ar;
   ar.pass();
@@ -268,5 +268,5 @@ TEST(reverse_failed_assertion) {
 
   assert(reversed_ar.passed());
 }
-*/
+
 }
