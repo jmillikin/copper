@@ -5,48 +5,36 @@
 
 #include "assertions.h"
 
-void assert_func(const std::string& assertion, const bool result,
+void assert_func(const std::string& assertion, const UnitTests::AssertionResult& result,
   const unsigned int line) throw (UnitTests::FailureException) {
 
-  if (!result) {
-    throw UnitTests::FailureException(assertion,
-      "Boolean assertion failed", line);
+  if (!result.passed()) {
+    throw UnitTests::FailureException(assertion, result.failure_message(), line);
   }
 }
 
-void assert_func(const std::string& assertion, const std::string& result,
-  const unsigned int line) throw (UnitTests::FailureException) {
+UnitTests::AssertionResult failed_func(const std::string& assertion,
+  const UnitTests::AssertionResult& result) throw () {
 
-  if (result.size() > 0) {
-    throw UnitTests::FailureException(assertion, result, line);
-  }
-}
+  UnitTests::AssertionResult this_result;
 
-std::string failed_func(const std::string& assertion,
-  const std::string& result) throw () {
-
-  if (result.size() > 0) {
-    return "";
+  if (!result.passed()) {
+    this_result.pass();
   }
 
-  return "Unexpected sucess of assertion '" + assertion + "'";
-}
-
-std::string failed_func(const std::string& assertion, const bool result) throw () {
-  if (!result) {
-    return "";
+  else {
+    this_result.fail(("Unexpected sucess of assertion '" + assertion + "'").c_str());
   }
 
-  return "Boolean assertion '" + assertion + "' succeeded";
+  return this_result;
 }
 
-
-std::string equal(char const* result, char const* expected) throw () {
+UnitTests::AssertionResult equal(char const* result, char const* expected) throw () {
   std::string s_result = result, s_expected = expected;
   return equal(s_result, s_expected);
 }
 
-std::string unequal(char const* bad, char const* result) throw () {
+UnitTests::AssertionResult unequal(char const* bad, char const* result) throw () {
   std::string s_result = result, s_bad = bad;
   return unequal(s_bad, s_result);
 }

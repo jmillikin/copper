@@ -16,6 +16,7 @@
 #define failed(ASSERTION) failed_func(#ASSERTION, (ASSERTION))
 
 // Macro for checking if an exception was thrown
+/*
 #define assert_throws(CODE, EXCEPTION_TYPE) \
   try {\
     CODE;\
@@ -23,5 +24,8 @@
       std::string(#CODE" threw no exceptions"), __LINE__);\
   }\
   catch (const EXCEPTION_TYPE&) {}
+*/
+#define assert_throws(CODE, EXCEPTION_TYPE) \
+  assert_func("assert_throws unimplemented", false, __LINE__)
 
 #endif /* ASSERTION_H */

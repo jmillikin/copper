@@ -201,4 +201,34 @@ FIXTURE_TEST(fixture_test, the_fixture) {
   assert(set_up_finished);
 }
 
+// Tests of implementation details
+
+TEST(assertion_result_pass) {
+  UnitTests::AssertionResult ar;
+  ar.pass();
+
+  assert(ar.passed());
+}
+
+TEST(assertion_result_failure) {
+  UnitTests::AssertionResult ar;
+  ar.fail("Error goes here");
+
+  assert(!ar.passed());
+  assert(equal(ar.failure_message(), "Error goes here"));
+}
+
+TEST(boolean_assertion_pass) {
+  UnitTests::AssertionResult ar(true);
+
+  assert(ar.passed());
+}
+
+TEST(boolean_assertion_failure) {
+  UnitTests::AssertionResult ar(false);
+
+  assert(!ar.passed());
+  assert(equal(ar.failure_message(), "Boolean assertion failed"));
+}
+
 }
