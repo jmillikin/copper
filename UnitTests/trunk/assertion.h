@@ -58,12 +58,14 @@ protected:
   unsigned int m_line;
 };
 
+UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) throw ();
+
 } // namespace
 
 // Some macros for easier calling of assert() and failed()
 #define assert(ASSERTION) UnitTests::Assertion(ASSERTION, #ASSERTION, __LINE__).check()
 
-#define failed(ASSERTION) failed_func(UnitTests::Assertion(ASSERTION, #ASSERTION, __LINE__))
+#define failed(ASSERTION) UnitTests::failed_func(UnitTests::Assertion(ASSERTION, #ASSERTION, __LINE__))
 
 // Macro for checking if an exception was thrown
 /*

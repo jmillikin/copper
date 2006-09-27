@@ -5,22 +5,6 @@
 
 #include "assertions.h"
 
-UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) throw () {
-  UnitTests::AssertionResult result;
-
-  if (!assertion.passed()) {
-    result.pass();
-  }
-
-  else {
-    std::string message = "Unexpected sucess of assertion '";
-    message = message + assertion.text() + "'";
-    result.fail(message.c_str());
-  }
-
-  return result;
-}
-
 UnitTests::AssertionResult equal(char const* result, char const* expected) throw () {
   std::string s_result = result, s_expected = expected;
   return equal(s_result, s_expected);

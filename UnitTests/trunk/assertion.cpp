@@ -53,4 +53,20 @@ void Assertion::check() const throw (FailureException) {
   }
 }
 
+UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) throw () {
+  UnitTests::AssertionResult result;
+
+  if (!assertion.passed()) {
+    result.pass();
+  }
+
+  else {
+    std::string message = "Unexpected sucess of assertion '";
+    message = message + assertion.text() + "'";
+    result.fail(message.c_str());
+  }
+
+  return result;
+}
+
 } // namespace

@@ -18,8 +18,6 @@
 #pragma warning(disable: 4290)
 #endif
 
-UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) throw ();
-
 /**
   Assert two values are equal
 
