@@ -13,7 +13,9 @@ UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) th
   }
 
   else {
-    result.fail("Assertion passed");
+    std::string message = "Unexpected sucess of assertion '";
+    message = message + assertion.text() + "'";
+    result.fail(message.c_str());
   }
 
   return result;
