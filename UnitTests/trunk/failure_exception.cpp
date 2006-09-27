@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "failure_exception.h"
+#include "failure_exception.hpp"
 
 namespace UnitTests {
 

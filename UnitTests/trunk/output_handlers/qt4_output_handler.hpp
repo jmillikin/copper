@@ -1,10 +1,10 @@
-/* qt4_output_handler.h -- Runs in a window constructed using QT 4
+/* qt4_output_handler.hpp -- Runs in a window constructed using QT 4
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef QT4_OUTPUT_HANDLER_H
-#define QT4_OUTPUT_HANDLER_H
+#ifndef QT4_OUTPUT_HANDLER_HPP
+#define QT4_OUTPUT_HANDLER_HPP
 
 #include <QApplication>
 #include <QMainWindow>
@@ -14,7 +14,7 @@
 #include <QStandardItemModel>
 #include <QPushButton>
 #include <list>
-#include "../output_handler.h"
+#include "../output_handler.hpp"
 
 namespace UnitTests {
 
@@ -150,4 +150,4 @@ protected:
 
 } /* namespace */
 
-#endif /* QT4_OUTPUT_HANDLER_H */
+#endif /* QT4_OUTPUT_HANDLER_HPP */

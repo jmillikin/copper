@@ -5,7 +5,7 @@
 
 #include <cstring>
 #include <cstdlib>
-#include "assertion_result.h"
+#include "assertion_result.hpp"
 
 namespace UnitTests {
 

@@ -1,13 +1,13 @@
-/* test.h -- Runs a single unit test
+/* test.hpp -- Runs a single unit test
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef TEST_H
-#define TEST_H
+#ifndef TEST_HPP
+#define TEST_HPP
 
-#include "assertion.h"
-#include "suite.h"
+#include "assertion.hpp"
+#include "suite.hpp"
 
 namespace UnitTests {
 
@@ -94,4 +94,4 @@ protected:
   } test_instance_##NAME; \
   void test_##NAME::_run()
 
-#endif /* TEST_H */
+#endif /* TEST_HPP */

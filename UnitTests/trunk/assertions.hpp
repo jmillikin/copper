@@ -1,17 +1,17 @@
-/* assertions.h - Available assertions
+/* assertions.hpp - Available assertions
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef ASSERTIONS_H
-#define ASSERTIONS_H
+#ifndef ASSERTIONS_HPP
+#define ASSERTIONS_HPP
 
 // For formatting error strings
 #include <sstream>
 
-#include "failure_exception.h"
-#include "assertion_result.h"
-#include "assertion.h"
+#include "failure_exception.hpp"
+#include "assertion_result.hpp"
+#include "assertion.hpp"
 
 // Disable warnings about throw specifications in VS 2003
 #ifdef _MSC_VER
@@ -248,4 +248,4 @@ UnitTests::AssertionResult less_than_or_equal(const T& result, const T& limit) t
   return cmp_result;
 }
 
-#endif /* ASSERTIONS_H */
+#endif /* ASSERTIONS_HPP */

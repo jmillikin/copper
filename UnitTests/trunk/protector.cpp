@@ -5,8 +5,8 @@
 
 #include <list>
 #include <algorithm>
-#include "protector.h"
-#include "test.h"
+#include "protector.hpp"
+#include "test.hpp"
 
 namespace UnitTests {
 

@@ -4,9 +4,9 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "test.h"
-#include "fixture.h"
-#include "error_exception.h"
+#include "test.hpp"
+#include "fixture.hpp"
+#include "error_exception.hpp"
 
 // Perform full testing of the framework, including error handling
 // This isn't usually included, since it can cause false errors for otherwise

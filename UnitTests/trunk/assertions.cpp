@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "assertions.h"
+#include "assertions.hpp"
 
 UnitTests::AssertionResult equal(char const* result, char const* expected) throw () {
   std::string s_result = result, s_expected = expected;

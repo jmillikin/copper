@@ -1,10 +1,10 @@
-/* assertion_result.h - The result of a single assertion
+/* assertion_result.hpp - The result of a single assertion
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef ASSERTION_RESULT_H
-#define ASSERTION_RESULT_H
+#ifndef ASSERTION_RESULT_HPP
+#define ASSERTION_RESULT_HPP
 
 // Disable warnings about throw specifications in VS 2003
 #ifdef _MSC_VER
@@ -59,4 +59,4 @@ protected:
 
 } // namespace
 
-#endif /* ASSERTION_RESULT_H */
+#endif /* ASSERTION_RESULT_HPP */

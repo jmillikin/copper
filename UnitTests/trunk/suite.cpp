@@ -3,9 +3,9 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "suite.h"
-#include "failure_exception.h"
-#include "protectors/exception_protector.h"
+#include "suite.hpp"
+#include "failure_exception.hpp"
+#include "protectors/exception_protector.hpp"
 #include <list>
 
 namespace UnitTests {

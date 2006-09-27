@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "test.h"
-#include "fixture.h"
+#include "test.hpp"
+#include "fixture.hpp"
 
 TEST_SUITE(sample_suite) {
 

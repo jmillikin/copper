@@ -3,9 +3,9 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "output_handler.h"
-#include "protector.h"
-#include "protectors/exception_protector.h"
+#include "output_handler.hpp"
+#include "protector.hpp"
+#include "protectors/exception_protector.hpp"
 
 namespace UnitTests {
 

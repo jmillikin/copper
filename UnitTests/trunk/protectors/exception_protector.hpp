@@ -1,12 +1,12 @@
-/* exception_protector.h -- Guards against unexpected exceptions
+/* exception_protector.hpp -- Guards against unexpected exceptions
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef EXCEPTION_PROTECTOR_H
-#define EXCEPTION_PROTECTOR_H
+#ifndef EXCEPTION_PROTECTOR_HPP
+#define EXCEPTION_PROTECTOR_HPP
 
-#include "../protector.h"
+#include "../protector.hpp"
 
 namespace UnitTests {
 
@@ -35,4 +35,4 @@ protected:
 
 } // namespace
 
-#endif /* EXCEPTION_PROTECTOR_H */
+#endif /* EXCEPTION_PROTECTOR_HPP */

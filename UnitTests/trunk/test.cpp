@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "test.h"
-#include "suite.h"
+#include "test.hpp"
+#include "suite.hpp"
 
 namespace UnitTests {
 

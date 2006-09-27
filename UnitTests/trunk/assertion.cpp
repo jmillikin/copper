@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "assertion.h"
+#include "assertion.hpp"
 
 namespace UnitTests {
 

@@ -1,13 +1,13 @@
-/* assertion.h - Asserts that certain statements are true
+/* assertion.hpp - Asserts that certain statements are true
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#include "failure_exception.h"
-#include "assertions.h"
+#include "failure_exception.hpp"
+#include "assertions.hpp"
 
-#ifndef ASSERTION_H
-#define ASSERTION_H
+#ifndef ASSERTION_HPP
+#define ASSERTION_HPP
 
 namespace UnitTests {
 
@@ -80,4 +80,4 @@ UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) th
 #define assert_throws(CODE, EXCEPTION_TYPE) \
   UnitTests::Assertion(false, "assert_throws unimplemented", __LINE__).check()
 
-#endif /* ASSERTION_H */
+#endif /* ASSERTION_HPP */

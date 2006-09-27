@@ -1,10 +1,10 @@
-/* suite.h -- Groups tests into logical groups
+/* suite.hpp -- Groups tests into logical groups
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef SUITE_H
-#define SUITE_H
+#ifndef SUITE_HPP
+#define SUITE_HPP
 
 #include <list>
 #include <string>
@@ -51,4 +51,4 @@ protected:
 
 } // namespace
 
-#endif /* SUITE_H */
+#endif /* SUITE_HPP */

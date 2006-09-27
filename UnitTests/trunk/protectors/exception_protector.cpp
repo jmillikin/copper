@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "exception_protector.h"
+#include "exception_protector.hpp"
 
 namespace UnitTests {
 

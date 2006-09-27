@@ -3,9 +3,9 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "gtk_output_handler.h"
-#include "../test.h"
-#include "../error_exception.h"
+#include "gtk_output_handler.hpp"
+#include "../test.hpp"
+#include "../error_exception.hpp"
 
 namespace UnitTests {
 

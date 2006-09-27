@@ -1,12 +1,12 @@
-/* default_output_handler.h -- Outputs to stdout and stderr
+/* default_output_handler.hpp -- Outputs to stdout and stderr
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef DEFAULT_OUTPUT_HANDLER_H
-#define DEFAULT_OUTPUT_HANDLER_H
+#ifndef DEFAULT_OUTPUT_HANDLER_HPP
+#define DEFAULT_OUTPUT_HANDLER_HPP
 
-#include "../output_handler.h"
+#include "../output_handler.hpp"
 
 namespace UnitTests {
 
@@ -70,4 +70,4 @@ protected:
 
 } /* namespace */
 
-#endif /* OUTPUT_HANDLER_H */
+#endif /* OUTPUT_HANDLER_HPP */

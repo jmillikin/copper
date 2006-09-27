@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "error_exception.h"
+#include "error_exception.hpp"
 
 namespace UnitTests {
 

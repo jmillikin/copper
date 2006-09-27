@@ -1,10 +1,10 @@
-/* failure_exception.h -- Thrown when an assertion fails
+/* failure_exception.hpp -- Thrown when an assertion fails
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef FAILURE_EXCEPTION_H
-#define FAILURE_EXCEPTION_H
+#ifndef FAILURE_EXCEPTION_HPP
+#define FAILURE_EXCEPTION_HPP
 
 #include <string>
 
@@ -39,4 +39,4 @@ public:
 
 } // namespace
 
-#endif // FAILURE_EXCEPTION_H
+#endif // FAILURE_EXCEPTION_HPP

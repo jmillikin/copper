@@ -1,10 +1,10 @@
-/* output_handler.h -- Base class for all output handlers
+/* output_handler.hpp -- Base class for all output handlers
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef OUTPUT_HANDLER_H
-#define OUTPUT_HANDLER_H
+#ifndef OUTPUT_HPPANDLER_HPP
+#define OUTPUT_HPPANDLER_HPP
 
 namespace UnitTests {
 
@@ -73,4 +73,4 @@ protected:
 
 } /* namespace */
 
-#endif /* OUTPUT_HANDLER_H */
+#endif /* OUTPUT_HPPANDLER_HPP */

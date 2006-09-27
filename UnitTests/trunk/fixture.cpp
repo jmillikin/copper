@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "fixture.h"
+#include "fixture.hpp"
 
 namespace UnitTests {
 

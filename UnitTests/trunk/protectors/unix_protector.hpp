@@ -1,12 +1,12 @@
-/* unix_protector.h -- Guards against unexpected UNIX signals
+/* unix_protector.hpp -- Guards against unexpected UNIX signals
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef UNIX_PROTECTOR_H
-#define UNIX_PROTECTOR_H
+#ifndef UNIX_PROTECTOR_HPP
+#define UNIX_PROTECTOR_HPP
 
-#include "../protector.h"
+#include "../protector.hpp"
 
 namespace UnitTests {
 
@@ -38,4 +38,4 @@ protected:
 
 } // namespace
 
-#endif /* UNIX_PROTECTOR_H */
+#endif /* UNIX_PROTECTOR_HPP */

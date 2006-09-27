@@ -1,15 +1,15 @@
-/* gtk_output_handler.h -- Runs in a window constructed using GTK+
+/* gtk_output_handler.hpp -- Runs in a window constructed using GTK+
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef GTK_OUTPUT_HANDLER_H
-#define GTK_OUTPUT_HANDLER_H
+#ifndef GTK_OUTPUT_HANDLER_HPP
+#define GTK_OUTPUT_HANDLER_HPP
 
 #include <gtk/gtk.h>
 #include <list>
 
-#include "../output_handler.h"
+#include "../output_handler.hpp"
 
 namespace UnitTests {
 
@@ -123,4 +123,4 @@ protected:
 
 } /* namespace */
 
-#endif /* GTK_OUTPUT_HANDLER_H */
+#endif /* GTK_OUTPUT_HANDLER_HPP */

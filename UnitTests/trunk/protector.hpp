@@ -1,13 +1,13 @@
-/* protector.h - Base class for all protectors
+/* protector.hpp - Base class for all protectors
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef PROTECTOR_H
-#define PROTECTOR_H
+#ifndef PROTECTOR_HPP
+#define PROTECTOR_HPP
 
-#include "failure_exception.h"
-#include "error_exception.h"
+#include "failure_exception.hpp"
+#include "error_exception.hpp"
 
 // Disable warnings about throw specifications in VS 2003
 #ifdef _MSC_VER
@@ -63,4 +63,4 @@ protected:
 
 } // namespace
 
-#endif /* PROTECTOR_H */
+#endif /* PROTECTOR_HPP */
