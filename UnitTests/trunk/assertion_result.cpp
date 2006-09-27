@@ -10,7 +10,8 @@
 namespace UnitTests {
 
 AssertionResult::AssertionResult() throw ():
-  m_finished(false) {}
+  m_finished(false), m_passed(false), m_failure_message(
+    strdup("Unitialized AssertionResult")) {}
 
 AssertionResult::AssertionResult(bool result) throw ():
   m_finished(true), m_passed(result) {
@@ -18,14 +19,15 @@ AssertionResult::AssertionResult(bool result) throw ():
   if (!passed()) {
     m_failure_message = strdup("Boolean assertion failed");
   }
+  else {
+    m_failure_message = strdup("No Error");
+  }
 }
 
 AssertionResult::AssertionResult(const AssertionResult& other) throw () {
   m_finished = other.m_finished;
   m_passed = other.m_passed;
-  if (m_finished && !m_passed) {
-    m_failure_message = strdup(other.m_failure_message);
-  }
+  m_failure_message = strdup(other.m_failure_message);
 }
 
 AssertionResult& AssertionResult::operator=(const AssertionResult& other)
@@ -33,23 +35,22 @@ AssertionResult& AssertionResult::operator=(const AssertionResult& other)
 
   m_finished = other.m_finished;
   m_passed = other.m_passed;
-  if (m_finished && !m_passed) {
-    m_failure_message = strdup(other.m_failure_message);
-  }
+  m_failure_message = strdup(other.m_failure_message);
 
   return *this;
 }
 
 AssertionResult::~AssertionResult() throw () {
-  if (failure_message()) {
-    free(m_failure_message);
-  }
+  free(m_failure_message);
 }
 
 const AssertionResult& AssertionResult::pass() throw () {
   if (!m_finished) {
     m_passed = true;
     m_finished = true;
+
+    free(m_failure_message);
+    m_failure_message = strdup("No Error");
   }
   return *this;
 }
@@ -59,8 +60,10 @@ const AssertionResult& AssertionResult::fail(const char* _failure_message)
 
   if (!m_finished) {
     m_passed = false;
-    m_failure_message = strdup(_failure_message);
     m_finished = true;
+
+    free(m_failure_message);
+    m_failure_message = strdup(_failure_message);
   }
   return *this;
 }
@@ -70,12 +73,7 @@ bool AssertionResult::passed() const throw () {
 }
 
 const char* AssertionResult::failure_message() const throw () {
-  if (m_finished && !m_passed) {
-    return m_failure_message;
-  }
-  else {
-    return 0;
-  }
+  return m_failure_message;
 }
 
 } // namespace
