@@ -258,7 +258,8 @@ TEST(reverse_passed_assertion) {
   UnitTests::AssertionResult reversed_ar = failed(ar);
 
   assert(!reversed_ar.passed());
-  assert(equal(reversed_ar.failure_message(), "Unexpected sucess of assertion"));
+  assert(equal(reversed_ar.failure_message(),
+    "Unexpected sucess of assertion 'ar'"));
 }
 
 TEST(reverse_failed_assertion) {
