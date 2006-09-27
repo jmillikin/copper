@@ -7,7 +7,6 @@
 #define SUITE_HPP
 
 #include <list>
-#include <string>
 
 namespace UnitTests {
 
