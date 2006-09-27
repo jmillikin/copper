@@ -68,16 +68,13 @@ UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) th
 #define failed(ASSERTION) UnitTests::failed_func(UnitTests::Assertion(ASSERTION, #ASSERTION, __LINE__))
 
 // Macro for checking if an exception was thrown
-/*
 #define assert_throws(CODE, EXCEPTION_TYPE) \
   try {\
     CODE;\
-    assert_func("assert_throws("#CODE", "#EXCEPTION_TYPE")",\
-      std::string(#CODE" threw no exceptions"), __LINE__);\
+    UnitTests::Assertion(\
+      UnitTests::AssertionResult().fail(#CODE" threw no exceptions"), \
+      "assert_throws("#CODE", "#EXCEPTION_TYPE")", __LINE__).check();\
   }\
   catch (const EXCEPTION_TYPE&) {}
-*/
-#define assert_throws(CODE, EXCEPTION_TYPE) \
-  UnitTests::Assertion(false, "assert_throws unimplemented", __LINE__).check()
 
 #endif /* ASSERTION_HPP */
