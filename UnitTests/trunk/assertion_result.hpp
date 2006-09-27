@@ -31,14 +31,14 @@ public:
   ~AssertionResult() throw ();
 
   /** Mark that the Assertion has passed */
-  void pass() throw ();
+  const AssertionResult& pass() throw ();
 
   /**
     Mark that the Assertion has failed
 
     @param message The failure message
   */
-  void fail(const char* failure_message) throw ();
+  const AssertionResult& fail(const char* failure_message) throw ();
 
   /** Get whether the Assertion has passed or failed */
   bool passed() const throw ();

@@ -46,19 +46,23 @@ AssertionResult::~AssertionResult() throw () {
   }
 }
 
-void AssertionResult::pass() throw () {
+const AssertionResult& AssertionResult::pass() throw () {
   if (!m_finished) {
     m_passed = true;
     m_finished = true;
   }
+  return *this;
 }
 
-void AssertionResult::fail(const char* _failure_message) throw () {
+const AssertionResult& AssertionResult::fail(const char* _failure_message)
+  throw () {
+
   if (!m_finished) {
     m_passed = false;
     m_failure_message = strdup(_failure_message);
     m_finished = true;
   }
+  return *this;
 }
 
 bool AssertionResult::passed() const throw () {
