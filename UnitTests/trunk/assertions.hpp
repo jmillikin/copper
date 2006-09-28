@@ -21,38 +21,40 @@
 /**
   Assert two values are equal
 
-  @param result The value which should be tested against the expected value
   @param expected The expected value of this assertion
+  @param actual The value which should be tested against the expected value
 
   @return An AssertionResult
 */
-template <class T, class U>
-UnitTests::AssertionResult equal(const T& result, const U& expected)
-  throw () {
+template <class Expected, class Actual>
+UnitTests::AssertionResult equal(
+  const Expected& expected,
+  const Actual& actual) throw () {
 
-  UnitTests::AssertionResult cmp_result;
-  if (result != expected) {
+  UnitTests::AssertionResult result;
+  if (expected != actual) {
     std::stringstream ss;
     ss << "Unequal values: expected '" << expected
-      << "', got '" << result << "'";
-    cmp_result.fail(ss.str().c_str());
+      << "', got '" << actual << "'";
+    result.fail(ss.str().c_str());
   }
   else {
-    cmp_result.pass();
+    result.pass();
   }
-  return cmp_result;
+  return result;
 }
 
 /**
   An overloaded form of equal(), used for character strings. This transforms
   the char*s into std::strings
 
-  @param result The value which should be tested against the expected value
   @param expected The expected value of this assertion
+  @param actual The value which should be tested against the expected value
 
   @return An AssertionResult
 */
-UnitTests::AssertionResult equal(char const* result, char const* expected) throw ();
+UnitTests::AssertionResult equal(char const* expected, char const* actual)
+  throw ();
 
 /**
   Check that the two values are nearly equal within a certain delta
@@ -64,44 +66,48 @@ UnitTests::AssertionResult equal(char const* result, char const* expected) throw
 
   @return An AssertionResult
 */
-template <class T>
-UnitTests::AssertionResult equal_within(const T& result, const T& expected,
-  const T& delta) throw () {
+template <class Value>
+UnitTests::AssertionResult equal_within(
+  const Value& expected,
+  const Value& actual,
+  const Value& delta) throw () {
 
-  UnitTests::AssertionResult cmp_result;
-  if ((result < expected - delta) || (result > expected + delta)) {
+  UnitTests::AssertionResult result;
+  if ((actual < expected - delta) || (actual > expected + delta)) {
     std::stringstream ss;
-    ss << "Result '" << result << "' is not within '" << delta << "' of '"
+    ss << "'" << actual << "' is not within '" << delta << "' of '"
         << expected << "'";
-    cmp_result.fail(ss.str().c_str());
+    result.fail(ss.str().c_str());
   }
   else {
-    cmp_result.pass();
+    result.pass();
   }
-  return cmp_result;
+  return result;
 }
 
 /**
   Assert two values are unequal
 
   @param bad Something that #actual should not be
-  @param result The value which should be tested against the expected value
+  @param actual The value which should be tested against the expected value
 
   @return An AssertionResult
 */
-template <class T, class U>
-UnitTests::AssertionResult unequal(const T& bad, const U& result) throw () {
+template <class Bad, class Actual>
+UnitTests::AssertionResult unequal(
+  const Bad& bad,
+  const Actual& actual) throw () {
 
-  UnitTests::AssertionResult cmp_result;
-  if (result == bad) {
+  UnitTests::AssertionResult result;
+  if (actual == bad) {
     std::stringstream ss;
-    ss << "'" << result << "' is equal to '" << bad << "'";
-    cmp_result.fail(ss.str().c_str());
+    ss << "'" << actual << "' is equal to '" << bad << "'";
+    result.fail(ss.str().c_str());
   }
   else {
-    cmp_result.pass();
+    result.pass();
   }
-  return cmp_result;
+  return result;
 }
 
 /**
@@ -109,11 +115,12 @@ UnitTests::AssertionResult unequal(const T& bad, const U& result) throw () {
   the char*s into std::strings
 
   @param bad Something that #actual should not be
-  @param result The value which should be tested against the expected value
+  @param actual The value which should be tested against the expected value
 
   @return An AssertionResult
 */
-UnitTests::AssertionResult unequal(char const* bad, char const* result) throw ();
+UnitTests::AssertionResult unequal(char const* bad, char const* actual)
+  throw ();
 
 /**
   Assert some pointer is NULL
@@ -122,17 +129,17 @@ UnitTests::AssertionResult unequal(char const* bad, char const* result) throw ()
 
   @return An AssertionResult
 */
-template <class T>
-UnitTests::AssertionResult null(const T* value) throw () {
+template <class Value>
+UnitTests::AssertionResult null(const Value* value) throw () {
 
-  UnitTests::AssertionResult cmp_result;
+  UnitTests::AssertionResult result;
   if (value != 0){
-    cmp_result.fail("Expected value to be NULL");
+    result.fail("Expected value to be NULL");
   }
   else {
-    cmp_result.pass();
+    result.pass();
   }
-  return cmp_result;
+  return result;
 }
 
 /**
@@ -142,87 +149,92 @@ UnitTests::AssertionResult null(const T* value) throw () {
 
   @return An AssertionResult
 */
-template <class T>
-UnitTests::AssertionResult not_null(const T* value) throw () {
+template <class Value>
+UnitTests::AssertionResult not_null(const Value* value) throw () {
 
-  UnitTests::AssertionResult cmp_result;
+  UnitTests::AssertionResult result;
   if (value == 0){
-    cmp_result.fail("Expected value to be non-NULL");
+    result.fail("Expected value to be non-NULL");
   }
   else {
-    cmp_result.pass();
+    result.pass();
   }
-  return cmp_result;
+  return result;
 }
 
 /**
   Check that the result is greater than some expected value
 
-  @param result The value which should be tested against the limit
-  @param limit The number the result must be above
+  @param actual The value which should be tested against the limit
+  @param limit The value the result must be above
 
   @return An AssertionResult
 */
-template <class T>
-UnitTests::AssertionResult greater_than(const T& result, const T& limit) throw () {
+template <class Value>
+UnitTests::AssertionResult greater_than(
+  const Value& actual,
+  const Value& limit) throw () {
 
-  UnitTests::AssertionResult cmp_result;
-  if (result <= limit){
+  UnitTests::AssertionResult result;
+  if (actual <= limit){
     std::stringstream ss;
-    ss << "'" << result << "' is not greater than '" << limit << "'";
-    cmp_result.fail(ss.str().c_str());
+    ss << "'" << actual << "' is not greater than '" << limit << "'";
+    result.fail(ss.str().c_str());
   }
   else {
-    cmp_result.pass();
+    result.pass();
   }
-  return cmp_result;
+  return result;
 }
 
 /**
   Check that the result is greater than or equal to some expected value
 
-  @param result The value which should be tested against the limit
+  @param actual The value which should be tested against the limit
   @param limit The number the result must be above or equal to
 
   @return An AssertionResult
 */
-template <class T>
-UnitTests::AssertionResult greater_than_or_equal(const T& result, const T& limit) throw () {
+template <class Value>
+UnitTests::AssertionResult greater_than_or_equal(
+  const Value& actual,
+  const Value& limit) throw () {
 
-  UnitTests::AssertionResult cmp_result;
-  if (result < limit){
+  UnitTests::AssertionResult result;
+  if (actual < limit){
     std::stringstream ss;
-    ss << "'" << result << "' is not greater than or equal to '" << limit
-      << "'";
-    cmp_result.fail(ss.str().c_str());
+    ss << "'" << actual << "' is less than '" << limit << "'";
+    result.fail(ss.str().c_str());
   }
   else {
-    cmp_result.pass();
+    result.pass();
   }
-  return cmp_result;
+  return result;
 }
 
 /**
   Check that the result is less than some expected value
 
-  @param result The value which should be tested against the limit
+  @param actual The value which should be tested against the limit
   @param limit The number the result must be below
 
   @return An AssertionResult
 */
-template <class T>
-UnitTests::AssertionResult less_than(const T& result, const T& limit) throw () {
+template <class Value>
+UnitTests::AssertionResult less_than(
+  const Value& actual,
+  const Value& limit) throw () {
 
-  UnitTests::AssertionResult cmp_result;
-  if (result >= limit){
+  UnitTests::AssertionResult result;
+  if (actual >= limit){
     std::stringstream ss;
-    ss << "'" << result << "' is not less than '" << limit << "'";
-    cmp_result.fail(ss.str().c_str());
+    ss << "'" << actual << "' is not less than '" << limit << "'";
+    result.fail(ss.str().c_str());
   }
   else {
-    cmp_result.pass();
+    result.pass();
   }
-  return cmp_result;
+  return result;
 }
 
 /**
@@ -233,19 +245,21 @@ UnitTests::AssertionResult less_than(const T& result, const T& limit) throw () {
 
   @return An AssertionResult
 */
-template <class T>
-UnitTests::AssertionResult less_than_or_equal(const T& result, const T& limit) throw () {
+template <class Value>
+UnitTests::AssertionResult less_than_or_equal(
+  const Value& actual,
+  const Value& limit) throw () {
 
-  UnitTests::AssertionResult cmp_result;
-  if (result > limit){
+  UnitTests::AssertionResult result;
+  if (actual > limit){
     std::stringstream ss;
-    ss << "'" << result << "' is not less than or equal to '" << limit << "'";
-    cmp_result.fail(ss.str().c_str());
+    ss << "'" << actual << "' is not less than or equal to '" << limit << "'";
+    result.fail(ss.str().c_str());
   }
   else {
-    cmp_result.pass();
+    result.pass();
   }
-  return cmp_result;
+  return result;
 }
 
 #endif /* ASSERTIONS_HPP */

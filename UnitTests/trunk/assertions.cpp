@@ -5,12 +5,16 @@
 
 #include "assertions.hpp"
 
-UnitTests::AssertionResult equal(char const* result, char const* expected) throw () {
-  std::string s_result = result, s_expected = expected;
-  return equal(s_result, s_expected);
+UnitTests::AssertionResult equal(char const* expected, char const* actual)
+  throw () {
+
+  std::string s_expected = expected, s_actual = actual;
+  return equal(s_expected, s_actual);
 }
 
-UnitTests::AssertionResult unequal(char const* bad, char const* result) throw () {
-  std::string s_result = result, s_bad = bad;
-  return unequal(s_bad, s_result);
+UnitTests::AssertionResult unequal(char const* bad, char const* actual)
+  throw () {
+
+  std::string s_actual = actual, s_bad = bad;
+  return unequal(s_bad, s_actual);
 }
