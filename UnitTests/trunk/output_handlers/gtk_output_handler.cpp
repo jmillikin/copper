@@ -212,8 +212,8 @@ void GtkOutputHandler::fail(const Test* test,
   GtkTreeIter iter;
   gtk_list_store_append (failure_list, &iter);
   gtk_list_store_set (failure_list, &iter,
-    FAILURE_COL_SUITE, test->suite->name,
-    FAILURE_COL_TEST, test->name,
+    FAILURE_COL_SUITE, pretty_name(test->suite->name).c_str(),
+    FAILURE_COL_TEST, pretty_name(test->name).c_str(),
     FAILURE_COL_FILE, test->file_name,
     FAILURE_COL_LINE, failure.line,
     FAILURE_COL_MESSAGE, failure.message,
@@ -229,8 +229,8 @@ void GtkOutputHandler::error(const Test* test,
   GtkTreeIter iter;
   gtk_list_store_append (error_list, &iter);
   gtk_list_store_set (error_list, &iter,
-    ERROR_COL_SUITE, test->suite->name,
-    ERROR_COL_TEST, test->name,
+    ERROR_COL_SUITE, pretty_name(test->suite->name).c_str(),
+    ERROR_COL_TEST, pretty_name(test->name).c_str(),
     ERROR_COL_FILE, test->file_name,
     ERROR_COL_MESSAGE, error.message,
     -1);
