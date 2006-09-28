@@ -62,9 +62,6 @@ protected:
 
   /** The number of tests that had errors */
   unsigned int num_errors;
-
-  /** How long tests took to complete */
-  double running_time;
 };
 
 } /* namespace */

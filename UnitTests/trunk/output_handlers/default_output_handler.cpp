@@ -17,16 +17,7 @@ DefaultOutputHandler::DefaultOutputHandler(int& argc, char**& argv)
   num_failed(0),
   num_errors(0) {}
 
-DefaultOutputHandler::~DefaultOutputHandler() throw () {
-  // Print statistics
-  printf(
-    "%u tests passed\n"
-    "%u tests failed\n"
-    "%u errors\n", num_passed, num_failed, num_errors);
-
-  // Print running time
-  printf("Completed in %lf seconds\n", running_time);
-}
+DefaultOutputHandler::~DefaultOutputHandler() throw () {}
 
 void DefaultOutputHandler::begin(const Test*) throw () {}
 
@@ -64,6 +55,11 @@ void DefaultOutputHandler::error(const Test* test,
 }
 
 void DefaultOutputHandler::run() {
+  // Reset statistics
+  num_passed = 0;
+  num_failed = 0;
+  num_errors = 0;
+
   // Store when the tests started
   timeval start_time;
   gettimeofday(&start_time, 0);
@@ -82,10 +78,20 @@ void DefaultOutputHandler::run() {
   // Calculate running time
   timeval now;
   gettimeofday(&now, 0);
-  running_time = now.tv_sec - start_time.tv_sec;
-  
-  running_time += static_cast<double>(now.tv_usec - start_time.tv_usec) /
-    1000000.0; // 1,000,000 microseconds in a second
+  double running_time = now.tv_sec - start_time.tv_sec;
+
+  // 1,000,000 microseconds in a second
+  running_time += static_cast<double>( now.tv_usec - start_time.tv_usec)
+    / 1000000.0;
+
+  // Print statistics
+  printf(
+    "%u tests passed\n"
+    "%u tests failed\n"
+    "%u errors\n", num_passed, num_failed, num_errors);
+
+  // Print running time
+  printf("Completed in %lf seconds\n", running_time);
 }
 
 } /* namespace */
