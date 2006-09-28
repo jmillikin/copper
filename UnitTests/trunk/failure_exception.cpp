@@ -15,6 +15,12 @@ FailureException::FailureException(
   message(strdup(_message.c_str())),
   line(_line) {}
 
+
+FailureException::FailureException(const FailureException& other) throw ():
+  assertion(strdup(other.assertion)),
+  message(strdup(other.message)),
+  line(other.line) {}
+
 FailureException::~FailureException() throw () {
   free(const_cast<char*>(assertion));
   free(const_cast<char*>(message));

@@ -24,6 +24,9 @@ public:
     const std::string& message,
     const unsigned int line) throw ();
 
+  /** Copy constructor */
+  FailureException(const FailureException& other) throw ();
+
   /** Default constructor */
   ~FailureException() throw ();
 
@@ -35,6 +38,10 @@ public:
 
   /** Which line of source code the assertion is at */
   const unsigned int line;
+
+protected:
+  /** Assignment operator */
+  FailureException& operator=(const FailureException& other) throw ();
 };
 
 } // namespace
