@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef OUTPUT_HPPANDLER_HPP
-#define OUTPUT_HPPANDLER_HPP
+#ifndef OUTPUT_HANDLER_HPP
+#define OUTPUT_HANDLER_HPP
 
 #include <string>
 
@@ -81,4 +81,4 @@ protected:
 
 } /* namespace */
 
-#endif /* OUTPUT_HPPANDLER_HPP */
+#endif /* OUTPUT_HANDLER_HPP */
