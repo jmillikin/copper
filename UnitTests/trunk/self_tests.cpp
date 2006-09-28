@@ -6,6 +6,7 @@
 #include "test.hpp"
 #include "fixture.hpp"
 #include "output_handler.hpp"
+#include "macros.hpp"
 
 // Various self-tests of the framework, to try and avoid bugs
 TEST_SUITE(self_tests) {
