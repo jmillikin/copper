@@ -66,4 +66,4 @@ protected:
 
 } /* namespace */
 
-#endif /* OUTPUT_HANDLER_HPP */
+#endif /* DEFAULT_OUTPUT_HANDLER_HPP */
