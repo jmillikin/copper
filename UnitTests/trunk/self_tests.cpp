@@ -285,4 +285,45 @@ TEST(reverse_failed_assertion) {
   assert(reversed_ar.passed());
 }
 
+class self_test_fail : public UnitTests::Test {
+public:
+  self_test_fail(): UnitTests::Test("fail self test", &current_suite,
+    __FILE__){}
+  void _run(UnitTests::Assertion** bad_assertion) {
+    assert(false);
+  }
+protected:
+  void set_up(){}
+  void tear_down(){}
+};
+
+TEST(failed_test__run) {
+  self_test_fail self_test_instance;
+
+  UnitTests::Assertion* failed;
+  self_test_instance._run(&failed);
+  assert(not_null(failed));
+  delete failed;
+}
+
+class self_test_pass : public UnitTests::Test {
+public:
+  self_test_pass(): UnitTests::Test("pass self test", &current_suite,
+    __FILE__){}
+  void _run(UnitTests::Assertion** bad_assertion) {
+    assert(true);
+  }
+protected:
+  void set_up(){}
+  void tear_down(){}
+};
+
+TEST(successful_test__run) {
+  self_test_pass self_test_instance;
+
+  UnitTests::Assertion* failed = 0;
+  self_test_instance._run(&failed);
+  assert(null(failed));
+}
+
 }
