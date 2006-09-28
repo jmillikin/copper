@@ -121,10 +121,12 @@ void Qt4OutputHandler_Window::fail(const Test* test,
   QModelIndex idx;
 
   idx = failure_list->index(new_row, FAILURE_COL_SUITE);
-  failure_list->setData(idx, pretty_name(test->suite->name).c_str());
+  failure_list->setData(idx,
+    OutputHandler::pretty_name(test->suite->name).c_str());
 
   idx = failure_list->index(new_row, FAILURE_COL_TEST);
-  failure_list->setData(idx, pretty_name(test->name).c_str());
+  failure_list->setData(idx,
+    OutputHandler::pretty_name(test->name).c_str());
 
   idx = failure_list->index(new_row, FAILURE_COL_FILE);
   failure_list->setData(idx, test->file_name);
@@ -147,10 +149,12 @@ void Qt4OutputHandler_Window::error(const Test* test,
   QModelIndex idx;
 
   idx = error_list->index(new_row, ERROR_COL_SUITE);
-  error_list->setData(idx, pretty_name(test->suite->name).c_str());
+  error_list->setData(idx,
+    OutputHandler::pretty_name(test->suite->name).c_str());
 
   idx = error_list->index(new_row, ERROR_COL_TEST);
-  error_list->setData(idx, pretty_name(test->name).c_str());
+  error_list->setData(idx,
+    OutputHandler::pretty_name(test->name).c_str());
 
   idx = error_list->index(new_row, ERROR_COL_FILE);
   error_list->setData(idx, test->file_name);
