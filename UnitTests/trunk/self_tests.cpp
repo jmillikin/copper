@@ -254,7 +254,6 @@ TEST(boolean_assertion_pass) {
   UnitTests::AssertionResult ar(true);
 
   assert(ar.passed());
-  assert(false);
 }
 
 TEST(boolean_assertion_failure) {
