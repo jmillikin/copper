@@ -8,9 +8,9 @@
 namespace UnitTests {
 
 Assertion::Assertion(const AssertionResult& result, const char* _text,
-  const unsigned int line) throw ():
+  const unsigned int _line) throw ():
 
-  m_result(result), m_text(strdup(_text)), m_line(line) {}
+  m_result(result), m_text(strdup(_text)), m_line(_line) {}
 
 Assertion::Assertion(const Assertion& other) throw () {
   m_result = other.m_result;
