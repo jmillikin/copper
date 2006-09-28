@@ -6,6 +6,7 @@
 #include "output_handler.hpp"
 #include "protector.hpp"
 #include "protectors/exception_protector.hpp"
+#include <algorithm>
 
 namespace UnitTests {
 
@@ -25,6 +26,26 @@ OutputHandler::OutputHandler(int& argc, char**& argv) {
 }
 
 OutputHandler::~OutputHandler() {}
+
+std::string OutputHandler::pretty_name(std::string name) throw () {
+  // Search for an upper-case letter, to ensure this won't make two upper-case
+  // letters in a row
+  std::string::size_type upper_index = name.find_first_of(
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+
+  // Search for the first lower-case letter
+  std::string::size_type lower_index = name.find_first_of(
+    "abcdefghijklmnopqrstuvwxyz", 0, upper_index);
+
+  if (lower_index != std::string::npos && lower_index < upper_index) {
+    name[lower_index] -= 32;
+  }
+
+  // Convert underscores to spaces
+  std::replace(name.begin(), name.end(), '_', ' ');
+
+  return name;
+}
 
 void OutputHandler::run_test(Test* test) {
   try {

@@ -6,6 +6,8 @@
 #ifndef OUTPUT_HPPANDLER_HPP
 #define OUTPUT_HPPANDLER_HPP
 
+#include <string>
+
 namespace UnitTests {
 
 class Test;
@@ -60,6 +62,13 @@ public:
     the more complex ones may allow selection of which tests to run
   */
   virtual void run() = 0;
+
+  /**
+    Convert an 'ugly' name, such as example_test, into a 'pretty' name, such
+    as 'Example test'. Basically, uppercase the first letter and convert
+    underscores to spaces
+  */
+  static std::string pretty_name(std::string ugly_name) throw ();
 
 protected:
   /**

@@ -205,10 +205,17 @@ FIXTURE_TEST(fixture_test, the_fixture) {
 
 // Used to create pretty names to show the user
 TEST(pretty_names) {
+  // Basic capitalization
   assert(equal(UnitTests::OutputHandler::pretty_name("something"),
     "Something"));
+
+  // Underscore conversion
   assert(equal(UnitTests::OutputHandler::pretty_name("some_thing"),
     "Some thing"));
+
+  // Leaves capitals alone
+  assert(equal(UnitTests::OutputHandler::pretty_name("Something"),
+    "Something"));
 }
 
 // Tests of implementation details
