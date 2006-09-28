@@ -41,11 +41,11 @@ void DefaultOutputHandler::fail(const Test* test,
 
   fprintf(stderr,
     "FAILURE in %s:%u:\n"
-    "%s::%s:\n"
+    "%s - %s:\n"
     "  %s\n"
     "  %s\n\n",
     test->file_name, failure.line,
-    test->suite->name, test->name,
+    pretty_name(test->suite->name).c_str(), pretty_name(test->name).c_str(),
     failure.assertion, failure.message);
 }
 
@@ -56,10 +56,10 @@ void DefaultOutputHandler::error(const Test* test,
 
   fprintf(stderr,
     "ERROR in %s:\n"
-    "%s::%s:\n"
+    "%s - %s:\n"
     "  %s\n\n",
     test->file_name,
-    test->suite->name, test->name,
+    pretty_name(test->suite->name).c_str(), pretty_name(test->name).c_str(),
     error.message);
 }
 
