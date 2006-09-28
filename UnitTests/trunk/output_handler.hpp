@@ -66,6 +66,10 @@ public:
     Convert an 'ugly' name, such as example_test, into a 'pretty' name, such
     as 'Example test'. Basically, uppercase the first letter and convert
     underscores to spaces
+
+    @param ugly_name The name to convert from
+
+    @return A prettier name, for display to the user
   */
   static std::string pretty_name(std::string ugly_name) throw ();
 
