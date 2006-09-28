@@ -11,7 +11,6 @@
 
 namespace UnitTests {
 
-class FailureException;
 class OutputHandler;
 
 class Test {
@@ -23,7 +22,7 @@ public:
   virtual ~Test();
 
   /** Run the test */
-  void run();
+  Assertion* run();
 
   /** The name of this test */
   const char* name;

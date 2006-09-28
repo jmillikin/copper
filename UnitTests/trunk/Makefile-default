@@ -24,7 +24,6 @@ OBJECTS= \
   build/default_output_handler.o \
   build/error_exception.o \
   build/exception_protector.o \
-  build/failure_exception.o \
   build/fixture.o \
   build/main.o \
   build/output_handler.o \
@@ -52,9 +51,6 @@ build/error_exception.o: error_exception.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 build/exception_protector.o: protectors/exception_protector.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
-
-build/failure_exception.o: failure_exception.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 build/fixture.o: fixture.cpp

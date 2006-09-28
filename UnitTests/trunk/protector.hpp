@@ -6,7 +6,6 @@
 #ifndef PROTECTOR_HPP
 #define PROTECTOR_HPP
 
-#include "failure_exception.hpp"
 #include "error_exception.hpp"
 
 // Disable warnings about throw specifications in VS 2003
@@ -17,6 +16,7 @@
 namespace UnitTests {
 
 class Test;
+class Assertion;
 
 /**
   Protectors guard against possible errors while running a test. This is an
@@ -41,24 +41,33 @@ public:
     Guard a test with all protectors currently available
 
     @param test The Test to guard
+
+    @return An assertion that caused the test to fail, or NULL if the test
+    passed
   */
-  static void guard(Test* test);
+  static Assertion* guard(Test* test);
 
 protected:
   /**
     Call the next Protector in the global list to guard the test
 
     @param test The Test to guard
+
+    @return An assertion that caused the test to fail, or NULL if the test
+    passed
   */
-  void next_protector(Test* test);
+  Assertion* next_protector(Test* test);
 
   /**
     Guard a test with this Protector. It is important that protectors be
     nested for them to work properly, so use next_protector() to do so
 
     @param test The Test to guard
+
+    @return An assertion that caused the test to fail, or NULL if the test
+    passed
   */
-  virtual void _guard(Test* test) throw (FailureException, ErrorException) = 0;
+  virtual Assertion* _guard(Test* test) throw (ErrorException) = 0;
 };
 
 } // namespace

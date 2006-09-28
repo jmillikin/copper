@@ -48,10 +48,9 @@ public:
     Marks a test as having failed
 
     @param test The test that failed
-    @param failure The failure that was thrown
+    @param assetion The assertion that caused the test to fail
   */
-  void fail(const Test* test, const FailureException& failure)
-    throw ();
+  void fail(const Test* test, const Assertion* assertion) throw ();
 
   /**
     Marks a test as having errored out before completion
@@ -138,8 +137,7 @@ public:
   ~Qt4OutputHandler();
   void begin(const Test* test) throw ();
   void pass(const Test* test) throw ();
-  void fail(const Test* test, const FailureException& failure)
-    throw ();
+  void fail(const Test* test, const Assertion* assertion) throw ();
   void error(const Test* test, const ErrorException& error) throw ();
   void run();
   

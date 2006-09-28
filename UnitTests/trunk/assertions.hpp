@@ -9,7 +9,6 @@
 // For formatting error strings
 #include <sstream>
 
-#include "failure_exception.hpp"
 #include "assertion_result.hpp"
 #include "assertion.hpp"
 

@@ -37,10 +37,9 @@ public:
     many tests failed
 
     @param test The test that failed
-    @param failure The failure that was thrown
+    @param assetion The assertion that caused the test to fail
   */
-  void fail(const Test* test, const FailureException& failure)
-    throw ();
+  void fail(const Test* test, const Assertion* assertion) throw ();
 
   /**
     Outputs errors to the standard error stream. Also keeps track of how

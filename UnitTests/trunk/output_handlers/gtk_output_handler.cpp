@@ -206,7 +206,7 @@ void GtkOutputHandler::pass(const Test*) throw () {
 }
 
 void GtkOutputHandler::fail(const Test* test,
-  const FailureException& failure) throw () {
+  const Assertion* assertion) throw () {
 
 
   GtkTreeIter iter;
@@ -215,8 +215,8 @@ void GtkOutputHandler::fail(const Test* test,
     FAILURE_COL_SUITE, pretty_name(test->suite->name).c_str(),
     FAILURE_COL_TEST, pretty_name(test->name).c_str(),
     FAILURE_COL_FILE, test->file_name,
-    FAILURE_COL_LINE, failure.line,
-    FAILURE_COL_MESSAGE, failure.message,
+    FAILURE_COL_LINE, assertion->line(),
+    FAILURE_COL_MESSAGE, assertion->failure_message(),
     -1);
 
   failures++;

@@ -11,8 +11,8 @@
 namespace UnitTests {
 
 class Test;
-class FailureException;
 class ErrorException;
+class Assertion;
 
 /**
   This class must be subclassed to provide different output formats
@@ -43,10 +43,10 @@ public:
     This function is called whenever a test fails
 
     @param test The test that failed
-    @param failure The failure that was thrown
+    @param assetion The assertion that caused the test to fail
   */
-  virtual void fail(const Test* test, const FailureException& failure)
-    throw ()= 0;
+  virtual void fail(const Test* test, const Assertion* assertion)
+    throw () = 0;
 
   /**
     This function is called whenever a test encounters an error while running

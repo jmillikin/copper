@@ -3,7 +3,6 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "failure_exception.hpp"
 #include "assertions.hpp"
 
 #ifndef ASSERTION_HPP

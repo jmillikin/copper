@@ -22,19 +22,12 @@ Test::Test(
 
 Test::~Test() {}
 
-void Test::run() {
+Assertion* Test::run() {
   Assertion* bad_assertion = 0;
   set_up();
   _run(&bad_assertion);
   tear_down();
-  if (bad_assertion) {
-    FailureException exception = FailureException(
-      bad_assertion->text(),
-      bad_assertion->failure_message(),
-      bad_assertion->line());
-    delete bad_assertion;
-    throw exception;
-  }
+  return bad_assertion;
 }
 
 } // namespace

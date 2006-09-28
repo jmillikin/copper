@@ -3,10 +3,11 @@
  * For conditions of distribution and use, see license.txt
  */
 
+#include <algorithm>
 #include "output_handler.hpp"
 #include "protector.hpp"
 #include "protectors/exception_protector.hpp"
-#include <algorithm>
+#include "assertion.hpp"
 
 namespace UnitTests {
 
@@ -50,12 +51,14 @@ std::string OutputHandler::pretty_name(std::string name) throw () {
 void OutputHandler::run_test(Test* test) {
   try {
     begin(test);
-    Protector::guard(test);
-    pass(test);
-  }
-
-  catch (const FailureException& e) {
-    fail(test, e); 
+    Assertion* failed = Protector::guard(test);
+    if (failed) {
+      fail(test, failed);
+      delete failed;
+    }
+    else {
+      pass(test);
+    }
   }
 
   catch (const ErrorException& e) {

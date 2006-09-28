@@ -14,11 +14,6 @@
 
 TEST_SUITE(full_self_tests) {
 
-TEST(failure_exception) {
-  throw UnitTests::FailureException("self-thrown FailureException",
-    "No error", 0);
-}
-
 TEST(error_exception) {
   throw UnitTests::ErrorException("self-thrown ErrorException");
 }
