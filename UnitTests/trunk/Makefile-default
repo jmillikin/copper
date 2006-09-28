@@ -69,7 +69,7 @@ build/qt4_output_handler.o: output_handlers/qt4_output_handler.cpp
 build/qt4_output_handler.moc.o: qt4_output_handler.moc.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
-qt4_output_handler.moc.cpp: output_handlers/qt4_output_handler.h
+qt4_output_handler.moc.cpp: output_handlers/qt4_output_handler.hpp
 	moc-qt4 $? > $@
 
 build/gtk_output_handler.o: output_handlers/gtk_output_handler.cpp
