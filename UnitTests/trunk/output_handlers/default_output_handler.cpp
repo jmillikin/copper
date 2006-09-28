@@ -5,8 +5,6 @@
 
 #include <sys/time.h>
 #include "default_output_handler.hpp"
-#include "../test.hpp"
-#include "../error_exception.hpp"
 
 namespace UnitTests {
 

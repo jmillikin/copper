@@ -8,11 +8,10 @@
 
 #include <string>
 
-namespace UnitTests {
+#include "test.hpp"
+#include "error_exception.hpp"
 
-class Test;
-class ErrorException;
-class Assertion;
+namespace UnitTests {
 
 /**
   This class must be subclassed to provide different output formats

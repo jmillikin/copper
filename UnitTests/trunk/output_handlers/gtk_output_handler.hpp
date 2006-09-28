@@ -7,7 +7,6 @@
 #define GTK_OUTPUT_HANDLER_HPP
 
 #include <gtk/gtk.h>
-#include <list>
 
 #include "../output_handler.hpp"
 

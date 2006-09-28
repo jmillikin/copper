@@ -13,7 +13,6 @@
 #include <QTabWidget>
 #include <QStandardItemModel>
 #include <QPushButton>
-#include <list>
 #include "../output_handler.hpp"
 
 namespace UnitTests {
