@@ -35,6 +35,7 @@ AssertionResult& AssertionResult::operator=(const AssertionResult& other)
 
   m_finished = other.m_finished;
   m_passed = other.m_passed;
+  free(m_failure_message);
   m_failure_message = strdup(other.m_failure_message);
 
   return *this;
