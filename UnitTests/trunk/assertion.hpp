@@ -44,9 +44,6 @@ public:
   /** If this Assertion failed, get the failure message */
   const char* failure_message() const throw ();
 
-  /** TEMPORARY */
-  void check() const throw (FailureException);
-
 protected:
   /** The result of running this assertion */
   AssertionResult m_result;
@@ -63,7 +60,13 @@ UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) th
 } // namespace
 
 // Some macros for easier calling of assert() and failed()
-#define assert(ASSERTION) UnitTests::Assertion(ASSERTION, #ASSERTION, __LINE__).check()
+#define assert(ASSERTION) {\
+  UnitTests::Assertion assertion(ASSERTION, #ASSERTION, __LINE__);\
+  if (!assertion.passed()) {\
+    *bad_assertion = new UnitTests::Assertion(assertion);\
+    return;\
+  }\
+}
 
 #define failed(ASSERTION) UnitTests::failed_func(UnitTests::Assertion(ASSERTION, #ASSERTION, __LINE__))
 
@@ -71,9 +74,13 @@ UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) th
 #define assert_throws(CODE, EXCEPTION_TYPE) \
   try {\
     CODE;\
-    UnitTests::Assertion(\
+    UnitTests::Assertion assertion(\
       UnitTests::AssertionResult().fail(#CODE" threw no exceptions"), \
-      "assert_throws("#CODE", "#EXCEPTION_TYPE")", __LINE__).check();\
+      "assert_throws("#CODE", "#EXCEPTION_TYPE")", __LINE__);\
+    if (!assertion.passed()) {\
+      *bad_assertion = new UnitTests::Assertion(assertion);\
+      return;\
+    }\
   }\
   catch (const EXCEPTION_TYPE&) {}
 

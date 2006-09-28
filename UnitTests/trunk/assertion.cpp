@@ -47,12 +47,6 @@ const char* Assertion::failure_message() const throw () {
   return m_result.failure_message();
 }
 
-void Assertion::check() const throw (FailureException) {
-  if (!passed()) {
-    throw FailureException(text(), failure_message(), line());
-  }
-}
-
 UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) throw () {
   UnitTests::AssertionResult result;
 
