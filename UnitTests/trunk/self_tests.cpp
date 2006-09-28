@@ -5,6 +5,7 @@
 
 #include "test.hpp"
 #include "fixture.hpp"
+#include "output_handler.hpp"
 
 // Various self-tests of the framework, to try and avoid bugs
 TEST_SUITE(self_tests) {
@@ -200,6 +201,14 @@ FIXTURE(the_fixture)
 FIXTURE_TEST(fixture_test, the_fixture) {
   assert(equal(fixture_var, 1));
   assert(set_up_finished);
+}
+
+// Used to create pretty names to show the user
+TEST(pretty_names) {
+  assert(equal(UnitTests::OutputHandler::pretty_name("something"),
+    "Something"));
+  assert(equal(UnitTests::OutputHandler::pretty_name("some_thing"),
+    "Some thing"));
 }
 
 // Tests of implementation details
