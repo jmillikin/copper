@@ -50,8 +50,12 @@ public:
   */
   void error(const Test* test, const ErrorException& error) throw ();
 
-  /** Run every test available */
-  void run();
+  /**
+    Run every test available
+
+    @return The number of failures + the number of errors
+  */
+  int run();
 
 protected:
   /** The number of tests that have passed */

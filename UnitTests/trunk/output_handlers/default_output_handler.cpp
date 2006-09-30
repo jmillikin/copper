@@ -52,7 +52,7 @@ void DefaultOutputHandler::error(const Test* test,
     error.message);
 }
 
-void DefaultOutputHandler::run() {
+int DefaultOutputHandler::run() {
   // Reset statistics
   num_passed = 0;
   num_failed = 0;
@@ -90,6 +90,8 @@ void DefaultOutputHandler::run() {
 
   // Print running time
   printf("Completed in %lf seconds\n", running_time);
+
+  return num_failed + num_errors;
 }
 
 } /* namespace */

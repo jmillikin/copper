@@ -54,8 +54,12 @@ public:
   */
   void error(const Test* test, const ErrorException& error) throw ();
 
-  /** show the window, and start the GTK+ main loop */
-  void run();
+  /**
+    Show the window, and start the GTK+ main loop
+
+    @return The number of failures + the number of errors
+  */
+  int run();
 
 protected:
   /**

@@ -8,7 +8,5 @@
 int main(int argc, char** argv) {
   // Where output will be directed to
   UnitTests::DefaultOutputHandler output(argc, argv);
-  output.run();
-
-  return 0;
+  return output.run();
 }

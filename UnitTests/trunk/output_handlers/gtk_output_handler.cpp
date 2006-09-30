@@ -237,11 +237,13 @@ void GtkOutputHandler::error(const Test* test,
   update();
 }
 
-void GtkOutputHandler::run() {
+int GtkOutputHandler::run() {
   gtk_widget_show_all(GTK_WIDGET(window));
   gtk_widget_hide(GTK_WIDGET(progress));
   gtk_widget_hide(GTK_WIDGET(statistics));
   gtk_main();
+
+  return failures + errors;
 }
 
 void GtkOutputHandler::update() throw () {

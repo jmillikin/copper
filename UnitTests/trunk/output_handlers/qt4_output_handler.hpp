@@ -59,8 +59,12 @@ public:
   */
   void error(const Test* test, const ErrorException& error) throw ();
 
-  /** show the window, and start the QApplication */
-  void run();
+  /**
+    Show the window, and start the QApplication
+
+    @return The number of failures + the number of errors
+  */
+  int run();
 
 protected:
   /** Update the list of tests to run */
@@ -138,7 +142,7 @@ public:
   void pass(const Test* test) throw ();
   void fail(const Test* test, const Assertion* assertion) throw ();
   void error(const Test* test, const ErrorException& error) throw ();
-  void run();
+  int run();
   
 protected:
   QApplication app;

@@ -164,11 +164,13 @@ void Qt4OutputHandler_Window::error(const Test* test,
   update_window();
 }
 
-void Qt4OutputHandler_Window::run() {
+int Qt4OutputHandler_Window::run() {
   show();
   progress->hide();
   statistics->hide();
   qApp->exec();
+
+  return failures + errors;
 }
 
 std::list<Test*> Qt4OutputHandler_Window::find_tests() throw () {
@@ -302,6 +304,6 @@ void Qt4OutputHandler::error(const Test* test,
   window->error(test, error);
 }
 
-void Qt4OutputHandler::run() { window->run(); }
+int Qt4OutputHandler::run() { return window->run(); }
 
 } /* namespace */

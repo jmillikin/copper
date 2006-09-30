@@ -59,8 +59,10 @@ public:
   /**
     Run this output handler. The simplest implementations will run every test,
     the more complex ones may allow selection of which tests to run
+
+    @return Should be 0 if all tests passed, otherwise up to the implementation
   */
-  virtual void run() = 0;
+  virtual int run() = 0;
 
   /**
     Convert an 'ugly' name, such as example_test, into a 'pretty' name, such
