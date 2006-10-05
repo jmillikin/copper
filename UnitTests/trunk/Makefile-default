@@ -1,7 +1,13 @@
 CXX=g++
+
+SONAME=libunar.so.1
+
 # For the default output handler
+SO_CXXFLAGS=-Wall -Wextra -g3 -O0 -fpic
+SO_LFLAGS=-shared -Wl,-soname,$(SONAME)
+
 CXXFLAGS=-Wall -Wextra -g3 -O0
-LFLAGS=
+LFLAGS=-L. -lunar
 
 # For the QT 4 output handler
 #CXXFLAGS=-Wall -Wextra -g3 -O0 `pkg-config --cflags QtGui_debug QtCore_debug`
@@ -15,7 +21,7 @@ LFLAGS=
 
 RM=rm -f
 
-OBJECTS= \
+SO_OBJECTS=\
   $(GTK_OBJECTS) \
   $(QT_OBJECTS) \
   build/assertion.o \
@@ -25,36 +31,41 @@ OBJECTS= \
   build/error_exception.o \
   build/exception_protector.o \
   build/fixture.o \
-  build/main.o \
   build/output_handler.o \
   build/protector.o \
-  build/self_tests.o \
   build/suite.o \
   build/test.o \
   build/unix_protector.o
 
-all: build tests
+OBJECTS= \
+  build/self_tests.o \
+  build/main.o
+
+all: $(SONAME) build tests
+
+$(SONAME): $(SO_OBJECTS)
+	$(CXX) $(SO_LFLAGS) $(SO_OBJECTS) -o $@
 
 build/assertion.o: assertion.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/assertions.o: assertions.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/assertion_result.o: assertion_result.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/default_output_handler.o: output_handlers/default_output_handler.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 build/error_exception.o: error_exception.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/exception_protector.o: protectors/exception_protector.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/fixture.o: fixture.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/main.o: main.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
@@ -72,10 +83,10 @@ build/gtk_output_handler.o: output_handlers/gtk_output_handler.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 build/output_handler.o: output_handler.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/protector.o: protector.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/sample_suite.o: sample_suite.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
@@ -84,13 +95,13 @@ build/self_tests.o: self_tests.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 build/suite.o: suite.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/test.o: test.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/unix_protector.o: protectors/unix_protector.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 tests: $(OBJECTS)
 	$(CXX) $(LFLAGS) $(OBJECTS) -o $@
@@ -99,4 +110,4 @@ build:
 	@mkdir -p build
 
 clean:
-	$(RM) $(OBJECTS)
+	$(RM) $(SONAME) $(SO_OBJECTS) $(OBJECTS)
