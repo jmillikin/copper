@@ -31,14 +31,14 @@ UnitTests::AssertionResult equal(
   const Actual& actual) throw () {
 
   UnitTests::AssertionResult result;
-  if (expected != actual) {
+  if (expected == actual) {
+    result.pass();
+  }
+  else {
     std::stringstream ss;
     ss << "Unequal values: expected '" << expected
       << "', got '" << actual << "'";
     result.fail(ss.str().c_str());
-  }
-  else {
-    result.pass();
   }
   return result;
 }
