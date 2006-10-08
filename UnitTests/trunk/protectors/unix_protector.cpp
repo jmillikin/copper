@@ -5,6 +5,7 @@
 
 #include <signal.h>
 #include <setjmp.h>
+#include <cstring>
 #include "unix_protector.hpp"
 
 const unsigned int SIGNAL_COUNT = 3;
