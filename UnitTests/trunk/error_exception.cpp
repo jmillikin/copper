@@ -4,11 +4,13 @@
  */
 
 #include "error_exception.hpp"
+#include <cstring>
+#include <cstdlib>
 
 namespace UnitTests {
 
-ErrorException::ErrorException(const std::string& _message) throw ():
-  message(strdup(_message.c_str())) {}
+ErrorException::ErrorException(const char* _message) throw ():
+  message(strdup(_message)) {}
 
 ErrorException::~ErrorException() throw () {
   free(const_cast<char*>(message));

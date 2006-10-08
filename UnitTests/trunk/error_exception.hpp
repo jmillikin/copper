@@ -6,8 +6,6 @@
 #ifndef ERROR_EXCEPTION_HPP
 #define ERROR_EXCEPTION_HPP
 
-#include <string>
-
 namespace UnitTests {
 
 /**
@@ -20,7 +18,7 @@ public:
 
     @param message The error string
   */
-  ErrorException(const std::string& message) throw ();
+  ErrorException(const char* message) throw ();
 
   /** Default constructor */
   ~ErrorException() throw ();
