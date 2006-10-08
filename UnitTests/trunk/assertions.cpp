@@ -5,16 +5,36 @@
 
 #include "assertions.hpp"
 
+/** A simple class for string comparisons */
+class MiniString {
+  friend std::ostream& operator<<(std::ostream& out, const MiniString& str)
+    throw ();
+public:
+  MiniString(const char* _str) throw ():
+    str(_str) {}
+
+  bool operator==(const MiniString& other) const throw () {
+    return strcmp(str, other.str) == 0;
+  }
+
+  const char* str;
+};
+
+std::ostream& operator<<(std::ostream& out, const MiniString& str) throw () {
+  out << str.str;
+  return out;
+}
+
 UnitTests::AssertionResult equal(char const* expected, char const* actual)
   throw () {
 
-  std::string s_expected = expected, s_actual = actual;
+  MiniString s_expected(expected), s_actual(actual);
   return equal(s_expected, s_actual);
 }
 
 UnitTests::AssertionResult unequal(char const* bad, char const* actual)
   throw () {
 
-  std::string s_actual = actual, s_bad = bad;
+  MiniString s_actual(actual), s_bad(bad);
   return unequal(s_bad, s_actual);
 }
