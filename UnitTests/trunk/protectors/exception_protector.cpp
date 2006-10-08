@@ -4,6 +4,7 @@
  */
 
 #include "exception_protector.hpp"
+#include <stdexcept>
 
 namespace UnitTests {
 
@@ -20,7 +21,16 @@ Assertion* ExceptionProtector::_guard(Test* test)
   }
 
   catch (const std::exception& e){
-    throw ErrorException(std::string("Unhandled exception: ") + e.what());
+    const char* message_template = "Unhandled exception: %s";
+    const char* exception_message = e.what();
+    char* message = static_cast<char*>(malloc(
+      strlen(message_template) - 2
+      + strlen(exception_message)
+      + 1));
+    sprintf(message, message_template, exception_message);
+    ErrorException exception(message);
+    free(message);
+    throw exception;
   }
 
   catch (...){
