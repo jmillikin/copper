@@ -55,9 +55,16 @@ UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) th
   }
 
   else {
-    std::string message = "Unexpected sucess of assertion '";
-    message = message + assertion.text() + "'";
-    result.fail(message.c_str());
+    const char* text_str = assertion.text();
+    const char* message_template = "Unexpected success of assertion '%s'";
+    int message_size =
+      // Size of the message template - 2 for the %s
+      (strlen(message_template) - 2)
+      + strlen(text_str) + 1; // size of the assertion text + 1 for NULL 
+    char* message = static_cast<char*>(malloc(message_size));
+    sprintf(message, message_template, text_str);
+    result.fail(message);
+    free(message);
   }
 
   return result;
