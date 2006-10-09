@@ -3,10 +3,10 @@ CXX=g++
 SONAME=libunar.so.1
 
 # For the default output handler
-SO_CXXFLAGS=-Wall -Wextra -g3 -O0 -fpic
+SO_CXXFLAGS=-Wall -Wextra -g3 -O0 -fpic -fvisibility=hidden -fno-rtti
 SO_LFLAGS=-shared -Wl,-soname,$(SONAME)
 
-CXXFLAGS=-Wall -Wextra -g3 -O0
+CXXFLAGS=-Wall -Wextra -g3 -O0 -fvisibility=hidden -fno-rtti
 LFLAGS=-L. -lunar
 
 # For the QT 4 output handler
@@ -56,7 +56,7 @@ build/assertion_result.o: assertion_result.cpp
 	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/default_output_handler.o: output_handlers/default_output_handler.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/error_exception.o: error_exception.cpp
 	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
@@ -71,16 +71,16 @@ build/main.o: main.cpp
 	$(CXX) $(CXXFLAGS) -c $? -o $@
 
 build/qt4_output_handler.o: output_handlers/qt4_output_handler.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/qt4_output_handler.moc.o: qt4_output_handler.moc.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 qt4_output_handler.moc.cpp: output_handlers/qt4_output_handler.hpp
 	moc-qt4 $? > $@
 
 build/gtk_output_handler.o: output_handlers/gtk_output_handler.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/output_handler.o: output_handler.cpp
 	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
