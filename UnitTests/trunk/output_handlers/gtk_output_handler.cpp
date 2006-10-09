@@ -4,6 +4,7 @@
  */
 
 #include "gtk_output_handler.hpp"
+#include "../export.hpp"
 
 namespace UnitTests {
 
@@ -90,7 +91,7 @@ void GtkOutputHandler::on_execute_button_clicked(GtkButton* button,
   }
 }
 
-GtkOutputHandler::GtkOutputHandler(int& argc, char**& argv) throw ():
+EXPORT GtkOutputHandler::GtkOutputHandler(int& argc, char**& argv) throw ():
   OutputHandler(argc, argv), running_tests(false) {
 
   if (!g_thread_supported()) {
@@ -183,7 +184,7 @@ GtkOutputHandler::GtkOutputHandler(int& argc, char**& argv) throw ():
   gtk_container_add(GTK_CONTAINER(window), vbox);
 }
 
-GtkOutputHandler::~GtkOutputHandler() throw () {
+EXPORT GtkOutputHandler::~GtkOutputHandler() throw () {
   //gtk_widget_destroy(GTK_WIDGET(window));
 }
 
@@ -222,7 +223,7 @@ void GtkOutputHandler::fail(const Test* test,
 }
 
 void GtkOutputHandler::error(const Test* test,
-  const ErrorException& error) throw () {
+  const Error* error) throw () {
 
   GtkTreeIter iter;
   gtk_list_store_append (error_list, &iter);
@@ -230,14 +231,14 @@ void GtkOutputHandler::error(const Test* test,
     ERROR_COL_SUITE, pretty_name(test->suite->name).c_str(),
     ERROR_COL_TEST, pretty_name(test->name).c_str(),
     ERROR_COL_FILE, test->file_name,
-    ERROR_COL_MESSAGE, error.message,
+    ERROR_COL_MESSAGE, error->message,
     -1);
 
   errors++;
   update();
 }
 
-int GtkOutputHandler::run() {
+EXPORT int GtkOutputHandler::run() {
   gtk_widget_show_all(GTK_WIDGET(window));
   gtk_widget_hide(GTK_WIDGET(progress));
   gtk_widget_hide(GTK_WIDGET(statistics));

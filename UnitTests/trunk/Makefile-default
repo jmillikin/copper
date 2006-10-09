@@ -15,8 +15,8 @@ LFLAGS=-L. -lunar
 #QT_OBJECTS=build/qt4_output_handler.o build/qt4_output_handler.moc.o
 
 # For the GTK+ output handler
-#CXXFLAGS=-Wall -Wextra -g3 -O0 `pkg-config --cflags gtk+-2.0`
-#LFLAGS=`pkg-config --libs gtk+-2.0 gthread-2.0`
+#GTK_CXXFLAGS=`pkg-config --cflags gtk+-2.0`
+#GTK_LFLAGS=`pkg-config --libs gtk+-2.0 gthread-2.0`
 #GTK_OBJECTS=build/gtk_output_handler.o
 
 RM=rm -f
@@ -68,7 +68,7 @@ build/fixture.o: fixture.cpp
 	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/main.o: main.cpp
-	$(CXX) $(CXXFLAGS) $(QT_CXXFLAGS) -c $? -o $@
+	$(CXX) $(CXXFLAGS) $(QT_CXXFLAGS) $(GTK_CXXFLAGS) -c $? -o $@
 
 build/qt4_output_handler.o: output_handlers/qt4_output_handler.cpp
 	$(CXX) $(SO_CXXFLAGS) $(QT_CXXFLAGS) -c $? -o $@
@@ -80,7 +80,7 @@ qt4_output_handler.moc.cpp: output_handlers/qt4_output_handler.hpp
 	moc-qt4 $? > $@
 
 build/gtk_output_handler.o: output_handlers/gtk_output_handler.cpp
-	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) $(GTK_CXXFLAGS) -c $? -o $@
 
 build/output_handler.o: output_handler.cpp
 	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
@@ -104,10 +104,10 @@ build/unix_protector.o: protectors/unix_protector.cpp
 	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 tests: $(OBJECTS)
-	$(CXX) $(LFLAGS) $(QT_LFLAGS) $(OBJECTS) -o $@
+	$(CXX) $(LFLAGS) $(GTK_LFLAGS) $(QT_LFLAGS) $(OBJECTS) -o $@
 
 build:
 	@mkdir -p build
 
 clean:
-	$(RM) $(SONAME) $(SO_OBJECTS) $(OBJECTS) $(QT_OBJECTS)
+	$(RM) $(SONAME) $(SO_OBJECTS) $(OBJECTS) $(QT_OBJECTS) $(GTK_OBJECTS)
