@@ -4,7 +4,7 @@ SONAME=libunar.so.1
 
 # For the default output handler
 SO_CXXFLAGS=-Wall -Wextra -g3 -O0 -fpic -fvisibility=hidden -fno-rtti -fno-exceptions -DNO_EXCEPTIONS
-SO_LFLAGS=-shared -Wl,-soname,$(SONAME)
+SO_LFLAGS=-shared
 
 CXXFLAGS=-Wall -Wextra -g3 -O0 -fvisibility=hidden -fno-rtti -fno-exceptions -DNO_EXCEPTIONS
 LFLAGS=-L. -lunar
