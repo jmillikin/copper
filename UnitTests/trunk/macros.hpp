@@ -6,6 +6,10 @@
 #ifndef MACROS_HPP
 #define MACROS_HPP
 
+#ifdef assert
+#undef assert
+#endif
+
 /**
   Assert that something is true. If an assertion fails, the test will
   terminate
