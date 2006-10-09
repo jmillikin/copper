@@ -3,6 +3,11 @@
  * For conditions of distribution and use, see license.txt
  */
 
+// For strsignal
+#ifndef _GNU_SOURCE
+#define _GNU_SOURCE
+#endif
+
 #include <signal.h>
 #include <setjmp.h>
 #include <cstring>

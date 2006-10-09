@@ -5,6 +5,7 @@
 
 #include "assertion.hpp"
 #include "export.hpp"
+#include <cstdio>
 
 namespace UnitTests {
 
