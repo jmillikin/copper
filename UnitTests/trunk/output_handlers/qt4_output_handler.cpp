@@ -7,6 +7,7 @@
 #include <QThread>
 #include <QTreeView>
 #include "qt4_output_handler.hpp"
+#include "../export.hpp"
 
 namespace UnitTests {
 
@@ -102,7 +103,7 @@ Qt4OutputHandler_Window::Qt4OutputHandler_Window(
 Qt4OutputHandler_Window::~Qt4OutputHandler_Window() throw () {
 }
 
-void Qt4OutputHandler_Window::begin(const Test* test) throw () {
+void Qt4OutputHandler_Window::begin(const Test*) throw () {
   update_window();
 }
 
@@ -140,7 +141,7 @@ void Qt4OutputHandler_Window::fail(const Test* test,
 }
 
 void Qt4OutputHandler_Window::error(const Test* test,
-  const ErrorException& error) throw () {
+  const Error* error) throw () {
 
   int new_row = error_list->rowCount();
   error_list->insertRows(new_row, 1);
@@ -158,7 +159,7 @@ void Qt4OutputHandler_Window::error(const Test* test,
   error_list->setData(idx, test->file_name);
 
   idx = error_list->index(new_row, ERROR_COL_MESSAGE);
-  error_list->setData(idx, error.message);
+  error_list->setData(idx, error->message);
 
   errors++;
   update_window();
@@ -275,12 +276,12 @@ void Qt4OutputHandler_Window::tests_finished() {
   running_tests = false;
 }
 
-Qt4OutputHandler::Qt4OutputHandler(int& argc, char**& argv):
+EXPORT Qt4OutputHandler::Qt4OutputHandler(int& argc, char**& argv):
   OutputHandler(argc, argv), app(argc, argv) {
   window = new Qt4OutputHandler_Window(this);
 }
 
-Qt4OutputHandler::~Qt4OutputHandler() {
+EXPORT Qt4OutputHandler::~Qt4OutputHandler() {
   delete window;
 }
 
@@ -299,11 +300,11 @@ void Qt4OutputHandler::fail(const Test* test,
 }
 
 void Qt4OutputHandler::error(const Test* test,
-  const ErrorException& error) throw () {
+  const Error* error) throw () {
 
   window->error(test, error);
 }
 
-int Qt4OutputHandler::run() { return window->run(); }
+EXPORT int Qt4OutputHandler::run() { return window->run(); }
 
 } /* namespace */

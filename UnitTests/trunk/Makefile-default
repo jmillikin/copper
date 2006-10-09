@@ -3,15 +3,15 @@ CXX=g++
 SONAME=libunar.so.1
 
 # For the default output handler
-SO_CXXFLAGS=-Wall -Wextra -g3 -O0 -fpic -fvisibility=hidden -fno-rtti -fno-exceptions -DNO_EXCEPTIONS -ansi -pedantic
+SO_CXXFLAGS=-Wall -Wextra -g3 -O0 -fpic -fvisibility=hidden -fno-rtti -fno-exceptions -DNO_EXCEPTIONS
 SO_LFLAGS=-shared -Wl,-soname,$(SONAME)
 
-CXXFLAGS=-Wall -Wextra -g3 -O0 -fvisibility=hidden -fno-rtti -fno-exceptions -DNO_EXCEPTIONS -ansi -pedantic
+CXXFLAGS=-Wall -Wextra -g3 -O0 -fvisibility=hidden -fno-rtti -fno-exceptions -DNO_EXCEPTIONS
 LFLAGS=-L. -lunar
 
 # For the QT 4 output handler
-#CXXFLAGS=-Wall -Wextra -g3 -O0 `pkg-config --cflags QtGui_debug QtCore_debug`
-#LFLAGS=`pkg-config --libs QtGui_debug QtCore_debug`
+#QT_CXXFLAGS=`pkg-config --cflags QtGui_debug QtCore_debug`
+#QT_LFLAGS=`pkg-config --libs QtGui_debug QtCore_debug`
 #QT_OBJECTS=build/qt4_output_handler.o build/qt4_output_handler.moc.o
 
 # For the GTK+ output handler
@@ -44,7 +44,7 @@ OBJECTS= \
 all: $(SONAME) build tests
 
 $(SONAME): $(SO_OBJECTS)
-	$(CXX) $(SO_LFLAGS) $(SO_OBJECTS) -o $@
+	$(CXX) $(SO_LFLAGS) $(QT_LFLAGS) $(SO_OBJECTS) -o $@
 
 build/assertion.o: assertion.cpp
 	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
@@ -68,13 +68,13 @@ build/fixture.o: fixture.cpp
 	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/main.o: main.cpp
-	$(CXX) $(CXXFLAGS) -c $? -o $@
+	$(CXX) $(CXXFLAGS) $(QT_CXXFLAGS) -c $? -o $@
 
 build/qt4_output_handler.o: output_handlers/qt4_output_handler.cpp
-	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) $(QT_CXXFLAGS) -c $? -o $@
 
 build/qt4_output_handler.moc.o: qt4_output_handler.moc.cpp
-	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
+	$(CXX) $(SO_CXXFLAGS) $(QT_CXXFLAGS) -c $? -o $@
 
 qt4_output_handler.moc.cpp: output_handlers/qt4_output_handler.hpp
 	moc-qt4 $? > $@
@@ -104,10 +104,10 @@ build/unix_protector.o: protectors/unix_protector.cpp
 	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 tests: $(OBJECTS)
-	$(CXX) $(LFLAGS) $(OBJECTS) -o $@
+	$(CXX) $(LFLAGS) $(QT_LFLAGS) $(OBJECTS) -o $@
 
 build:
 	@mkdir -p build
 
 clean:
-	$(RM) $(SONAME) $(SO_OBJECTS) $(OBJECTS)
+	$(RM) $(SONAME) $(SO_OBJECTS) $(OBJECTS) $(QT_OBJECTS)

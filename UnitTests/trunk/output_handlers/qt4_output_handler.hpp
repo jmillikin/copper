@@ -57,7 +57,7 @@ public:
     @param test The test that failed
     @param error The error that was thrown
   */
-  void error(const Test* test, const ErrorException& error) throw ();
+  void error(const Test* test, const Error* error) throw ();
 
   /**
     Show the window, and start the QApplication
@@ -141,7 +141,7 @@ public:
   void begin(const Test* test) throw ();
   void pass(const Test* test) throw ();
   void fail(const Test* test, const Assertion* assertion) throw ();
-  void error(const Test* test, const ErrorException& error) throw ();
+  void error(const Test* test, const Error* error) throw ();
   int run();
   
 protected:
