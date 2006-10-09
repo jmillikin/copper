@@ -5,10 +5,11 @@
 
 #include "test.hpp"
 #include "suite.hpp"
+#include "export.hpp"
 
 namespace UnitTests {
 
-Test::Test(
+EXPORT Test::Test(
   const char* _name,
   Suite* _suite,
   const char* _file_name) throw ():
@@ -20,7 +21,7 @@ Test::Test(
   _suite->add_test(this);
 }
 
-Test::~Test() {}
+EXPORT Test::~Test() {}
 
 Assertion* Test::run() {
   Assertion* bad_assertion = 0;

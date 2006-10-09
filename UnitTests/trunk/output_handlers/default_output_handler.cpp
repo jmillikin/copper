@@ -5,17 +5,18 @@
 
 #include <sys/time.h>
 #include "default_output_handler.hpp"
+#include "../export.hpp"
 
 namespace UnitTests {
 
-DefaultOutputHandler::DefaultOutputHandler(int& argc, char**& argv)
+EXPORT DefaultOutputHandler::DefaultOutputHandler(int& argc, char**& argv)
   throw ():
   OutputHandler(argc, argv),
   num_passed(0),
   num_failed(0),
   num_errors(0) {}
 
-DefaultOutputHandler::~DefaultOutputHandler() throw () {}
+EXPORT DefaultOutputHandler::~DefaultOutputHandler() throw () {}
 
 void DefaultOutputHandler::begin(const Test*) throw () {}
 
@@ -52,7 +53,7 @@ void DefaultOutputHandler::error(const Test* test,
     error.message);
 }
 
-int DefaultOutputHandler::run() {
+EXPORT int DefaultOutputHandler::run() {
   // Reset statistics
   num_passed = 0;
   num_failed = 0;

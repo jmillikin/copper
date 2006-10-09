@@ -5,6 +5,7 @@
 
 #include "suite.hpp"
 #include "protectors/exception_protector.hpp"
+#include "export.hpp"
 #include <list>
 
 namespace UnitTests {
@@ -14,13 +15,13 @@ std::list<Suite*>* suites() throw () {
   return &_suites;
 }
 
-Suite::Suite(const char* _name) throw ():
+EXPORT Suite::Suite(const char* _name) throw ():
   name(_name) {
 
   suites()->push_back(this);
 }
 
-Suite::~Suite() throw () {}
+EXPORT Suite::~Suite() throw () {}
 
 void Suite::add_test(Test* test) throw () {
   tests.push_back(test);

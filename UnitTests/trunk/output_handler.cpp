@@ -8,6 +8,7 @@
 #include "protector.hpp"
 #include "protectors/exception_protector.hpp"
 #include "assertion.hpp"
+#include "export.hpp"
 
 namespace UnitTests {
 
@@ -28,7 +29,7 @@ OutputHandler::OutputHandler(int& argc, char**& argv) {
 
 OutputHandler::~OutputHandler() {}
 
-std::string OutputHandler::pretty_name(std::string name) throw () {
+EXPORT std::string OutputHandler::pretty_name(std::string name) throw () {
   // Search for an upper-case letter, to ensure this won't make two upper-case
   // letters in a row
   std::string::size_type upper_index = name.find_first_of(

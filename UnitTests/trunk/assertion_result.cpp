@@ -6,14 +6,15 @@
 #include <cstring>
 #include <cstdlib>
 #include "assertion_result.hpp"
+#include "export.hpp"
 
 namespace UnitTests {
 
-AssertionResult::AssertionResult() throw ():
+EXPORT AssertionResult::AssertionResult() throw ():
   m_finished(false), m_passed(false), m_failure_message(
     strdup("Unitialized AssertionResult")) {}
 
-AssertionResult::AssertionResult(bool result) throw ():
+EXPORT AssertionResult::AssertionResult(bool result) throw ():
   m_finished(true), m_passed(result) {
 
   if (!passed()) {
@@ -41,11 +42,11 @@ AssertionResult& AssertionResult::operator=(const AssertionResult& other)
   return *this;
 }
 
-AssertionResult::~AssertionResult() throw () {
+EXPORT AssertionResult::~AssertionResult() throw () {
   free(m_failure_message);
 }
 
-const AssertionResult& AssertionResult::pass() throw () {
+EXPORT const AssertionResult& AssertionResult::pass() throw () {
   if (!m_finished) {
     m_passed = true;
     m_finished = true;
@@ -56,8 +57,8 @@ const AssertionResult& AssertionResult::pass() throw () {
   return *this;
 }
 
-const AssertionResult& AssertionResult::fail(const char* _failure_message)
-  throw () {
+EXPORT const AssertionResult& AssertionResult::fail(
+  const char* _failure_message) throw () {
 
   if (!m_finished) {
     m_passed = false;
@@ -69,11 +70,11 @@ const AssertionResult& AssertionResult::fail(const char* _failure_message)
   return *this;
 }
 
-bool AssertionResult::passed() const throw () {
+EXPORT bool AssertionResult::passed() const throw () {
   return m_finished && m_passed;
 }
 
-const char* AssertionResult::failure_message() const throw () {
+EXPORT const char* AssertionResult::failure_message() const throw () {
   return m_failure_message;
 }
 

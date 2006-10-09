@@ -4,15 +4,16 @@
  */
 
 #include "assertion.hpp"
+#include "export.hpp"
 
 namespace UnitTests {
 
-Assertion::Assertion(const AssertionResult& result, const char* _text,
+EXPORT Assertion::Assertion(const AssertionResult& result, const char* _text,
   const unsigned int _line) throw ():
 
   m_result(result), m_text(strdup(_text)), m_line(_line) {}
 
-Assertion::Assertion(const Assertion& other) throw () {
+EXPORT Assertion::Assertion(const Assertion& other) throw () {
   m_result = other.m_result;
   m_text = strdup(other.m_text);
   m_line = other.m_line;
@@ -27,27 +28,29 @@ Assertion& Assertion::operator=(const Assertion& other)
   return *this;
 }
 
-Assertion::~Assertion() throw () {
+EXPORT Assertion::~Assertion() throw () {
   free(m_text);
 }
 
-bool Assertion::passed() const throw () {
+EXPORT bool Assertion::passed() const throw () {
   return m_result.passed();
 }
 
-const char* Assertion::text() const throw () {
+EXPORT const char* Assertion::text() const throw () {
   return m_text;
 }
 
-unsigned int Assertion::line() const throw () {
+EXPORT unsigned int Assertion::line() const throw () {
   return m_line;
 }
 
-const char* Assertion::failure_message() const throw () {
+EXPORT const char* Assertion::failure_message() const throw () {
   return m_result.failure_message();
 }
 
-UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) throw () {
+EXPORT UnitTests::AssertionResult failed_func(
+  const UnitTests::Assertion& assertion) throw () {
+
   UnitTests::AssertionResult result;
 
   if (!assertion.passed()) {

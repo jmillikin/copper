@@ -4,15 +4,16 @@
  */
 
 #include "fixture.hpp"
+#include "export.hpp"
 
 namespace UnitTests {
 
-Fixture::Fixture(){}
+EXPORT Fixture::Fixture(){}
 
-Fixture::~Fixture(){}
+EXPORT Fixture::~Fixture(){}
 
 void Fixture::set_up(){}
 
-void Fixture::tear_down(){}
+EXPORT void Fixture::tear_down(){}
 
 } /* namespace */

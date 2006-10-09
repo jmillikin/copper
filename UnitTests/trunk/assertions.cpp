@@ -4,6 +4,7 @@
  */
 
 #include "assertions.hpp"
+#include "export.hpp"
 
 /** A simple class for string comparisons */
 class MiniString {
@@ -25,15 +26,15 @@ std::ostream& operator<<(std::ostream& out, const MiniString& str) throw () {
   return out;
 }
 
-UnitTests::AssertionResult equal(char const* expected, char const* actual)
-  throw () {
+EXPORT UnitTests::AssertionResult equal(char const* expected,
+  char const* actual) throw () {
 
   MiniString s_expected(expected), s_actual(actual);
   return equal(s_expected, s_actual);
 }
 
-UnitTests::AssertionResult unequal(char const* bad, char const* actual)
-  throw () {
+EXPORT UnitTests::AssertionResult unequal(char const* bad,
+  char const* actual) throw () {
 
   MiniString s_actual(actual), s_bad(bad);
   return unequal(s_bad, s_actual);
