@@ -90,7 +90,7 @@ EXPORT int DefaultOutputHandler::run() {
     "%u errors\n", num_passed, num_failed, num_errors);
 
   // Print running time
-  printf("Completed in %lf seconds\n", running_time);
+  printf("Completed in %f seconds\n", running_time);
 
   return num_failed + num_errors;
 }
