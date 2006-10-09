@@ -9,7 +9,7 @@
 #include <string>
 
 #include "test.hpp"
-#include "error_exception.hpp"
+#include "error.hpp"
 
 namespace UnitTests {
 
@@ -53,7 +53,7 @@ public:
     @param test The test that failed
     @param error The error that was thrown
   */
-  virtual void error(const Test* test, const ErrorException& error)
+  virtual void error(const Test* test, const Error* error)
     throw () = 0;
 
   /**

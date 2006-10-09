@@ -50,21 +50,24 @@ EXPORT std::string OutputHandler::pretty_name(std::string name) throw () {
 }
 
 void OutputHandler::run_test(Test* test) {
-  try {
-    begin(test);
-    Assertion* failed = Protector::guard(test);
-    if (failed) {
-      fail(test, failed);
-      delete failed;
-    }
-    else {
-      pass(test);
-    }
+  begin(test);
+
+  Assertion* failure = 0;
+  Error* test_error = 0;
+
+  Protector::guard(test, &failure, &test_error);
+
+  if (failure) {
+    fail(test, failure);
+    delete failure;
   }
 
-  catch (const ErrorException& e) {
-    error(test, e); 
+  if (test_error) {
+    error(test, test_error);
+    delete test_error;
   }
+
+  pass(test);
 }
 
 } /* namespace */

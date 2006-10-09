@@ -27,10 +27,14 @@ protected:
     Guard a test with this Protector, to ensure it doesn't throw any weird
     exceptions
 
-    @param test The test to guard
+    @param test The Test to guard
+
+    @param failure If the test failed, this will be changed to the
+      assertion that caused the test to fail
+    @param error If a protector caught an error, this will be changed to
+      the error that was caught
   */
-  virtual Assertion* _guard(Test* test)
-    throw (ErrorException);
+  virtual void _guard(Test* test, Assertion** failure, Error** error);
 };
 
 } // namespace

@@ -8,6 +8,12 @@
 #include <cstring>
 #include "unix_protector.hpp"
 
+// Used in trap(), since nothing C++-like can be used
+typedef UnitTests::UnixProtector c_UnixProtector;
+typedef UnitTests::Test c_Test;
+typedef UnitTests::Assertion c_Assertion;
+typedef UnitTests::Error c_Error;
+
 const unsigned int SIGNAL_COUNT = 3;
 int signals[SIGNAL_COUNT] = {
   SIGSEGV,
@@ -22,27 +28,20 @@ void handler(int sig) {
   longjmp(jb, sig);
 }
 
-/** Translates a signal into an exception, and then throws it */
-void throw_error(int sig) throw (UnitTests::ErrorException) {
-  throw UnitTests::ErrorException(strsignal(sig));
-}
-
-/**
-  Small function for running the test, since trap() can't do anything
-  C++
-*/
-UnitTests::Assertion* guard_test(void* _protector, void* _test) {
-  UnitTests::UnixProtector* protector = 
-    reinterpret_cast<UnitTests::UnixProtector*>(_protector);
-  UnitTests::Test* test = reinterpret_cast<UnitTests::Test*>(_test);
-  return protector->guard_test(test);
+c_Error* new_Error(const char* str) {
+  return new c_Error(str);
 }
 
 /**
   This function traps signals, and sends them to throw_error() for conversion
   into an exception
 */
-UnitTests::Assertion* trap(void* protector, void* test) {
+void trap(
+  c_UnixProtector* protector,
+  c_Test* test,
+  c_Assertion** failure,
+  c_Error** error) {
+
   int sig;
   unsigned int ii;
 
@@ -52,12 +51,11 @@ UnitTests::Assertion* trap(void* protector, void* test) {
 
   sig = setjmp(jb);
   if (sig) {
-    throw_error(sig);
-    return 0; // should never get called
+    *error = new_Error(strsignal(sig));
   }
 
   else {
-    return guard_test(protector, test);
+    protector->guard_test(test, failure, error);
     for (ii = 0; ii < SIGNAL_COUNT; ii++) {
       signal(signals[ii], SIG_DFL);
     }
@@ -74,16 +72,16 @@ UnixProtector::UnixProtector() throw ():
 
 UnixProtector::~UnixProtector() throw () {}
 
-Assertion* UnixProtector::_guard(Test* test)
-  throw (ErrorException) {
+void UnixProtector::_guard(Test* test, Assertion** failure,
+  Error** error) {
 
-  return trap(this, test);
+  trap(this, test, failure, error);
 }
 
-Assertion* UnixProtector::guard_test(Test* test)
-  throw (ErrorException) {
+void UnixProtector::guard_test(Test* test, Assertion** failure,
+  Error** error) {
 
-  return next_protector(test);
+  next_protector(test, failure, error);
 }
 
 } // namespace

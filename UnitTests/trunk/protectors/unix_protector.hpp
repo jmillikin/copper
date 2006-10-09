@@ -23,7 +23,7 @@ public:
   ~UnixProtector() throw ();
 
   /** Used by external guard_test */
-  Assertion* guard_test(Test* test) throw (ErrorException);
+  void guard_test(Test* test, Assertion** failure, Error** error);
 
 protected:
   /**
@@ -32,7 +32,7 @@ protected:
 
     @param test The test to guard
   */
-  virtual Assertion* _guard(Test* test) throw (ErrorException);
+  virtual void _guard(Test* test, Assertion** failure, Error** error);
 } unix_protector_instance;
 
 } // namespace

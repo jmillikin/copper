@@ -23,32 +23,31 @@ void Protector::add(Protector* protector) {
   protectors()->push_back(protector);
 }
 
-Assertion* Protector::guard(Test* test) {
+void Protector::guard(Test* test, Assertion** failure, Error** error) {
   if (protectors()->size() > 0) {
     std::list<Protector*>::iterator iter = protectors()->begin();
-    return (*iter)->_guard(test);
+    (*iter)->_guard(test, failure, error);
   }
 
   else {
-    return test->run();
+    *failure = test->run();
   }
 }
 
-Assertion* Protector::next_protector(Test* test) {
+void Protector::next_protector(Test* test, Assertion** failure,
+  Error** error) {
+
   std::list<Protector*>::iterator iter =
     std::find(protectors()->begin(), protectors()->end(), this);
 
   if (iter != protectors()->end()) {
     ++iter;
     if (iter != protectors()->end()) {
-      return (*iter)->_guard(test);
+      (*iter)->_guard(test, failure, error);
     }
     else {
-      return test->run();
+      *failure = test->run();
     }
-  }
-  else {
-    return 0;
   }
 }
 

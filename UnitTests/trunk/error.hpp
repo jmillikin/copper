@@ -1,27 +1,27 @@
-/* error_exception.hpp - Thrown when an error occurs
+/* error.hpp - Created when an execution error occurs
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef ERROR_EXCEPTION_HPP
-#define ERROR_EXCEPTION_HPP
+#ifndef ERROR_HPP
+#define ERROR_HPP
 
 namespace UnitTests {
 
 /**
   This is used to indicate that something unexpected went wrong running a test
 */
-class ErrorException {
+class Error {
 public:
   /**
     Default constructor
 
     @param message The error string
   */
-  ErrorException(const char* message) throw ();
+  Error(const char* message) throw ();
 
   /** Default constructor */
-  ~ErrorException() throw ();
+  ~Error() throw ();
 
   /** The error that occurred */
   const char* message;
@@ -29,4 +29,4 @@ public:
 
 } // namespace
 
-#endif /* ERROR_EXCEPTION_HPP */
+#endif /* ERROR_HPP */

@@ -6,12 +6,12 @@
 #ifndef PROTECTOR_HPP
 #define PROTECTOR_HPP
 
-#include "error_exception.hpp"
-
 // Disable warnings about throw specifications in VS 2003
 #ifdef _MSC_VER
 #pragma warning(disable: 4290)
 #endif
+
+#include "error.hpp"
 
 namespace UnitTests {
 
@@ -41,11 +41,12 @@ public:
     Guard a test with all protectors currently available
 
     @param test The Test to guard
-
-    @return An assertion that caused the test to fail, or NULL if the test
-    passed
+    @param failure If the test failed, this will be changed to the
+      assertion that caused the test to fail
+    @param error If a protector caught an error, this will be changed to
+      the error that was caught
   */
-  static Assertion* guard(Test* test);
+  static void guard(Test* test, Assertion** failure, Error** error);
 
 protected:
   /**
@@ -53,10 +54,12 @@ protected:
 
     @param test The Test to guard
 
-    @return An assertion that caused the test to fail, or NULL if the test
-    passed
+    @param failure If the test failed, this will be changed to the
+      assertion that caused the test to fail
+    @param error If a protector caught an error, this will be changed to
+      the error that was caught
   */
-  Assertion* next_protector(Test* test);
+  void next_protector(Test* test, Assertion** failure, Error** error);
 
   /**
     Guard a test with this Protector. It is important that protectors be
@@ -64,10 +67,12 @@ protected:
 
     @param test The Test to guard
 
-    @return An assertion that caused the test to fail, or NULL if the test
-    passed
+    @param failure If the test failed, this will be changed to the
+      assertion that caused the test to fail
+    @param error If a protector caught an error, this will be changed to
+      the error that was caught
   */
-  virtual Assertion* _guard(Test* test) throw (ErrorException) = 0;
+  virtual void _guard(Test* test, Assertion** failure, Error** error) = 0;
 };
 
 } // namespace

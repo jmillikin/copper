@@ -3,10 +3,10 @@ CXX=g++
 SONAME=libunar.so.1
 
 # For the default output handler
-SO_CXXFLAGS=-Wall -Wextra -g3 -O0 -fpic -fvisibility=hidden -fno-rtti
+SO_CXXFLAGS=-Wall -Wextra -g3 -O0 -fpic -fvisibility=hidden -fno-rtti -fno-exceptions -DNO_EXCEPTIONS -ansi -pedantic
 SO_LFLAGS=-shared -Wl,-soname,$(SONAME)
 
-CXXFLAGS=-Wall -Wextra -g3 -O0 -fvisibility=hidden -fno-rtti
+CXXFLAGS=-Wall -Wextra -g3 -O0 -fvisibility=hidden -fno-rtti -fno-exceptions -DNO_EXCEPTIONS -ansi -pedantic
 LFLAGS=-L. -lunar
 
 # For the QT 4 output handler
@@ -28,7 +28,7 @@ SO_OBJECTS=\
   build/assertions.o \
   build/assertion_result.o \
   build/default_output_handler.o \
-  build/error_exception.o \
+  build/error.o \
   build/exception_protector.o \
   build/fixture.o \
   build/output_handler.o \
@@ -58,7 +58,7 @@ build/assertion_result.o: assertion_result.cpp
 build/default_output_handler.o: output_handlers/default_output_handler.cpp
 	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
-build/error_exception.o: error_exception.cpp
+build/error.o: error.cpp
 	$(CXX) $(SO_CXXFLAGS) -c $? -o $@
 
 build/exception_protector.o: protectors/exception_protector.cpp

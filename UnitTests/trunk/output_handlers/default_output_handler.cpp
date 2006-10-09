@@ -39,8 +39,8 @@ void DefaultOutputHandler::fail(const Test* test,
     assertion->text(), assertion->failure_message());
 }
 
-void DefaultOutputHandler::error(const Test* test,
-  const ErrorException& error) throw () {
+void DefaultOutputHandler::error(const Test* test, const Error* error)
+  throw () {
 
   ++num_errors;
 
@@ -50,7 +50,7 @@ void DefaultOutputHandler::error(const Test* test,
     "  %s\n\n",
     test->file_name,
     pretty_name(test->suite->name).c_str(), pretty_name(test->name).c_str(),
-    error.message);
+    error->message);
 }
 
 EXPORT int DefaultOutputHandler::run() {
