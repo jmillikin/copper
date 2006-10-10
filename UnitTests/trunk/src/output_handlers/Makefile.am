@@ -1,0 +1,3 @@
+noinst_LTLIBRARIES=libunittests_output_handlers.la
+
+libunittests_output_handlers_la_SOURCES = default_output_handler.cpp
