@@ -8,7 +8,6 @@ AC_CONFIG_HEADERS(config.h)
 dnl Enable maintainer mode flag
 AM_MAINTAINER_MODE
 
-AC_PROG_CC
 AC_PROG_CXX
 AM_PROG_LIBTOOL
 
