@@ -4,6 +4,7 @@
  */
 
 #include "exception_protector.hpp"
+#include <cstdio>
 #include <stdexcept>
 
 namespace UnitTests {
