@@ -27,19 +27,21 @@ AC_ARG_ENABLE(debug,
 )
 
 AC_ARG_ENABLE(optimizations,
-  AS_HELP_STRING(--enable-optimizations, Enables optimization of the binary),
+  AS_HELP_STRING(--disable-optimizations, Disable optimization of the library),
   [enable_optimizations="$enableval"],
   [enable_optimizations=yes]
 )
 
 AC_ARG_ENABLE(rtti,
-  AS_HELP_STRING(--enable-rtti, Enables building the library with Run-Time Type Identification support),
+  AS_HELP_STRING(--disable-rtti,
+    Disable building the library with Run-Time Type Identification support),
   [enable_rtti="$enableval"],
   [enable_rtti=yes]
 )
 
 AC_ARG_ENABLE(exceptions,
-  AS_HELP_STRING(--enable-exceptions, Enables building the library with exception handling support),
+  AS_HELP_STRING(--disable-exceptions,
+    Disable building the library with exception handling support),
   [enable_exceptions="$enableval"],
   [enable_exceptions=yes]
 )
