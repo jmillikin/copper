@@ -65,7 +65,25 @@ else
 fi
 AM_CONDITIONAL(ENABLE_QT_OUTPUT, test "$enable_qt" = "yes")
 
-FEATURES_CPPFLAGS="$Qt_CFLAGS"
+AC_MSG_CHECKING([if RTTI is enabled])
+if test "$enable_rtti" = "yes"; then
+  AC_MSG_RESULT([yes])
+  RTTI_CPPFLAGS="-frtti"
+else
+  AC_MSG_RESULT([no])
+  RTTI_CPPFLAGS="-fno-rtti"
+fi
+
+AC_MSG_CHECKING([if exception handling is enabled])
+if test "$enable_exceptions" = "yes"; then
+  AC_MSG_RESULT([yes])
+  EXCEPTION_CPPFLAGS="-fexceptions"
+else
+  AC_MSG_RESULT([no])
+  EXCEPTION_CPPFLAGS="-fno-exceptions -DNO_EXCEPTIONS=1"
+fi
+
+FEATURES_CPPFLAGS="$Qt_CFLAGS $RTTI_CPPFLAGS $EXCEPTION_CPPFLAGS"
 FEATURES_LIBS="$Qt_LIBS"
 
 AC_MSG_CHECKING(if debugging is enabled[])
