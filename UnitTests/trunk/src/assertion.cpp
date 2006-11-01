@@ -9,15 +9,28 @@
 
 namespace UnitTests {
 
-EXPORT Assertion::Assertion(const AssertionResult& result, const char* _text,
-  const unsigned int _line) throw ():
+EXPORT Assertion::Assertion(
+  const AssertionResult& result,
+  const char* _text,
+  const unsigned int _line,
+  const char* message) throw ():
 
-  m_result(result), m_text(strdup(_text)), m_line(_line) {}
+  m_result(result),
+  m_text(strdup(_text)),
+  m_line(_line),
+  m_message(message? strdup(message) : NULL) {}
 
 EXPORT Assertion::Assertion(const Assertion& other) throw () {
   m_result = other.m_result;
   m_text = strdup(other.m_text);
   m_line = other.m_line;
+  if (other.m_message) {
+    m_message = strdup(other.m_message);
+  }
+
+  else {
+    m_message = NULL;
+  }
 }
 
 Assertion& Assertion::operator=(const Assertion& other)
@@ -26,11 +39,21 @@ Assertion& Assertion::operator=(const Assertion& other)
   m_result = other.m_result;
   m_text = strdup(other.m_text);
   m_line = other.m_line;
+  if (other.m_message) {
+    m_message = strdup(other.m_message);
+  }
+
+  else {
+    m_message = NULL;
+  }
   return *this;
 }
 
 EXPORT Assertion::~Assertion() throw () {
   free(m_text);
+  if (m_message) {
+    free(m_message);
+  }
 }
 
 EXPORT bool Assertion::passed() const throw () {
@@ -46,7 +69,13 @@ EXPORT unsigned int Assertion::line() const throw () {
 }
 
 EXPORT const char* Assertion::failure_message() const throw () {
-  return m_result.failure_message();
+  if (m_message) {
+    return m_message;
+  }
+
+  else {
+    return m_result.failure_message();
+  }
 }
 
 EXPORT UnitTests::AssertionResult failed_func(

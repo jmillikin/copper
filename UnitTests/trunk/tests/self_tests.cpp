@@ -287,6 +287,17 @@ TEST(assertion_failure) {
   assert(equal(a.failure_message(), "Error goes here"));
 }
 
+TEST(assertion_failure_custom_message) {
+  UnitTests::AssertionResult ar;
+  ar.fail("Error goes here");
+  UnitTests::Assertion a(ar, "Assertion text", 12345, "Custom error");
+
+  assert(!a.passed());
+  assert(equal(a.text(), "Assertion text"));
+  assert(equal(a.line(), 12345u));
+  assert(equal(a.failure_message(), "Custom error"));
+}
+
 TEST(reverse_passed_assertion) {
   UnitTests::AssertionResult ar;
   ar.pass();

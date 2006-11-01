@@ -18,9 +18,11 @@ public:
     @param result The result of running this Assertion
     @param text The code that this Assertion tests
     @param line The line this Assertion is located on
+    @param message If the assertion failed, this message will be used
+      instead of the error message from the check
   */
   Assertion(const AssertionResult& result, const char* text,
-    const unsigned int line) throw ();
+    const unsigned int line, const char* message = NULL) throw ();
 
   /** Copy constructor */
   Assertion(const Assertion& other) throw ();
@@ -49,6 +51,9 @@ protected:
 
   /** The code that this Assertion tests */
   char* m_text;
+
+  /** The custom message passed to assert, if available */
+  char* m_message;
 
   /** The line this Assertion is located on */
   unsigned int m_line;
