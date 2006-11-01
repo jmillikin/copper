@@ -209,20 +209,20 @@ FIXTURE_TEST(fixture_test, the_fixture) {
 // Used to create pretty names to show the user
 TEST(pretty_names) {
   // Basic capitalization
-  assert(equal(UnitTests::OutputHandler::pretty_name("something"),
-    "Something"));
+  assert(equal("Something",
+    UnitTests::OutputHandler::pretty_name("something")));
 
   // Underscore conversion
-  assert(equal(UnitTests::OutputHandler::pretty_name("some_thing"),
-    "Some thing"));
+  assert(equal("Some thing",
+    UnitTests::OutputHandler::pretty_name("some_thing")));
 
   // Leaves capitals alone
-  assert(equal(UnitTests::OutputHandler::pretty_name("Something"),
-    "Something"));
+  assert(equal("Something",
+    UnitTests::OutputHandler::pretty_name("Something")));
 
   // Ignore double underscores
-  assert(equal(UnitTests::OutputHandler::pretty_name("some__thing"),
-    "Some__thing"));
+  assert(equal("Some__thing",
+    UnitTests::OutputHandler::pretty_name("some__thing")));
 }
 
 // Tests of implementation details
@@ -230,7 +230,7 @@ TEST(pretty_names) {
 TEST(assertion_result_fresh) {
   UnitTests::AssertionResult ar;
   assert(!ar.passed());
-  assert(equal(ar.failure_message(), "Unitialized AssertionResult"));
+  assert(equal("Unitialized AssertionResult", ar.failure_message()));
 }
 
 TEST(assertion_result_pass) {
@@ -238,11 +238,11 @@ TEST(assertion_result_pass) {
   ar.pass();
 
   assert(ar.passed());
-  assert(equal(ar.failure_message(), "No Error"));
+  assert(equal("No Error", ar.failure_message()));
 
   ar.fail("Bad fail");
   assert(ar.passed());
-  assert(equal(ar.failure_message(), "No Error"));
+  assert(equal("No Error", ar.failure_message()));
 }
 
 TEST(assertion_result_failure) {
@@ -250,11 +250,11 @@ TEST(assertion_result_failure) {
   ar.fail("Error goes here");
 
   assert(!ar.passed());
-  assert(equal(ar.failure_message(), "Error goes here"));
+  assert(equal("Error goes here", ar.failure_message()));
 
   ar.pass();
   assert(!ar.passed());
-  assert(equal(ar.failure_message(), "Error goes here"));
+  assert(equal("Error goes here", ar.failure_message()));
 }
 
 TEST(boolean_assertion_pass) {
@@ -267,7 +267,7 @@ TEST(boolean_assertion_failure) {
   UnitTests::AssertionResult ar(false);
 
   assert(!ar.passed());
-  assert(equal(ar.failure_message(), "Boolean assertion failed"));
+  assert(equal("Boolean assertion failed", ar.failure_message()));
 }
 
 TEST(assertion_pass) {
@@ -276,8 +276,8 @@ TEST(assertion_pass) {
   UnitTests::Assertion a(ar, "Assertion text", 12345);
 
   assert(a.passed());
-  assert(equal(a.text(), "Assertion text"));
-  assert(equal(a.line(), 12345u));
+  assert(equal("Assertion text", a.text()));
+  assert(equal(12345u, a.line()));
 }
 
 TEST(assertion_failure) {
@@ -286,9 +286,9 @@ TEST(assertion_failure) {
   UnitTests::Assertion a(ar, "Assertion text", 12345);
 
   assert(!a.passed());
-  assert(equal(a.text(), "Assertion text"));
-  assert(equal(a.line(), 12345u));
-  assert(equal(a.failure_message(), "Error goes here"));
+  assert(equal("Assertion text", a.text()));
+  assert(equal(12345u, a.line()));
+  assert(equal("Error goes here", a.failure_message()));
 }
 
 TEST(assertion_failure_custom_message) {
@@ -297,9 +297,9 @@ TEST(assertion_failure_custom_message) {
   UnitTests::Assertion a(ar, "Assertion text", 12345, "Custom error");
 
   assert(!a.passed());
-  assert(equal(a.text(), "Assertion text"));
-  assert(equal(a.line(), 12345u));
-  assert(equal(a.failure_message(), "Custom error"));
+  assert(equal("Assertion text", a.text()));
+  assert(equal(12345u, a.line()));
+  assert(equal("Custom error", a.failure_message()));
 }
 
 TEST(reverse_passed_assertion) {
