@@ -219,10 +219,6 @@ TEST(pretty_names) {
   // Leaves capitals alone
   assert(equal("Something",
     UnitTests::OutputHandler::pretty_name("Something")));
-
-  // Ignore double underscores
-  assert(equal("Some__thing",
-    UnitTests::OutputHandler::pretty_name("some__thing")));
 }
 
 // Tests of implementation details
