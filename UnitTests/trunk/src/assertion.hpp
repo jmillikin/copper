@@ -18,11 +18,21 @@ public:
     @param result The result of running this Assertion
     @param text The code that this Assertion tests
     @param line The line this Assertion is located on
-    @param message If the assertion failed, this message will be used
-      instead of the error message from the check
   */
   Assertion(const AssertionResult& result, const char* text,
-    const unsigned int line, const char* message = NULL) throw ();
+    const unsigned int line) throw ();
+
+  /**
+    Create a new assertion with the result of an assertion function
+
+    @param result The result of running this Assertion
+    @param text The code that this Assertion tests
+    @param message If the assertion failed, this message will be used
+      instead of the error message from the check
+    @param line The line this Assertion is located on
+  */
+  Assertion(const AssertionResult& result, const char* text,
+    const char* message, const unsigned int line) throw ();
 
   /** Copy constructor */
   Assertion(const Assertion& other) throw ();

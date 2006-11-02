@@ -12,13 +12,23 @@ namespace UnitTests {
 EXPORT Assertion::Assertion(
   const AssertionResult& result,
   const char* _text,
-  const unsigned int _line,
-  const char* message) throw ():
+  const unsigned int _line) throw ():
 
   m_result(result),
   m_text(strdup(_text)),
   m_line(_line),
-  m_message(message? strdup(message) : NULL) {}
+  m_message(NULL) {}
+
+EXPORT Assertion::Assertion(
+  const AssertionResult& result,
+  const char* _text,
+  const char* message,
+  const unsigned int _line) throw ():
+
+  m_result(result),
+  m_text(strdup(_text)),
+  m_line(_line),
+  m_message(strdup(message)) {}
 
 EXPORT Assertion::Assertion(const Assertion& other) throw () {
   m_result = other.m_result;

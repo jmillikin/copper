@@ -294,7 +294,7 @@ TEST(assertion_failure) {
 TEST(assertion_failure_custom_message) {
   UnitTests::AssertionResult ar;
   ar.fail("Error goes here");
-  UnitTests::Assertion a(ar, "Assertion text", 12345, "Custom error");
+  UnitTests::Assertion a(ar, "Assertion text", "Custom error", 12345);
 
   assert(!a.passed());
   assert(equal("Assertion text", a.text()));
