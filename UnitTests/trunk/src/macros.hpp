@@ -18,6 +18,24 @@
   @param MESSAGE If this parameter is included, it will be used as a
     custom error message
 */
+
+// Early versions of GCC had different syntax for variable arguments
+#ifdef __GNUC__
+#if __GNUC__ < 3
+#define assert(ARGS...) real_assert(ARGS, __LINE__)
+
+#define real_assert(ASSERTION, ARGS...) {\
+  UnitTests::Assertion assertion(ASSERTION, #ASSERTION, ARGS);\
+  if (!assertion.passed()) {\
+    *bad_assertion = new UnitTests::Assertion(assertion);\
+    return;\
+  }\
+}
+#endif
+#endif
+
+// C99 style of variadic macros
+#ifndef assert
 #define assert(...) real_assert(__VA_ARGS__, __LINE__)
 
 #define real_assert(ASSERTION, ...) {\
@@ -27,6 +45,7 @@
     return;\
   }\
 }
+#endif
 
 /**
   Invert the output from an assertion
