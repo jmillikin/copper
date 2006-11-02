@@ -357,4 +357,30 @@ TEST(successful_test__run) {
   assert(null(failed));
 }
 
+class self_test_fail_custom_error : public UnitTests::Test {
+public:
+  self_test_fail_custom_error(): UnitTests::Test(
+    "fail self test with custom error", &current_suite,
+    __FILE__){}
+  void _run(UnitTests::Assertion** bad_assertion) {
+    assert(false, "Custom error string");
+  }
+protected:
+  void set_up(){}
+  void tear_down(){}
+};
+
+TEST(fail_with_custom_error) {
+  self_test_fail_custom_error self_test_instance;
+
+  UnitTests::Assertion* failed;
+  self_test_instance._run(&failed);
+  assert(not_null(failed));
+
+  printf("Checking error string\n");
+  assert(equal("Custom error string", failed->failure_message()));
+
+  delete failed;
+}
+
 }
