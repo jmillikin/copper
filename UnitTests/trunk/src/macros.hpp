@@ -15,9 +15,13 @@
   terminate
 
   @param ASSERTION The Assertion to test
+  @param MESSAGE If this parameter is included, it will be used as a
+    custom error message
 */
-#define assert(ASSERTION) {\
-  UnitTests::Assertion assertion(ASSERTION, #ASSERTION, __LINE__);\
+#define assert(...) real_assert(__VA_ARGS__, __LINE__)
+
+#define real_assert(ASSERTION, ...) {\
+  UnitTests::Assertion assertion(ASSERTION, #ASSERTION, __VA_ARGS__);\
   if (!assertion.passed()) {\
     *bad_assertion = new UnitTests::Assertion(assertion);\
     return;\
