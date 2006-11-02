@@ -377,7 +377,6 @@ TEST(fail_with_custom_error) {
   self_test_instance._run(&failed);
   assert(not_null(failed));
 
-  printf("Checking error string\n");
   assert(equal("Custom error string", failed->failure_message()));
 
   delete failed;
