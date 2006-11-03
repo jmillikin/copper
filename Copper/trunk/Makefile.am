@@ -1,6 +1,6 @@
 INCLUDES = -I$(top_srcdir)/include
 
-SUBDIRS = src
+SUBDIRS = src include
 
 # Used for 'make check'
 check_PROGRAMS=run_self_tests
