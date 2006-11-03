@@ -17,22 +17,27 @@ OutputHandler::OutputHandler(int&, char**&) {
 
 OutputHandler::~OutputHandler() {}
 
-EXPORT std::string OutputHandler::pretty_name(std::string name) throw () {
+EXPORT char* OutputHandler::pretty_name(const char* old_name) throw () {
+  char* name = strdup(old_name);
+
   // Search for an upper-case letter, to ensure this won't make two upper-case
   // letters in a row
-  std::string::size_type upper_index = name.find_first_of(
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  size_t upper_index = strcspn(name, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
+  size_t lower_index = strcspn(name, "abcdefghijklmnopqrstuvwxyz");
 
-  // Search for the first lower-case letter
-  std::string::size_type lower_index = name.find_first_of(
-    "abcdefghijklmnopqrstuvwxyz", 0, upper_index);
-
-  if (lower_index != std::string::npos && lower_index < upper_index) {
+  // If a lower case letter appears before an upper-case letter, make it
+  // uppercase also
+  if (lower_index < upper_index) {
     name[lower_index] -= 32;
   }
 
+  size_t len = strlen(name);
   // Convert underscores to spaces
-  std::replace(name.begin(), name.end(), '_', ' ');
+  for (int ii = 0; ii < len; ii++) {
+    if (name[ii] == '_') {
+      name[ii] = ' ';
+    }
+  }
 
   return name;
 }

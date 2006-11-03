@@ -27,14 +27,20 @@ void OutputHandler::fail(const Copper::Test* test,
 
   ++num_failed;
 
+  char* suite_name = pretty_name(test->suite->name);
+  char* test_name = pretty_name(test->name);
+
   fprintf(stderr,
     "FAILURE in %s:%u:\n"
     "%s - %s:\n"
     "  %s\n"
     "  %s\n\n",
     test->file_name, assertion->line(),
-    pretty_name(test->suite->name).c_str(), pretty_name(test->name).c_str(),
+    suite_name, test_name,
     assertion->text(), assertion->failure_message());
+
+  free(suite_name);
+  free(test_name);
 }
 
 void OutputHandler::error(
@@ -43,13 +49,17 @@ void OutputHandler::error(
 
   ++num_errors;
 
+  char* suite_name = pretty_name(test->suite->name);
+  char* test_name = pretty_name(test->name);
+
   fprintf(stderr,
     "ERROR in %s:\n"
     "%s - %s:\n"
     "  %s\n\n",
-    test->file_name,
-    pretty_name(test->suite->name).c_str(), pretty_name(test->name).c_str(),
-    error->message);
+    test->file_name, suite_name, test_name, error->message);
+
+  free(suite_name);
+  free(test_name);
 }
 
 int OutputHandler::run() {

@@ -6,8 +6,6 @@
 #ifndef COPPER_OUTPUT_HANDLER_HPP
 #define COPPER_OUTPUT_HANDLER_HPP
 
-#include <string>
-
 #include <copper/test.hpp>
 #include <copper/error.hpp>
 
@@ -71,9 +69,10 @@ public:
 
     @param ugly_name The name to convert from
 
-    @return A prettier name, for display to the user
+    @return A prettier name, for display to the user. This must be deleted with
+    free() when no longer needed.
   */
-  static std::string pretty_name(std::string ugly_name) throw ();
+  static char* pretty_name(const char* ugly_name) throw ();
 
 protected:
   /**
