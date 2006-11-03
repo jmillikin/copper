@@ -1,4 +1,4 @@
-SUBDIRS=output_handlers protectors
+SUBDIRS=protectors
 
 lib_LTLIBRARIES = libcu.la
 
@@ -13,6 +13,4 @@ libcu_la_SOURCES = \
   suite.cpp \
   test.cpp
 
-libcu_la_LIBADD = \
-  output_handlers/libcu_output_handlers.la \
-  protectors/libcu_protectors.la
+libcu_la_LIBADD = protectors/libcu_protectors.la

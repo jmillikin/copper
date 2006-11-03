@@ -1,32 +1,29 @@
-/* default_output_handler.cpp -- Outputs to stdout and stderr
+/* output_handler.cpp -- Outputs tests results to stdout and stderr
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
 #include <sys/time.h>
 #include <cstdio>
-#include "default_output_handler.hpp"
-#include "../export.hpp"
+#include "output_handler.hpp"
 
-namespace Copper {
-
-EXPORT DefaultOutputHandler::DefaultOutputHandler(int& argc, char**& argv)
+OutputHandler::OutputHandler(int& argc, char**& argv)
   throw ():
-  OutputHandler(argc, argv),
+  Copper::OutputHandler(argc, argv),
   num_passed(0),
   num_failed(0),
   num_errors(0) {}
 
-EXPORT DefaultOutputHandler::~DefaultOutputHandler() throw () {}
+OutputHandler::~OutputHandler() throw () {}
 
-void DefaultOutputHandler::begin(const Test*) throw () {}
+void OutputHandler::begin(const Copper::Test*) throw () {}
 
-void DefaultOutputHandler::pass(const Test*) throw () {
+void OutputHandler::pass(const Copper::Test*) throw () {
   ++num_passed;
 }
 
-void DefaultOutputHandler::fail(const Test* test,
-  const Assertion* assertion) throw () {
+void OutputHandler::fail(const Copper::Test* test,
+  const Copper::Assertion* assertion) throw () {
 
   ++num_failed;
 
@@ -40,7 +37,7 @@ void DefaultOutputHandler::fail(const Test* test,
     assertion->text(), assertion->failure_message());
 }
 
-void DefaultOutputHandler::error(const Test* test, const Error* error)
+void OutputHandler::error(const Test* test, const Error* error)
   throw () {
 
   ++num_errors;
@@ -54,7 +51,7 @@ void DefaultOutputHandler::error(const Test* test, const Error* error)
     error->message);
 }
 
-EXPORT int DefaultOutputHandler::run() {
+int OutputHandler::run() {
   // Reset statistics
   num_passed = 0;
   num_failed = 0;
@@ -64,7 +61,7 @@ EXPORT int DefaultOutputHandler::run() {
   timeval start_time;
   gettimeofday(&start_time, 0);
 
-  std::list<Suite*> suites = Suite::all_suites();
+  std::list<Suite*> suites = Copper::Suite::all_suites();
   std::list<Suite*>::const_iterator suite;
   for (suite = suites.begin(); suite != suites.end(); suite++) {
 
@@ -95,5 +92,3 @@ EXPORT int DefaultOutputHandler::run() {
 
   return num_failed + num_errors;
 }
-
-} /* namespace */

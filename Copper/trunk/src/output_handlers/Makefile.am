@@ -1,3 +1,0 @@
-noinst_LTLIBRARIES=libcu_output_handlers.la
-
-libcu_output_handlers_la_SOURCES = default_output_handler.cpp

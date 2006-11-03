@@ -1,29 +1,27 @@
-/* default_output_handler.hpp -- Outputs to stdout and stderr
+/* output_handler.hpp -- Outputs test results to stdout and stderr
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef DEFAULT_OUTPUT_HANDLER_HPP
-#define DEFAULT_OUTPUT_HANDLER_HPP
+#ifndef OUTPUT_HANDLER_HPP
+#define OUTPUT_HANDLER_HPP
 
-#include "../output_handler.hpp"
-
-namespace Copper {
+#include <copper/output_handler.hpp>
 
 /**
-  This is a default implementation of an OutputHandler. It will output failures
-  to the standard error stream
+  This is a default implementation of an OutputHandler. It will output
+  failures to the standard error stream
 */
-class DefaultOutputHandler : public OutputHandler {
+class OutputHandler : public Copper::OutputHandler {
 public:
   /** Default constructor */
-  DefaultOutputHandler(int& argc, char**& argv) throw ();
+  OutputHandler(int& argc, char**& argv) throw ();
 
   /** Default destructor */
-  ~DefaultOutputHandler() throw ();
+  ~OutputHandler() throw ();
 
   /** Does nothing */
-  void begin(const Test* test) throw ();
+  void begin(const Copper::Test* test) throw ();
 
   /**
     Outputs nothing, but keeps track of how many tests passed
@@ -39,7 +37,9 @@ public:
     @param test The test that failed
     @param assetion The assertion that caused the test to fail
   */
-  void fail(const Test* test, const Assertion* assertion) throw ();
+  void fail(
+    const Copper::Test* test,
+    const Copper::Assertion* assertion) throw ();
 
   /**
     Outputs errors to the standard error stream. Also keeps track of how
@@ -48,7 +48,9 @@ public:
     @param test The test that failed
     @param error The error that was thrown
   */
-  void error(const Test* test, const Error* error) throw ();
+  void error(
+    const Copper::Test* test,
+    const Copper::Error* error) throw ();
 
   /**
     Run every test available
@@ -68,6 +70,4 @@ protected:
   unsigned int num_errors;
 };
 
-} /* namespace */
-
-#endif /* DEFAULT_OUTPUT_HANDLER_HPP */
+#endif /* OUTPUT_HANDLER_HPP */

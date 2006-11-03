@@ -11,15 +11,6 @@ AM_MAINTAINER_MODE
 AC_PROG_CXX
 AM_PROG_LIBTOOL
 
-dnl Required only when building the Qt output handler
-QT_REQUIRED=4.1.0
-
-AC_ARG_ENABLE(qt,
-  AS_HELP_STRING(--enable-qt, Enable building the Qt output handler),
-  [enable_qt_output="$enableval"],
-  [enable_qt_output=no]
-)
-
 AC_ARG_ENABLE(debug,
   AS_HELP_STRING(--enable-debug, Enables various options which aid debugging),
   [enable_debug="$enableval"],
@@ -46,25 +37,6 @@ AC_ARG_ENABLE(exceptions,
   [enable_exceptions=yes]
 )
 
-AC_MSG_CHECKING([whether to build the Qt output handler])
-if test "$enable_qt" = "yes"; then
-  AC_MSG_RESULT([yes])
-
-  PKG_CHECK_MODULES(Qt, QtGui >= $QT_REQUIRED QtCore >= $QT_REQUIRED)
-
-  dnl Check that moc is in path
-  AC_PATH_PROG(MOC, moc-qt4)
-  if test -z "$MOC"; then
-    AC_PATH_PROG(MOC, moc)
-    if test -z "$MOC"; then
-      AC_MSG_ERROR([*** moc must be in path])
-    fi
-  fi
-else
-  AC_MSG_RESULT([no])
-fi
-AM_CONDITIONAL(ENABLE_QT_OUTPUT, test "$enable_qt" = "yes")
-
 AC_MSG_CHECKING([if RTTI is enabled])
 if test "$enable_rtti" = "yes"; then
   AC_MSG_RESULT([yes])
@@ -83,8 +55,8 @@ else
   EXCEPTION_CPPFLAGS="-fno-exceptions -DNO_EXCEPTIONS=1"
 fi
 
-FEATURES_CPPFLAGS="$Qt_CFLAGS $RTTI_CPPFLAGS $EXCEPTION_CPPFLAGS"
-FEATURES_LIBS="$Qt_LIBS"
+FEATURES_CPPFLAGS="$RTTI_CPPFLAGS $EXCEPTION_CPPFLAGS"
+FEATURES_LIBS=""
 
 AC_MSG_CHECKING(if debugging is enabled[])
 if test "$enable_debug" = "yes"; then
@@ -112,6 +84,5 @@ LIBS="$LIBS $FEATURES_LIBS $OPTIMIZATION_LIBS $DEBUG_LIBS"
 AC_OUTPUT([
   Makefile
   src/Makefile
-  src/output_handlers/Makefile
   src/protectors/Makefile
 ])
