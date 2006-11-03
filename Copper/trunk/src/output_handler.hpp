@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef OUTPUT_HANDLER_HPP
-#define OUTPUT_HANDLER_HPP
+#ifndef COPPER_OUTPUT_HANDLER_HPP
+#define COPPER_OUTPUT_HANDLER_HPP
 
 #include <string>
 
@@ -87,4 +87,4 @@ protected:
 
 } /* namespace */
 
-#endif /* OUTPUT_HANDLER_HPP */
+#endif /* COPPER_OUTPUT_HANDLER_HPP */

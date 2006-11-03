@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef ASSERTION_RESULT_HPP
-#define ASSERTION_RESULT_HPP
+#ifndef COPPER_ASSERTION_RESULT_HPP
+#define COPPER_ASSERTION_RESULT_HPP
 
 // Disable warnings about throw specifications in VS 2003
 #ifdef _MSC_VER
@@ -59,4 +59,4 @@ protected:
 
 } // namespace
 
-#endif /* ASSERTION_RESULT_HPP */
+#endif /* COPPER_ASSERTION_RESULT_HPP */

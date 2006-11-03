@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef TEST_HPP
-#define TEST_HPP
+#ifndef COPPER_TEST_HPP
+#define COPPER_TEST_HPP
 
 #include "assertion.hpp"
 #include "suite.hpp"
@@ -46,4 +46,4 @@ protected:
 
 } /* Namespace */
 
-#endif /* TEST_HPP */
+#endif /* COPPER_TEST_HPP */

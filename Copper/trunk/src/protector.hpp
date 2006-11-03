@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef PROTECTOR_HPP
-#define PROTECTOR_HPP
+#ifndef COPPER_PROTECTOR_HPP
+#define COPPER_PROTECTOR_HPP
 
 // Disable warnings about throw specifications in VS 2003
 #ifdef _MSC_VER
@@ -77,4 +77,4 @@ protected:
 
 } // namespace
 
-#endif /* PROTECTOR_HPP */
+#endif /* COPPER_PROTECTOR_HPP */

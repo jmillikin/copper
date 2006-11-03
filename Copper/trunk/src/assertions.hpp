@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef ASSERTIONS_HPP
-#define ASSERTIONS_HPP
+#ifndef COPPER_ASSERTIONS_HPP
+#define COPPER_ASSERTIONS_HPP
 
 // For formatting error strings
 #include <sstream>
@@ -261,4 +261,4 @@ Copper::AssertionResult less_than_or_equal(
   return result;
 }
 
-#endif /* ASSERTIONS_HPP */
+#endif /* COPPER_ASSERTIONS_HPP */

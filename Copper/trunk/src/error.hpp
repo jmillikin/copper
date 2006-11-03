@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef ERROR_HPP
-#define ERROR_HPP
+#ifndef COPPER_ERROR_HPP
+#define COPPER_ERROR_HPP
 
 namespace Copper {
 
@@ -29,4 +29,4 @@ public:
 
 } // namespace
 
-#endif /* ERROR_HPP */
+#endif /* COPPER_ERROR_HPP */

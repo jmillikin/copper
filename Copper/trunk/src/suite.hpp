@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef SUITE_HPP
-#define SUITE_HPP
+#ifndef COPPER_SUITE_HPP
+#define COPPER_SUITE_HPP
 
 #include <list>
 
@@ -50,4 +50,4 @@ protected:
 
 } // namespace
 
-#endif /* SUITE_HPP */
+#endif /* COPPER_SUITE_HPP */

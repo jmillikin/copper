@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef EXCEPTION_PROTECTOR_HPP
-#define EXCEPTION_PROTECTOR_HPP
+#ifndef COPPER_EXCEPTION_PROTECTOR_HPP
+#define COPPER_EXCEPTION_PROTECTOR_HPP
 
 #include "../protector.hpp"
 
@@ -39,4 +39,4 @@ protected:
 
 } // namespace
 
-#endif /* EXCEPTION_PROTECTOR_HPP */
+#endif /* COPPER_EXCEPTION_PROTECTOR_HPP */

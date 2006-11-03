@@ -5,8 +5,8 @@
 
 #include "assertions.hpp"
 
-#ifndef ASSERTION_HPP
-#define ASSERTION_HPP
+#ifndef COPPER_ASSERTION_HPP
+#define COPPER_ASSERTION_HPP
 
 namespace Copper {
 
@@ -73,4 +73,4 @@ Copper::AssertionResult failed_func(const Copper::Assertion& assertion) throw ()
 
 } // namespace
 
-#endif /* ASSERTION_HPP */
+#endif /* COPPER_ASSERTION_HPP */

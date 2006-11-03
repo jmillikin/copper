@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef UNIX_PROTECTOR_HPP
-#define UNIX_PROTECTOR_HPP
+#ifndef COPPER_UNIX_PROTECTOR_HPP
+#define COPPER_UNIX_PROTECTOR_HPP
 
 #include "../protector.hpp"
 
@@ -37,4 +37,4 @@ protected:
 
 } // namespace
 
-#endif /* UNIX_PROTECTOR_HPP */
+#endif /* COPPER_UNIX_PROTECTOR_HPP */

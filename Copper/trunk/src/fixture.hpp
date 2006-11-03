@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef FIXTURE_HPP
-#define FIXTURE_HPP
+#ifndef COPPER_FIXTURE_HPP
+#define COPPER_FIXTURE_HPP
 
 namespace Copper {
 
@@ -20,4 +20,4 @@ protected:
 
 } /* namespace */
 
-#endif /* FIXTURE_HPP */
+#endif /* COPPER_FIXTURE_HPP */

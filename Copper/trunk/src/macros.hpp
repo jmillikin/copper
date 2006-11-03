@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef MACROS_HPP
-#define MACROS_HPP
+#ifndef COPPER_MACROS_HPP
+#define COPPER_MACROS_HPP
 
 #ifdef assert
 #undef assert
@@ -139,4 +139,4 @@
   } test_instance_##NAME; \
   void test_##NAME::_run(Copper::Assertion** bad_assertion)
 
-#endif /* MACROS_HPP */
+#endif /* COPPER_MACROS_HPP */
