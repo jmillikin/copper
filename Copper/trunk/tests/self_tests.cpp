@@ -33,16 +33,23 @@ TEST(integer_equals_fail) {
 
 FIXTURE(str_fixture)
   std::string var1, var2, var3, var4;
-  const char* cvar1, *cvar2, *cvar3, *cvar4;
+  char* cvar1, *cvar2, *cvar3, *cvar4;
   void set_up() {
     var1 = "test";
     var2 = "test";
     var3 = "other";
     var4 = "other";
-    cvar1 = var1.c_str();
-    cvar2 = var2.c_str();
-    cvar3 = var3.c_str();
-    cvar4 = var4.c_str();
+    cvar1 = strdup(var1.c_str());
+    cvar2 = strdup(var2.c_str());
+    cvar3 = strdup(var3.c_str());
+    cvar4 = strdup(var4.c_str());
+  }
+
+  void tear_down() {
+    free(cvar1);
+    free(cvar2);
+    free(cvar3);
+    free(cvar4);
   }
 };
 
