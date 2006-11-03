@@ -5,8 +5,8 @@
 
 #include <list>
 #include <algorithm>
-#include "protector.hpp"
-#include "test.hpp"
+#include <copper/protector.hpp>
+#include <copper/test.hpp>
 
 namespace Copper {
 

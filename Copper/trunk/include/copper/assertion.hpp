@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "assertions.hpp"
+#include <copper/assertions.hpp>
 
 #ifndef COPPER_ASSERTION_HPP
 #define COPPER_ASSERTION_HPP

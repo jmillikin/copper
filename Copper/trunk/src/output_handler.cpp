@@ -4,10 +4,10 @@
  */
 
 #include <algorithm>
-#include "output_handler.hpp"
-#include "protector.hpp"
+#include <copper/output_handler.hpp>
+#include <copper/protector.hpp>
 #include "protectors/exception_protector.hpp"
-#include "assertion.hpp"
+#include <copper/assertion.hpp>
 #include "export.hpp"
 
 namespace Copper {

@@ -3,10 +3,9 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "suite.hpp"
-#include "protectors/exception_protector.hpp"
-#include "export.hpp"
 #include <list>
+#include <copper/suite.hpp>
+#include "export.hpp"
 
 namespace Copper {
 

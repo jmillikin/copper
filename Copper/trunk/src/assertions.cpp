@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "assertions.hpp"
+#include <copper/assertions.hpp>
 #include "export.hpp"
 
 /** A simple class for string comparisons */

@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "test.hpp"
-#include "suite.hpp"
+#include <copper/test.hpp>
+#include <copper/suite.hpp>
 #include "export.hpp"
 
 namespace Copper {

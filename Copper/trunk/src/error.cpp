@@ -3,9 +3,9 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "error.hpp"
 #include <cstring>
 #include <cstdlib>
+#include <copper/error.hpp>
 
 namespace Copper {
 

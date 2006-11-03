@@ -9,8 +9,8 @@
 // For formatting error strings
 #include <sstream>
 
-#include "assertion_result.hpp"
-#include "assertion.hpp"
+#include <copper/assertion_result.hpp>
+#include <copper/assertion.hpp>
 
 // Disable warnings about throw specifications in VS 2003
 #ifdef _MSC_VER

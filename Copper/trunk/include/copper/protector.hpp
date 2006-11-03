@@ -11,7 +11,7 @@
 #pragma warning(disable: 4290)
 #endif
 
-#include "error.hpp"
+#include <copper/error.hpp>
 
 namespace Copper {
 

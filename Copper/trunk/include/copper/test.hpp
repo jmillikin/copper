@@ -6,8 +6,8 @@
 #ifndef COPPER_TEST_HPP
 #define COPPER_TEST_HPP
 
-#include "assertion.hpp"
-#include "suite.hpp"
+#include <copper/assertion.hpp>
+#include <copper/suite.hpp>
 
 namespace Copper {
 

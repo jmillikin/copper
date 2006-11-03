@@ -8,8 +8,8 @@
 
 #include <string>
 
-#include "test.hpp"
-#include "error.hpp"
+#include <copper/test.hpp>
+#include <copper/error.hpp>
 
 namespace Copper {
 

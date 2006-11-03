@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "fixture.hpp"
+#include <copper/fixture.hpp>
 #include "export.hpp"
 
 namespace Copper {
