@@ -3,6 +3,7 @@ AC_CONFIG_SRCDIR(src/test.cpp)
 
 dnl Store autoconf cruft in a separate directory
 AC_CONFIG_AUX_DIR(autoconf)
+AC_CONFIG_MACRO_DIR(autoconf)
 
 dnl Initialize automake
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
