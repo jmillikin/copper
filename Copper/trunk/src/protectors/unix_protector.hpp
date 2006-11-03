@@ -6,7 +6,7 @@
 #ifndef COPPER_UNIX_PROTECTOR_HPP
 #define COPPER_UNIX_PROTECTOR_HPP
 
-#include "../protector.hpp"
+#include <copper/protector.hpp>
 
 namespace Copper {
 

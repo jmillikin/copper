@@ -11,7 +11,7 @@
 #include <signal.h>
 #include <setjmp.h>
 #include <cstring>
-#include "unix_protector.hpp"
+#include <copper/unix_protector.hpp>
 
 // Used in trap(), since nothing C++-like can be used
 typedef Copper::UnixProtector c_UnixProtector;

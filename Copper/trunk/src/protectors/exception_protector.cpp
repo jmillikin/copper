@@ -3,9 +3,9 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "exception_protector.hpp"
 #include <cstdio>
 #include <stdexcept>
+#include <copper/exception_protector.hpp>
 
 namespace Copper {
 
