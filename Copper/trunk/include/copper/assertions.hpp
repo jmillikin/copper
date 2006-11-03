@@ -44,8 +44,7 @@ Copper::AssertionResult equal(
 }
 
 /**
-  An overloaded form of equal(), used for character strings. This transforms
-  the char*s into std::strings
+  An overloaded form of equal(), used for character strings
 
   @param expected The expected value of this assertion
   @param actual The value which should be tested against the expected value
@@ -110,8 +109,7 @@ Copper::AssertionResult unequal(
 }
 
 /**
-  An overloaded form of unequal(), used for character strings. This transforms
-  the char*s into std::strings
+  An overloaded form of unequal(), used for character strings
 
   @param bad Something that #actual should not be
   @param actual The value which should be tested against the expected value
