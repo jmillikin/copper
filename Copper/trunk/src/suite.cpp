@@ -8,7 +8,7 @@
 #include "export.hpp"
 #include <list>
 
-namespace UnitTests {
+namespace Copper {
 
 std::list<Suite*>* suites() throw () {
   static std::list<Suite*> _suites;

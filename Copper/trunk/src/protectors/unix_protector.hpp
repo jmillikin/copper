@@ -8,7 +8,7 @@
 
 #include "../protector.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 /**
   Guard against things like segmentation faults or double-frees, using

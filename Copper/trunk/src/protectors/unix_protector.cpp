@@ -14,10 +14,10 @@
 #include "unix_protector.hpp"
 
 // Used in trap(), since nothing C++-like can be used
-typedef UnitTests::UnixProtector c_UnixProtector;
-typedef UnitTests::Test c_Test;
-typedef UnitTests::Assertion c_Assertion;
-typedef UnitTests::Error c_Error;
+typedef Copper::UnixProtector c_UnixProtector;
+typedef Copper::Test c_Test;
+typedef Copper::Assertion c_Assertion;
+typedef Copper::Error c_Error;
 
 const unsigned int SIGNAL_COUNT = 3;
 int signals[SIGNAL_COUNT] = {
@@ -67,7 +67,7 @@ void trap(
   }
 }
 
-namespace UnitTests {
+namespace Copper {
 
 UnixProtector::UnixProtector() throw ():
   Protector() {

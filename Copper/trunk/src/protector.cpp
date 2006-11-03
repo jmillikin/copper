@@ -8,7 +8,7 @@
 #include "protector.hpp"
 #include "test.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 std::list<Protector*>* protectors() {
   static std::list<Protector*> _protectors;

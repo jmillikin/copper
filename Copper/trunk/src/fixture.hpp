@@ -6,7 +6,7 @@
 #ifndef FIXTURE_HPP
 #define FIXTURE_HPP
 
-namespace UnitTests {
+namespace Copper {
 
 class Fixture {
 public:

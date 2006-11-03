@@ -8,7 +8,7 @@
 #include "default_output_handler.hpp"
 #include "../export.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 EXPORT DefaultOutputHandler::DefaultOutputHandler(int& argc, char**& argv)
   throw ():

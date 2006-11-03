@@ -9,7 +9,7 @@
 #include "qt4_output_handler.hpp"
 #include "../export.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 /** List of columns in the failure list */
 enum FailureListColumns {

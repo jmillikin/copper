@@ -7,7 +7,7 @@
 #include <cstdio>
 #include <stdexcept>
 
-namespace UnitTests {
+namespace Copper {
 
 ExceptionProtector::ExceptionProtector() throw ():
   Protector() {}

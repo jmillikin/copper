@@ -26,11 +26,11 @@
   @return An AssertionResult
 */
 template <class Expected, class Actual>
-UnitTests::AssertionResult equal(
+Copper::AssertionResult equal(
   const Expected& expected,
   const Actual& actual) throw () {
 
-  UnitTests::AssertionResult result;
+  Copper::AssertionResult result;
   if (expected == actual) {
     result.pass();
   }
@@ -52,7 +52,7 @@ UnitTests::AssertionResult equal(
 
   @return An AssertionResult
 */
-UnitTests::AssertionResult equal(char const* expected, char const* actual)
+Copper::AssertionResult equal(char const* expected, char const* actual)
   throw ();
 
 /**
@@ -66,12 +66,12 @@ UnitTests::AssertionResult equal(char const* expected, char const* actual)
   @return An AssertionResult
 */
 template <class Value>
-UnitTests::AssertionResult equal_within(
+Copper::AssertionResult equal_within(
   const Value& expected,
   const Value& actual,
   const Value& delta) throw () {
 
-  UnitTests::AssertionResult result;
+  Copper::AssertionResult result;
   if ((actual < expected - delta) || (actual > expected + delta)) {
     std::stringstream ss;
     ss << "'" << actual << "' is not within '" << delta << "' of '"
@@ -93,11 +93,11 @@ UnitTests::AssertionResult equal_within(
   @return An AssertionResult
 */
 template <class Bad, class Actual>
-UnitTests::AssertionResult unequal(
+Copper::AssertionResult unequal(
   const Bad& bad,
   const Actual& actual) throw () {
 
-  UnitTests::AssertionResult result;
+  Copper::AssertionResult result;
   if (actual == bad) {
     std::stringstream ss;
     ss << "'" << actual << "' is equal to '" << bad << "'";
@@ -118,7 +118,7 @@ UnitTests::AssertionResult unequal(
 
   @return An AssertionResult
 */
-UnitTests::AssertionResult unequal(char const* bad, char const* actual)
+Copper::AssertionResult unequal(char const* bad, char const* actual)
   throw ();
 
 /**
@@ -129,9 +129,9 @@ UnitTests::AssertionResult unequal(char const* bad, char const* actual)
   @return An AssertionResult
 */
 template <class Value>
-UnitTests::AssertionResult null(const Value* value) throw () {
+Copper::AssertionResult null(const Value* value) throw () {
 
-  UnitTests::AssertionResult result;
+  Copper::AssertionResult result;
   if (value != 0){
     result.fail("Expected value to be NULL");
   }
@@ -149,9 +149,9 @@ UnitTests::AssertionResult null(const Value* value) throw () {
   @return An AssertionResult
 */
 template <class Value>
-UnitTests::AssertionResult not_null(const Value* value) throw () {
+Copper::AssertionResult not_null(const Value* value) throw () {
 
-  UnitTests::AssertionResult result;
+  Copper::AssertionResult result;
   if (value == 0){
     result.fail("Expected value to be non-NULL");
   }
@@ -170,11 +170,11 @@ UnitTests::AssertionResult not_null(const Value* value) throw () {
   @return An AssertionResult
 */
 template <class Value>
-UnitTests::AssertionResult greater_than(
+Copper::AssertionResult greater_than(
   const Value& actual,
   const Value& limit) throw () {
 
-  UnitTests::AssertionResult result;
+  Copper::AssertionResult result;
   if (actual <= limit){
     std::stringstream ss;
     ss << "'" << actual << "' is not greater than '" << limit << "'";
@@ -195,11 +195,11 @@ UnitTests::AssertionResult greater_than(
   @return An AssertionResult
 */
 template <class Value>
-UnitTests::AssertionResult greater_than_or_equal(
+Copper::AssertionResult greater_than_or_equal(
   const Value& actual,
   const Value& limit) throw () {
 
-  UnitTests::AssertionResult result;
+  Copper::AssertionResult result;
   if (actual < limit){
     std::stringstream ss;
     ss << "'" << actual << "' is less than '" << limit << "'";
@@ -220,11 +220,11 @@ UnitTests::AssertionResult greater_than_or_equal(
   @return An AssertionResult
 */
 template <class Value>
-UnitTests::AssertionResult less_than(
+Copper::AssertionResult less_than(
   const Value& actual,
   const Value& limit) throw () {
 
-  UnitTests::AssertionResult result;
+  Copper::AssertionResult result;
   if (actual >= limit){
     std::stringstream ss;
     ss << "'" << actual << "' is not less than '" << limit << "'";
@@ -245,11 +245,11 @@ UnitTests::AssertionResult less_than(
   @return An AssertionResult
 */
 template <class Value>
-UnitTests::AssertionResult less_than_or_equal(
+Copper::AssertionResult less_than_or_equal(
   const Value& actual,
   const Value& limit) throw () {
 
-  UnitTests::AssertionResult result;
+  Copper::AssertionResult result;
   if (actual > limit){
     std::stringstream ss;
     ss << "'" << actual << "' is not less than or equal to '" << limit << "'";

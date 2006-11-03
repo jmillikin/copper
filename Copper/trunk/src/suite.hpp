@@ -8,7 +8,7 @@
 
 #include <list>
 
-namespace UnitTests {
+namespace Copper {
 
 class Test;
 

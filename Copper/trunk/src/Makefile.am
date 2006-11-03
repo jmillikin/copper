@@ -1,8 +1,8 @@
 SUBDIRS=output_handlers protectors
 
-lib_LTLIBRARIES = libunittests.la
+lib_LTLIBRARIES = libcu.la
 
-libunittests_la_SOURCES = \
+libcu_la_SOURCES = \
   assertion.cpp \
   assertion_result.cpp \
   assertions.cpp \
@@ -13,6 +13,6 @@ libunittests_la_SOURCES = \
   suite.cpp \
   test.cpp
 
-libunittests_la_LIBADD = \
-  output_handlers/libunittests_output_handlers.la \
-  protectors/libunittests_protectors.la
+libcu_la_LIBADD = \
+  output_handlers/libcu_output_handlers.la \
+  protectors/libcu_protectors.la

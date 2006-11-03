@@ -3,10 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "../src/test.hpp"
-#include "../src/fixture.hpp"
-#include "../src/output_handler.hpp"
-#include "../src/macros.hpp"
+#include <copper.hpp>
+#include <copper/output_handler.hpp>
 
 // Various self-tests of the framework, to try and avoid bugs
 TEST_SUITE(self_tests) {
@@ -210,27 +208,27 @@ FIXTURE_TEST(fixture_test, the_fixture) {
 TEST(pretty_names) {
   // Basic capitalization
   assert(equal("Something",
-    UnitTests::OutputHandler::pretty_name("something")));
+    Copper::OutputHandler::pretty_name("something")));
 
   // Underscore conversion
   assert(equal("Some thing",
-    UnitTests::OutputHandler::pretty_name("some_thing")));
+    Copper::OutputHandler::pretty_name("some_thing")));
 
   // Leaves capitals alone
   assert(equal("Something",
-    UnitTests::OutputHandler::pretty_name("Something")));
+    Copper::OutputHandler::pretty_name("Something")));
 }
 
 // Tests of implementation details
 
 TEST(assertion_result_fresh) {
-  UnitTests::AssertionResult ar;
+  Copper::AssertionResult ar;
   assert(!ar.passed());
   assert(equal("Unitialized AssertionResult", ar.failure_message()));
 }
 
 TEST(assertion_result_pass) {
-  UnitTests::AssertionResult ar;
+  Copper::AssertionResult ar;
   ar.pass();
 
   assert(ar.passed());
@@ -242,7 +240,7 @@ TEST(assertion_result_pass) {
 }
 
 TEST(assertion_result_failure) {
-  UnitTests::AssertionResult ar;
+  Copper::AssertionResult ar;
   ar.fail("Error goes here");
 
   assert(!ar.passed());
@@ -254,22 +252,22 @@ TEST(assertion_result_failure) {
 }
 
 TEST(boolean_assertion_pass) {
-  UnitTests::AssertionResult ar(true);
+  Copper::AssertionResult ar(true);
 
   assert(ar.passed());
 }
 
 TEST(boolean_assertion_failure) {
-  UnitTests::AssertionResult ar(false);
+  Copper::AssertionResult ar(false);
 
   assert(!ar.passed());
   assert(equal("Boolean assertion failed", ar.failure_message()));
 }
 
 TEST(assertion_pass) {
-  UnitTests::AssertionResult ar;
+  Copper::AssertionResult ar;
   ar.pass();
-  UnitTests::Assertion a(ar, "Assertion text", 12345);
+  Copper::Assertion a(ar, "Assertion text", 12345);
 
   assert(a.passed());
   assert(equal("Assertion text", a.text()));
@@ -277,9 +275,9 @@ TEST(assertion_pass) {
 }
 
 TEST(assertion_failure) {
-  UnitTests::AssertionResult ar;
+  Copper::AssertionResult ar;
   ar.fail("Error goes here");
-  UnitTests::Assertion a(ar, "Assertion text", 12345);
+  Copper::Assertion a(ar, "Assertion text", 12345);
 
   assert(!a.passed());
   assert(equal("Assertion text", a.text()));
@@ -288,9 +286,9 @@ TEST(assertion_failure) {
 }
 
 TEST(assertion_failure_custom_message) {
-  UnitTests::AssertionResult ar;
+  Copper::AssertionResult ar;
   ar.fail("Error goes here");
-  UnitTests::Assertion a(ar, "Assertion text", "Custom error", 12345);
+  Copper::Assertion a(ar, "Assertion text", "Custom error", 12345);
 
   assert(!a.passed());
   assert(equal("Assertion text", a.text()));
@@ -299,9 +297,9 @@ TEST(assertion_failure_custom_message) {
 }
 
 TEST(reverse_passed_assertion) {
-  UnitTests::AssertionResult ar;
+  Copper::AssertionResult ar;
   ar.pass();
-  UnitTests::AssertionResult reversed_ar = failed(ar);
+  Copper::AssertionResult reversed_ar = failed(ar);
 
   assert(!reversed_ar.passed());
   assert(equal("Unexpected success of assertion 'ar'",
@@ -309,18 +307,18 @@ TEST(reverse_passed_assertion) {
 }
 
 TEST(reverse_failed_assertion) {
-  UnitTests::AssertionResult ar;
+  Copper::AssertionResult ar;
   ar.fail("");
-  UnitTests::AssertionResult reversed_ar = failed(ar);
+  Copper::AssertionResult reversed_ar = failed(ar);
 
   assert(reversed_ar.passed());
 }
 
-class self_test_fail : public UnitTests::Test {
+class self_test_fail : public Copper::Test {
 public:
-  self_test_fail(): UnitTests::Test("fail self test", &current_suite,
+  self_test_fail(): Copper::Test("fail self test", &current_suite,
     __FILE__){}
-  void _run(UnitTests::Assertion** bad_assertion) {
+  void _run(Copper::Assertion** bad_assertion) {
     assert(false);
   }
 protected:
@@ -331,17 +329,17 @@ protected:
 TEST(failed_test__run) {
   self_test_fail self_test_instance;
 
-  UnitTests::Assertion* failed;
+  Copper::Assertion* failed;
   self_test_instance._run(&failed);
   assert(not_null(failed));
   delete failed;
 }
 
-class self_test_pass : public UnitTests::Test {
+class self_test_pass : public Copper::Test {
 public:
-  self_test_pass(): UnitTests::Test("pass self test", &current_suite,
+  self_test_pass(): Copper::Test("pass self test", &current_suite,
     __FILE__){}
-  void _run(UnitTests::Assertion** bad_assertion) {
+  void _run(Copper::Assertion** bad_assertion) {
     assert(true);
   }
 protected:
@@ -352,17 +350,17 @@ protected:
 TEST(successful_test__run) {
   self_test_pass self_test_instance;
 
-  UnitTests::Assertion* failed = 0;
+  Copper::Assertion* failed = 0;
   self_test_instance._run(&failed);
   assert(null(failed));
 }
 
-class self_test_fail_custom_error : public UnitTests::Test {
+class self_test_fail_custom_error : public Copper::Test {
 public:
-  self_test_fail_custom_error(): UnitTests::Test(
+  self_test_fail_custom_error(): Copper::Test(
     "fail self test with custom error", &current_suite,
     __FILE__){}
-  void _run(UnitTests::Assertion** bad_assertion) {
+  void _run(Copper::Assertion** bad_assertion) {
     assert(false, "Custom error string");
   }
 protected:
@@ -373,7 +371,7 @@ protected:
 TEST(fail_with_custom_error) {
   self_test_fail_custom_error self_test_instance;
 
-  UnitTests::Assertion* failed;
+  Copper::Assertion* failed;
   self_test_instance._run(&failed);
   assert(not_null(failed));
 

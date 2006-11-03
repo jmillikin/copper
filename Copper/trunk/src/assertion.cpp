@@ -7,7 +7,7 @@
 #include "export.hpp"
 #include <cstdio>
 
-namespace UnitTests {
+namespace Copper {
 
 EXPORT Assertion::Assertion(
   const AssertionResult& result,
@@ -88,10 +88,10 @@ EXPORT const char* Assertion::failure_message() const throw () {
   }
 }
 
-EXPORT UnitTests::AssertionResult failed_func(
-  const UnitTests::Assertion& assertion) throw () {
+EXPORT Copper::AssertionResult failed_func(
+  const Copper::Assertion& assertion) throw () {
 
-  UnitTests::AssertionResult result;
+  Copper::AssertionResult result;
 
   if (!assertion.passed()) {
     result.pass();

@@ -25,9 +25,9 @@
 #define assert(ARGS...) real_assert(ARGS, __LINE__)
 
 #define real_assert(ASSERTION, ARGS...) {\
-  UnitTests::Assertion assertion(ASSERTION, #ASSERTION, ARGS);\
+  Copper::Assertion assertion(ASSERTION, #ASSERTION, ARGS);\
   if (!assertion.passed()) {\
-    *bad_assertion = new UnitTests::Assertion(assertion);\
+    *bad_assertion = new Copper::Assertion(assertion);\
     return;\
   }\
 }
@@ -39,9 +39,9 @@
 #define assert(...) real_assert(__VA_ARGS__, __LINE__)
 
 #define real_assert(ASSERTION, ...) {\
-  UnitTests::Assertion assertion(ASSERTION, #ASSERTION, __VA_ARGS__);\
+  Copper::Assertion assertion(ASSERTION, #ASSERTION, __VA_ARGS__);\
   if (!assertion.passed()) {\
-    *bad_assertion = new UnitTests::Assertion(assertion);\
+    *bad_assertion = new Copper::Assertion(assertion);\
     return;\
   }\
 }
@@ -52,8 +52,8 @@
 
   @param ASSERTION The Assertion to invert
 */
-#define failed(ASSERTION) UnitTests::failed_func(\
-  UnitTests::Assertion(ASSERTION, #ASSERTION, __LINE__))
+#define failed(ASSERTION) Copper::failed_func(\
+  Copper::Assertion(ASSERTION, #ASSERTION, __LINE__))
 
 /**
   Check that some code throws an exception
@@ -64,11 +64,11 @@
 #define assert_throws(CODE, EXCEPTION_TYPE) \
   try {\
     CODE;\
-    UnitTests::Assertion assertion(\
-      UnitTests::AssertionResult().fail(#CODE" threw no exceptions"), \
+    Copper::Assertion assertion(\
+      Copper::AssertionResult().fail(#CODE" threw no exceptions"), \
       "assert_throws("#CODE", "#EXCEPTION_TYPE")", __LINE__);\
     if (!assertion.passed()) {\
-      *bad_assertion = new UnitTests::Assertion(assertion);\
+      *bad_assertion = new Copper::Assertion(assertion);\
       return;\
     }\
   }\
@@ -84,7 +84,7 @@
 */
 #define TEST_SUITE(NAME) \
   namespace suite_namespace_##NAME { \
-    static UnitTests::Suite current_suite(#NAME); } \
+    static Copper::Suite current_suite(#NAME); } \
   namespace suite_namespace_##NAME
 
 /**
@@ -93,15 +93,15 @@
   @param NAME The name of the new test suite
 */
 #define TEST(NAME) \
-  class test_##NAME : public UnitTests::Test { \
+  class test_##NAME : public Copper::Test { \
   public: \
-    test_##NAME(): UnitTests::Test(#NAME, &current_suite, __FILE__){} \
+    test_##NAME(): Copper::Test(#NAME, &current_suite, __FILE__){} \
   protected: \
     void set_up(){} \
     void tear_down(){} \
-    void _run(UnitTests::Assertion** bad_assertion); \
+    void _run(Copper::Assertion** bad_assertion); \
   } test_instance_##NAME; \
-  void test_##NAME::_run(UnitTests::Assertion** bad_assertion)
+  void test_##NAME::_run(Copper::Assertion** bad_assertion)
 
 /**
   Define a new Fixture, with the given name
@@ -109,9 +109,9 @@
   @param NAME The name of the new fixture
 */
 #define FIXTURE(NAME) \
-  class fixture_##NAME : public UnitTests::Fixture { \
+  class fixture_##NAME : public Copper::Fixture { \
     public: \
-      fixture_##NAME(): UnitTests::Fixture(){} \
+      fixture_##NAME(): Copper::Fixture(){} \
     protected:
 
 /**
@@ -122,14 +122,14 @@
   @param FIXTURE The Fixture to use for test management
 */
 #define FIXTURE_TEST(NAME, FIXTURE) \
-  class test_##NAME : public UnitTests::Test, public fixture_##FIXTURE { \
+  class test_##NAME : public Copper::Test, public fixture_##FIXTURE { \
   public: \
     test_##NAME(): \
-      UnitTests::Test(#NAME, &current_suite, __FILE__), \
+      Copper::Test(#NAME, &current_suite, __FILE__), \
       fixture_##FIXTURE() \
       {} \
   protected: \
-    void _run(UnitTests::Assertion** bad_assertion); \
+    void _run(Copper::Assertion** bad_assertion); \
     void set_up(){ \
       fixture_##FIXTURE::set_up(); \
     } \
@@ -137,6 +137,6 @@
       fixture_##FIXTURE::tear_down(); \
     } \
   } test_instance_##NAME; \
-  void test_##NAME::_run(UnitTests::Assertion** bad_assertion)
+  void test_##NAME::_run(Copper::Assertion** bad_assertion)
 
 #endif /* MACROS_HPP */

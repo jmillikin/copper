@@ -13,7 +13,7 @@
 
 #include "error.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 class Test;
 class Assertion;

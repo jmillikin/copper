@@ -8,7 +8,7 @@
 #include "assertion_result.hpp"
 #include "export.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 EXPORT AssertionResult::AssertionResult() throw ():
   m_finished(false), m_passed(false), m_failure_message(

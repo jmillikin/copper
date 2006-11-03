@@ -6,7 +6,7 @@
 #ifndef ERROR_HPP
 #define ERROR_HPP
 
-namespace UnitTests {
+namespace Copper {
 
 /**
   This is used to indicate that something unexpected went wrong running a test

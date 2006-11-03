@@ -1,3 +1,3 @@
-noinst_LTLIBRARIES=libunittests_protectors.la
+noinst_LTLIBRARIES=libcu_protectors.la
 
-libunittests_protectors_la_SOURCES = exception_protector.cpp unix_protector.cpp
+libcu_protectors_la_SOURCES = exception_protector.cpp unix_protector.cpp

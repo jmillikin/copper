@@ -11,7 +11,7 @@
 #include "test.hpp"
 #include "error.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 /**
   This class must be subclassed to provide different output formats

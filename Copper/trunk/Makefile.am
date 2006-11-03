@@ -6,7 +6,7 @@ run_self_tests_SOURCES=\
   tests/main.cpp \
   tests/self_tests.cpp
 
-run_self_tests_LDADD = src/libunittests.la
+run_self_tests_LDADD = src/libcu.la
 
 check:
 	./run_self_tests

@@ -8,7 +8,7 @@
 
 #include "../protector.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 /**
   Guard against unknown exceptions being thrown by tests. This isn't added by

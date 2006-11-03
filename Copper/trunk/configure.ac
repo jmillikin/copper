@@ -1,4 +1,4 @@
-AC_INIT(UnitTests, 0.1, jmillikin@gmail.com)
+AC_INIT(Copper, 0.1, jmillikin@gmail.com)
 AC_CONFIG_SRCDIR(src/test.cpp)
 
 dnl Initialize automake

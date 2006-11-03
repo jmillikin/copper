@@ -7,7 +7,7 @@
 #include "suite.hpp"
 #include "export.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 EXPORT Test::Test(
   const char* _name,

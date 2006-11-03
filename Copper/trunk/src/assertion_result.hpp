@@ -11,7 +11,7 @@
 #pragma warning(disable: 4290)
 #endif
 
-namespace UnitTests {
+namespace Copper {
 
 class AssertionResult {
 public:

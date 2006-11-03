@@ -10,7 +10,7 @@
 #include "assertion.hpp"
 #include "export.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 OutputHandler::OutputHandler(int& argc, char**& argv) {
   // Allow exception catching to be toggled on or off at runtime

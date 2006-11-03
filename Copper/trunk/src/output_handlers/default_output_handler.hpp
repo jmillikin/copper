@@ -8,7 +8,7 @@
 
 #include "../output_handler.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 /**
   This is a default implementation of an OutputHandler. It will output failures

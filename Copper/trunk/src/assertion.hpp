@@ -8,7 +8,7 @@
 #ifndef ASSERTION_HPP
 #define ASSERTION_HPP
 
-namespace UnitTests {
+namespace Copper {
 
 class Assertion {
 public:
@@ -69,7 +69,7 @@ protected:
   unsigned int m_line;
 };
 
-UnitTests::AssertionResult failed_func(const UnitTests::Assertion& assertion) throw ();
+Copper::AssertionResult failed_func(const Copper::Assertion& assertion) throw ();
 
 } // namespace
 

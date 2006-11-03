@@ -10,7 +10,7 @@
 
 #include "../output_handler.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 /**
   Use the GTK+ library to output to a window

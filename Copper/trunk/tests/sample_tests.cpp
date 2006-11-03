@@ -3,8 +3,7 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "test.hpp"
-#include "fixture.hpp"
+#include <copper.hpp>
 
 TEST_SUITE(sample_suite) {
 

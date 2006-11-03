@@ -7,7 +7,7 @@
 #include <cstring>
 #include <cstdlib>
 
-namespace UnitTests {
+namespace Copper {
 
 Error::Error(const char* _message) throw ():
   message(strdup(_message)) {}

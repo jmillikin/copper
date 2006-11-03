@@ -26,14 +26,14 @@ std::ostream& operator<<(std::ostream& out, const MiniString& str) throw () {
   return out;
 }
 
-EXPORT UnitTests::AssertionResult equal(char const* expected,
+EXPORT Copper::AssertionResult equal(char const* expected,
   char const* actual) throw () {
 
   MiniString s_expected(expected), s_actual(actual);
   return equal(s_expected, s_actual);
 }
 
-EXPORT UnitTests::AssertionResult unequal(char const* bad,
+EXPORT Copper::AssertionResult unequal(char const* bad,
   char const* actual) throw () {
 
   MiniString s_actual(actual), s_bad(bad);

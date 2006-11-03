@@ -9,7 +9,7 @@
 #include "assertion.hpp"
 #include "suite.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 class OutputHandler;
 
@@ -35,7 +35,7 @@ public:
 
 protected:
   /** Run the user's test code */
-  virtual void _run(UnitTests::Assertion** bad_assertion) = 0;
+  virtual void _run(Copper::Assertion** bad_assertion) = 0;
 
   /** Used to set up this test's fixture, if it exists */
   virtual void set_up() = 0;

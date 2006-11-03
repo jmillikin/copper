@@ -6,7 +6,7 @@
 #include "fixture.hpp"
 #include "export.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 EXPORT Fixture::Fixture(){}
 

@@ -15,7 +15,7 @@
 #include <QPushButton>
 #include "../output_handler.hpp"
 
-namespace UnitTests {
+namespace Copper {
 
 class Qt4OutputHandler;
 
