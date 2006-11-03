@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include "default_output_handler.hpp"
+#include "output_handler.hpp"
 
 int main(int argc, char** argv) {
   // Output to the console
