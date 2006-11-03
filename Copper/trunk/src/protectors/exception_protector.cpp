@@ -5,7 +5,7 @@
 
 #include <cstdio>
 #include <stdexcept>
-#include <copper/exception_protector.hpp>
+#include "exception_protector.hpp"
 
 namespace Copper {
 

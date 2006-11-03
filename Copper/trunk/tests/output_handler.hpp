@@ -28,7 +28,7 @@ public:
 
     @param test The test that passed
   */
-  void pass(const Test* test) throw ();
+  void pass(const Copper::Test* test) throw ();
 
   /**
     Outputs failures to the standard error stream. Also keeps track of how

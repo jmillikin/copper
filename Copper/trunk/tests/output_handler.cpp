@@ -37,8 +37,9 @@ void OutputHandler::fail(const Copper::Test* test,
     assertion->text(), assertion->failure_message());
 }
 
-void OutputHandler::error(const Test* test, const Error* error)
-  throw () {
+void OutputHandler::error(
+  const Copper::Test* test,
+  const Copper::Error* error) throw () {
 
   ++num_errors;
 
@@ -61,12 +62,12 @@ int OutputHandler::run() {
   timeval start_time;
   gettimeofday(&start_time, 0);
 
-  std::list<Suite*> suites = Copper::Suite::all_suites();
-  std::list<Suite*>::const_iterator suite;
+  std::list<Copper::Suite*> suites = Copper::Suite::all_suites();
+  std::list<Copper::Suite*>::const_iterator suite;
   for (suite = suites.begin(); suite != suites.end(); suite++) {
 
-    std::list<Test*> tests = (*suite)->get_tests();
-    std::list<Test*>::const_iterator test;
+    std::list<Copper::Test*> tests = (*suite)->get_tests();
+    std::list<Copper::Test*>::const_iterator test;
     for (test = tests.begin(); test != tests.end(); test++) {
       run_test(*test);
     }

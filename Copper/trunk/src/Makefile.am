@@ -1,3 +1,5 @@
+INCLUDES = -I$(top_srcdir)/include
+
 SUBDIRS=protectors
 
 lib_LTLIBRARIES = libcu.la
