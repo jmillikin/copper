@@ -31,10 +31,17 @@
     return;\
   }\
 }
-#endif
-#endif
+#else /* __GNUC__ is > 3 */
+#ifndef ENABLE_VARIADIC_ASSERT
+#define ENABLE_VARIADIC_ASSERT 1
+#endif /* ENABLE_VARIADIC_ASSERT */
+#endif /* __GNUC__ */
 
-// C99 style of variadic macros
+#endif /* ifdef __GNUC__ */
+
+/* C99 style of variadic macros */
+#if ENABLE_VARIADIC_ASSERT == 1
+
 #ifndef assert
 #define assert(...) real_assert(__VA_ARGS__, __LINE__)
 
@@ -45,7 +52,9 @@
     return;\
   }\
 }
-#endif
+#endif /* ifndef assert */
+
+#endif /* ENABLE_VARIADIC_ASSERT */
 
 /**
   Invert the output from an assertion
