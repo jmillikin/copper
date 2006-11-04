@@ -72,16 +72,8 @@ int OutputHandler::run() {
   timeval start_time;
   gettimeofday(&start_time, 0);
 
-  std::list<Copper::Suite*> suites = Copper::Suite::all_suites();
-  std::list<Copper::Suite*>::const_iterator suite;
-  for (suite = suites.begin(); suite != suites.end(); suite++) {
-
-    std::list<Copper::Test*> tests = (*suite)->get_tests();
-    std::list<Copper::Test*>::const_iterator test;
-    for (test = tests.begin(); test != tests.end(); test++) {
-      run_test(*test);
-    }
-  }
+  // Run all tests
+  run_tests(Copper::Test::all());
 
   // Calculate running time
   timeval now;

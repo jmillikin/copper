@@ -3,6 +3,7 @@ copper_include_real_HEADERS = \
   assertions.hpp \
   error.hpp \
   fixture.hpp \
+  list.hpp \
   macros.hpp \
   output_handler.hpp \
   protector.hpp \

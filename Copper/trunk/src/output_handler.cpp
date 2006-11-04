@@ -63,4 +63,12 @@ EXPORT void OutputHandler::run_test(Test* test) {
   pass(test);
 }
 
+EXPORT void OutputHandler::run_tests(List<Test> tests) {
+  const ListNode<Test>* node = tests.root();
+  while (node) {
+    run_test(node->value);
+    node = node->next;
+  }
+}
+
 } /* namespace */

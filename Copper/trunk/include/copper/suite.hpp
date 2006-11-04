@@ -6,7 +6,7 @@
 #ifndef COPPER_SUITE_HPP
 #define COPPER_SUITE_HPP
 
-#include <list>
+#include <copper/list.hpp>
 
 namespace Copper {
 
@@ -35,17 +35,17 @@ public:
 
     @return All tests in this suite, in no particular order
   */
-  std::list<Test*> get_tests() const throw ();
+  List<Test> get_tests() const throw ();
 
   /** Get a list of all test suites */
-  static std::list<Suite*> all_suites() throw ();
+  static List<Suite> all_suites() throw ();
 
   /** This suite's name */
   const char* name;
 
 protected:
   /** All tests in this suite, in no particular order */
-  std::list<Test*> tests;
+  List<Test> tests;
 };
 
 } // namespace

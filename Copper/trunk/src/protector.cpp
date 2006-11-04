@@ -3,16 +3,15 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include <list>
-#include <algorithm>
 #include <copper/protector.hpp>
 #include <copper/test.hpp>
+#include <copper/list.hpp>
 
 namespace Copper {
 
-std::list<Protector*>* protectors() {
-  static std::list<Protector*> _protectors;
-  return &_protectors;
+List<Protector>& protectors() {
+  static List<Protector> _protectors;
+  return _protectors;
 }
 
 Protector::Protector() throw () {}
@@ -20,13 +19,12 @@ Protector::Protector() throw () {}
 Protector::~Protector() throw () {}
 
 void Protector::add(Protector* protector) {
-  protectors()->push_back(protector);
+  protectors().append(protector);
 }
 
 void Protector::guard(Test* test, Assertion** failure, Error** error) {
-  if (protectors()->size() > 0) {
-    std::list<Protector*>::iterator iter = protectors()->begin();
-    (*iter)->_guard(test, failure, error);
+  if (protectors().size() > 0) {
+    protectors().root()->value->_guard(test, failure, error);
   }
 
   else {
@@ -37,17 +35,22 @@ void Protector::guard(Test* test, Assertion** failure, Error** error) {
 void Protector::next_protector(Test* test, Assertion** failure,
   Error** error) {
 
-  std::list<Protector*>::iterator iter =
-    std::find(protectors()->begin(), protectors()->end(), this);
+  const ListNode<Protector>* node = protectors().find(this);
 
-  if (iter != protectors()->end()) {
-    ++iter;
-    if (iter != protectors()->end()) {
-      (*iter)->_guard(test, failure, error);
-    }
-    else {
-      *failure = test->run();
-    }
+  if (!node) {
+    // This protector isn't in the protector list???
+    return;
+  }
+
+  node = node->next;
+
+  if (node) {
+    node->value->_guard(test, failure, error);
+  }
+
+  else {
+    // Reached the end of the list
+    *failure = test->run();
   }
 }
 

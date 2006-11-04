@@ -23,6 +23,27 @@ EXPORT Test::Test(
 
 EXPORT Test::~Test() {}
 
+EXPORT List<Test> Test::all() {
+  List<Test> all_tests;
+
+  List<Suite> suites = Suite::all_suites();
+  const ListNode<Suite>* suite = suites.root();
+
+  while (suite) {
+    List<Test> tests = suite->value->get_tests();
+    const ListNode<Test>* test = tests.root();
+
+    while (test) {
+      all_tests.append(test->value);
+      test = test->next;
+    }
+
+    suite = suite->next;
+  }
+
+  return all_tests;
+}
+
 Assertion* Test::run() {
   Assertion* bad_assertion = 0;
   set_up();

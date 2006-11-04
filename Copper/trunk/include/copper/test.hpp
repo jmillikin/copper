@@ -8,10 +8,9 @@
 
 #include <copper/assertion.hpp>
 #include <copper/suite.hpp>
+#include <copper/list.hpp>
 
 namespace Copper {
-
-class OutputHandler;
 
 class Test {
 public:
@@ -20,6 +19,9 @@ public:
     Suite* suite,
     const char* file_name) throw ();
   virtual ~Test();
+
+  /** Get a list of all tests */
+  static List<Test> all();
 
   /** Run the test */
   Assertion* run();

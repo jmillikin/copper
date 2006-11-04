@@ -8,6 +8,7 @@
 
 #include <copper/test.hpp>
 #include <copper/error.hpp>
+#include <copper/list.hpp>
 
 namespace Copper {
 
@@ -82,6 +83,14 @@ protected:
     @param test The test to run
   */
   void run_test(Test* test);
+
+  /**
+    Run a many tests. This function automatically manages Protectors and
+    exception handling
+
+    @param tests The tests to run
+  */
+  void run_tests(List<Test> tests);
 };
 
 } /* namespace */
