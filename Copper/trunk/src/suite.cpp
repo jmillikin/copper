@@ -26,11 +26,11 @@ void Suite::add_test(Test* test) throw () {
   tests.push_back(test);
 }
 
-std::list<Test*> Suite::get_tests() const throw () {
+EXPORT std::list<Test*> Suite::get_tests() const throw () {
   return tests;
 }
 
-std::list<Suite*> Suite::all_suites() throw () {
+EXPORT std::list<Suite*> Suite::all_suites() throw () {
   return *suites();
 }
 

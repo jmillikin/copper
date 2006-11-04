@@ -11,11 +11,11 @@
 
 namespace Copper {
 
-OutputHandler::OutputHandler(int&, char**&) {
+EXPORT OutputHandler::OutputHandler(int&, char**&) {
   // For now, do nothing
 }
 
-OutputHandler::~OutputHandler() {}
+EXPORT OutputHandler::~OutputHandler() {}
 
 EXPORT char* OutputHandler::pretty_name(const char* old_name) throw () {
   char* name = strdup(old_name);
@@ -42,7 +42,7 @@ EXPORT char* OutputHandler::pretty_name(const char* old_name) throw () {
   return name;
 }
 
-void OutputHandler::run_test(Test* test) {
+EXPORT void OutputHandler::run_test(Test* test) {
   begin(test);
 
   Assertion* failure = 0;
