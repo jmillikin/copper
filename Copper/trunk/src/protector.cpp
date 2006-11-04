@@ -6,6 +6,7 @@
 #include <copper/protector.hpp>
 #include <copper/test.hpp>
 #include <copper/list.hpp>
+#include "export.hpp"
 
 namespace Copper {
 
@@ -18,7 +19,7 @@ Protector::Protector() throw () {}
 
 Protector::~Protector() throw () {}
 
-void Protector::add(Protector* protector) {
+EXPORT void Protector::add(Protector* protector) {
   protectors().append(protector);
 }
 

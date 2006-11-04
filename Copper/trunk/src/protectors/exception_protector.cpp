@@ -5,14 +5,15 @@
 
 #include <cstdio>
 #include <stdexcept>
-#include "exception_protector.hpp"
+#include <copper/protectors/exception_protector.hpp>
+#include "../export.hpp"
 
 namespace Copper {
 
-ExceptionProtector::ExceptionProtector() throw ():
+EXPORT ExceptionProtector::ExceptionProtector() throw ():
   Protector() {}
 
-ExceptionProtector::~ExceptionProtector() throw () {}
+EXPORT ExceptionProtector::~ExceptionProtector() throw () {}
 
 void ExceptionProtector::_guard(Test* test, Assertion** failure,
   Error** error) {

@@ -91,4 +91,5 @@ AC_OUTPUT([
   src/protectors/Makefile
   include/Makefile
   include/copper/Makefile
+  include/copper/protectors/Makefile
 ])

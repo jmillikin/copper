@@ -1,3 +1,5 @@
+SUBDIRS = protectors
+
 copper_include_real_HEADERS = \
   assertion_result.hpp \
   assertions.hpp \
