@@ -57,6 +57,13 @@
 #endif /* ENABLE_VARIADIC_ASSERT */
 
 /**
+  Used to manually fail a test
+*/
+#define fail(MESSAGE) \
+  *bad_assertion = new Copper::Assertion(false, "", MESSAGE, __LINE__);\
+  return;
+
+/**
   Invert the output from an assertion
 
   @param ASSERTION The Assertion to invert

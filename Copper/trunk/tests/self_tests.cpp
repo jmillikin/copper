@@ -4,6 +4,10 @@
  */
 
 #include <copper.hpp>
+
+// Undefine fail(), but it will be redefined later
+#undef fail
+
 #include <copper/output_handler.hpp>
 
 // Various self-tests of the framework, to try and avoid bugs
@@ -388,6 +392,34 @@ TEST(fail_with_custom_error) {
   assert(not_null(failed));
 
   assert(equal("Custom error string", failed->failure_message()));
+
+  delete failed;
+}
+
+// Re-include macros.hpp to define fail()
+#undef COPPER_MACROS_HPP
+#include <copper/macros.hpp>
+
+class self_test_explicit_fail : public Copper::Test {
+public:
+  self_test_explicit_fail(): Copper::Test(
+    "", &current_suite, __FILE__){}
+  void _run(Copper::Assertion** bad_assertion) {
+    fail("Custom failure string");
+  }
+protected:
+  void set_up(){}
+  void tear_down(){}
+};
+
+TEST(explicit_fail) {
+  self_test_explicit_fail self_test_instance;
+
+  Copper::Assertion* failed;
+  self_test_instance._run(&failed);
+  assert(not_null(failed));
+
+  assert(equal("Custom failure string", failed->failure_message()));
 
   delete failed;
 }
