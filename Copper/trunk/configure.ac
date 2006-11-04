@@ -66,7 +66,7 @@ AC_MSG_CHECKING(if debugging is enabled[])
 if test "$enable_debug" = "yes"; then
   AC_MSG_RESULT([yes])
 
-  DEBUG_CPPFLAGS="-g3 -Wall -ansi"
+  DEBUG_CPPFLAGS="-g3 -Wall -ansi -pedantic"
 else
   AC_MSG_RESULT([no])
 fi
