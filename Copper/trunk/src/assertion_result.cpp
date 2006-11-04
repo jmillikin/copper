@@ -46,7 +46,7 @@ EXPORT AssertionResult::~AssertionResult() throw () {
   free(m_failure_message);
 }
 
-EXPORT const AssertionResult& AssertionResult::pass() throw () {
+EXPORT void AssertionResult::pass() throw () {
   if (!m_finished) {
     m_passed = true;
     m_finished = true;
@@ -54,12 +54,9 @@ EXPORT const AssertionResult& AssertionResult::pass() throw () {
     free(m_failure_message);
     m_failure_message = strdup("No Error");
   }
-  return *this;
 }
 
-EXPORT const AssertionResult& AssertionResult::fail(
-  const char* _failure_message) throw () {
-
+EXPORT void AssertionResult::fail(const char* _failure_message) throw () {
   if (!m_finished) {
     m_passed = false;
     m_finished = true;
@@ -67,7 +64,6 @@ EXPORT const AssertionResult& AssertionResult::fail(
     free(m_failure_message);
     m_failure_message = strdup(_failure_message);
   }
-  return *this;
 }
 
 EXPORT bool AssertionResult::passed() const throw () {

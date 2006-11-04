@@ -73,9 +73,7 @@
 #define assert_throws(CODE, EXCEPTION_TYPE) \
   try {\
     CODE;\
-    Copper::Assertion assertion(\
-      Copper::AssertionResult().fail(#CODE" threw no exceptions"), \
-      "assert_throws("#CODE", "#EXCEPTION_TYPE")", __LINE__);\
+    Copper::Assertion assertion(false, "", #CODE" threw no exceptions", __LINE__); \
     if (!assertion.passed()) {\
       *bad_assertion = new Copper::Assertion(assertion);\
       return;\
