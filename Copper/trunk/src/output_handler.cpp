@@ -33,7 +33,7 @@ EXPORT char* OutputHandler::pretty_name(const char* old_name) throw () {
 
   size_t len = strlen(name);
   // Convert underscores to spaces
-  for (int ii = 0; ii < len; ii++) {
+  for (size_t ii = 0; ii < len; ii++) {
     if (name[ii] == '_') {
       name[ii] = ' ';
     }
