@@ -62,23 +62,24 @@ TEST(less_than_or_equal) {
   assert(less_than_or_equal(2, 2));
 }
 
-// Fixtures are used for multiple tests that should use the same data.
-// Fixture data is automatically available on the stack, though it must
-// be initialized in set_up(). Dynamically allocated memory or opened
-// files must be closed in tear_down()
-FIXTURE(the_fixture)
+/*
+  Fixtures are used for multiple tests that should use the same data.
+  Fixture data is automatically available on the stack, though it should
+  be initialized in set_up() to avoid dirty data shared between tests using
+  the same fixture. Dynamically allocated memory or opened files should be
+  closed in tear_down()
+*/
+FIXTURE(the_fixture) {
+  int fixture_var = 0;
+  bool set_up_finished = false;
 
   void set_up(){
     fixture_var = 1;
     set_up_finished = true;
   }
 
-  // If desired, include a "void tear_down(){...
-
-  int fixture_var;
-  bool set_up_finished;
-
-};
+  void tear_down() {}
+}
 
 FIXTURE_TEST(fixture_test, the_fixture) {
   assert(equal(fixture_var, 1));

@@ -35,7 +35,7 @@ TEST(integer_equals_fail) {
   assert(failed(equal(1, 2)));
 }
 
-FIXTURE(str_fixture)
+FIXTURE(str_fixture) {
   std::string var1, var2, var3, var4;
   char* cvar1, *cvar2, *cvar3, *cvar4;
   void set_up() {
@@ -55,7 +55,7 @@ FIXTURE(str_fixture)
     free(cvar3);
     free(cvar4);
   }
-};
+}
 
 FIXTURE_TEST(std_string_equal, str_fixture) {
   assert(equal(var1, var2));
@@ -198,17 +198,17 @@ TEST(thrown_exception_fail) {
 }
 */
 
-FIXTURE(the_fixture)
+FIXTURE(the_fixture) {
+  int fixture_var = 0;
+  bool set_up_finished = false;
+
   void set_up(){
     fixture_var = 1;
     set_up_finished = true;
   }
 
-  // If desired, include a "void tear_down(){..."
-
-  int fixture_var;
-  bool set_up_finished;
-};
+  void tear_down() {}
+}
 
 FIXTURE_TEST(fixture_test, the_fixture) {
   assert(equal(fixture_var, 1));

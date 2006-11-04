@@ -14,8 +14,8 @@ public:
   virtual ~Fixture();
 
 protected:
-  virtual void set_up();
-  virtual void tear_down();
+  virtual void _set_up();
+  virtual void _tear_down();
 };
 
 } /* namespace */

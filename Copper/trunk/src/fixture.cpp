@@ -12,8 +12,8 @@ EXPORT Fixture::Fixture(){}
 
 EXPORT Fixture::~Fixture(){}
 
-void Fixture::set_up(){}
+EXPORT void Fixture::_set_up(){}
 
-EXPORT void Fixture::tear_down(){}
+EXPORT void Fixture::_tear_down(){}
 
 } /* namespace */
