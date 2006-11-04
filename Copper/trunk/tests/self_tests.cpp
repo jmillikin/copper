@@ -345,7 +345,7 @@ protected:
 TEST(failed_test__run) {
   self_test_fail self_test_instance;
 
-  Copper::Assertion* failed;
+  Copper::Assertion* failed = 0;
   self_test_instance._run(&failed);
   assert(not_null(failed));
   delete failed;
@@ -387,7 +387,7 @@ protected:
 TEST(fail_with_custom_error) {
   self_test_fail_custom_error self_test_instance;
 
-  Copper::Assertion* failed;
+  Copper::Assertion* failed = 0;
   self_test_instance._run(&failed);
   assert(not_null(failed));
 
