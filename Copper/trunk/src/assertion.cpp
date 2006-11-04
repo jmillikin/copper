@@ -18,8 +18,8 @@ EXPORT Assertion::Assertion(
 
   m_result(result),
   m_text(strdup(_text)),
-  m_line(_line),
-  m_message(NULL) {}
+  m_message(NULL),
+  m_line(_line) {}
 
 EXPORT Assertion::Assertion(
   const AssertionResult& result,
@@ -29,8 +29,8 @@ EXPORT Assertion::Assertion(
 
   m_result(result),
   m_text(strdup(_text)),
-  m_line(_line),
-  m_message(strdup(message)) {}
+  m_message(strdup(message)),
+  m_line(_line) {}
 
 EXPORT Assertion::Assertion(const Assertion& other) throw () {
   m_result = other.m_result;
