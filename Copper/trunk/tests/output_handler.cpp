@@ -20,6 +20,7 @@ OutputHandler::OutputHandler(int& argc, char**& argv)
   for (int ii = 1; ii < argc; ii++) {
     if (strcmp(argv[ii], "--no-exceptions") == 0) {
       catch_exceptions = false;
+      break;
     }   
   }
 
