@@ -1,4 +1,4 @@
-/* list.hpp -- Simple linked list to avoid dependency on std::list
+/* string.hpp -- Simple string to avoid dependency on std::string
  * Copyright (C) 2006 John Millikin
  * For conditions of distribution and use, see license.txt
  */

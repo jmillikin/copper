@@ -1,3 +1,9 @@
+/* string.cpp -- Simple string to avoid dependency on std::string
+ * Copyright (C) 2006 John Millikin
+ * For conditions of distribution and use, see license.txt
+ */
+
+
 #include <cstdlib>
 #include <cstring>
 #include <copper/util/string.hpp>
