@@ -45,17 +45,17 @@ FIXTURE(str_fixture) {
     var2 = "test";
     var3 = "other";
     var4 = "other";
-    cvar1 = strdup(var1.c_str());
-    cvar2 = strdup(var2.c_str());
-    cvar3 = strdup(var3.c_str());
-    cvar4 = strdup(var4.c_str());
+    cvar1 = Copper::strdup(var1.c_str());
+    cvar2 = Copper::strdup(var2.c_str());
+    cvar3 = Copper::strdup(var3.c_str());
+    cvar4 = Copper::strdup(var4.c_str());
   }
 
   void tear_down() {
-    free(cvar1);
-    free(cvar2);
-    free(cvar3);
-    free(cvar4);
+    std::free(cvar1);
+    std::free(cvar2);
+    std::free(cvar3);
+    std::free(cvar4);
   }
 }
 
@@ -370,6 +370,7 @@ TEST(successful_test__run) {
   assert(null(failed));
 }
 
+#if ENABLE_VARIADIC_ASSERT == 1
 class self_test_fail_custom_error : public Copper::Test {
 public:
   self_test_fail_custom_error(): Copper::Test(
@@ -394,6 +395,7 @@ TEST(fail_with_custom_error) {
 
   delete failed;
 }
+#endif /* ENABLE_VARIADIC_ASSERT */
 
 // Re-include macros.hpp to define fail()
 #undef COPPER_MACROS_HPP
