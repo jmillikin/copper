@@ -47,8 +47,10 @@ const char* my_strsignal(int sig) {
 jmp_buf jb;
 
 /** Small signal handler */
-void handler(int sig) {
-  longjmp(jb, sig);
+extern "C" {
+  void handler(int sig) {
+    longjmp(jb, sig);
+  }
 }
 
 c_Error* new_Error(const char* str) {
