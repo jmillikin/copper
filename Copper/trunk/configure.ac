@@ -89,7 +89,9 @@ AC_OUTPUT([
   Makefile
   src/Makefile
   src/protectors/Makefile
+  src/util/Makefile
   include/Makefile
   include/copper/Makefile
   include/copper/protectors/Makefile
+  include/copper/util/Makefile
 ])
