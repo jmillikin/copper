@@ -54,6 +54,16 @@
 }
 #endif /* ifndef assert */
 
+#else /* ENABLE_VARIADIC_ASSERT */
+
+#define assert(ASSERTION) {\
+  Copper::Assertion assertion(ASSERTION, #ASSERTION, __LINE__);\
+  if (!assertion.passed()) {\
+    *bad_assertion = new Copper::Assertion(assertion);\
+    return;\
+  }\
+}
+
 #endif /* ENABLE_VARIADIC_ASSERT */
 
 /**
