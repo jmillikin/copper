@@ -19,12 +19,20 @@ typedef Copper::Test c_Test;
 typedef Copper::Assertion c_Assertion;
 typedef Copper::Error c_Error;
 
+#if HAVE_SIGBUS
 const unsigned int SIGNAL_COUNT = 3;
 int signals[SIGNAL_COUNT] = {
   SIGSEGV,
   SIGFPE,
   SIGBUS
 };
+#else
+const unsigned int SIGNAL_COUNT = 2;
+int signals[SIGNAL_COUNT] = {
+  SIGSEGV,
+  SIGFPE
+};
+#endif
 
 jmp_buf jb;
 
