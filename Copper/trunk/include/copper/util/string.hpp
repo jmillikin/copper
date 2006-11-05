@@ -6,6 +6,8 @@
 #ifndef COPPER_UTIL_STRING_HPP
 #define COPPER_UTIL_STRING_HPP
 
+#include <cstddef>
+
 namespace Copper {
 
 class String {
@@ -16,7 +18,7 @@ public:
 
   ~String() throw ();
 
-  String& operator=(const String& other) const throw ();
+  const String& operator=(const String& other) throw ();
 
   bool operator==(const String& other) const throw ();
 
@@ -29,6 +31,8 @@ public:
 protected:
   char* str;
 };
+
+bool operator==(const char* a, const String& b) throw ();
 
 } /* Namespace */
 

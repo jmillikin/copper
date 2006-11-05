@@ -6,6 +6,8 @@
 #ifndef COPPER_ERROR_HPP
 #define COPPER_ERROR_HPP
 
+#include <copper/util/string.hpp>
+
 namespace Copper {
 
 /**
@@ -18,13 +20,13 @@ public:
 
     @param message The error string
   */
-  Error(const char* message) throw ();
+  Error(const String& message) throw ();
 
   /** Default constructor */
   ~Error() throw ();
 
   /** The error that occurred */
-  const char* message;
+  const String message;
 };
 
 } // namespace

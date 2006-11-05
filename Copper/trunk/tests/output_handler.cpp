@@ -43,20 +43,18 @@ void OutputHandler::fail(const Copper::Test* test,
 
   ++num_failed;
 
-  char* suite_name = pretty_name(test->suite->name);
-  char* test_name = pretty_name(test->name);
+  Copper::String suite_name = pretty_name(test->suite->name);
+  Copper::String test_name = pretty_name(test->name);
 
   fprintf(stderr,
     "FAILURE in %s:%u:\n"
     "%s - %s:\n"
     "  %s\n"
     "  %s\n\n",
-    test->file_name, assertion->line(),
-    suite_name, test_name,
-    assertion->text(), assertion->failure_message());
-
-  free(suite_name);
-  free(test_name);
+    test->file_name.c_str(), assertion->line(),
+    suite_name.c_str(), test_name.c_str(),
+    assertion->text().c_str(),
+    assertion->failure_message().c_str());
 }
 
 void OutputHandler::error(
@@ -65,17 +63,16 @@ void OutputHandler::error(
 
   ++num_errors;
 
-  char* suite_name = pretty_name(test->suite->name);
-  char* test_name = pretty_name(test->name);
+  Copper::String suite_name = pretty_name(test->suite->name);
+  Copper::String test_name = pretty_name(test->name);
 
   fprintf(stderr,
     "ERROR in %s:\n"
     "%s - %s:\n"
     "  %s\n\n",
-    test->file_name, suite_name, test_name, error->message);
-
-  free(suite_name);
-  free(test_name);
+    test->file_name.c_str(),
+    suite_name.c_str(), test_name.c_str(),
+    error->message.c_str());
 }
 
 int OutputHandler::run() {

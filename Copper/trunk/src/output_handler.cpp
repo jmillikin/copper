@@ -17,8 +17,8 @@ EXPORT OutputHandler::OutputHandler(int&, char**&) {
 
 EXPORT OutputHandler::~OutputHandler() {}
 
-EXPORT char* OutputHandler::pretty_name(const char* old_name) throw () {
-  char* name = strdup(old_name);
+EXPORT String OutputHandler::pretty_name(const String& old_name) throw () {
+  char* name = strdup(old_name.c_str());
 
   // Search for an upper-case letter, to ensure this won't make two upper-case
   // letters in a row
@@ -39,7 +39,10 @@ EXPORT char* OutputHandler::pretty_name(const char* old_name) throw () {
     }
   }
 
-  return name;
+  String new_name = name;
+  free(name);
+
+  return new_name;
 }
 
 EXPORT void OutputHandler::run_test(Test* test) {

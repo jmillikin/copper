@@ -7,6 +7,7 @@
 #define COPPER_SUITE_HPP
 
 #include <copper/util/list.hpp>
+#include <copper/util/string.hpp>
 
 namespace Copper {
 
@@ -19,7 +20,7 @@ public:
 
     @param name The name of the test suite
   */
-  Suite(const char* name) throw ();
+  Suite(const String& name) throw ();
 
   /** Default destructor */
   ~Suite() throw ();
@@ -41,7 +42,7 @@ public:
   static List<Suite> all_suites() throw ();
 
   /** This suite's name */
-  const char* name;
+  const String name;
 
 protected:
   /** All tests in this suite, in no particular order */

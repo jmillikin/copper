@@ -11,58 +11,54 @@
 namespace Copper {
 
 EXPORT AssertionResult::AssertionResult() throw ():
-  m_finished(false), m_passed(false), m_failure_message(
-    strdup("Unitialized AssertionResult")) {}
+  m_finished(false),
+  m_passed(false),
+  m_failure_message("Unitialized AssertionResult") {}
 
 EXPORT AssertionResult::AssertionResult(bool result) throw ():
-  m_finished(true), m_passed(result) {
+  m_finished(true),
+  m_passed(result) {
 
   if (!passed()) {
-    m_failure_message = strdup("Boolean assertion failed");
+    m_failure_message = "Boolean assertion failed";
   }
   else {
-    m_failure_message = strdup("No Error");
+    m_failure_message = "No Error";
   }
 }
 
 AssertionResult::AssertionResult(const AssertionResult& other) throw () {
   m_finished = other.m_finished;
   m_passed = other.m_passed;
-  m_failure_message = strdup(other.m_failure_message);
+  m_failure_message = other.m_failure_message;
 }
 
-AssertionResult& AssertionResult::operator=(const AssertionResult& other)
+const AssertionResult& AssertionResult::operator=(const AssertionResult& other)
   throw () {
 
   m_finished = other.m_finished;
   m_passed = other.m_passed;
-  free(m_failure_message);
-  m_failure_message = strdup(other.m_failure_message);
+  m_failure_message = other.m_failure_message;
 
   return *this;
 }
 
-EXPORT AssertionResult::~AssertionResult() throw () {
-  free(m_failure_message);
-}
+EXPORT AssertionResult::~AssertionResult() throw () {}
 
 EXPORT void AssertionResult::pass() throw () {
   if (!m_finished) {
     m_passed = true;
     m_finished = true;
-
-    free(m_failure_message);
-    m_failure_message = strdup("No Error");
+    m_failure_message = "No Error";
   }
 }
 
-EXPORT void AssertionResult::fail(const char* _failure_message) throw () {
+EXPORT void AssertionResult::fail(const String& failure_message) throw () {
   if (!m_finished) {
     m_passed = false;
     m_finished = true;
 
-    free(m_failure_message);
-    m_failure_message = strdup(_failure_message);
+    m_failure_message = failure_message;
   }
 }
 
@@ -70,7 +66,7 @@ EXPORT bool AssertionResult::passed() const throw () {
   return m_finished && m_passed;
 }
 
-EXPORT const char* AssertionResult::failure_message() const throw () {
+EXPORT const String& AssertionResult::failure_message() const throw () {
   return m_failure_message;
 }
 

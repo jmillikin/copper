@@ -3,7 +3,6 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include <cstdio>
 #include <stdexcept>
 #include <copper/protectors/exception_protector.hpp>
 #include "../export.hpp"
@@ -26,15 +25,8 @@ void ExceptionProtector::_guard(Test* test, Assertion** failure,
   }
 
   catch (const std::exception& e){
-    const char* message_template = "Unhandled exception: %s";
-    const char* exception_message = e.what();
-    char* message = static_cast<char*>(malloc(
-      strlen(message_template) - 2
-      + strlen(exception_message)
-      + 1));
-    sprintf(message, message_template, exception_message);
-    *error = new Error(message);
-    free(message);
+    String message = "Unhandled exception: ";
+    *error = new Error(message + e.what());
   }
 
   catch (...){

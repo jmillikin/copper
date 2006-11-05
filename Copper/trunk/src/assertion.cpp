@@ -3,9 +3,6 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include <cstdio>
-#include <cstring>
-#include <cstdlib>
 #include <copper/assertion.hpp>
 #include "export.hpp"
 
@@ -13,66 +10,48 @@ namespace Copper {
 
 EXPORT Assertion::Assertion(
   const AssertionResult& result,
-  const char* _text,
-  const unsigned int _line) throw ():
+  const String& text,
+  const unsigned int line) throw ():
 
   m_result(result),
-  m_text(strdup(_text)),
-  m_message(NULL),
-  m_line(_line) {}
+  m_text(text),
+  m_line(line) {}
 
 EXPORT Assertion::Assertion(
   const AssertionResult& result,
-  const char* _text,
-  const char* message,
-  const unsigned int _line) throw ():
+  const String& text,
+  const String& message,
+  const unsigned int line) throw ():
 
   m_result(result),
-  m_text(strdup(_text)),
-  m_message(strdup(message)),
-  m_line(_line) {}
+  m_text(text),
+  m_message(message),
+  m_line(line) {}
 
 EXPORT Assertion::Assertion(const Assertion& other) throw () {
   m_result = other.m_result;
-  m_text = strdup(other.m_text);
+  m_text = other.m_text;
+  m_message = other.m_message;
   m_line = other.m_line;
-  if (other.m_message) {
-    m_message = strdup(other.m_message);
-  }
-
-  else {
-    m_message = NULL;
-  }
 }
 
-Assertion& Assertion::operator=(const Assertion& other)
+const Assertion& Assertion::operator=(const Assertion& other)
   throw () {
 
   m_result = other.m_result;
-  m_text = strdup(other.m_text);
+  m_text = other.m_text;
+  m_message = other.m_message;
   m_line = other.m_line;
-  if (other.m_message) {
-    m_message = strdup(other.m_message);
-  }
-
-  else {
-    m_message = NULL;
-  }
   return *this;
 }
 
-EXPORT Assertion::~Assertion() throw () {
-  free(m_text);
-  if (m_message) {
-    free(m_message);
-  }
-}
+EXPORT Assertion::~Assertion() throw () {}
 
 EXPORT bool Assertion::passed() const throw () {
   return m_result.passed();
 }
 
-EXPORT const char* Assertion::text() const throw () {
+EXPORT const String& Assertion::text() const throw () {
   return m_text;
 }
 
@@ -80,8 +59,8 @@ EXPORT unsigned int Assertion::line() const throw () {
   return m_line;
 }
 
-EXPORT const char* Assertion::failure_message() const throw () {
-  if (m_message) {
+EXPORT const String& Assertion::failure_message() const throw () {
+  if (m_message.size()) {
     return m_message;
   }
 
@@ -100,16 +79,9 @@ EXPORT Copper::AssertionResult failed_func(
   }
 
   else {
-    const char* text_str = assertion.text();
-    const char* message_template = "Unexpected success of assertion '%s'";
-    int message_size =
-      // Size of the message template - 2 for the %s
-      (strlen(message_template) - 2)
-      + strlen(text_str) + 1; // size of the assertion text + 1 for NULL 
-    char* message = static_cast<char*>(malloc(message_size));
-    sprintf(message, message_template, text_str);
+    String message =
+      String("Unexpected success of assertion '") + assertion.text() + "'";
     result.fail(message);
-    free(message);
   }
 
   return result;

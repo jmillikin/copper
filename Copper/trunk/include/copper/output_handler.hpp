@@ -9,6 +9,7 @@
 #include <copper/test.hpp>
 #include <copper/error.hpp>
 #include <copper/util/list.hpp>
+#include <copper/util/string.hpp>
 
 namespace Copper {
 
@@ -73,7 +74,7 @@ public:
     @return A prettier name, for display to the user. This must be deleted with
     free() when no longer needed.
   */
-  static char* pretty_name(const char* ugly_name) throw ();
+  static String pretty_name(const String& ugly_name) throw ();
 
 protected:
   /**

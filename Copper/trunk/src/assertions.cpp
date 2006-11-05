@@ -4,25 +4,12 @@
  */
 
 #include <copper/assertions.hpp>
+#include <copper/util/string.hpp>
 #include "export.hpp"
 
-/** A simple class for string comparisons */
-class MiniString {
-  friend std::ostream& operator<<(std::ostream& out, const MiniString& str)
-    throw ();
-public:
-  MiniString(const char* _str) throw ():
-    str(_str) {}
 
-  bool operator==(const MiniString& other) const throw () {
-    return strcmp(str, other.str) == 0;
-  }
-
-  const char* str;
-};
-
-std::ostream& operator<<(std::ostream& out, const MiniString& str) throw () {
-  out << str.str;
+std::ostream& operator<<(std::ostream& out, const Copper::String& s) {
+  out << s.c_str();
   return out;
 }
 
@@ -31,28 +18,28 @@ std::ostream& operator<<(std::ostream& out, const MiniString& str) throw () {
 EXPORT Copper::AssertionResult equal(const char* expected,
   const char* actual) throw () {
 
-  MiniString s_expected(expected), s_actual(actual);
+  Copper::String s_expected(expected), s_actual(actual);
   return equal(s_expected, s_actual);
 }
 
 EXPORT Copper::AssertionResult equal(const char* expected,
   char actual[]) throw () {
 
-  MiniString s_expected(expected), s_actual(actual);
+  Copper::String s_expected(expected), s_actual(actual);
   return equal(s_expected, s_actual);
 }
 
 EXPORT Copper::AssertionResult equal(char expected[],
   const char* actual) throw () {
 
-  MiniString s_expected(expected), s_actual(actual);
+  Copper::String s_expected(expected), s_actual(actual);
   return equal(s_expected, s_actual);
 }
 
 EXPORT Copper::AssertionResult equal(char expected[],
   char actual[]) throw () {
 
-  MiniString s_expected(expected), s_actual(actual);
+  Copper::String s_expected(expected), s_actual(actual);
   return equal(s_expected, s_actual);
 }
 
@@ -61,27 +48,27 @@ EXPORT Copper::AssertionResult equal(char expected[],
 EXPORT Copper::AssertionResult unequal(const char* bad,
   const char* actual) throw () {
 
-  MiniString s_actual(actual), s_bad(bad);
+  Copper::String s_actual(actual), s_bad(bad);
   return unequal(s_bad, s_actual);
 }
 
 EXPORT Copper::AssertionResult unequal(const char* bad,
   char actual[]) throw () {
 
-  MiniString s_actual(actual), s_bad(bad);
+  Copper::String s_actual(actual), s_bad(bad);
   return unequal(s_bad, s_actual);
 }
 
 EXPORT Copper::AssertionResult unequal(char bad[],
   const char* actual) throw () {
 
-  MiniString s_actual(actual), s_bad(bad);
+  Copper::String s_actual(actual), s_bad(bad);
   return unequal(s_bad, s_actual);
 }
 
 EXPORT Copper::AssertionResult unequal(char bad[],
   char actual[]) throw () {
 
-  MiniString s_actual(actual), s_bad(bad);
+  Copper::String s_actual(actual), s_bad(bad);
   return unequal(s_bad, s_actual);
 }

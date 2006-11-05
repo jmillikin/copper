@@ -17,6 +17,8 @@
 #pragma warning(disable: 4290)
 #endif
 
+std::ostream& operator<<(std::ostream& out, const Copper::String& s);
+
 /**
   Assert two values are equal
 

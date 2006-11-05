@@ -217,22 +217,19 @@ FIXTURE_TEST(fixture_test, the_fixture) {
 
 // Used to create pretty names to show the user
 TEST(pretty_names) {
-  char* name;
+  Copper::String name;
 
   // Basic capitalization
   name = Copper::OutputHandler::pretty_name("something");
   assert(equal("Something", name));
-  free(name);
 
   // Underscore conversion
   name = Copper::OutputHandler::pretty_name("some_thing");
   assert(equal("Some thing", name));
-  free(name);
 
   // Leaves capitals alone
   name = Copper::OutputHandler::pretty_name("Something");
   assert(equal("Something", name));
-  free(name);
 }
 
 // Tests of implementation details

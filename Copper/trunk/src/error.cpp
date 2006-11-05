@@ -9,11 +9,9 @@
 
 namespace Copper {
 
-Error::Error(const char* _message) throw ():
-  message(strdup(_message)) {}
+Error::Error(const String& _message) throw ():
+  message(_message) {}
 
-Error::~Error() throw () {
-  free(const_cast<char*>(message));
-}
+Error::~Error() throw () {}
 
 } // namespace

@@ -10,9 +10,9 @@
 namespace Copper {
 
 EXPORT Test::Test(
-  const char* _name,
+  const String& _name,
   Suite* _suite,
-  const char* _file_name) throw ():
+  const String& _file_name) throw ():
 
   name(_name),
   suite(_suite),

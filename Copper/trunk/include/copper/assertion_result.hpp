@@ -6,6 +6,8 @@
 #ifndef COPPER_ASSERTION_RESULT_HPP
 #define COPPER_ASSERTION_RESULT_HPP
 
+#include <copper/util/string.hpp>
+
 // Disable warnings about throw specifications in VS 2003
 #ifdef _MSC_VER
 #pragma warning(disable: 4290)
@@ -25,7 +27,7 @@ public:
   AssertionResult(const AssertionResult& other) throw ();
 
   /** Assignment operator */
-  AssertionResult& operator=(const AssertionResult& other) throw ();
+  const AssertionResult& operator=(const AssertionResult& other) throw ();
 
   /** Default destructor */
   ~AssertionResult() throw ();
@@ -38,13 +40,13 @@ public:
 
     @param message The failure message
   */
-  void fail(const char* failure_message) throw ();
+  void fail(const String& failure_message) throw ();
 
   /** Get whether the Assertion has passed or failed */
   bool passed() const throw ();
 
   /** If the Assertion failed, get the failure message */
-  const char* failure_message() const throw ();
+  const String& failure_message() const throw ();
 
 protected:
   /** True if pass() or fail() has been called */
@@ -54,7 +56,7 @@ protected:
   bool m_passed;
 
   /** If the Assertion failed, this will contain the failure message */
-  char* m_failure_message;
+  String m_failure_message;
 };
 
 } // namespace

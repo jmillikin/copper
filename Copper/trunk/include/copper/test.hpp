@@ -9,15 +9,16 @@
 #include <copper/assertion.hpp>
 #include <copper/suite.hpp>
 #include <copper/util/list.hpp>
+#include <copper/util/string.hpp>
 
 namespace Copper {
 
 class Test {
 public:
   Test(
-    const char* name,
+    const String& name,
     Suite* suite,
-    const char* file_name) throw ();
+    const String& file_name) throw ();
   virtual ~Test();
 
   /** Get a list of all tests */
@@ -27,13 +28,13 @@ public:
   Assertion* run();
 
   /** The name of this test */
-  const char* name;
+  const String name;
 
   /** The suite this test is part of */
   const Suite* suite;
 
   /** The file this test's implementation is in */
-  const char* file_name;
+  const String file_name;
 
 protected:
   /** Run the user's test code */
