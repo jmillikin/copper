@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#ifndef COPPER_LIST_HPP
-#define COPPER_LIST_HPP
+#ifndef COPPER_UTIL_LIST_HPP
+#define COPPER_UTIL_LIST_HPP
 
 namespace Copper {
 
@@ -117,4 +117,4 @@ protected:
 
 } /* Namespace */
 
-#endif /* COPPER_LIST_HPP */
+#endif /* COPPER_UTIL_LIST_HPP */
