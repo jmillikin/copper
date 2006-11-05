@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include <time.h>
+#include <ctime>
 #include <cstdio>
 #include <cstring>
 #include <copper/protectors/exception_protector.hpp>
@@ -42,6 +42,9 @@ void OutputHandler::pass(const Copper::Test*) throw () {
 void OutputHandler::fail(const Copper::Test* test,
   const Copper::Assertion* assertion) throw () {
 
+  // Work around a bug in TenDRA
+  using namespace std;
+
   ++num_failed;
 
   Copper::String suite_name = pretty_name(test->suite->name);
@@ -61,6 +64,9 @@ void OutputHandler::fail(const Copper::Test* test,
 void OutputHandler::error(
   const Copper::Test* test,
   const Copper::Error* error) throw () {
+
+  // Work around a bug in TenDRA
+  using namespace std;
 
   ++num_errors;
 
@@ -84,23 +90,23 @@ int OutputHandler::run() {
 
   // Store when the tests started
   std::time_t start_time;
-  time(&start_time);
+  std::time(&start_time);
 
   // Run all tests
   run_tests(Copper::Test::all());
 
   // Calculate running time
   std::time_t now;
-  time(&now);
+  std::time(&now);
 
   // Print statistics
-  printf(
+  std::printf(
     "%u tests passed\n"
     "%u tests failed\n"
     "%u errors\n", num_passed, num_failed, num_errors);
 
   // Print running time
-  printf("Completed in %g seconds\n", difftime(now, start_time));
+  std::printf("Completed in %g seconds\n", std::difftime(now, start_time));
 
   return num_failed + num_errors;
 }
