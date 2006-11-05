@@ -8,7 +8,7 @@
 
 #include <copper/test.hpp>
 #include <copper/error.hpp>
-#include <copper/list.hpp>
+#include <copper/util/list.hpp>
 
 namespace Copper {
 

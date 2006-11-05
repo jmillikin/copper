@@ -5,7 +5,7 @@
 
 #include <copper/protector.hpp>
 #include <copper/test.hpp>
-#include <copper/list.hpp>
+#include <copper/util/list.hpp>
 #include "export.hpp"
 
 namespace Copper {

@@ -8,7 +8,7 @@
 
 #include <copper/assertion.hpp>
 #include <copper/suite.hpp>
-#include <copper/list.hpp>
+#include <copper/util/list.hpp>
 
 namespace Copper {
 

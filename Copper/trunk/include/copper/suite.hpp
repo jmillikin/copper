@@ -6,7 +6,7 @@
 #ifndef COPPER_SUITE_HPP
 #define COPPER_SUITE_HPP
 
-#include <copper/list.hpp>
+#include <copper/util/list.hpp>
 
 namespace Copper {
 
