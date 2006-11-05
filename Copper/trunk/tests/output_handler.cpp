@@ -100,7 +100,7 @@ int OutputHandler::run() {
     "%u errors\n", num_passed, num_failed, num_errors);
 
   // Print running time
-  printf("Completed in %f seconds\n", difftime(now, start_time));
+  printf("Completed in %g seconds\n", difftime(now, start_time));
 
   return num_failed + num_errors;
 }
