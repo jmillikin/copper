@@ -4,12 +4,13 @@
  */
 
 #include <copper.hpp>
+#include <cstring>
+#include <cstdlib>
 
 // Undefine fail(), but it will be redefined later
 #undef fail
 
 #include <copper/output_handler.hpp>
-#include <string>
 
 // Various self-tests of the framework, to try and avoid bugs
 TEST_SUITE(self_tests) {
@@ -37,7 +38,7 @@ TEST(integer_equals_fail) {
 }
 
 FIXTURE(str_fixture) {
-  std::string var1, var2, var3, var4;
+  Copper::String var1, var2, var3, var4;
   char* cvar1, *cvar2, *cvar3, *cvar4;
   void set_up() {
     var1 = "test";
