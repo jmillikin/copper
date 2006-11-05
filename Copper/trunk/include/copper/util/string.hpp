@@ -24,7 +24,7 @@ public:
 
   String operator+(const String& other) const throw ();
 
-  size_t size() const throw ();
+  std::size_t size() const throw ();
 
   const char* c_str() const throw ();
 

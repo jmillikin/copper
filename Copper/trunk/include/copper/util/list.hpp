@@ -42,7 +42,7 @@ public:
   List& operator=(const List& b) {
     if (!b._root) {
       _root = 0;
-      return;
+      return *this;
     }
 
     _root = new ListNode<C>(b._root->value);
@@ -56,6 +56,7 @@ public:
     }
 
     _size = b._size;
+    return *this;
   }
 
   ~List() throw () {

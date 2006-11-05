@@ -19,7 +19,7 @@ OutputHandler::OutputHandler(int& argc, char**& argv)
   // Allow exception catching to be toggled on or off at runtime
   bool catch_exceptions = true;
   for (int ii = 1; ii < argc; ii++) {
-    if (strcmp(argv[ii], "--no-exceptions") == 0) {
+    if (std::strcmp(argv[ii], "--no-exceptions") == 0) {
       catch_exceptions = false;
       break;
     }   
@@ -47,7 +47,7 @@ void OutputHandler::fail(const Copper::Test* test,
   Copper::String suite_name = pretty_name(test->suite->name);
   Copper::String test_name = pretty_name(test->name);
 
-  fprintf(stderr,
+  std::fprintf(stderr,
     "FAILURE in %s:%u:\n"
     "%s - %s:\n"
     "  %s\n"
@@ -67,7 +67,7 @@ void OutputHandler::error(
   Copper::String suite_name = pretty_name(test->suite->name);
   Copper::String test_name = pretty_name(test->name);
 
-  fprintf(stderr,
+  std::fprintf(stderr,
     "ERROR in %s:\n"
     "%s - %s:\n"
     "  %s\n\n",
