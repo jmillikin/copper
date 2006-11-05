@@ -34,6 +34,16 @@ int signals[SIGNAL_COUNT] = {
 };
 #endif
 
+const char* my_strsignal(int sig) {
+#if HAVE_STRSIGNAL
+  return strsignal(sig);
+#elif HAVE_SYS_SIGLIST
+  return sys_siglist[sig];
+#else
+  return "Unknown signal";
+#endif
+}
+
 jmp_buf jb;
 
 /** Small signal handler */
@@ -64,7 +74,7 @@ void trap(
 
   sig = setjmp(jb);
   if (sig) {
-    *error = new_Error(strsignal(sig));
+    *error = new_Error(my_strsignal(sig));
   }
 
   else {
