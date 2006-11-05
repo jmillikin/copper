@@ -8,7 +8,7 @@
 #define _GNU_SOURCE
 #endif
 
-#include <signal.h>
+#include <csignal>
 #include <setjmp.h>
 #include <cstring>
 #include <copper/protectors/unix_protector.hpp>
