@@ -59,7 +59,7 @@ void trap(
   unsigned int ii;
 
   for (ii = 0; ii < SIGNAL_COUNT; ii++) {
-    signal(signals[ii], handler);
+    std::signal(signals[ii], handler);
   }
 
   sig = setjmp(jb);
