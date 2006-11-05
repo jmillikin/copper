@@ -10,7 +10,7 @@
 
 namespace Copper {
 
-char* strdup(const char* a) {
+char* strdup(const char* a) throw () {
   char* b = static_cast<char*>(std::calloc(std::strlen(a) + 1, sizeof(char)));
   std::strcpy(b, a);
   return b;

@@ -10,6 +10,9 @@
 
 namespace Copper {
 
+// strdup isn't actually in the standard, and thus isn't available everywhere
+char* strdup(const char* a) throw ();
+
 class String {
 public:
   String(const char* string = "") throw ();

@@ -12,13 +12,6 @@
 
 namespace Copper {
 
-
-char* strdup(const char* a) {
-  char* b = static_cast<char*>(std::calloc(std::strlen(a) + 1, sizeof(char)));
-  std::strcpy(b, a);
-  return b;
-}
-
 EXPORT OutputHandler::OutputHandler(int&, char**&) {
   // For now, do nothing
 }
