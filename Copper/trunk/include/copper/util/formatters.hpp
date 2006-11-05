@@ -7,21 +7,102 @@
 #define COPPER_UTIL_FORMATTERS_HPP
 
 #include <copper/util/string.hpp>
+#ifdef HAVE_SSTREAM
 #include <sstream>
+#else
+#include <cstdio>
+#include <climits>
+#endif
 
 namespace Copper {
 
+#ifdef HAVE_SSTREAM
+
 template <class C>
-String format(const C& c) {
+String format(const C& v) throw () {
   std::stringstream ss;
-  ss << c;
+  ss << v;
   return String(ss.str().c_str());
 }
 
 template<>
-String format<String>(const String& s) {
-  return s;
+String format<String>(const String& v) throw () {
+  return v;
 }
+
+#else /* No sstream, only support standard C types + Copper::String */
+
+String format(const char& v) throw () {
+  char buffer[2];
+  sprintf(buffer, "%c", v);
+  return String(buffer);
+}
+
+String format(const signed char& v) throw () {
+  char buffer[2];
+  sprintf(buffer, "%c", v);
+  return String(buffer);
+}
+
+String format(const unsigned char& v) throw () {
+  char buffer[2];
+  sprintf(buffer, "%c", v);
+  return String(buffer);
+}
+
+String format(const signed short& v) throw () {
+  char buffer[50];
+  sprintf(buffer, "%hd", v);
+  return String(buffer);
+}
+
+String format(const unsigned short& v) throw () {
+  char buffer[50];
+  sprintf(buffer, "%hu", v);
+  return String(buffer);
+}
+
+String format(const signed int& v) throw () {
+  char buffer[50];
+  sprintf(buffer, "%d", v);
+  return String(buffer);
+}
+
+String format(const unsigned int& v) throw () {
+  char buffer[50];
+  sprintf(buffer, "%u", v);
+  return String(buffer);
+}
+
+String format(const signed long& v) throw () {
+  char buffer[50];
+  sprintf(buffer, "%ld", v);
+  return String(buffer);
+}
+
+String format(const unsigned long& v) throw () {
+  char buffer[50];
+  sprintf(buffer, "%lu", v);
+  return String(buffer);
+}
+
+/* FIXME I'm pretty sure this will break for weird values */
+String format(const float& v) throw () {
+  char buffer[100]; /* FIXME: enough? */
+  sprintf(buffer, "%g", v);
+  return String(buffer);
+}
+
+/* FIXME, see format(float) */
+String format(const double& v) throw () {
+  return format(static_cast<float>(v));
+}
+
+String format(const String& v) throw () {
+  return v;
+}
+
+#endif /* HAVE_SSTREAM */
 
 } /* Namespace */
 
