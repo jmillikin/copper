@@ -5,6 +5,7 @@
 
 #include <sys/time.h>
 #include <cstdio>
+#include <cstring>
 #include <copper/protectors/exception_protector.hpp>
 #include "output_handler.hpp"
 

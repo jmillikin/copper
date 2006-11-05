@@ -7,12 +7,6 @@
 #include <copper/util/string.hpp>
 #include "export.hpp"
 
-
-std::ostream& operator<<(std::ostream& out, const Copper::String& s) {
-  out << s.c_str();
-  return out;
-}
-
 // Overloads for equal()
 
 EXPORT Copper::AssertionResult equal(const char* expected,

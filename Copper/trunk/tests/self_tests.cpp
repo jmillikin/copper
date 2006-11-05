@@ -9,6 +9,7 @@
 #undef fail
 
 #include <copper/output_handler.hpp>
+#include <string>
 
 // Various self-tests of the framework, to try and avoid bugs
 TEST_SUITE(self_tests) {

@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include <copper/assertions.hpp>
 #include <copper/util/string.hpp>
+#include <copper/assertion_result.hpp>
 
 #ifndef COPPER_ASSERTION_HPP
 #define COPPER_ASSERTION_HPP

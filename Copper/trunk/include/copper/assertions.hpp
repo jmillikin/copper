@@ -6,18 +6,14 @@
 #ifndef COPPER_ASSERTIONS_HPP
 #define COPPER_ASSERTIONS_HPP
 
-// For formatting error strings
-#include <sstream>
-
 #include <copper/assertion_result.hpp>
 #include <copper/assertion.hpp>
+#include <copper/util/formatters.hpp>
 
 // Disable warnings about throw specifications in VS 2003
 #ifdef _MSC_VER
 #pragma warning(disable: 4290)
 #endif
-
-std::ostream& operator<<(std::ostream& out, const Copper::String& s);
 
 /**
   Assert two values are equal
@@ -37,10 +33,11 @@ Copper::AssertionResult equal(
     result.pass();
   }
   else {
-    std::stringstream ss;
-    ss << "Unequal values: expected '" << expected
-      << "', got '" << actual << "'";
-    result.fail(ss.str().c_str());
+    Copper::String message =
+      Copper::String("Unequal values: expected '") + Copper::format(expected) +
+      "', got '" + Copper::format(actual) + "'";
+
+    result.fail(message);
   }
   return result;
 }
@@ -80,10 +77,12 @@ Copper::AssertionResult equal_within(
 
   Copper::AssertionResult result;
   if ((actual < expected - delta) || (actual > expected + delta)) {
-    std::stringstream ss;
-    ss << "'" << actual << "' is not within '" << delta << "' of '"
-        << expected << "'";
-    result.fail(ss.str().c_str());
+    Copper::String message =
+      Copper::String("'") + Copper::format(actual) + "'"
+      " is not within '" + Copper::format(delta) +
+      "' of '" + Copper::format(expected) + "'";
+
+    result.fail(message);
   }
   else {
     result.pass();
@@ -106,9 +105,11 @@ Copper::AssertionResult unequal(
 
   Copper::AssertionResult result;
   if (actual == bad) {
-    std::stringstream ss;
-    ss << "'" << actual << "' is equal to '" << bad << "'";
-    result.fail(ss.str().c_str());
+    Copper::String message =
+      Copper::String("'") + Copper::format(actual) + "'"
+      " is equal to '" + Copper::format(bad) + "'";
+
+    result.fail(message);
   }
   else {
     result.pass();
@@ -188,9 +189,11 @@ Copper::AssertionResult greater_than(
 
   Copper::AssertionResult result;
   if (actual <= limit){
-    std::stringstream ss;
-    ss << "'" << actual << "' is not greater than '" << limit << "'";
-    result.fail(ss.str().c_str());
+    Copper::String message =
+      Copper::String("'") + Copper::format(actual) + "'"
+      " is not greater than '" + Copper::format(limit) + "'";
+
+    result.fail(message);
   }
   else {
     result.pass();
@@ -213,9 +216,11 @@ Copper::AssertionResult greater_than_or_equal(
 
   Copper::AssertionResult result;
   if (actual < limit){
-    std::stringstream ss;
-    ss << "'" << actual << "' is less than '" << limit << "'";
-    result.fail(ss.str().c_str());
+    Copper::String message =
+      Copper::String("'") + Copper::format(actual) + "'"
+      " is less than '" + Copper::format(limit) + "'";
+
+    result.fail(message);
   }
   else {
     result.pass();
@@ -238,9 +243,11 @@ Copper::AssertionResult less_than(
 
   Copper::AssertionResult result;
   if (actual >= limit){
-    std::stringstream ss;
-    ss << "'" << actual << "' is not less than '" << limit << "'";
-    result.fail(ss.str().c_str());
+    Copper::String message =
+      Copper::String("'") + Copper::format(actual) + "'"
+      " is not less than '" + Copper::format(limit) + "'";
+
+    result.fail(message);
   }
   else {
     result.pass();
@@ -263,9 +270,11 @@ Copper::AssertionResult less_than_or_equal(
 
   Copper::AssertionResult result;
   if (actual > limit){
-    std::stringstream ss;
-    ss << "'" << actual << "' is not less than or equal to '" << limit << "'";
-    result.fail(ss.str().c_str());
+    Copper::String message =
+      Copper::String("'") + Copper::format(actual) + "'"
+      " is greater than '" + Copper::format(limit) + "'";
+
+    result.fail(message);
   }
   else {
     result.pass();
