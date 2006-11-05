@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see license.txt
  */
 
-#include <sys/time.h>
+#include <time.h>
 #include <cstdio>
 #include <cstring>
 #include <copper/protectors/exception_protector.hpp>
@@ -83,20 +83,15 @@ int OutputHandler::run() {
   num_errors = 0;
 
   // Store when the tests started
-  timeval start_time;
-  gettimeofday(&start_time, 0);
+  std::time_t start_time;
+  time(&start_time);
 
   // Run all tests
   run_tests(Copper::Test::all());
 
   // Calculate running time
-  timeval now;
-  gettimeofday(&now, 0);
-  double running_time = now.tv_sec - start_time.tv_sec;
-
-  // 1,000,000 microseconds in a second
-  running_time += static_cast<double>( now.tv_usec - start_time.tv_usec)
-    / 1000000.0;
+  std::time_t now;
+  time(&now);
 
   // Print statistics
   printf(
@@ -105,7 +100,7 @@ int OutputHandler::run() {
     "%u errors\n", num_passed, num_failed, num_errors);
 
   // Print running time
-  printf("Completed in %f seconds\n", running_time);
+  printf("Completed in %f seconds\n", difftime(now, start_time));
 
   return num_failed + num_errors;
 }
