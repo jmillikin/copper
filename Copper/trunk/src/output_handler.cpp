@@ -54,17 +54,19 @@ EXPORT void OutputHandler::run_test(Test* test) {
 
   Protector::guard(test, &failure, &test_error);
 
-  if (failure) {
-    fail(test, failure);
-    delete failure;
-  }
-
   if (test_error) {
     error(test, test_error);
     delete test_error;
   }
 
-  pass(test);
+  else if (failure) {
+    fail(test, failure);
+    delete failure;
+  }
+
+  else {
+    pass(test);
+  }
 }
 
 EXPORT void OutputHandler::run_tests(List<Test> tests) {
