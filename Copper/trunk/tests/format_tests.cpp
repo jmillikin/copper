@@ -38,8 +38,8 @@ TEST(char_test) {
   for (char ii = '\0'; ii < ' '; ii++) {
     assert(equal("", format(ii)));
   }
-  /* 127 = DEL */
-  assert(equal("", format('\127')));
+  /* 0x7F = DEL */
+  assert(equal("", format('\x7F')));
 
   char buffer[2];
   buffer[1] = '\0';
