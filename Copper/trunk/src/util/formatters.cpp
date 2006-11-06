@@ -7,6 +7,10 @@
 
 namespace Copper {
 
+EXPORT String format(const bool& v) throw () {
+  return String(v ? "true" : "false");
+}
+
 EXPORT String format(const char& v) throw () {
   if (v < ' ' || v > '~') {
     return String("");
@@ -70,6 +74,10 @@ EXPORT String format(const float& v) throw () {
 /* FIXME, see format(float) */
 EXPORT String format(const double& v) throw () {
   return format(static_cast<float>(v));
+}
+
+EXPORT String format(const char* v) throw () {
+  return String(v);
 }
 
 EXPORT String format(const String& v) throw () {

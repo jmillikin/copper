@@ -29,6 +29,8 @@ String format<String>(const String& v) throw () {
 
 #else /* No sstream, only support standard C types + Copper::String */
 
+String format(const bool& v) throw ();
+
 String format(const char& v) throw ();
 
 String format(const signed char& v) throw ();
@@ -52,6 +54,8 @@ String format(const float& v) throw ();
 
 /* FIXME, see format(float) */
 String format(const double& v) throw ();
+
+String format(const char* v) throw ();
 
 String format(const String& v) throw ();
 
