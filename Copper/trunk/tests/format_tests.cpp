@@ -5,7 +5,26 @@
 
 #include <copper.hpp>
 
+/* Used for converting a constant value to a string */
+#define strcons(CONS) "CONS"
+
 using Copper::format;
+
+// Can't use normal limits, since they change from system to system
+const signed short MY_SHRT_MIN = -32768;
+const signed short MY_SHRT_MAX = 32767;
+
+const unsigned short MY_USHRT_MAX = 65535;
+
+const signed int MY_INT_MAX = 2147483647;
+const signed int MY_INT_MIN = -MY_INT_MAX - 1;
+
+const unsigned int MY_UINT_MAX = 4294967295U;
+
+const signed long MY_LONG_MAX = 2147483647L;
+const signed long MY_LONG_MIN = -MY_LONG_MAX - 1;
+
+const unsigned long MY_ULONG_MAX = 4294967295UL;
 
 TEST_SUITE(format_tests) {
 
@@ -16,8 +35,8 @@ TEST(bool_test) {
 
 TEST(char_test) {
   /* Bad characters */
-  for (int ii = 0; ii < 32 /* Check characters before ' ' */; ii++) {
-    assert(equal("", format(static_cast<char>(ii))));
+  for (char ii = '\0'; ii < ' '; ii++) {
+    assert(equal("", format(ii)));
   }
   /* 127 = DEL */
   assert(equal("", format('\127')));
@@ -25,8 +44,7 @@ TEST(char_test) {
   char buffer[2];
   buffer[1] = '\0';
 
-  for (int ii = 32; ii < 127; ii++) {
-    buffer[0] = static_cast<char>(ii);
+  for (buffer[0] = ' '; buffer[0] < '~'; buffer[0]++) {
     assert(equal(buffer, format(buffer[0])));
   }
 }
@@ -37,8 +55,9 @@ TEST(signed_short_test) {
   assert(equal("1", format(pos_one)));
   assert(equal("0", format(zero)));
 
-  /* TODO: check limits */
-  fail("Check limits of signed short");
+  /* Check limits */
+  assert(equal("-32768", format(MY_SHRT_MIN)));
+  assert(equal("32767", format(MY_SHRT_MAX)));
 }
 
 TEST(unsigned_short_test) {
@@ -46,8 +65,8 @@ TEST(unsigned_short_test) {
   assert(equal("1", format(pos_one)));
   assert(equal("0", format(zero)));
 
-  /* TODO: check limits */
-  fail("Check limits of unsigned short");
+  /* Check limits */
+  assert(equal("65535", format(MY_USHRT_MAX)));
 }
 
 TEST(signed_int_test) {
@@ -56,8 +75,9 @@ TEST(signed_int_test) {
   assert(equal("1", format(pos_one)));
   assert(equal("0", format(zero)));
 
-  /* TODO: check limits */
-  fail("Check limits of signed int");
+  /* Check limits */
+  assert(equal("-2147483648", format(MY_INT_MIN)));
+  assert(equal("2147483647", format(MY_INT_MAX)));
 }
 
 TEST(unsigned_int_test) {
@@ -65,8 +85,8 @@ TEST(unsigned_int_test) {
   assert(equal("1", format(pos_one)));
   assert(equal("0", format(zero)));
 
-  /* TODO: check limits */
-  fail("Check limits of unsigned int");
+  /* Check limits */
+  assert(equal("4294967295", format(MY_UINT_MAX)));
 }
 
 TEST(signed_long_test) {
@@ -75,8 +95,9 @@ TEST(signed_long_test) {
   assert(equal("1", format(pos_one)));
   assert(equal("0", format(zero)));
 
-  /* TODO: check limits */
-  fail("Check limits of signed long");
+  /* Check limits */
+  assert(equal("-2147483648", format(MY_LONG_MIN)));
+  assert(equal("2147483647", format(MY_LONG_MAX)));
 }
 
 TEST(unsigned_long_test) {
@@ -84,8 +105,8 @@ TEST(unsigned_long_test) {
   assert(equal("1", format(pos_one)));
   assert(equal("0", format(zero)));
 
-  /* TODO: check limits */
-  fail("Check limits of unsigned long");
+  /* Check limits */
+  assert(equal("4294967295", format(MY_ULONG_MAX)));
 }
 
 TEST(float_test) {
