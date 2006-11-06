@@ -8,21 +8,20 @@
 namespace Copper {
 
 EXPORT String format(const char& v) throw () {
-  char buffer[2];
-  std::sprintf(buffer, "%c", v);
+  if (v < ' ' || v > '~') {
+    return String("");
+  }
+
+  char buffer[] = {v, '\0'};
   return String(buffer);
 }
 
 EXPORT String format(const signed char& v) throw () {
-  char buffer[2];
-  std::sprintf(buffer, "%c", v);
-  return String(buffer);
+  return format(static_cast<char>(v));
 }
 
 EXPORT String format(const unsigned char& v) throw () {
-  char buffer[2];
-  std::sprintf(buffer, "%c", v);
-  return String(buffer);
+  return format(static_cast<char>(v));
 }
 
 EXPORT String format(const signed short& v) throw () {
