@@ -5,9 +5,6 @@
 
 #include <copper.hpp>
 
-/* Used for converting a constant value to a string */
-#define strcons(CONS) "CONS"
-
 using Copper::format;
 
 // Can't use normal limits, since they change from system to system
