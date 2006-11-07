@@ -8,12 +8,8 @@
 
 #include <copper/assertion_result.hpp>
 #include <copper/assertion.hpp>
+#include <copper/compat.hpp>
 #include <copper/util/formatters.hpp>
-
-// Disable warnings about throw specifications in VS 2003
-#ifdef _MSC_VER
-#pragma warning(disable: 4290)
-#endif
 
 /**
   Assert two values are equal

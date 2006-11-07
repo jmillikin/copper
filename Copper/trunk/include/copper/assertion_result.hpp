@@ -7,11 +7,7 @@
 #define COPPER_ASSERTION_RESULT_HPP
 
 #include <copper/util/string.hpp>
-
-// Disable warnings about throw specifications in VS 2003
-#ifdef _MSC_VER
-#pragma warning(disable: 4290)
-#endif
+#include <copper/compat.hpp>
 
 namespace Copper {
 
