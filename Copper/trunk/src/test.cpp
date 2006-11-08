@@ -18,7 +18,9 @@ EXPORT Test::Test(
   suite(_suite),
   file_name(_file_name) {
 
-  _suite->add_test(this);
+  if (suite) {
+    _suite->add_test(this);
+  }
 }
 
 EXPORT Test::~Test() {}
