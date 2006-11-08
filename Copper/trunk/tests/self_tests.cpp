@@ -187,19 +187,6 @@ TEST(less_than_or_equal_fail) {
   assert(failed(less_than_or_equal(2, 1)));
 }
 
-#if HAVE_EXCEPTIONS
-TEST(thrown_exception) {
-  assert_throws(throw 0, int);
-}
-#endif
-
-// Currently no way to test this
-/*
-TEST(thrown_exception_fail) {
-  assert(failed(assert_throws(true, int)));
-}
-*/
-
 FIXTURE(the_fixture) {
   int fixture_var = 0;
   bool set_up_finished = false;
