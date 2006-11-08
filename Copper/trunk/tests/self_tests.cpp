@@ -187,7 +187,7 @@ TEST(less_than_or_equal_fail) {
   assert(failed(less_than_or_equal(2, 1)));
 }
 
-#ifndef NO_EXCEPTIONS
+#if HAVE_EXCEPTIONS
 TEST(thrown_exception) {
   assert_throws(throw 0, int);
 }

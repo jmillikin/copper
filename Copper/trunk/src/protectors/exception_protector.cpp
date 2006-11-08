@@ -17,7 +17,7 @@ EXPORT ExceptionProtector::~ExceptionProtector() throw () {}
 void ExceptionProtector::_guard(Test* test, Assertion** failure,
   Error** error) {
 
-#ifdef NO_EXCEPTIONS
+#if !HAVE_EXCEPTIONS
   next_protector(test, failure, error);
 #else
   try {
