@@ -60,6 +60,21 @@ else
   )
 fi
 
+COPPER_CHECK_SSTREAM
+if test "$coppper_sstream_support" = "no"; then
+  AC_MSG_WARN(
+    [stringstreams are not supported, only some types may be checked])
+
+  AC_DEFINE(HAVE_SSTREAM, 0,
+    [The compiler does not have the sstream header]
+  )
+else
+  AC_DEFINE(HAVE_SSTREAM, 1,
+    [The compiler has the sstream header]
+  )
+fi
+
+# Optional features with ./configure options
 AC_MSG_CHECKING([if RTTI is enabled])
 if test "$enable_rtti" = "yes"; then
   AC_MSG_RESULT([yes])
