@@ -23,4 +23,7 @@ AC_DEFUN([COPPER_CHECK_TEMPLATES],[
   )
 
   AC_LANG_POP([C++])
+  if test "$coppper_template_support" = "no"; then
+    AC_MSG_ERROR([Template support is required for compiling Copper])
+  fi
 ])

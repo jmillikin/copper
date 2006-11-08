@@ -15,4 +15,8 @@ AC_DEFUN([COPPER_CHECK_NAMESPACES],[
   )
 
   AC_LANG_POP([C++])
+
+  if test "$coppper_namespace_support" = "no"; then
+    AC_MSG_ERROR([Namespace support is required for compiling Copper])
+  fi
 ])

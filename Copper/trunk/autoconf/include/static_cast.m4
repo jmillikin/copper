@@ -15,4 +15,8 @@ AC_DEFUN([COPPER_CHECK_STATIC_CAST],[
   )
 
   AC_LANG_POP([C++])
+
+  if test "$coppper_static_cast_support" = "no"; then
+    AC_MSG_ERROR([static_cast support is required for compiling Copper])
+  fi
 ])
