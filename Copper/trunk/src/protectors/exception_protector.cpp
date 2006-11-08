@@ -7,6 +7,14 @@
 #include <copper/protectors/exception_protector.hpp>
 #include "../export.hpp"
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
+#if HAVE_CXA_CURRENT_EXCEPTION_TYPE
+#include <cxxabi.h>
+#endif
+
 namespace Copper {
 
 EXPORT ExceptionProtector::ExceptionProtector() throw ():
@@ -34,6 +42,8 @@ void ExceptionProtector::_guard(Test* test, Assertion** failure,
     /* Unhandled exception of type 'type' */
     String message = "Unhandled exception of type ";
 
+    std::type_info* info = __cxxabiv1::__cxa_current_exception_type();
+
     int demangle_status = -1;
     char* demangled_name = NULL;
 
@@ -50,7 +60,7 @@ void ExceptionProtector::_guard(Test* test, Assertion** failure,
 
     else {
       /* De-mangling the name failed, use the mangled name */
-      type_name = exception_info->name();
+      type_name = info->name();
     }
 
     message = message + "'" + type_name + "'";
@@ -60,7 +70,7 @@ void ExceptionProtector::_guard(Test* test, Assertion** failure,
     *error = new Error("Unhandled exception with unknown type");
 #endif /* HAVE_CXA_CURRENT_EXCEPTION_TYPE */
   }
-#endif
+#endif /* HAVE_EXCEPTIONS */
 }
 
 } // namespace
