@@ -28,6 +28,8 @@ String format<String>(const String& v) throw () {
   return v;
 }
 
+#else
+
 #if HAVE_BOOLEAN
 EXPORT String format(const bool& v) throw () {
   return String(v ? "true" : "false");
