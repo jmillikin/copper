@@ -88,23 +88,6 @@
   Copper::Assertion(ASSERTION, #ASSERTION, __LINE__))
 
 /**
-  Check that some code throws an exception
-
-  @param CODE The code to run
-  @param EXCEPTION_TYPE The type of exception to check for
-*/
-#define assert_throws(CODE, EXCEPTION_TYPE) \
-  try {\
-    CODE;\
-    Copper::Assertion assertion(false, "", #CODE" threw no exceptions", __LINE__); \
-    if (!assertion.passed()) {\
-      *bad_assertion = new Copper::Assertion(assertion);\
-      return;\
-    }\
-  }\
-  catch (const EXCEPTION_TYPE&) {}
-
-/**
   Begin a test suite with the given name
 
   The reason the namespace is used twice is to allow the use of this macro
