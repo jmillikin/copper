@@ -1,7 +1,6 @@
 #include <copper/util/formatters.hpp>
 #include "../export.hpp"
 
-
 namespace Copper {
 
 #if HAVE_SSTREAM
@@ -11,7 +10,7 @@ template<>
 String format<bool>(const bool& v) throw () {
   return String(v ? "true" : "false");
 }
-#endif
+#endif /* HAVE_BOOLEAN */
 
 template<>
 String format<char>(const char& v) throw () {
