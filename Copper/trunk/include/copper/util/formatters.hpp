@@ -30,6 +30,14 @@ String format(const C& v) throw () {
   return String(ss.str().c_str());
 }
 
+#if HAVE_BOOLEAN
+template<>
+String format<bool>(const bool& v) throw ();
+#endif
+
+template<>
+String format<char>(const char& v) throw ();
+
 template<>
 String format<String>(const String& v) throw ();
 

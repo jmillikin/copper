@@ -6,6 +6,23 @@ namespace Copper {
 
 #if HAVE_SSTREAM
 
+#if HAVE_BOOLEAN
+template<>
+String format<bool>(const bool& v) throw () {
+  return String(v ? "true" : "false");
+}
+#endif
+
+template<>
+String format<char>(const char& v) throw () {
+  if (v < ' ' || v > '~') {
+    return String("");
+  }
+
+  char buffer[] = {v, '\0'};
+  return String(buffer);
+}
+
 template<>
 String format<String>(const String& v) throw () {
   return v;
