@@ -21,7 +21,7 @@
 
 namespace Copper {
 
-#ifdef HAVE_SSTREAM
+#if HAVE_SSTREAM
 
 template <class C>
 String format(const C& v) throw () {
