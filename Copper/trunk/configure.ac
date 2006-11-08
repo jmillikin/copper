@@ -1,15 +1,15 @@
 AC_INIT(Copper, 0.1, jmillikin@gmail.com)
 AC_CONFIG_SRCDIR(src/test.cpp)
 
-dnl Store autoconf cruft in a separate directory
+# Store autoconf cruft in a separate directory
 AC_CONFIG_AUX_DIR(autoconf)
 AC_CONFIG_MACRO_DIR(autoconf)
 
-dnl Initialize automake
+# Initialize automake
 AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
 AC_CONFIG_HEADERS(config.h)
 
-dnl Enable maintainer mode flag
+# Enable maintainer mode flag
 AM_MAINTAINER_MODE
 
 AC_PROG_CXX
@@ -44,23 +44,42 @@ AC_ARG_ENABLE(exceptions,
 AC_MSG_CHECKING([if RTTI is enabled])
 if test "$enable_rtti" = "yes"; then
   AC_MSG_RESULT([yes])
-  RTTI_CPPFLAGS="-frtti"
+  RTTI_CPPFLAGS=""
 else
   AC_MSG_RESULT([no])
+  # FIXME: gcc-specific
   RTTI_CPPFLAGS="-fno-rtti"
 fi
 
 AC_MSG_CHECKING([if exception handling is enabled])
 if test "$enable_exceptions" = "yes"; then
   AC_MSG_RESULT([yes])
-  EXCEPTION_CPPFLAGS="-fexceptions"
+
+  # Check whether exceptions are actually supported
+  COPPER_CHECK_EXCEPTIONS
+
+  if test "$coppper_exception_support" = "yes"; then
+    AC_DEFINE(HAVE_EXCEPTIONS, 1,
+      [The compiler supports exceptions]
+    )
+  else
+    AC_DEFINE(HAVE_EXCEPTIONS, 0,
+      [The compiler does not support exceptions]
+    )
+  fi
+
+  EXCEPTION_CPPFLAGS=""
 else
   AC_MSG_RESULT([no])
-  EXCEPTION_CPPFLAGS="-fno-exceptions -DNO_EXCEPTIONS=1"
+  AC_DEFINE(HAVE_EXCEPTIONS, 0,
+      [The compiler does not support exceptions]
+    )
+
+  # FIXME: gcc-specific
+  EXCEPTION_CPPFLAGS="-fno-exceptions"
 fi
 
 FEATURES_CPPFLAGS="$RTTI_CPPFLAGS $EXCEPTION_CPPFLAGS"
-FEATURES_LIBS=""
 
 AC_MSG_CHECKING(if debugging is enabled[])
 if test "$enable_debug" = "yes"; then
@@ -85,8 +104,8 @@ fi
 # For the Intel C/C++ Compiler
 COMPAT_LIBS="-lstdc++"
 
-CPPFLAGS="$CPPFLAGS $FEATURES_CPPFLAGS $OPTIMIZATION_CPPFLAGS $DEBUG_CPPFLAGS"
-LIBS="$LIBS $FEATURES_LIBS $OPTIMIZATION_LIBS $DEBUG_LIBS $COMPAT_LIBS"
+CPPFLAGS="$FEATURES_CPPFLAGS $OPTIMIZATION_CPPFLAGS $DEBUG_CPPFLAGS"
+LIBS="$OPTIMIZATION_LIBS $DEBUG_LIBS $COMPAT_LIBS"
 
 AC_OUTPUT([
   Makefile
