@@ -7,9 +7,11 @@
 
 namespace Copper {
 
+#if HAVE_BOOLEAN
 EXPORT String format(const bool& v) throw () {
   return String(v ? "true" : "false");
 }
+#endif
 
 EXPORT String format(const char& v) throw () {
   if (v < ' ' || v > '~') {

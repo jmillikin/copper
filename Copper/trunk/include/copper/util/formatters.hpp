@@ -29,7 +29,9 @@ String format<String>(const String& v) throw () {
 
 #else /* No sstream, only support standard C types + Copper::String */
 
+#if HAVE_BOOLEAN
 String format(const bool& v) throw ();
+#endif
 
 String format(const char& v) throw ();
 
