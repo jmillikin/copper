@@ -39,8 +39,16 @@
 
 #endif /* ifdef __GNUC__ */
 
+#ifndef assert
+#ifndef ENABLE_VARIADIC_ASSERT
+#if HAVE_VARIADIC_MACROS
+#define ENABLE_VARIADIC_ASSERT 1
+#endif /* HAVE_VARIADIC_MACROS */
+#endif /* ENABLE_VARIADIC_ASSERT */
+#endif /* assert */
+
 /* C99 style of variadic macros */
-#if ENABLE_VARIADIC_ASSERT == 1
+#if ENABLE_VARIADIC_ASSERT
 
 #ifndef assert
 #define assert(...) real_assert(__VA_ARGS__, __LINE__)
