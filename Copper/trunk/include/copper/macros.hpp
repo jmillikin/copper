@@ -45,12 +45,10 @@
 #define ENABLE_VARIADIC_ASSERT 1
 #endif /* HAVE_VARIADIC_MACROS */
 #endif /* ENABLE_VARIADIC_ASSERT */
-#endif /* assert */
 
 /* C99 style of variadic macros */
 #if ENABLE_VARIADIC_ASSERT
 
-#ifndef assert
 #define assert(...) real_assert(__VA_ARGS__, __LINE__)
 
 #define real_assert(ASSERTION, ...) {\
@@ -60,7 +58,6 @@
     return;\
   }\
 }
-#endif /* ifndef assert */
 
 #else /* ENABLE_VARIADIC_ASSERT */
 
@@ -73,6 +70,7 @@
 }
 
 #endif /* ENABLE_VARIADIC_ASSERT */
+#endif /* assert */
 
 /**
   Used to manually fail a test
