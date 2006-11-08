@@ -41,6 +41,12 @@ AC_ARG_ENABLE(exceptions,
   [enable_exceptions=yes]
 )
 
+# Required features
+COPPER_CHECK_BOOLEAN
+COPPER_CHECK_NAMESPACES
+COPPER_CHECK_STATIC_CAST
+COPPER_CHECK_TEMPLATES
+
 AC_MSG_CHECKING([if RTTI is enabled])
 if test "$enable_rtti" = "yes"; then
   AC_MSG_RESULT([yes])
