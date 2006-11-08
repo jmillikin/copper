@@ -318,8 +318,7 @@ TEST(reverse_failed_assertion) {
 
 class self_test_fail : public Copper::Test {
 public:
-  self_test_fail(): Copper::Test("fail self test", &current_suite,
-    __FILE__){}
+  self_test_fail(): Copper::Test("fail self test", NULL, __FILE__){}
   void _run(Copper::Assertion** bad_assertion) {
     assert(false);
   }
@@ -339,8 +338,7 @@ TEST(failed_test__run) {
 
 class self_test_pass : public Copper::Test {
 public:
-  self_test_pass(): Copper::Test("pass self test", &current_suite,
-    __FILE__){}
+  self_test_pass(): Copper::Test("pass self test", NULL, __FILE__){}
   void _run(Copper::Assertion** bad_assertion) {
     assert(true);
   }
@@ -361,8 +359,7 @@ TEST(successful_test__run) {
 class self_test_fail_custom_error : public Copper::Test {
 public:
   self_test_fail_custom_error(): Copper::Test(
-    "fail self test with custom error", &current_suite,
-    __FILE__){}
+    "fail self test with custom error", NULL, __FILE__){}
   void _run(Copper::Assertion** bad_assertion) {
     assert(false, "Custom error string");
   }
@@ -390,8 +387,7 @@ TEST(fail_with_custom_error) {
 
 class self_test_explicit_fail : public Copper::Test {
 public:
-  self_test_explicit_fail(): Copper::Test(
-    "", &current_suite, __FILE__){}
+  self_test_explicit_fail(): Copper::Test( "", NULL, __FILE__){}
   void _run(Copper::Assertion** bad_assertion) {
     fail("Custom failure string");
   }
