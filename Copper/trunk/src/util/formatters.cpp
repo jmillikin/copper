@@ -1,17 +1,21 @@
-#ifndef HAVE_SSTREAM
-
-#include <cstdio>
-#include <climits>
-#include <copper/util/string.hpp>
+#include <copper/util/formatters.hpp>
 #include "../export.hpp"
 
+
 namespace Copper {
+
+#if HAVE_SSTREAM
+
+template<>
+String format<String>(const String& v) throw () {
+  return v;
+}
 
 #if HAVE_BOOLEAN
 EXPORT String format(const bool& v) throw () {
   return String(v ? "true" : "false");
 }
-#endif
+#endif /* HAVE_BOOLEAN */
 
 EXPORT String format(const char& v) throw () {
   if (v < ' ' || v > '~') {
@@ -86,6 +90,7 @@ EXPORT String format(const String& v) throw () {
   return v;
 }
 
+#endif /* HAVE_SSTREAM */
+
 } /* Namespace */
 
-#endif /* HAVE_SSTREAM */

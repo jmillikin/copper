@@ -11,9 +11,13 @@
 #endif
 
 #include <copper/util/string.hpp>
-#ifdef HAVE_SSTREAM
+
+#if HAVE_SSTREAM
 #include <sstream>
-#endif
+#else
+#include <cstdio>
+#include <climits>
+#endif /* HAVE_SSTREAM */
 
 namespace Copper {
 
@@ -27,9 +31,7 @@ String format(const C& v) throw () {
 }
 
 template<>
-String format<String>(const String& v) throw () {
-  return v;
-}
+String format<String>(const String& v) throw ();
 
 #else /* No sstream, only support standard C types + Copper::String */
 
