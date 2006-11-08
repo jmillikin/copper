@@ -175,4 +175,5 @@ AC_OUTPUT([
   include/copper/Makefile
   include/copper/protectors/Makefile
   include/copper/util/Makefile
+  tests/Makefile
 ])
