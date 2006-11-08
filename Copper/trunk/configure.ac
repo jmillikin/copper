@@ -42,10 +42,23 @@ AC_ARG_ENABLE(exceptions,
 )
 
 # Required features
-COPPER_CHECK_BOOLEAN
 COPPER_CHECK_NAMESPACES
 COPPER_CHECK_STATIC_CAST
 COPPER_CHECK_TEMPLATES
+
+# Optional features that don't have a ./configure option
+COPPER_CHECK_BOOLEAN
+if test "$coppper_boolean_support" = "no"; then
+  AC_MSG_WARN([Booleans are not distinct types])
+
+  AC_DEFINE(HAVE_BOOLEAN, 0,
+    [The compiler does not have a distinct boolean type]
+  )
+else
+  AC_DEFINE(HAVE_BOOLEAN, 1,
+    [The compiler has a distinct boolean type]
+  )
+fi
 
 AC_MSG_CHECKING([if RTTI is enabled])
 if test "$enable_rtti" = "yes"; then
