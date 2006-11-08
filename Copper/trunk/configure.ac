@@ -78,6 +78,34 @@ fi
 AC_MSG_CHECKING([if RTTI is enabled])
 if test "$enable_rtti" = "yes"; then
   AC_MSG_RESULT([yes])
+
+  # With RTTI, exception handling can contain magic
+  # See exception_protector.cpp for details
+  COPPER_CHECK_CXA_CURRENT_EXCEPTION_TYPE
+
+  if test "$coppper_cxa_current_exception_type_support" = "yes"; then
+    AC_DEFINE(HAVE_CXA_CURRENT_EXCEPTION_TYPE, 1,
+      [__cxa_current_exception_type() is supported]
+    )
+
+    # Check if type names can be de-mangled
+    COPPER_CHECK_CXA_DEMANGLE
+
+    if test "$coppper_cxa_demangle_support" = "yes"; then
+        AC_DEFINE(HAVE_CXA_DEMANGLE, 1,
+          [__cxa_demangle() is supported]
+        )
+    else
+        AC_DEFINE(HAVE_CXA_DEMANGLE, 0,
+          [__cxa_demangle() is not supported]
+        )
+    fi
+  else
+    AC_DEFINE(HAVE_CXA_CURRENT_EXCEPTION_TYPE, 0,
+      [__cxa_current_exception_type() is supported]
+    )
+  fi
+
   RTTI_CPPFLAGS=""
 else
   AC_MSG_RESULT([no])

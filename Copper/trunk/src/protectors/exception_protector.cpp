@@ -30,7 +30,35 @@ void ExceptionProtector::_guard(Test* test, Assertion** failure,
   }
 
   catch (...){
-    *error = new Error("Unhandled, unknown exception");
+#if HAVE_CXA_CURRENT_EXCEPTION_TYPE
+    /* Unhandled exception of type 'type' */
+    String message = "Unhandled exception of type ";
+
+    int demangle_status = -1;
+    char* demangled_name = NULL;
+
+#if HAVE_CXA_DEMANGLE
+    demangled_name = __cxxabiv1::__cxa_demangle(
+      info->name(), NULL, NULL, &demangle_status);
+#endif /* HAVE_CXA_DEMANGLE */
+
+    String type_name;
+    if (demangle_status == 0) {
+      type_name = demangled_name;
+      free(demangled_name);
+    }
+
+    else {
+      /* De-mangling the name failed, use the mangled name */
+      type_name = exception_info->name();
+    }
+
+    message = message + "'" + type_name + "'";
+
+    *error = new Error(message);
+#else
+    *error = new Error("Unhandled exception with unknown type");
+#endif /* HAVE_CXA_CURRENT_EXCEPTION_TYPE */
   }
 #endif
 }
