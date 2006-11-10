@@ -7,6 +7,7 @@
 #include <cstdlib>
 #include <cstring>
 #include <copper/util/string.hpp>
+#include <copper/compat.hpp>
 
 namespace Copper {
 
