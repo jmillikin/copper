@@ -108,14 +108,18 @@
 
   @param NAME The name of the new test suite
 */
-#define TEST(NAME) \
-  class test_##NAME : public Copper::Test { \
+#define TEST(NAME) TEST2(NAME, __LINE__)
+
+#define TEST2(NAME, LINE) TEST3(NAME, LINE)
+
+#define TEST3(NAME, LINE) \
+  class test_##LINE : public Copper::Test { \
   public: \
-    test_##NAME(): Copper::Test(#NAME, &current_suite, __FILE__){} \
+    test_##LINE(): Copper::Test(NAME, &current_suite, __FILE__){} \
   protected: \
     void _run(Copper::Assertion** bad_assertion); \
-  } test_instance_##NAME; \
-  void test_##NAME::_run(Copper::Assertion** bad_assertion)
+  } test_instance_##LINE; \
+  void test_##LINE::_run(Copper::Assertion** bad_assertion)
 
 /**
   Define a new Fixture, with the given name
@@ -141,12 +145,16 @@
   @param NAME The name of the new test suite
   @param FIXTURE The Fixture to use for test management
 */
-#define FIXTURE_TEST(NAME, FIXTURE) \
+#define FIXTURE_TEST(NAME, FIXTURE) FIXTURE_TEST2(NAME, FIXTURE, __LINE__)
+
+#define FIXTURE_TEST2(NAME, FIXTURE, LINE) FIXTURE_TEST3(NAME, FIXTURE, LINE)
+
+#define FIXTURE_TEST3(NAME, FIXTURE, LINE) \
   namespace fixture_namespace_##FIXTURE { \
-    class test_##NAME : public Copper::Test { \
+    class test_##LINE : public Copper::Test { \
     public: \
-      test_##NAME(): \
-        Copper::Test(#NAME, &current_suite, __FILE__) {} \
+      test_##LINE(): \
+        Copper::Test(NAME, &current_suite, __FILE__) {} \
     protected: \
       void _run(Copper::Assertion** bad_assertion); \
       void set_up(){ \
@@ -159,9 +167,9 @@
           _tear_down(); \
         } \
       } \
-    } test_instance_##NAME; \
+    } test_instance_##LINE; \
   } \
-  void fixture_namespace_##FIXTURE::test_##NAME::_run( \
+  void fixture_namespace_##FIXTURE::test_##LINE::_run( \
     Copper::Assertion** bad_assertion)
 
 #endif /* COPPER_MACROS_HPP */

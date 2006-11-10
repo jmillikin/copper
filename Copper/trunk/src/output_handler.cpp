@@ -18,34 +18,6 @@ EXPORT OutputHandler::OutputHandler(int&, char**&) {
 
 EXPORT OutputHandler::~OutputHandler() {}
 
-EXPORT String OutputHandler::pretty_name(const String& old_name) throw () {
-  char* name = strdup(old_name.c_str());
-
-  // Search for an upper-case letter, to ensure this won't make two upper-case
-  // letters in a row
-  std::size_t upper_index = std::strcspn(name, "ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-  std::size_t lower_index = std::strcspn(name, "abcdefghijklmnopqrstuvwxyz");
-
-  // If a lower case letter appears before an upper-case letter, make it
-  // uppercase also
-  if (lower_index < upper_index) {
-    name[lower_index] -= 32;
-  }
-
-  std::size_t len = std::strlen(name);
-  // Convert underscores to spaces
-  for (std::size_t ii = 0; ii < len; ii++) {
-    if (name[ii] == '_') {
-      name[ii] = ' ';
-    }
-  }
-
-  String new_name = name;
-  std::free(name);
-
-  return new_name;
-}
-
 EXPORT void OutputHandler::run_test(Test* test) {
   begin(test);
 

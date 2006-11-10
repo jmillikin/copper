@@ -47,16 +47,13 @@ void OutputHandler::fail(const Copper::Test* test,
 
   ++num_failed;
 
-  Copper::String suite_name = pretty_name(test->suite->name);
-  Copper::String test_name = pretty_name(test->name);
-
   std::fprintf(stderr,
     "FAILURE in %s:%u:\n"
     "%s - %s:\n"
     "  %s\n"
     "  %s\n\n",
     test->file_name.c_str(), assertion->line(),
-    suite_name.c_str(), test_name.c_str(),
+    test->suite->name.c_str(), test->name.c_str(),
     assertion->text().c_str(),
     assertion->failure_message().c_str());
 }
@@ -70,15 +67,12 @@ void OutputHandler::error(
 
   ++num_errors;
 
-  Copper::String suite_name = pretty_name(test->suite->name);
-  Copper::String test_name = pretty_name(test->name);
-
   std::fprintf(stderr,
     "ERROR in %s:\n"
     "%s - %s:\n"
     "  %s\n\n",
     test->file_name.c_str(),
-    suite_name.c_str(), test_name.c_str(),
+    test->suite->name.c_str(), test->name.c_str(),
     error->message.c_str());
 }
 

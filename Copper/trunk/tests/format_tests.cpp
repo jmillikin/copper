@@ -25,12 +25,12 @@ const unsigned long MY_ULONG_MAX = 4294967295UL;
 
 TEST_SUITE(format_tests) {
 
-TEST(bool_test) {
+TEST("bool test") {
   assert(equal("true", format(true)));
   assert(equal("false", format(false)));
 }
 
-TEST(char_test) {
+TEST("char test") {
   /* Bad characters */
   for (char ii = '\0'; ii < ' '; ii++) {
     assert(equal("", format(ii)));
@@ -46,7 +46,7 @@ TEST(char_test) {
   }
 }
 
-TEST(signed_short_test) {
+TEST("signed short test") {
   signed short neg_one = -1, pos_one = 1, zero = 0;
   assert(equal("-1", format(neg_one)));
   assert(equal("1", format(pos_one)));
@@ -57,7 +57,7 @@ TEST(signed_short_test) {
   assert(equal("32767", format(MY_SHRT_MAX)));
 }
 
-TEST(unsigned_short_test) {
+TEST("unsigned short test") {
   unsigned short pos_one = 1, zero = 0;
   assert(equal("1", format(pos_one)));
   assert(equal("0", format(zero)));
@@ -66,7 +66,7 @@ TEST(unsigned_short_test) {
   assert(equal("65535", format(MY_USHRT_MAX)));
 }
 
-TEST(signed_int_test) {
+TEST("signed int test") {
   signed int neg_one = -1, pos_one = 1, zero = 0;
   assert(equal("-1", format(neg_one)));
   assert(equal("1", format(pos_one)));
@@ -77,7 +77,7 @@ TEST(signed_int_test) {
   assert(equal("2147483647", format(MY_INT_MAX)));
 }
 
-TEST(unsigned_int_test) {
+TEST("unsigned int test") {
   unsigned int pos_one = 1, zero = 0;
   assert(equal("1", format(pos_one)));
   assert(equal("0", format(zero)));
@@ -86,7 +86,7 @@ TEST(unsigned_int_test) {
   assert(equal("4294967295", format(MY_UINT_MAX)));
 }
 
-TEST(signed_long_test) {
+TEST("signed long test") {
   signed long neg_one = -1, pos_one = 1, zero = 0;
   assert(equal("-1", format(neg_one)));
   assert(equal("1", format(pos_one)));
@@ -97,7 +97,7 @@ TEST(signed_long_test) {
   assert(equal("2147483647", format(MY_LONG_MAX)));
 }
 
-TEST(unsigned_long_test) {
+TEST("unsigned long test") {
   unsigned long pos_one = 1, zero = 0;
   assert(equal("1", format(pos_one)));
   assert(equal("0", format(zero)));
@@ -106,15 +106,15 @@ TEST(unsigned_long_test) {
   assert(equal("4294967295", format(MY_ULONG_MAX)));
 }
 
-TEST(float_test) {
+TEST("float test") {
   assert(equal("1.2345", format(1.2345f)));
 }
 
-TEST(double_test) {
+TEST("double test") {
   assert(equal("1.2345", format(1.2345)));
 }
 
-TEST(Copper_String_test) {
+TEST("Copper::String test") {
   assert(equal("some_string", format(Copper::String("some_string"))));
 }
 

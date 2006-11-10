@@ -64,18 +64,6 @@ public:
   */
   virtual int run() = 0;
 
-  /**
-    Convert an 'ugly' name, such as example_test, into a 'pretty' name, such
-    as 'Example test'. Basically, uppercase the first letter and convert
-    underscores to spaces
-
-    @param ugly_name The name to convert from
-
-    @return A prettier name, for display to the user. This must be deleted with
-    free() when no longer needed.
-  */
-  static String pretty_name(const String& ugly_name) throw ();
-
 protected:
   /**
     Run a single test. This function automatically manages Protectors and
