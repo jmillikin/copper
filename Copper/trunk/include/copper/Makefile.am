@@ -5,7 +5,6 @@ copper_include_real_HEADERS = \
   assertions.hpp \
   compat.hpp \
   error.hpp \
-  fixture.hpp \
   macros.hpp \
   output_handler.hpp \
   protector.hpp \

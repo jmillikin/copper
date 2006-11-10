@@ -9,7 +9,6 @@ libcu_la_SOURCES = \
   assertion_result.cpp \
   assertions.cpp \
   error.cpp \
-  fixture.cpp \
   output_handler.cpp \
   protector.cpp \
   suite.cpp \

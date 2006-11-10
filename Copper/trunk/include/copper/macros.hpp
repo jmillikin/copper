@@ -121,19 +121,7 @@
 
   @param NAME The name of the new fixture
 */
-#define FIXTURE(NAME) \
-  namespace fixture_namespace_##NAME { \
-    void set_up(); \
-    void tear_down(); \
-    class fixture_##NAME : public Copper::Fixture { \
-      public: \
-        fixture_##NAME(): Copper::Fixture(){} \
-      protected: \
-        void _set_up() { set_up(); } \
-        void _tear_down() { tear_down(); } \
-    }; \
-  } \
-  namespace fixture_namespace_##NAME
+#define FIXTURE(NAME) namespace fixture_namespace_##NAME
 
 /**
   Define a new Test with the given name. The fixture will be used to set up
@@ -144,20 +132,17 @@
 */
 #define FIXTURE_TEST(NAME, FIXTURE) \
   namespace fixture_namespace_##FIXTURE { \
-    class test_##NAME : public Copper::Test, \
-      public fixture_##FIXTURE { \
+    class test_##NAME : public Copper::Test { \
     public: \
       test_##NAME(): \
-        Copper::Test(#NAME, &current_suite, __FILE__), \
-        fixture_##FIXTURE() \
-        {} \
+        Copper::Test(#NAME, &current_suite, __FILE__) {} \
     protected: \
       void _run(Copper::Assertion** bad_assertion); \
       void set_up(){ \
-        fixture_##FIXTURE::_set_up(); \
+        fixture_namespace_##FIXTURE::set_up(); \
       } \
       void tear_down(){ \
-        fixture_##FIXTURE::_tear_down(); \
+        fixture_namespace_##FIXTURE::tear_down(); \
       } \
     } test_instance_##NAME; \
   } \
