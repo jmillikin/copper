@@ -304,9 +304,6 @@ public:
   void _run(Copper::Assertion** bad_assertion) {
     assert(false);
   }
-protected:
-  void set_up(){}
-  void tear_down(){}
 };
 
 TEST("failed test::_run") {
@@ -324,9 +321,6 @@ public:
   void _run(Copper::Assertion** bad_assertion) {
     assert(true);
   }
-protected:
-  void set_up(){}
-  void tear_down(){}
 };
 
 TEST("successful test::_run") {
@@ -345,9 +339,6 @@ public:
   void _run(Copper::Assertion** bad_assertion) {
     assert(false, "Custom error string");
   }
-protected:
-  void set_up(){}
-  void tear_down(){}
 };
 
 TEST("fail with custom error") {
@@ -373,9 +364,6 @@ public:
   void _run(Copper::Assertion** bad_assertion) {
     fail("Custom failure string");
   }
-protected:
-  void set_up(){}
-  void tear_down(){}
 };
 
 TEST("explicit fail") {
