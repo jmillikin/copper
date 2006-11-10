@@ -5,9 +5,9 @@
 
 #include <copper.hpp>
 
-TEST_SUITE(sample_suite) {
+TEST_SUITE("Sample suite") {
 
-TEST(equal) {
+TEST("Equality") {
   // Equality is performed with the 'equal' function. Equality works
   // with any two types that can be passed to ==
   assert(equal(2, 2));
@@ -16,47 +16,47 @@ TEST(equal) {
   assert(equal("test", "test"));
 }
 
-TEST(equal_within) {
+TEST("Near equality") {
   // Equal within is used for floating point numbers, where exactness
   // might not be possible (though it can take any type with >, < and +
   // operators
   assert(equal_within(2.0, 2.0001, 0.001));
 }
 
-TEST(unequal) {
+TEST("Inequality") {
   // Assert that two values are not equal
   assert(unequal(1, 2));
 }
 
-TEST(is_null) {
+TEST("Is NULL") {
   // Used to check that some pointer is NULL
   int* var = 0;
   assert(null(var));
 }
 
-TEST(not_null) {
+TEST("Isn't NULL") {
   // Used to check that some pointer is not NULL
   int var;
   assert(not_null(&var));
 }
 
-TEST(greater_than) {
+TEST("Greater than") {
   // Assert some value is > another value
   assert(greater_than(2, 1));
 }
 
-TEST(greater_than_or_equal) {
+TEST("Greater than or equal") {
   // Assert some value is >= another value
   assert(greater_than_or_equal(2, 2));
   assert(greater_than_or_equal(2, 1));
 }
 
-TEST(less_than) {
+TEST("Less than") {
   // Assert some value is < another value
   assert(less_than(1, 2));
 }
 
-TEST(less_than_or_equal) {
+TEST("Less than or equal") {
   // Assert some value is <= another value
   assert(less_than_or_equal(1, 2));
   assert(less_than_or_equal(2, 2));
@@ -79,21 +79,19 @@ FIXTURE(the_fixture) {
   }
 }
 
-FIXTURE_TEST(fixture_test, the_fixture) {
+FIXTURE_TEST("Test with a fixture", the_fixture) {
   assert(equal(fixture_var, 1));
   assert(set_up_finished);
 }
 
 // Some systems also support catching various programming errors
 
-// NULL-pointer dereference
-TEST(null_deref) {
+TEST("NULL-pointer dereference") {
   int* i = 0;
   *i = 1;
 }
 
-// Division by zero
-TEST(div_by_zero) {
+TEST("Division by zero") {
   int i = 1 / 0;
 }
 
