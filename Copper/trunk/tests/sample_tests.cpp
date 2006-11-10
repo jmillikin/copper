@@ -65,20 +65,18 @@ TEST(less_than_or_equal) {
 /*
   Fixtures are used for multiple tests that should use the same data.
   Fixture data is automatically available on the stack, though it should
-  be initialized in set_up() to avoid dirty data shared between tests using
+  be initialized in SET_UP to avoid dirty data shared between tests using
   the same fixture. Dynamically allocated memory or opened files should be
-  closed in tear_down()
+  closed in TEAR_DOWN, if needed.
 */
 FIXTURE(the_fixture) {
   int fixture_var = 0;
   bool set_up_finished = false;
 
-  void set_up(){
+  SET_UP {
     fixture_var = 1;
     set_up_finished = true;
   }
-
-  void tear_down() {}
 }
 
 FIXTURE_TEST(fixture_test, the_fixture) {

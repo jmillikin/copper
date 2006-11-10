@@ -97,7 +97,10 @@
 */
 #define TEST_SUITE(NAME) \
   namespace suite_namespace_##NAME { \
-    static Copper::Suite current_suite(#NAME); } \
+    static Copper::Suite current_suite(#NAME); \
+    static const void (*_set_up)() = 0; \
+    static const void (*_tear_down)() = 0; \
+  } \
   namespace suite_namespace_##NAME
 
 /**
@@ -121,6 +124,16 @@
 */
 #define FIXTURE(NAME) namespace fixture_namespace_##NAME
 
+#define SET_UP \
+  void set_up(); \
+  void (*_set_up)() = set_up; \
+  void set_up()
+
+#define TEAR_DOWN \
+  void tear_down(); \
+  void (*_tear_down)() = tear_down; \
+  void tear_down()
+
 /**
   Define a new Test with the given name. The fixture will be used to set up
   or tear down the test.
@@ -137,10 +150,14 @@
     protected: \
       void _run(Copper::Assertion** bad_assertion); \
       void set_up(){ \
-        fixture_namespace_##FIXTURE::set_up(); \
+        if (_set_up) { \
+          _set_up(); \
+        } \
       } \
       void tear_down(){ \
-        fixture_namespace_##FIXTURE::tear_down(); \
+        if (_tear_down) { \
+          _tear_down(); \
+        } \
       } \
     } test_instance_##NAME; \
   } \

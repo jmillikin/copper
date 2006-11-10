@@ -44,14 +44,15 @@ FIXTURE(str_fixture) {
     var3 = "other",
     var4 = "other";
   char* cvar1, *cvar2, *cvar3, *cvar4;
-  void set_up() {
+
+  SET_UP {
     cvar1 = Copper::strdup(var1.c_str());
     cvar2 = Copper::strdup(var2.c_str());
     cvar3 = Copper::strdup(var3.c_str());
     cvar4 = Copper::strdup(var4.c_str());
   }
 
-  void tear_down() {
+  TEAR_DOWN {
     std::free(cvar1);
     std::free(cvar2);
     std::free(cvar3);
@@ -191,12 +192,10 @@ FIXTURE(the_fixture) {
   int fixture_var = 0;
   bool set_up_finished = false;
 
-  void set_up(){
+  SET_UP {
     fixture_var = 1;
     set_up_finished = true;
   }
-
-  void tear_down() {}
 }
 
 FIXTURE_TEST(fixture_test, the_fixture) {
