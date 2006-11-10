@@ -6,7 +6,6 @@
 #include <ctime>
 #include <cstdio>
 #include <cstring>
-#include <copper/protectors/exception_protector.hpp>
 #include "output_handler.hpp"
 
 OutputHandler::OutputHandler(int& argc, char**& argv)
@@ -14,20 +13,15 @@ OutputHandler::OutputHandler(int& argc, char**& argv)
   Copper::OutputHandler(argc, argv),
   num_passed(0),
   num_failed(0),
-  num_errors(0) {
+  num_errors(0),
+  protect(true) {
 
   // Allow exception catching to be toggled on or off at runtime
-  bool catch_exceptions = true;
   for (int ii = 1; ii < argc; ii++) {
-    if (std::strcmp(argv[ii], "--no-exceptions") == 0) {
-      catch_exceptions = false;
+    if (std::strcmp(argv[ii], "--no-protection") == 0) {
+      protect = false;
       break;
     }   
-  }
-
-  if (catch_exceptions) {
-    static Copper::ExceptionProtector exception_protector;
-    Copper::Protector::add(&exception_protector);
   }
 }
 
@@ -87,7 +81,7 @@ int OutputHandler::run() {
   std::time(&start_time);
 
   // Run all tests
-  run_tests(Copper::Test::all());
+  run_tests(Copper::Test::all(), protect);
 
   // Calculate running time
   std::time_t now;

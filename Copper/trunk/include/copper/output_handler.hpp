@@ -70,16 +70,18 @@ protected:
     exception handling
 
     @param test The test to run
+    @param protect Whether to use Protectors to guard against runtime errors
   */
-  void run_test(Test* test);
+  void run_test(Test* test, bool protect = true);
 
   /**
     Run a many tests. This function automatically manages Protectors and
     exception handling
 
     @param tests The tests to run
+    @param protect Whether to use Protectors to guard against runtime errors
   */
-  void run_tests(List<Test> tests);
+  void run_tests(List<Test> tests, bool protect = true);
 };
 
 } /* namespace */

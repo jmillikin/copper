@@ -68,6 +68,9 @@ protected:
 
   /** The number of tests that had errors */
   unsigned int num_errors;
+
+  /** Whether to protect running tests from runtime errors */
+  bool protect;
 };
 
 #endif /* OUTPUT_HANDLER_HPP */

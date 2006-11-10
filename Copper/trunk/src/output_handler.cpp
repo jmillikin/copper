@@ -18,13 +18,19 @@ EXPORT OutputHandler::OutputHandler(int&, char**&) {
 
 EXPORT OutputHandler::~OutputHandler() {}
 
-EXPORT void OutputHandler::run_test(Test* test) {
+EXPORT void OutputHandler::run_test(Test* test, bool protect) {
   begin(test);
 
   Assertion* failure = 0;
   Error* test_error = 0;
 
-  Protector::guard(test, &failure, &test_error);
+  if (protect) {
+    Protector::guard(test, &failure, &test_error);
+  }
+  
+  else {
+    test->run();
+  }
 
   if (test_error) {
     error(test, test_error);
@@ -41,10 +47,10 @@ EXPORT void OutputHandler::run_test(Test* test) {
   }
 }
 
-EXPORT void OutputHandler::run_tests(List<Test> tests) {
+EXPORT void OutputHandler::run_tests(List<Test> tests, bool protect) {
   const ListNode<Test>* node = tests.root();
   while (node) {
-    run_test(node->value);
+    run_test(node->value, protect);
     node = node->next;
   }
 }

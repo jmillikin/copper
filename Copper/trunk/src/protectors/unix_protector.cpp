@@ -89,11 +89,7 @@ void trap(
 
 namespace Copper {
 
-UnixProtector::UnixProtector() throw ():
-  Protector() {
-
-  add(this);
-}
+UnixProtector::UnixProtector() throw (): Protector() {}
 
 UnixProtector::~UnixProtector() throw () {}
 

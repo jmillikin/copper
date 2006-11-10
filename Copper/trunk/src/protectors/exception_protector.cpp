@@ -5,7 +5,6 @@
 
 #include <stdexcept>
 #include <copper/protectors/exception_protector.hpp>
-#include "../export.hpp"
 
 #ifdef HAVE_CONFIG_H
 #include <config.h>
@@ -17,10 +16,9 @@
 
 namespace Copper {
 
-EXPORT ExceptionProtector::ExceptionProtector() throw ():
-  Protector() {}
+ExceptionProtector::ExceptionProtector() throw (): Protector() {}
 
-EXPORT ExceptionProtector::~ExceptionProtector() throw () {}
+ExceptionProtector::~ExceptionProtector() throw () {}
 
 void ExceptionProtector::_guard(Test* test, Assertion** failure,
   Error** error) {

@@ -15,7 +15,9 @@ List<Protector>& protectors() {
   return _protectors;
 }
 
-Protector::Protector() throw () {}
+Protector::Protector() throw () {
+  add(this);
+}
 
 Protector::~Protector() throw () {}
 

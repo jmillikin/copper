@@ -35,7 +35,7 @@ protected:
       the error that was caught
   */
   virtual void _guard(Test* test, Assertion** failure, Error** error);
-};
+} exception_protector_instance;
 
 } // namespace
 
