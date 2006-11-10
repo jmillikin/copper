@@ -102,8 +102,8 @@
 #define TEST_SUITE3(NAME, LINE) \
   namespace suite_namespace_##LINE { \
     static Copper::Suite current_suite(NAME); \
-    static const void (*_set_up)() = 0; \
-    static const void (*_tear_down)() = 0; \
+    static void (*_set_up)() = 0; \
+    static void (*_tear_down)() = 0; \
   } \
   namespace suite_namespace_##LINE
 
