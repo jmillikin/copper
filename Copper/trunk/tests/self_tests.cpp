@@ -38,13 +38,13 @@ TEST(integer_equals_fail) {
 }
 
 FIXTURE(str_fixture) {
-  Copper::String var1, var2, var3, var4;
+  const Copper::String
+    var1 = "test",
+    var2 = "test",
+    var3 = "other",
+    var4 = "other";
   char* cvar1, *cvar2, *cvar3, *cvar4;
   void set_up() {
-    var1 = "test";
-    var2 = "test";
-    var3 = "other";
-    var4 = "other";
     cvar1 = Copper::strdup(var1.c_str());
     cvar2 = Copper::strdup(var2.c_str());
     cvar3 = Copper::strdup(var3.c_str());
