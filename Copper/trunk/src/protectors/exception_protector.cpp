@@ -5,10 +5,7 @@
 
 #include <stdexcept>
 #include <copper/protectors/exception_protector.hpp>
-
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
+#include <copper/compat.hpp>
 
 #if HAVE_CXA_CURRENT_EXCEPTION_TYPE
 #include <cxxabi.h>

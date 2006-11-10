@@ -6,11 +6,8 @@
 #ifndef COPPER_UTIL_FORMATTERS_HPP
 #define COPPER_UTIL_FORMATTERS_HPP
 
-#ifdef HAVE_CONFIG_H
-#include <config.h>
-#endif
-
 #include <copper/util/string.hpp>
+#include <copper/compat.hpp>
 
 #if HAVE_SSTREAM
 #include <sstream>

@@ -1,5 +1,4 @@
 #include <copper/util/formatters.hpp>
-#include <copper/compat.hpp>
 #include "../export.hpp"
 
 namespace Copper {
