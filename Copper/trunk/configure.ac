@@ -74,6 +74,18 @@ else
   )
 fi
 
+COPPER_CHECK_SIGBUS
+if test "$coppper_sigbus_support" = "no"; then
+  AC_DEFINE(HAVE_SIGBUS, 0,
+    [The compiler does not have the SIGBUS signal]
+  )
+else
+  AC_DEFINE(HAVE_SIGBUS, 1,
+    [The compiler has the SIGBUS signal]
+  )
+fi
+
+
 # Optional features with ./configure options
 AC_MSG_CHECKING([if RTTI is enabled])
 if test "$enable_rtti" = "yes"; then
