@@ -110,8 +110,6 @@
   public: \
     test_##NAME(): Copper::Test(#NAME, &current_suite, __FILE__){} \
   protected: \
-    void set_up(){} \
-    void tear_down(){} \
     void _run(Copper::Assertion** bad_assertion); \
   } test_instance_##NAME; \
   void test_##NAME::_run(Copper::Assertion** bad_assertion)

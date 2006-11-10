@@ -54,4 +54,8 @@ Assertion* Test::run() {
   return bad_assertion;
 }
 
+void Test::set_up() {}
+
+void Test::tear_down() {}
+
 } // namespace

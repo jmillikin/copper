@@ -41,10 +41,10 @@ protected:
   virtual void _run(Copper::Assertion** bad_assertion) = 0;
 
   /** Used to set up this test's fixture, if it exists */
-  virtual void set_up() = 0;
+  virtual void set_up();
 
   /** Used to tear down this test's fixture, if it exists */
-  virtual void tear_down() = 0;
+  virtual void tear_down();
 };
 
 } /* Namespace */
