@@ -95,13 +95,17 @@
 
   @param NAME The name of the new test suite
 */
-#define TEST_SUITE(NAME) \
-  namespace suite_namespace_##NAME { \
-    static Copper::Suite current_suite(#NAME); \
+#define TEST_SUITE(NAME) TEST_SUITE2(NAME, __LINE__)
+
+#define TEST_SUITE2(NAME, LINE) TEST_SUITE3(NAME, LINE)
+
+#define TEST_SUITE3(NAME, LINE) \
+  namespace suite_namespace_##LINE { \
+    static Copper::Suite current_suite(NAME); \
     static const void (*_set_up)() = 0; \
     static const void (*_tear_down)() = 0; \
   } \
-  namespace suite_namespace_##NAME
+  namespace suite_namespace_##LINE
 
 /**
   Define a new Test with the given name
