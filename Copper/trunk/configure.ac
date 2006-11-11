@@ -85,6 +85,16 @@ else
   )
 fi
 
+COPPER_CHECK_VARIADIC_MACROS
+if test "coppper_variadic_macro_support" = "no"; then
+  AC_DEFINE(HAVE_VARIADIC_ASSERT, 0,
+    [The compiler does not have support for C99 variadic macros]
+  )
+else
+  AC_DEFINE(HAVE_VARIADIC_ASSERT, 1,
+    [The compiler has support for C99 variadic macros]
+  )
+fi
 
 # Optional features with ./configure options
 AC_MSG_CHECKING([if RTTI is enabled])
