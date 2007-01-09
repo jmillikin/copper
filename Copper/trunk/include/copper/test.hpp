@@ -25,7 +25,7 @@ public:
   static List<Test> all();
 
   /** Run the test */
-  Assertion* run();
+  virtual Assertion* run() = 0;
 
   /** The name of this test */
   const String name;
@@ -37,14 +37,14 @@ public:
   const String file_name;
 
 protected:
-  /** Run the user's test code */
-  virtual void _run(Copper::Assertion** bad_assertion) = 0;
-
   /** Used to set up this test's fixture, if it exists */
   virtual void set_up();
 
   /** Used to tear down this test's fixture, if it exists */
   virtual void tear_down();
+
+  /** Used for assert(throws()) */
+  bool exception_thrown;
 };
 
 } /* Namespace */

@@ -21,6 +21,8 @@ EXPORT Test::Test(
   if (suite) {
     _suite->add_test(this);
   }
+
+  exception_thrown = false;
 }
 
 EXPORT Test::~Test() {}
@@ -44,14 +46,6 @@ EXPORT List<Test> Test::all() {
   }
 
   return all_tests;
-}
-
-Assertion* Test::run() {
-  Assertion* bad_assertion = 0;
-  set_up();
-  _run(&bad_assertion);
-  tear_down();
-  return bad_assertion;
 }
 
 void Test::set_up() {}
