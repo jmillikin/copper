@@ -113,7 +113,6 @@
   public: \
     test_##LINE(): Copper::Test(NAME, &current_suite, __FILE__){} \
     Copper::Assertion* run() { \
-      set_up(); \
       Copper::Assertion* bad_assertion = 0; \
       try { \
         _run(); \
@@ -121,7 +120,6 @@
       catch (Copper::Assertion* assertion) { \
         bad_assertion = assertion; \
       } \
-      tear_down(); \
       return bad_assertion; \
     } \
   protected: \
@@ -164,7 +162,7 @@
       test_##LINE(): \
         Copper::Test(NAME, &current_suite, __FILE__) {} \
     Copper::Assertion* run() { \
-      set_up(); \
+      if (_set_up) _set_up(); \
       Copper::Assertion* bad_assertion = 0; \
       try { \
         _run(); \
@@ -172,21 +170,11 @@
       catch (Copper::Assertion* assertion) { \
         bad_assertion = assertion; \
       } \
-      tear_down(); \
+      if (_tear_down) _tear_down(); \
       return bad_assertion; \
     } \
     protected: \
       void _run(); \
-      void set_up(){ \
-        if (_set_up) { \
-          _set_up(); \
-        } \
-      } \
-      void tear_down(){ \
-        if (_tear_down) { \
-          _tear_down(); \
-        } \
-      } \
     } test_instance_##LINE; \
   } \
   void fixture_namespace_##FIXTURE::test_##LINE::_run()

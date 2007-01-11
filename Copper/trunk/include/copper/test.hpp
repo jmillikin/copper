@@ -37,12 +37,6 @@ public:
   const String file_name;
 
 protected:
-  /** Used to set up this test's fixture, if it exists */
-  virtual void set_up();
-
-  /** Used to tear down this test's fixture, if it exists */
-  virtual void tear_down();
-
   /** Used for assert(throws()) */
   bool exception_thrown;
 };
