@@ -17,52 +17,52 @@
 
 // Early versions of GCC had different syntax for variable arguments
 #ifdef __GNUC__
-#if __GNUC__ < 3
-#define assert(ARGS...) real_assert(ARGS, __LINE__)
+# if __GNUC__ < 3
+#   define assert(ARGS...) real_assert(ARGS, __LINE__)
 
-#define real_assert(ASSERTION, ARGS...) {\
-  Copper::Assertion assertion(ASSERTION, #ASSERTION, ARGS);\
-  if (!assertion.passed()) {\
-    throw new Copper::Assertion(assertion);\
-  }\
-}
-#else /* __GNUC__ is > 3 */
-#ifndef ENABLE_VARIADIC_ASSERT
-#define ENABLE_VARIADIC_ASSERT 1
-#endif /* ENABLE_VARIADIC_ASSERT */
-#endif /* __GNUC__ */
+#   define real_assert(ASSERTION, ARGS...) {\
+      Copper::Assertion assertion(ASSERTION, #ASSERTION, ARGS);\
+      if (!assertion.passed()) {\
+        throw new Copper::Assertion(assertion);\
+      }\
+    }
+# else /* __GNUC__ is > 3 */
+#   ifndef ENABLE_VARIADIC_ASSERT
+#     define ENABLE_VARIADIC_ASSERT 1
+#   endif /* ENABLE_VARIADIC_ASSERT */
+# endif /* __GNUC__ */
 
 #endif /* ifdef __GNUC__ */
 
 #ifndef assert
-#ifndef ENABLE_VARIADIC_ASSERT
-#if HAVE_VARIADIC_MACROS
-#define ENABLE_VARIADIC_ASSERT 1
-#endif /* HAVE_VARIADIC_MACROS */
-#endif /* ENABLE_VARIADIC_ASSERT */
+# ifndef ENABLE_VARIADIC_ASSERT
+#   if HAVE_VARIADIC_MACROS
+#     define ENABLE_VARIADIC_ASSERT 1
+#   endif /* HAVE_VARIADIC_MACROS */
+# endif /* ENABLE_VARIADIC_ASSERT */
 
 /* C99 style of variadic macros */
-#if ENABLE_VARIADIC_ASSERT
+# if ENABLE_VARIADIC_ASSERT
 
-#define assert(...) real_assert(__VA_ARGS__, __LINE__)
+#   define assert(...) real_assert(__VA_ARGS__, __LINE__)
 
-#define real_assert(ASSERTION, ...) {\
-  Copper::Assertion assertion(ASSERTION, #ASSERTION, __VA_ARGS__);\
-  if (!assertion.passed()) {\
-    throw new Copper::Assertion(assertion);\
-  }\
-}
+#   define real_assert(ASSERTION, ...) {\
+      Copper::Assertion assertion(ASSERTION, #ASSERTION, __VA_ARGS__);\
+      if (!assertion.passed()) {\
+        throw new Copper::Assertion(assertion);\
+      }\
+    }
 
-#else /* ENABLE_VARIADIC_ASSERT */
+# else /* ENABLE_VARIADIC_ASSERT */
 
-#define assert(ASSERTION) {\
-  Copper::Assertion assertion(ASSERTION, #ASSERTION, __LINE__);\
-  if (!assertion.passed()) {\
-    throw new Copper::Assertion(assertion);\
-  }\
-}
+#   define assert(ASSERTION) {\
+      Copper::Assertion assertion(ASSERTION, #ASSERTION, __LINE__);\
+      if (!assertion.passed()) {\
+        throw new Copper::Assertion(assertion);\
+      }\
+    }
 
-#endif /* ENABLE_VARIADIC_ASSERT */
+# endif /* ENABLE_VARIADIC_ASSERT */
 #endif /* assert */
 
 /**
