@@ -66,4 +66,15 @@ TEST(invalid_test) {
   assert(equal(Copper::Test::all().size(), tests.size()));
 }
 
+TEST(mixed_valid_and_invalid) {
+  int argc = 2;
+  char* argv[] = {
+    "argument_parser_tests.single_test",
+    "argument_parser_tests.nonexistant_test",
+  };
+  Copper::List<Copper::Test> tests = parse_test_args(argc, argv);
+
+  assert(equal(1, tests.size()));
+}
+
 }
