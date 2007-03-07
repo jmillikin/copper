@@ -55,9 +55,92 @@ EXPORT void OutputHandler::run_tests(List<Test> tests, bool protect) {
   }
 }
 
+Suite* find_suite(const char* name) {
+  // Find all suites
+  List<Suite> all = Suite::all_suites();
+
+  const ListNode<Suite>* node = all.root();
+  while (node) {
+    Suite* suite = node->value;
+    if (suite->name == name) {
+      return suite;
+    }
+    node = node->next;
+  }
+
+  return NULL;
+}
+
+Test* find_test(const char* full_name) {
+  // Separate the full name into suite name and test name
+  int len = strlen(full_name);
+  char* suite_name = new char[len+1];
+  strcpy(suite_name, full_name);
+  char* midpoint = strchr(suite_name, '.');
+  char* test_name = midpoint + 1;
+  *midpoint = 0;
+
+  // Find the suite
+  Suite* suite = find_suite(suite_name);
+
+  if (!suite) {
+    delete[] suite_name;
+    return NULL;
+  }
+
+  // Find the test
+  List<Test> suite_tests = suite->get_tests();
+  const ListNode<Test>* node = suite_tests.root();
+  while (node) {
+    Test* test = node->value;
+    if (test->name == test_name) {
+      delete[] suite_name;
+      return test;
+    }
+    node = node->next;
+  }
+
+  delete[] suite_name;
+  return NULL;
+}
+
 EXPORT List<Test> OutputHandler::parse_test_args(int argc, char** argv) {
-  List<Test> all_tests = Test::all();
-  return all_tests;
+  List<Test> tests;
+
+  for (int ii = 0; ii < argc; ii++) {
+    const char* name = argv[ii];
+    const char* midpoint = strchr(name, '.');
+
+    if (midpoint) {
+      // This name includes a test name
+      Test* test = find_test(name);
+      if (test) {
+        tests.append(test);
+      }
+    }
+
+    else {
+      // No test name, append everything in the suite
+      Suite* suite = find_suite(name);
+
+      if (suite) {
+        List<Test> suite_tests = suite->get_tests();
+        const ListNode<Test>* node = suite_tests.root();
+        while (node) {
+          tests.append(node->value);
+          node = node->next;
+        }
+      }
+    }
+  }
+
+  if (tests.size()) {
+    return tests;
+  }
+
+  else {
+    return Test::all();
+  }
 }
 
 } /* namespace */
