@@ -13,7 +13,7 @@
 #include <copper/output_handler.hpp>
 
 // Various self-tests of the framework, to try and avoid bugs
-TEST_SUITE("Self tests") {
+TEST_SUITE(self_tests) {
 
 FIXTURE(the_fixture) {
   int fixture_var = 0;
@@ -25,20 +25,20 @@ FIXTURE(the_fixture) {
   }
 }
 
-FIXTURE_TEST("fixture test", the_fixture) {
+FIXTURE_TEST(fixture_test, the_fixture) {
   assert(equal(fixture_var, 1));
   assert(set_up_finished);
 }
 
 // Tests of implementation details
 
-TEST("assertion result fresh") {
+TEST(assertion_result_fresh) {
   Copper::AssertionResult ar;
   assert(!ar.passed());
   assert(equal("Unitialized AssertionResult", ar.failure_message()));
 }
 
-TEST("assertion result pass") {
+TEST(assertion_result_pass) {
   Copper::AssertionResult ar;
   ar.pass();
 
@@ -50,7 +50,7 @@ TEST("assertion result pass") {
   assert(equal("No Error", ar.failure_message()));
 }
 
-TEST("assertion result failure") {
+TEST(assertion_result_failure) {
   Copper::AssertionResult ar;
   ar.fail("Error goes here");
 
@@ -62,20 +62,20 @@ TEST("assertion result failure") {
   assert(equal("Error goes here", ar.failure_message()));
 }
 
-TEST("boolean assertion pass") {
+TEST(boolean_assertion_pass) {
   Copper::AssertionResult ar(true);
 
   assert(ar.passed());
 }
 
-TEST("boolean assertion failure") {
+TEST(boolean_assertion_failure) {
   Copper::AssertionResult ar(false);
 
   assert(!ar.passed());
   assert(equal("Boolean assertion failed", ar.failure_message()));
 }
 
-TEST("assertion pass") {
+TEST(assertion_pass) {
   Copper::AssertionResult ar;
   ar.pass();
   Copper::Assertion a(ar, "Assertion text", 12345);
@@ -85,7 +85,7 @@ TEST("assertion pass") {
   assert(equal(12345u, a.line()));
 }
 
-TEST("assertion failure") {
+TEST(assertion_failure) {
   Copper::AssertionResult ar;
   ar.fail("Error goes here");
   Copper::Assertion a(ar, "Assertion text", 12345);
@@ -96,7 +96,7 @@ TEST("assertion failure") {
   assert(equal("Error goes here", a.failure_message()));
 }
 
-TEST("assertion failure custom message") {
+TEST(assertion_failure_custom_message) {
   Copper::AssertionResult ar;
   ar.fail("Error goes here");
   Copper::Assertion a(ar, "Assertion text", "Custom error", 12345);
@@ -107,7 +107,7 @@ TEST("assertion failure custom message") {
   assert(equal("Custom error", a.failure_message()));
 }
 
-TEST("reverse passed assertion") {
+TEST(reverse_passed_assertion) {
   Copper::AssertionResult ar;
   ar.pass();
   Copper::AssertionResult reversed_ar = failed(ar);
@@ -117,7 +117,7 @@ TEST("reverse passed assertion") {
     reversed_ar.failure_message()));
 }
 
-TEST("reverse failed assertion") {
+TEST(reverse_failed_assertion) {
   Copper::AssertionResult ar;
   ar.fail("");
   Copper::AssertionResult reversed_ar = failed(ar);
