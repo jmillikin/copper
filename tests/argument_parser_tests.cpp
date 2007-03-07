@@ -55,7 +55,7 @@ TEST(invalid_suite) {
   char* argv[] = {"nonexistant_suite"};
   Copper::List<Copper::Test> tests = parse_test_args(argc, argv);
 
-  assert(equal(0, tests.size()));
+  assert(equal(Copper::Test::all().size(), tests.size()));
 }
 
 TEST(invalid_test) {
@@ -63,7 +63,7 @@ TEST(invalid_test) {
   char* argv[] = {"argument_parser_tests.nonexistant_test"};
   Copper::List<Copper::Test> tests = parse_test_args(argc, argv);
 
-  assert(equal(0, tests.size()));
+  assert(equal(Copper::Test::all().size(), tests.size()));
 }
 
 }
