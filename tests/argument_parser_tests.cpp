@@ -17,7 +17,7 @@ TEST_SUITE(argument_parser_tests) {
 
 TEST(no_arguments) {
   int argc = 0;
-  char* argv[] = {};
+  char* argv[] = {""};
   Copper::List<Copper::Test> tests = parse_test_args(argc, argv);
 
   assert(equal(Copper::Test::all().size(), tests.size()));
