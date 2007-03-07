@@ -12,7 +12,7 @@
 
 namespace Copper {
 
-EXPORT OutputHandler::OutputHandler(int&, char**&) {
+EXPORT OutputHandler::OutputHandler() {
   // For now, do nothing
 }
 
@@ -53,6 +53,11 @@ EXPORT void OutputHandler::run_tests(List<Test> tests, bool protect) {
     run_test(node->value, protect);
     node = node->next;
   }
+}
+
+EXPORT List<Test> OutputHandler::parse_test_args(int& argc, char**& argv) {
+  List<Test> all_tests = Test::all();
+  return all_tests;
 }
 
 } /* namespace */

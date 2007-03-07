@@ -10,11 +10,12 @@
 
 OutputHandler::OutputHandler(int& argc, char**& argv)
   throw ():
-  Copper::OutputHandler(argc, argv),
+  Copper::OutputHandler(),
   num_passed(0),
   num_failed(0),
   num_errors(0),
-  protect(true) {
+  protect(true),
+  tests(parse_test_args(argc, argv)) {
 
   // Allow exception catching to be toggled on or off at runtime
   for (int ii = 1; ii < argc; ii++) {
@@ -81,7 +82,7 @@ int OutputHandler::run() {
   std::time(&start_time);
 
   // Run all tests
-  run_tests(Copper::Test::all(), protect);
+  run_tests(tests, protect);
 
   // Calculate running time
   std::time_t now;

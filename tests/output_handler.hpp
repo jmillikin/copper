@@ -71,6 +71,9 @@ protected:
 
   /** Whether to protect running tests from runtime errors */
   bool protect;
+
+  /** Tests to run */
+  Copper::List<Copper::Test> tests;
 };
 
 #endif /* OUTPUT_HANDLER_HPP */
