@@ -44,7 +44,7 @@ void OutputHandler::fail(const Copper::Test* test,
 
   std::fprintf(stderr,
     "FAILURE in %s:%u:\n"
-    "%s - %s:\n"
+    "%s::%s:\n"
     "  %s\n"
     "  %s\n\n",
     test->file_name.c_str(), assertion->line(),
@@ -64,7 +64,7 @@ void OutputHandler::error(
 
   std::fprintf(stderr,
     "ERROR in %s:\n"
-    "%s - %s:\n"
+    "%s::%s:\n"
     "  %s\n\n",
     test->file_name.c_str(),
     test->suite->name.c_str(), test->name.c_str(),
