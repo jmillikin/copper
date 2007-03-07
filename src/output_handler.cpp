@@ -55,7 +55,7 @@ EXPORT void OutputHandler::run_tests(List<Test> tests, bool protect) {
   }
 }
 
-EXPORT List<Test> OutputHandler::parse_test_args(int& argc, char**& argv) {
+EXPORT List<Test> OutputHandler::parse_test_args(int argc, char** argv) {
   List<Test> all_tests = Test::all();
   return all_tests;
 }

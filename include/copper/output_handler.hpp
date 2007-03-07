@@ -64,6 +64,16 @@ public:
   */
   virtual int run() = 0;
 
+  /**
+    Get a list of tests to run, by parsing commandline arguments
+
+    @param argc The argument count
+    @param argv The arguments
+
+    @return A list of tests that match the given arguments
+  */
+  static List<Test> parse_test_args(int argc, char** argv);
+
 protected:
   /**
     Run a single test. This function automatically manages Protectors and
@@ -82,16 +92,6 @@ protected:
     @param protect Whether to use Protectors to guard against runtime errors
   */
   void run_tests(List<Test> tests, bool protect = true);
-
-  /**
-    Get a list of tests to run, by parsing commandline arguments
-
-    @param argc The argument count
-    @param argv The arguments
-
-    @return A list of tests that match the given arguments
-  */
-  static List<Test> parse_test_args(int& argc, char**& argv);
 };
 
 } /* namespace */
