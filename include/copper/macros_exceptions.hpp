@@ -92,12 +92,12 @@
 #define TEST_SUITE2(NAME, LINE) TEST_SUITE3(NAME, LINE)
 
 #define TEST_SUITE3(NAME, LINE) \
-  namespace suite_namespace_##LINE { \
-    static Copper::Suite current_suite(NAME); \
+  namespace suite_namespace_##NAME##_##LINE { \
+    static Copper::Suite current_suite(#NAME); \
     static void (*_set_up)() = 0; \
     static void (*_tear_down)() = 0; \
   } \
-  namespace suite_namespace_##LINE
+  namespace suite_namespace_##NAME##_##LINE
 
 /**
   Define a new Test with the given name
@@ -109,9 +109,9 @@
 #define TEST2(NAME, LINE) TEST3(NAME, LINE)
 
 #define TEST3(NAME, LINE) \
-  class test_##LINE : public Copper::Test { \
+  class test_##NAME##_##LINE : public Copper::Test { \
   public: \
-    test_##LINE(): Copper::Test(NAME, &current_suite, __FILE__){} \
+    test_##NAME##_##LINE(): Copper::Test(#NAME, &current_suite, __FILE__){} \
     Copper::Assertion* run() { \
       Copper::Assertion* bad_assertion = 0; \
       try { \
@@ -124,8 +124,8 @@
     } \
   protected: \
     void _run(); \
-  } test_instance_##LINE; \
-  void test_##LINE::_run()
+  } test_instance_##NAME##_##LINE; \
+  void test_##NAME##_##LINE::_run()
 
 /**
   Define a new Fixture, with the given name
@@ -157,10 +157,10 @@
 
 #define FIXTURE_TEST3(NAME, FIXTURE, LINE) \
   namespace fixture_namespace_##FIXTURE { \
-    class test_##LINE : public Copper::Test { \
+    class test_##NAME##_##LINE : public Copper::Test { \
     public: \
-      test_##LINE(): \
-        Copper::Test(NAME, &current_suite, __FILE__) {} \
+      test_##NAME##_##LINE(): \
+        Copper::Test(#NAME, &current_suite, __FILE__) {} \
     Copper::Assertion* run() { \
       if (_set_up) _set_up(); \
       Copper::Assertion* bad_assertion = 0; \
@@ -175,9 +175,9 @@
     } \
     protected: \
       void _run(); \
-    } test_instance_##LINE; \
+    } test_instance_##NAME##_##LINE; \
   } \
-  void fixture_namespace_##FIXTURE::test_##LINE::_run()
+  void fixture_namespace_##FIXTURE::test_##NAME##_##LINE::_run()
 
 inline void __throws_cleanup(int, int) {}
 

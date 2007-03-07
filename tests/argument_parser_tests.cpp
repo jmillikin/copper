@@ -7,9 +7,9 @@
 #include <copper.hpp>
 
 // Test the argument parser
-TEST_SUITE("argument parser tests") {
+TEST_SUITE(argument_parser_tests) {
 
-TEST("no arguments") {
+TEST(no_arguments) {
   Copper::List<Copper::Test> tests;
   int argc = 0;
   char* argv[] = {};

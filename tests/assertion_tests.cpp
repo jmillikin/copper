@@ -7,99 +7,99 @@
 #include <cstring>
 #include <cstdlib>
 
-TEST_SUITE("Assertion tests") {
+TEST_SUITE(assertion_tests) {
 
-TEST("boolean true") {
+TEST(boolean_true) {
   assert(true);
 }
 
-TEST("assert failed") {
+TEST(assert_failed) {
   // Check that a failed test will result in a pass
   assert(failed(false));
 }
 
-TEST("assert failed fail") {
+TEST(assert_failed_fail) {
   // Check that a passing test will result in a fail
   assert(failed(failed(true)));
 }
 
-TEST("integer equals") {
+TEST(integer_equals) {
   assert(equal(2, 2));
 }
 
-TEST("integer equals fail") {
+TEST(integer_equals_fail) {
   assert(failed(equal(1, 2)));
 }
 
-TEST("equal within") {
+TEST(equal_within) {
   assert(equal_within(2.0, 2.0001, 0.001));
 }
 
-TEST("equal within fail") {
+TEST(equal_within_fail) {
   assert(failed(equal_within(2.0, 2.01, 0.001)));
 }
 
-TEST("unequal") {
+TEST(unequal) {
   assert(unequal(1, 2));
 }
 
-TEST("unequal fail") {
+TEST(unequal_fail) {
   assert(failed(unequal(2, 2)));
 }
 
-TEST("is null") {
+TEST(is_null) {
   int* var = 0;
   assert(null(var));
 }
 
-TEST("is null fail") {
+TEST(is_null_fail) {
   int var;
   assert(failed(null(&var)));
 }
 
-TEST("not null") {
+TEST(not_null) {
   int var;
   assert(not_null(&var));
 }
 
-TEST("not null fail") {
+TEST(not_null_fail) {
   int* var = 0;
   assert(failed(not_null(var)));
 }
 
-TEST("greater than") {
+TEST(greater_than) {
   assert(greater_than(2, 1));
 }
 
-TEST("greater than fail") {
+TEST(greater_than_fail) {
   assert(failed(greater_than(2, 2)));
   assert(failed(greater_than(2, 3)));
 }
 
-TEST("greater than or equal") {
+TEST(greater_than_or_equal) {
   assert(greater_than_or_equal(2, 2));
   assert(greater_than_or_equal(2, 1));
 }
 
-TEST("greater than or equal fail") {
+TEST(greater_than_or_equal_fail) {
   assert(failed(greater_than_or_equal(1, 2)));
 }
 
-TEST("less than") {
+TEST(less_than) {
   assert(less_than(1, 2));
 }
 
-TEST("less than fail") {
+TEST(less_than_fail) {
   assert(failed(less_than(2, 2)));
   assert(failed(less_than(2, 1)));
 }
 
-TEST("less than or equal") {
+TEST(less_than_or_equal) {
   assert(less_than_or_equal(1, 2));
   assert(less_than_or_equal(2, 2));
 }
 
-TEST("less than or equal fail") {
+TEST(less_than_or_equal_fail) {
   assert(failed(less_than_or_equal(2, 1)));
 }
 

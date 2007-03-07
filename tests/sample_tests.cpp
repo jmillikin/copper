@@ -5,9 +5,9 @@
 
 #include <copper.hpp>
 
-TEST_SUITE("Sample suite") {
+TEST_SUITE(sample_suite) {
 
-TEST("Equality") {
+TEST(equality) {
   // Equality is performed with the 'equal' function. Equality works
   // with any two types that can be passed to ==
   assert(equal(2, 2));
@@ -16,47 +16,47 @@ TEST("Equality") {
   assert(equal("test", "test"));
 }
 
-TEST("Near equality") {
+TEST(near_equality) {
   // Equal within is used for floating point numbers, where exactness
   // might not be possible (though it can take any type with >, < and +
   // operators
   assert(equal_within(2.0, 2.0001, 0.001));
 }
 
-TEST("Inequality") {
+TEST(inequality) {
   // Assert that two values are not equal
   assert(unequal(1, 2));
 }
 
-TEST("Is NULL") {
+TEST(is_NULL) {
   // Used to check that some pointer is NULL
   int* var = 0;
   assert(null(var));
 }
 
-TEST("Isn't NULL") {
+TEST(is_not_NULL) {
   // Used to check that some pointer is not NULL
   int var;
   assert(not_null(&var));
 }
 
-TEST("Greater than") {
+TEST(greater_than) {
   // Assert some value is > another value
   assert(greater_than(2, 1));
 }
 
-TEST("Greater than or equal") {
+TEST(greater_than_or_equal) {
   // Assert some value is >= another value
   assert(greater_than_or_equal(2, 2));
   assert(greater_than_or_equal(2, 1));
 }
 
-TEST("Less than") {
+TEST(less_than) {
   // Assert some value is < another value
   assert(less_than(1, 2));
 }
 
-TEST("Less than or equal") {
+TEST(less_than_or_equal) {
   // Assert some value is <= another value
   assert(less_than_or_equal(1, 2));
   assert(less_than_or_equal(2, 2));
@@ -79,19 +79,19 @@ FIXTURE(the_fixture) {
   }
 }
 
-FIXTURE_TEST("Test with a fixture", the_fixture) {
+FIXTURE_TEST(test_with_a_fixture, the_fixture) {
   assert(equal(fixture_var, 1));
   assert(set_up_finished);
 }
 
 // Some systems also support catching various programming errors
 
-TEST("NULL-pointer dereference") {
+TEST(NULL_pointer_dereference) {
   int* i = 0;
   *i = 1;
 }
 
-TEST("Division by zero") {
+TEST(division_by_zero) {
   int i = 1 / 0;
 }
 
