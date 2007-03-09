@@ -16,3 +16,4 @@ aclocal.m4
 /autoconf/config.guess
 /autoconf/config.sub
 /autoconf/ltmain.sh
+tests/run_tests
