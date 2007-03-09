@@ -36,7 +36,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Administrator\Desktop\Code\Copper\trunk\include&quot;"
+				AdditionalIncludeDirectories=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -89,7 +89,7 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Administrator\Desktop\Code\Copper\trunk\include&quot;"
+				AdditionalIncludeDirectories=""
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -226,6 +226,14 @@
 					>
 				</File>
 				<File
+					RelativePath="..\..\include\copper\macros_exceptions.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\copper\macros_noexceptions.hpp"
+					>
+				</File>
+				<File
 					RelativePath="..\..\include\copper\output_handler.hpp"
 					>
 				</File>
@@ -270,12 +278,6 @@
 					</File>
 				</Filter>
 			</Filter>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-			>
 		</Filter>
 	</Files>
 	<Globals>

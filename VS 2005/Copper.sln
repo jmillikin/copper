@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual C++ Express 2005
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Copper", "Copper.vcproj", "{B20D0A83-6283-4B9C-8294-9DBCB8F9AE73}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Copper", "Copper\Copper.vcproj", "{B20D0A83-6283-4B9C-8294-9DBCB8F9AE73}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "..\Tests\Tests.vcproj", "{FC87F2FA-9800-4871-A9E5-75548E695C1A}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tests", "Tests\Tests.vcproj", "{FC87F2FA-9800-4871-A9E5-75548E695C1A}"
 	ProjectSection(ProjectDependencies) = postProject
 		{B20D0A83-6283-4B9C-8294-9DBCB8F9AE73} = {B20D0A83-6283-4B9C-8294-9DBCB8F9AE73}
 	EndProjectSection
