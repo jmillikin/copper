@@ -103,4 +103,8 @@ TEST(less_than_or_equal_fail) {
   assert(failed(less_than_or_equal(2, 1)));
 }
 
+TEST(assert_throws) {
+  assert(throws(int, throw 0));
+}
+
 }
