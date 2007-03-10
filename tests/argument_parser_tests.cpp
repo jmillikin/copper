@@ -1,6 +1,6 @@
 /* argument_parser_tests.cpp - Test the commandline argument parser
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #include <copper/output_handler.hpp>

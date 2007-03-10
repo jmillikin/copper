@@ -1,6 +1,6 @@
 /* unix_protector.hpp -- Guards against unexpected UNIX signals
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #ifndef COPPER_UNIX_PROTECTOR_HPP

@@ -19,7 +19,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="../../include"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Administrator\Desktop\Code\Copper\trunk\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_LIB"
 				MinimalRebuild="TRUE"
 				BasicRuntimeChecks="3"
@@ -60,7 +60,7 @@
 			CharacterSet="2">
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="../../include"
+				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Administrator\Desktop\Code\Copper\trunk\include&quot;"
 				PreprocessorDefinitions="WIN32;NDEBUG;_LIB"
 				RuntimeLibrary="4"
 				UsePrecompiledHeader="0"
@@ -174,12 +174,6 @@
 				</File>
 				<File
 					RelativePath="..\..\include\copper\macros.hpp">
-				</File>
-				<File
-					RelativePath="..\..\include\copper\macros_exceptions.hpp">
-				</File>
-				<File
-					RelativePath="..\..\include\copper\macros_noexceptions.hpp">
 				</File>
 				<File
 					RelativePath="..\..\include\copper\output_handler.hpp">

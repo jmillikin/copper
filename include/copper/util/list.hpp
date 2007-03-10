@@ -1,6 +1,6 @@
 /* list.hpp -- Simple linked list to avoid dependency on std::list
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #ifndef COPPER_UTIL_LIST_HPP

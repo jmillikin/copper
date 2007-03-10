@@ -1,6 +1,6 @@
 /* assertion_result.hpp - The result of a single assertion
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #ifndef COPPER_ASSERTION_RESULT_HPP

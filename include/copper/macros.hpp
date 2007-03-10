@@ -1,6 +1,6 @@
 /* macros.hpp - Preprocessor macros to ease test building
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #ifdef HAVE_CONFIG_H

@@ -1,6 +1,6 @@
 /* output_handler.hpp -- Base class for all output handlers
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #ifndef COPPER_OUTPUT_HANDLER_HPP

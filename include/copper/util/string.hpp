@@ -1,6 +1,6 @@
 /* string.hpp -- Simple string to avoid dependency on std::string
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #ifndef COPPER_UTIL_STRING_HPP

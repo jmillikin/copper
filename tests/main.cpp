@@ -1,6 +1,6 @@
 /* main.cpp -- Runs an output handler
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #include "output_handler.hpp"

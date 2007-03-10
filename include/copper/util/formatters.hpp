@@ -1,6 +1,6 @@
 /* formatters.hpp -- Convert various types to Copper::String
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #ifndef COPPER_UTIL_FORMATTERS_HPP

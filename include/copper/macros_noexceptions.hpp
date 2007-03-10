@@ -1,6 +1,6 @@
 /* macros_noexceptions.hpp - Preprocessor macros to ease test building
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #ifndef COPPER_MACROS_HPP

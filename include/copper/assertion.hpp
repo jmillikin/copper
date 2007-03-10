@@ -1,6 +1,6 @@
 /* assertion.hpp - Asserts that certain statements are true
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #include <copper/util/string.hpp>
@@ -34,11 +34,6 @@ public:
   */
   Assertion(const AssertionResult& result, const String& text,
     const String& message, const unsigned int line) throw ();
-
-  /**
-    Don't use, this is a workaround for Visual Studio 2003
-  */
-  Assertion(const bool, const int) throw ();
 
   /** Copy constructor */
   Assertion(const Assertion& other) throw ();

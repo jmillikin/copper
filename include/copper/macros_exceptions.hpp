@@ -1,6 +1,6 @@
 /* macros_exceptions.hpp - Preprocessor macros to ease test building
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #ifndef COPPER_MACROS_HPP
@@ -180,7 +180,6 @@
   void fixture_namespace_##FIXTURE::test_##NAME##_##LINE::_run()
 
 inline void __throws_cleanup(int, int) {}
-inline void __throws_cleanup(int, char*, int) {}
 
 #define throws(TYPE, CODE) \
   true, __LINE__); \

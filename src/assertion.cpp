@@ -1,6 +1,6 @@
 /* assertion.cpp - Asserts that certain statements are true
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #include <copper/assertion.hpp>
@@ -27,11 +27,6 @@ EXPORT Assertion::Assertion(
   m_text(text),
   m_message(message),
   m_line(line) {}
-
-EXPORT Assertion::Assertion(const bool, const int) throw () :
-  m_result(true),
-  m_text(""),
-  m_line(0) {}
 
 EXPORT Assertion::Assertion(const Assertion& other) throw () {
   m_result = other.m_result;

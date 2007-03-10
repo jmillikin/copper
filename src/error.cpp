@@ -1,6 +1,6 @@
 /* error.cpp - Created when an execution error occurs
  * Copyright (C) 2006 John Millikin
- * For conditions of distribution and use, see license.txt
+ * For conditions of distribution and use, see COPYING
  */
 
 #include <cstring>
