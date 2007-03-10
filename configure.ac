@@ -198,4 +198,5 @@ AC_OUTPUT([
   include/copper/protectors/Makefile
   include/copper/util/Makefile
   tests/Makefile
+  libcu-0.2.pc
 ])
