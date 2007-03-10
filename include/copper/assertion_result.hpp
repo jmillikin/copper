@@ -35,8 +35,11 @@ public:
     Mark that the Assertion has failed
 
     @param message The failure message
+
+    @return The AssertionResult, for use in constructing failed assertions
+    with a single expression
   */
-  void fail(const String& failure_message) throw ();
+  const AssertionResult& fail(const String& failure_message) throw ();
 
   /** Get whether the Assertion has passed or failed */
   bool passed() const throw ();

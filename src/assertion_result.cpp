@@ -53,13 +53,17 @@ EXPORT void AssertionResult::pass() throw () {
   }
 }
 
-EXPORT void AssertionResult::fail(const String& failure_message) throw () {
+EXPORT const AssertionResult& AssertionResult::fail(
+  const String& failure_message) throw () {
+
   if (!m_finished) {
     m_passed = false;
     m_finished = true;
 
     m_failure_message = failure_message;
   }
+
+  return *this;
 }
 
 EXPORT bool AssertionResult::passed() const throw () {
