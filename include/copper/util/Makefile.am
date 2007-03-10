@@ -1,4 +1,5 @@
 copper_include_util_HEADERS = \
+  formatters.hpp \
   list.hpp \
   string.hpp
 

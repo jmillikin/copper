@@ -1,11 +1,14 @@
 SUBDIRS = protectors util
 
 copper_include_real_HEADERS = \
+  assertion.hpp \
   assertion_result.hpp \
   assertions.hpp \
   compat.hpp \
   error.hpp \
   macros.hpp \
+  macros_exceptions.hpp \
+  macros_noexceptions.hpp \
   output_handler.hpp \
   protector.hpp \
   suite.hpp \
