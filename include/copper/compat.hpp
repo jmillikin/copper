@@ -10,6 +10,19 @@
 #include <config.h>
 #endif
 
+// If config.h doesn't define these, default to enabling everything
+#ifndef HAVE_SSTREAM
+# define HAVE_SSTREAM 1
+#endif
+
+#ifndef HAVE_BOOLEAN
+# define HAVE_BOOLEAN 1
+#endif
+
+#ifndef HAVE_EXCEPTIONS
+# define HAVE_EXCEPTIONS 1
+#endif
+
 // For visual studio
 #ifdef _MSC_VER
 // Disable warnings about throw specifications
