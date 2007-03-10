@@ -175,7 +175,6 @@
     Copper::Assertion** bad_assertion)
 
 #define throws(TYPE, CODE) \
-  Copper::Assertion(false, "", \
-  "throws() cannot be used when exceptions are disabled", __LINE__)
+  Copper::AssertionResult(false)
 
 #endif /* COPPER_MACROS_HPP */
