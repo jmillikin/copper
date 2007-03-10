@@ -5,7 +5,7 @@ includedir=@includedir@
 
 Name: Copper
 Version: @VERSION@
-Description: Copper unit testing library
+Description: Copper unit testing library for C++
 Requires:
 Libs: -L${libdir} -lcu
 Cflags: -I${includedir}/copper-0

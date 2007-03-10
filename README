@@ -1,0 +1,2 @@
+Copper is a simple, standalone unit testing library for C++. It is designed
+to work well even in the absence of language features, such as the STL.
