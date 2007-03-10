@@ -68,7 +68,7 @@
 /**
   Used to manually fail a test
 */
-#define fail(MESSAGE) \
+#define fail_test(MESSAGE) \
   throw new Copper::Assertion(false, "", MESSAGE, __LINE__);
 
 /**

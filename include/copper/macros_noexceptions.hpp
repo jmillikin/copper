@@ -71,7 +71,7 @@
 /**
   Used to manually fail a test
 */
-#define fail(MESSAGE) \
+#define fail_test(MESSAGE) \
   *bad_assertion = new Copper::Assertion(false, "", MESSAGE, __LINE__);\
   return;
 
