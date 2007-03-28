@@ -7,17 +7,55 @@
 #include <copper/util/string.hpp>
 #include "export.hpp"
 
+// Used for when the user passes NULL to a string comparison assertion
+Copper::String check_NULL(const char* str) throw () {
+  using Copper::String;
+
+  if (str) {
+    return String("'") + String(str) + String("'");
+  }
+
+  else {
+    return String("NULL");
+  }
+}
+
+Copper::AssertionResult check_strings(const char* expected,
+                                      const char* actual) throw () {
+
+  using Copper::String;
+
+  Copper::AssertionResult result;
+
+  // Both of the values are NULL
+  // assert(null()) should be used instead
+  if (!expected && !actual) {
+    result.pass();
+  }
+
+  else {
+    // One of the values is NULL
+    result.fail(String("Unequal values: expected ") + check_NULL(expected) + String(", got ") + check_NULL(actual));
+  }
+
+  return result;
+}
+
 // Overloads for equal()
 
 EXPORT Copper::AssertionResult equal(const char* expected,
   const char* actual) throw () {
 
+  if (!expected || !actual) return check_strings(expected, actual);
+
   Copper::String s_expected(expected), s_actual(actual);
   return equal(s_expected, s_actual);
 }
 
 EXPORT Copper::AssertionResult equal(const char* expected,
   char actual[]) throw () {
+
+  if (!expected || !actual) return check_strings(expected, actual);
 
   Copper::String s_expected(expected), s_actual(actual);
   return equal(s_expected, s_actual);
@@ -26,12 +64,16 @@ EXPORT Copper::AssertionResult equal(const char* expected,
 EXPORT Copper::AssertionResult equal(char expected[],
   const char* actual) throw () {
 
+  if (!expected || !actual) return check_strings(expected, actual);
+
   Copper::String s_expected(expected), s_actual(actual);
   return equal(s_expected, s_actual);
 }
 
 EXPORT Copper::AssertionResult equal(char expected[],
   char actual[]) throw () {
+
+  if (!expected || !actual) return check_strings(expected, actual);
 
   Copper::String s_expected(expected), s_actual(actual);
   return equal(s_expected, s_actual);
