@@ -88,4 +88,9 @@ FIXTURE_TEST(mixed_string_inequality_fail, str_fixture) {
   assert(failed(unequal(var1, cvar2)));
 }
 
+TEST(compare_to_NULL) {
+  assert(unequal("test", (char*)0));
+  assert(failed(equal("test", (char*)0)));
+}
+
 }
