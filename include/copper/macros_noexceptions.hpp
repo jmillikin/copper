@@ -20,12 +20,12 @@
 # if __GNUC__ < 3
 #   define assert(ARGS...) real_assert(ARGS, __LINE__)
 
-#   define real_assert(ASSERTION, ARGS...) {\
-      Copper::Assertion assertion(ASSERTION, #ASSERTION, ARGS);\
-      if (!assertion.passed()) {\
-        *bad_assertion = new Copper::Assertion(assertion);\
-        return;\
-      }\
+#   define real_assert(ASSERTION, ARGS...) {                                   \
+      Copper::Assertion assertion(ASSERTION, #ASSERTION, ARGS);                \
+      if (!assertion.passed()) {                                               \
+        *bad_assertion = new Copper::Assertion(assertion);                     \
+        return;                                                                \
+      }                                                                        \
     }
 # else /* __GNUC__ is > 3 */
 #   ifndef ENABLE_VARIADIC_ASSERT
@@ -47,22 +47,22 @@
 
 #   define assert(...) real_assert(__VA_ARGS__, __LINE__)
 
-#   define real_assert(ASSERTION, ...) {\
-      Copper::Assertion assertion(ASSERTION, #ASSERTION, __VA_ARGS__);\
-      if (!assertion.passed()) {\
-        *bad_assertion = new Copper::Assertion(assertion);\
-        return;\
-      }\
+#   define real_assert(ASSERTION, ...) {                                       \
+      Copper::Assertion assertion(ASSERTION, #ASSERTION, __VA_ARGS__);         \
+      if (!assertion.passed()) {                                               \
+        *bad_assertion = new Copper::Assertion(assertion);                     \
+        return;                                                                \
+      }                                                                        \
     }
 
 # else /* ENABLE_VARIADIC_ASSERT */
 
-#   define assert(ASSERTION) {\
-      Copper::Assertion assertion(ASSERTION, #ASSERTION, __LINE__);\
-      if (!assertion.passed()) {\
-        *bad_assertion = new Copper::Assertion(assertion);\
-        return;\
-      }\
+#   define assert(ASSERTION) {                                                 \
+      Copper::Assertion assertion(ASSERTION, #ASSERTION, __LINE__);            \
+      if (!assertion.passed()) {                                               \
+        *bad_assertion = new Copper::Assertion(assertion);                     \
+        return;                                                                \
+      }                                                                        \
     }
 
 # endif /* ENABLE_VARIADIC_ASSERT */
@@ -71,8 +71,8 @@
 /**
   Used to manually fail a test
 */
-#define fail_test(MESSAGE) \
-  *bad_assertion = new Copper::Assertion(false, "", MESSAGE, __LINE__);\
+#define fail_test(MESSAGE)                                                     \
+  *bad_assertion = new Copper::Assertion(false, "", MESSAGE, __LINE__);        \
   return;
 
 /**
@@ -80,7 +80,7 @@
 
   @param ASSERTION The Assertion to invert
 */
-#define failed(ASSERTION) Copper::failed_func(\
+#define failed(ASSERTION) Copper::failed_func(                                 \
   Copper::Assertion(ASSERTION, #ASSERTION, __LINE__))
 
 /**
@@ -95,12 +95,12 @@
 
 #define TEST_SUITE2(NAME, LINE) TEST_SUITE3(NAME, LINE)
 
-#define TEST_SUITE3(NAME, LINE) \
-  namespace suite_namespace_##NAME##_##LINE { \
-    static Copper::Suite current_suite(#NAME); \
-    static void (*_set_up)() = 0; \
-    static void (*_tear_down)() = 0; \
-  } \
+#define TEST_SUITE3(NAME, LINE)                                                \
+  namespace suite_namespace_##NAME##_##LINE {                                  \
+    static Copper::Suite current_suite(#NAME);                                 \
+    static void (*_set_up)() = 0;                                              \
+    static void (*_tear_down)() = 0;                                           \
+  }                                                                            \
   namespace suite_namespace_##NAME##_##LINE
 
 /**
@@ -112,18 +112,18 @@
 
 #define TEST2(NAME, LINE) TEST3(NAME, LINE)
 
-#define TEST3(NAME, LINE) \
-  class test_##NAME##_##LINE : public Copper::Test { \
-  public: \
-    test_##NAME##_##LINE(): Copper::Test(#NAME, &current_suite, __FILE__){} \
-    Copper::Assertion* run() { \
-      Copper::Assertion* bad_assertion = 0; \
-      _run(&bad_assertion); \
-      return bad_assertion; \
-    } \
-  protected: \
-    void _run(Copper::Assertion** bad_assertion); \
-  } test_instance_##NAME##_##LINE; \
+#define TEST3(NAME, LINE)                                                      \
+  class test_##NAME##_##LINE : public Copper::Test {                           \
+  public:                                                                      \
+    test_##NAME##_##LINE(): Copper::Test(#NAME, &current_suite, __FILE__){}    \
+    Copper::Assertion* run() {                                                 \
+      Copper::Assertion* bad_assertion = 0;                                    \
+      _run(&bad_assertion);                                                    \
+      return bad_assertion;                                                    \
+    }                                                                          \
+  protected:                                                                   \
+    void _run(Copper::Assertion** bad_assertion);                              \
+  } test_instance_##NAME##_##LINE;                                             \
   void test_##NAME##_##LINE::_run(Copper::Assertion** bad_assertion)
 
 /**
@@ -133,14 +133,14 @@
 */
 #define FIXTURE(NAME) namespace fixture_namespace_##NAME
 
-#define SET_UP \
-  void set_up(); \
-  void (*_set_up)() = set_up; \
+#define SET_UP                                                                 \
+  void set_up();                                                               \
+  void (*_set_up)() = set_up;                                                  \
   void set_up()
 
-#define TEAR_DOWN \
-  void tear_down(); \
-  void (*_tear_down)() = tear_down; \
+#define TEAR_DOWN                                                              \
+  void tear_down();                                                            \
+  void (*_tear_down)() = tear_down;                                            \
   void tear_down()
 
 /**
@@ -154,24 +154,24 @@
 
 #define FIXTURE_TEST2(NAME, FIXTURE, LINE) FIXTURE_TEST3(NAME, FIXTURE, LINE)
 
-#define FIXTURE_TEST3(NAME, FIXTURE, LINE) \
-  namespace fixture_namespace_##FIXTURE { \
-    class test_##NAME##_##LINE : public Copper::Test { \
-    public: \
-      test_##NAME##_##LINE(): \
-        Copper::Test(#NAME, &current_suite, __FILE__) {} \
-      Copper::Assertion* run() { \
-        Copper::Assertion* bad_assertion = 0; \
-        if (_set_up) _set_up(); \
-        _run(&bad_assertion); \
-        if (_tear_down) _tear_down(); \
-        return bad_assertion; \
-      } \
-    protected: \
-      void _run(Copper::Assertion** bad_assertion); \
-    } test_instance_##NAME##_##LINE; \
-  } \
-  void fixture_namespace_##FIXTURE::test_##NAME##_##LINE::_run( \
+#define FIXTURE_TEST3(NAME, FIXTURE, LINE)                                     \
+  namespace fixture_namespace_##FIXTURE {                                      \
+    class test_##NAME##_##LINE : public Copper::Test {                         \
+    public:                                                                    \
+      test_##NAME##_##LINE():                                                  \
+        Copper::Test(#NAME, &current_suite, __FILE__) {}                       \
+      Copper::Assertion* run() {                                               \
+        Copper::Assertion* bad_assertion = 0;                                  \
+        if (_set_up) _set_up();                                                \
+        _run(&bad_assertion);                                                  \
+        if (_tear_down) _tear_down();                                          \
+        return bad_assertion;                                                  \
+      }                                                                        \
+    protected:                                                                 \
+      void _run(Copper::Assertion** bad_assertion);                            \
+    } test_instance_##NAME##_##LINE;                                           \
+  }                                                                            \
+  void fixture_namespace_##FIXTURE::test_##NAME##_##LINE::_run(                \
     Copper::Assertion** bad_assertion)
 
 #define throws(TYPE, CODE) \
