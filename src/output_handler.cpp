@@ -73,7 +73,7 @@ Suite* find_suite(const char* name) {
 
 Test* find_test(const char* full_name) {
   // Separate the full name into suite name and test name
-  int len = strlen(full_name);
+  size_t len = strlen(full_name);
   char* suite_name = new char[len+1];
   strcpy(suite_name, full_name);
   char* midpoint = strchr(suite_name, '.');
