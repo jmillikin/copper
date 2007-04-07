@@ -20,7 +20,7 @@ public:
 
     @param name The name of the test suite
   */
-  Suite(const String& name) throw ();
+  Suite(const String& name, void (*&)(), void (*&)()) throw ();
 
   /** Default destructor */
   ~Suite() throw ();

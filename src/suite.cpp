@@ -13,7 +13,7 @@ List<Suite>& suites() throw () {
   return _suites;
 }
 
-EXPORT Suite::Suite(const String& _name) throw ():
+EXPORT Suite::Suite(const String& _name, void (*&)(), void (*&)()) throw ():
   name(_name) {
 
   suites().append(this);
