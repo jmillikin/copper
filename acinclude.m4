@@ -7,6 +7,8 @@ m4_include([autoconf/include/cxx_current_exception_type.m4])
 m4_include([autoconf/include/boolean.m4])
 m4_include([autoconf/include/variadic_macros.m4])
 m4_include([autoconf/include/sigbus.m4])
+m4_include([autoconf/include/strsignal.m4])
+m4_include([autoconf/include/sys_siglist.m4])
 
 # Required features
 m4_include([autoconf/include/templates.m4])

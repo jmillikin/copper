@@ -85,6 +85,29 @@ else
   )
 fi
 
+COPPER_CHECK_STRSIGNAL
+if test "$coppper_strsignal_support" = "no"; then
+  AC_DEFINE(HAVE_STRSIGNAL, 0,
+    [The compiler does not have the strsignal function]
+  )
+
+  COPPER_CHECK_SYS_SIGLIST
+  if test "$coppper_sys_siglist_support" = "no"; then
+    AC_DEFINE(HAVE_SYS_SIGLIST, 0,
+      [The compiler does not have sys_siglist]
+    )
+  else
+    AC_DEFINE(HAVE_SYS_SIGLIST, 1,
+      [The compiler has sys_siglist]
+    )
+  fi
+
+else
+  AC_DEFINE(HAVE_STRSIGNAL, 1,
+    [The compiler has the strsignal function]
+  )
+fi
+
 COPPER_CHECK_VARIADIC_MACROS
 if test "coppper_variadic_macro_support" = "no"; then
   AC_DEFINE(HAVE_VARIADIC_ASSERT, 0,
