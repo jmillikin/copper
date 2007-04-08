@@ -40,7 +40,7 @@ public:
     Not a real constructor, used for implementing
     assert (throws ()) in Visual Studio.
   */
-  Assertion(bool, int);
+  Assertion(bool, int) throw ();
 
   /** Copy constructor */
   Assertion(const Assertion& other) throw ();
