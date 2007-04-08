@@ -28,6 +28,11 @@ EXPORT Assertion::Assertion(
   m_message(message),
   m_line(line) {}
 
+EXPORT Assertion::Assertion(bool, int) throw ():
+  m_result (true),
+  m_text (""),
+  m_line (0) {}
+
 EXPORT Assertion::Assertion(const Assertion& other) throw () {
   m_result = other.m_result;
   m_text = other.m_text;
