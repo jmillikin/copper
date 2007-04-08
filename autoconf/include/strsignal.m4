@@ -1,5 +1,5 @@
 AC_DEFUN([COPPER_CHECK_STRSIGNAL],[
-  AC_LANG_PUSH([C])
+  AC_LANG_PUSH([C++])
 
   AC_CACHE_CHECK(
     [if strsignal is supported],
@@ -9,7 +9,7 @@ AC_DEFUN([COPPER_CHECK_STRSIGNAL],[
         [#ifndef _GNU_SOURCE
          #  define _GNU_SOURCE
          #endif
-         #include <string.h>],
+         #include <cstring>],
         [if (strsignal) return 0; else return 1;]
       )],
       [coppper_strsignal_support=yes], # Test passed
@@ -17,5 +17,5 @@ AC_DEFUN([COPPER_CHECK_STRSIGNAL],[
     )]
   )
 
-  AC_LANG_POP([C])
+  AC_LANG_POP([C++])
 ])
