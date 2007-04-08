@@ -176,6 +176,12 @@
 					RelativePath="..\..\include\copper\macros.hpp">
 				</File>
 				<File
+					RelativePath="..\..\include\copper\macros_exceptions.hpp">
+				</File>
+				<File
+					RelativePath="..\..\include\copper\macros_noexceptions.hpp">
+				</File>
+				<File
 					RelativePath="..\..\include\copper\output_handler.hpp">
 				</File>
 				<File
