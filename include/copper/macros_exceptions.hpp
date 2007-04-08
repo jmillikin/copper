@@ -179,7 +179,7 @@
   }                                                                            \
   void fixture_namespace_##FIXTURE::test_##NAME##_##LINE::_run()
 
-inline void __throws_cleanup(int, int) {}
+inline void __throws_cleanup(...) {}
 
 #define throws(TYPE, CODE)                                                     \
   true, __LINE__);                                                             \

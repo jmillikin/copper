@@ -47,6 +47,10 @@ public:
 protected:
   /** All tests in this suite, in no particular order */
   List<Test> tests;
+
+private:
+  Suite& operator= (const Suite&) throw ();
+  Suite (const Suite&) throw ();
 };
 
 } // namespace

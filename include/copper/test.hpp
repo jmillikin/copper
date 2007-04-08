@@ -39,6 +39,10 @@ public:
 protected:
   /** Used for assert(throws()) */
   bool exception_thrown;
+
+private:
+  Test& operator= (const Test&) throw ();
+  Test (const Test&) throw ();
 };
 
 } /* Namespace */

@@ -5,6 +5,7 @@
 
 #include <copper/util/string.hpp>
 #include <copper/assertion_result.hpp>
+#include <cstdio>
 
 #ifndef COPPER_ASSERTION_HPP
 #define COPPER_ASSERTION_HPP
@@ -34,6 +35,12 @@ public:
   */
   Assertion(const AssertionResult& result, const String& text,
     const String& message, const unsigned int line) throw ();
+
+  /**
+    Not a real constructor, used for implementing
+    assert (throws ()) in Visual Studio.
+  */
+  Assertion(bool, int);
 
   /** Copy constructor */
   Assertion(const Assertion& other) throw ();

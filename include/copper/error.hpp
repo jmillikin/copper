@@ -27,6 +27,10 @@ public:
 
   /** The error that occurred */
   const String message;
+
+private:
+  Error& operator= (const Error&) throw ();
+  Error (const Error&) throw ();
 };
 
 } // namespace
