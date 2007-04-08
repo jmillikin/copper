@@ -5,6 +5,8 @@
 
 #include <cstring>
 #include <cstdlib>
+#include <cstddef>
+
 #include <copper/output_handler.hpp>
 #include <copper/protector.hpp>
 #include <copper/assertion.hpp>
@@ -73,10 +75,10 @@ Suite* find_suite(const char* name) {
 
 Test* find_test(const char* full_name) {
   // Separate the full name into suite name and test name
-  size_t len = strlen(full_name);
+  std::size_t len = std::strlen(full_name);
   char* suite_name = new char[len+1];
-  strcpy(suite_name, full_name);
-  char* midpoint = strchr(suite_name, '.');
+  std::strcpy(suite_name, full_name);
+  char* midpoint = std::strchr(suite_name, '.');
   char* test_name = midpoint + 1;
   *midpoint = 0;
 
@@ -109,7 +111,7 @@ EXPORT List<Test> OutputHandler::parse_test_args(int argc, char** argv) {
 
   for (int ii = 0; ii < argc; ii++) {
     const char* name = argv[ii];
-    const char* midpoint = strchr(name, '.');
+    const char* midpoint = std::strchr(name, '.');
 
     if (midpoint) {
       // This name includes a test name
