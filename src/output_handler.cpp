@@ -166,19 +166,30 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 
 	if (pid)
 	{
-		wait (0);
-		read (pipes[0], buf, 10);
-		buf[10] = 0;
+		int status;
+		waitpid (pid, &status, 0);
 
-		sscanf (buf, "%u ", &message_len);
-		message = new char [message_len + 1];
+		if (WIFEXITED (status))
+		{
+			read (pipes[0], buf, 10);
+			buf[10] = 0;
 
-		read (pipes[0], message, message_len);
-		message[message_len] = 0;
+			sscanf (buf, "%u ", &message_len);
+			message = new char [message_len + 1];
 
-		unserialize (message, failure, error);
+			read (pipes[0], message, message_len);
+			message[message_len] = 0;
 
-		delete message;
+			unserialize (message, failure, error);
+
+			delete message;
+		}
+
+		else
+		{
+			/* Something went wrong */
+			*error = new Error("Child terminated early");
+		}
 	}
 
 	else
