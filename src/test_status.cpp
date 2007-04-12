@@ -3,6 +3,7 @@
  * For conditions of distribution and use, see COPYING
  */
 
+#include <assert.h>
 #include <cstdlib>
 #include <cstdio>
 
@@ -11,35 +12,34 @@
 
 namespace Copper {
 
-static Assertion *failed = NULL;
+FailureHandler *handler = NULL;
+void *handler_data = NULL;
 
-EXPORT bool
+EXPORT void
 do_assert (const AssertionResult& result,
            const String& text,
            const unsigned int line) throw ()
 {
-	if (failed)
-		abort ();
+	assert (handler != NULL);
 
 	if (!result.passed())
-		failed = new Assertion (result, text, line);
-
-	return !result.passed ();
+	{
+		handler (new Assertion (result, text, line), handler_data);
+	}
 }
 
 EXPORT void
 do_fail_test (const String& text, const unsigned int line) throw ()
 {
-	if (failed)
-		abort ();
-
-	failed = new Assertion (false, "", text, line);
+	assert (handler != NULL);
+	handler (new Assertion (false, "", text, line), handler_data);
 }
 
-EXPORT Assertion *
-get_failed () throw ()
+EXPORT void
+set_failure_handler (FailureHandler *new_handler, void *data)
 {
-	return failed;
+	handler = new_handler;
+	handler_data = data;
 }
 
 }

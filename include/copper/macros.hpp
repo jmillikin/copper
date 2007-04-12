@@ -22,12 +22,12 @@
   @param MESSAGE If this parameter is included, it will be used as a
     custom error message
 */
-#define assert(ASSERTION) if (Copper::do_assert(ASSERTION, #ASSERTION, __LINE__)) return;
+#define assert(ASSERTION) Copper::do_assert(ASSERTION, #ASSERTION, __LINE__)
 
 /**
   Used to manually fail a test
 */
-#define fail_test(MESSAGE) Copper::do_fail_test (#MESSAGE, __LINE__); return
+#define fail_test(MESSAGE) Copper::do_fail_test (#MESSAGE, __LINE__)
 
 /**
   Invert the output from an assertion

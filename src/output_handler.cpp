@@ -178,6 +178,35 @@ process_error (int status)
 	}
 }
 
+void write_message (int fd, const char *message)
+{
+	char buf[30];
+	unsigned int message_len;
+
+	message_len = strlen (message);
+	sprintf (buf, "%-10u", message_len);
+	write (fd, buf, 10);
+	write (fd, message, message_len);
+}
+
+typedef struct _FailureInfo FailureInfo;
+struct _FailureInfo
+{
+	int fd;
+};
+
+void
+on_failure (Assertion *failure, void *data)
+{
+	int *fd = (int*) data;
+	char *message = serialize_failure (failure);
+
+	write_message (*fd, message);
+	free (message);
+	delete failure;
+	exit (1);
+}
+
 void
 fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 {
@@ -220,35 +249,30 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 
 	else
 	{
+		set_failure_handler (on_failure, &pipes[1]);
+
 		if (protect)
 			Protector::guard(test, error);
 		else
 			test->run();
 
-		*failure = get_failed ();
-
-		if (*failure)
-		{
-			message = serialize_failure (*failure);
-			delete *failure;
-		}
-
-		else if (*error)
+		if (*error)
 		{
 			message = serialize_error (*error);
+			write_message (pipes[1], message);
+			free (message);
 			delete *error;
+			exit (1);
 		}
 
 		else
+		{
 			message = serialize_pass ();
+			write_message (pipes[1], message);
+			free (message);
+			exit (0);
+		}
 
-		message_len = strlen (message);
-		sprintf (buf, "%-10u", message_len);
-		write (pipes[1], buf, 10);
-		write (pipes[1], message, message_len);
-		free (message);
-
-		exit (0);
 	}
 }
 
