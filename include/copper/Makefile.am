@@ -7,8 +7,6 @@ copper_include_real_HEADERS = \
   compat.hpp \
   error.hpp \
   macros.hpp \
-  macros_exceptions.hpp \
-  macros_noexceptions.hpp \
   output_handler.hpp \
   protector.hpp \
   suite.hpp \
