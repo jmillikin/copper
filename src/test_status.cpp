@@ -24,7 +24,7 @@ do_assert (const AssertionResult& result,
 
 	if (!result.passed())
 	{
-		handler (new Assertion (result, text, line), handler_data);
+		handler (Assertion (result, text, line), handler_data);
 	}
 }
 
@@ -32,7 +32,7 @@ EXPORT void
 do_fail_test (const String& text, const unsigned int line) throw ()
 {
 	assert (handler != NULL);
-	handler (new Assertion (false, "", text, line), handler_data);
+	handler (Assertion (false, "", text, line), handler_data);
 }
 
 EXPORT void

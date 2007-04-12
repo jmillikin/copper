@@ -11,7 +11,7 @@
 
 namespace Copper {
 
-typedef void (FailureHandler)(Assertion *failure, void *data);
+typedef void (FailureHandler)(const Assertion& failure, void *data);
 
 void
 do_assert (const AssertionResult& result,

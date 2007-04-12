@@ -44,7 +44,7 @@ make_named (const char *name, const char* var)
 }
 
 char *
-serialize_failure (Assertion *failure)
+serialize_failure (const Assertion *failure)
 {
 	LilacObject *obj;
 	LilacList *attrs = lilac_list_new ();
@@ -65,7 +65,7 @@ serialize_failure (Assertion *failure)
 }
 
 char *
-serialize_error (Error *error)
+serialize_error (const Error *error)
 {
 	LilacObject *obj;
 	LilacList *attrs = lilac_list_new ();
@@ -196,14 +196,13 @@ struct _FailureInfo
 };
 
 void
-on_failure (Assertion *failure, void *data)
+on_failure (const Assertion& failure, void *data)
 {
 	int *fd = (int*) data;
-	char *message = serialize_failure (failure);
+	char *message = serialize_failure (&failure);
 
 	write_message (*fd, message);
 	free (message);
-	delete failure;
 	exit (1);
 }
 
