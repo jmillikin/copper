@@ -16,6 +16,7 @@
 #include <copper/output_handler.hpp>
 #include <copper/protector.hpp>
 #include <copper/assertion.hpp>
+#include <copper/test_status.hpp>
 #include "export.hpp"
 
 namespace Copper {
@@ -223,6 +224,8 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 			Protector::guard(test, error);
 		else
 			test->run();
+
+		*failure = get_failed ();
 
 		if (*failure)
 		{
