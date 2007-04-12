@@ -7,6 +7,12 @@
 #include <cstdlib>
 #include <cstddef>
 
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+
+#include <lilac.h>
+
 #include <copper/output_handler.hpp>
 #include <copper/protector.hpp>
 #include <copper/assertion.hpp>
@@ -20,33 +26,219 @@ EXPORT OutputHandler::OutputHandler() {
 
 EXPORT OutputHandler::~OutputHandler() {}
 
-EXPORT void OutputHandler::run_test(Test* test, bool protect) {
-  begin(test);
+LilacElement *
+make_named (const char *name, int var)
+{
+	LilacAtom *atom = lilac_atom_new_integer (var);
+	LilacNamedElement *named = lilac_named_element_new_atom (name, atom);
+	return LILAC_ELEMENT (named);
+}
 
-  Assertion* failure = 0;
-  Error* test_error = 0;
+LilacElement *
+make_named (const char *name, const char* var)
+{
+	LilacAtom *atom = lilac_atom_new_string (var);
+	LilacNamedElement *named = lilac_named_element_new_atom (name, atom);
+	return LILAC_ELEMENT (named);
+}
 
-  if (protect) {
-    Protector::guard(test, &failure, &test_error);
-  }
-  
-  else {
-    test->run();
-  }
+char *
+serialize_failure (Assertion *failure)
+{
+	LilacObject *obj;
+	LilacList *attrs = lilac_list_new ();
+	char *message;
 
-  if (test_error) {
-    error(test, test_error);
-    delete test_error;
-  }
+	lilac_list_append (attrs, make_named ("text", failure->text().c_str()));
+	lilac_list_append (attrs, make_named ("line", failure->line()));
+	lilac_list_append (attrs,
+	                   make_named ("message",
+	                               failure->failure_message().c_str()));
 
-  else if (failure) {
-    fail(test, failure);
-    delete failure;
-  }
+	obj = lilac_object_new ("failure", attrs);
+	message = lilac_element_serialize (LILAC_ELEMENT (obj));
 
-  else {
-    pass(test);
-  }
+	lilac_element_free (LILAC_ELEMENT (obj));
+
+	return message;
+}
+
+char *
+serialize_error (Error *error)
+{
+	LilacObject *obj;
+	LilacList *attrs = lilac_list_new ();
+	char *message;
+
+	lilac_list_append (attrs, make_named ("message",
+	                                      error->message.c_str()));
+
+	obj = lilac_object_new ("error", attrs);
+	message = lilac_element_serialize (LILAC_ELEMENT (obj));
+
+	lilac_element_free (LILAC_ELEMENT (obj));
+
+	return message;
+}
+
+char *
+serialize_pass ()
+{
+	return strdup ("(test (passed null))");
+}
+
+void
+unserialize (const char *message, Assertion **failure, Error **error)
+{
+	LilacElement *element;
+	LilacObject *obj;
+
+	lilac_element_parse (message, &element);
+
+	if (LILAC_IS_OBJECT (element))
+	{
+		String type;
+		obj = LILAC_OBJECT (element);
+
+		type = lilac_object_get_name (obj);
+
+		if (type == "failure")
+		{
+			LilacList *attrs;
+			LilacNamedElement *text_e, *line_e, *message_e;
+			LilacAtom *text_a, *line_a, *message_a;
+			const char *text, *message;
+			unsigned int line;
+
+			attrs = lilac_object_get_attributes (obj);
+			text_e = LILAC_NAMED_ELEMENT (lilac_list_get_child (attrs, 0));
+			line_e = LILAC_NAMED_ELEMENT (lilac_list_get_child (attrs, 1));
+			message_e = LILAC_NAMED_ELEMENT (lilac_list_get_child (attrs, 2));
+
+			text_a = lilac_named_element_get_atom (text_e);
+			line_a = lilac_named_element_get_atom (line_e);
+			message_a = lilac_named_element_get_atom (message_e);
+
+			text = lilac_atom_get_string (text_a);
+			line = lilac_atom_get_integer (line_a);
+			message = lilac_atom_get_string (message_a);
+
+			*failure = new Assertion(false, text, message, line);
+		}
+
+		else if (type == "error")
+		{
+			LilacList *attrs;
+			LilacNamedElement *message_e;
+			LilacAtom *message_a;
+			const char *message;
+
+			attrs = lilac_object_get_attributes (obj);
+
+			message_e = LILAC_NAMED_ELEMENT (lilac_list_get_child (attrs, 0));
+			message_a = lilac_named_element_get_atom (message_e);
+			message = lilac_atom_get_string (message_a);
+
+			*error = new Error(message);
+		}
+	}
+
+	else
+	{
+		*error = new Error("Invalid message from child process");
+	}
+
+	lilac_element_free (element);
+}
+
+void
+fork_test (Test *test, bool protect, Assertion **failure, Error **error)
+{
+	pid_t pid;
+	int pipes[2];
+	char buf[30];
+	unsigned int message_len;
+	char *message;
+
+	pipe (pipes);
+
+	pid = fork ();
+
+	if (pid)
+	{
+		wait (0);
+		read (pipes[0], buf, 10);
+		buf[10] = 0;
+
+		sscanf (buf, "%u ", &message_len);
+		message = new char [message_len + 1];
+
+		read (pipes[0], message, message_len);
+		message[message_len] = 0;
+
+		unserialize (message, failure, error);
+
+		delete message;
+	}
+
+	else
+	{
+		if (protect)
+			Protector::guard(test, failure, error);
+		else
+			test->run();
+
+		if (*failure)
+		{
+			message = serialize_failure (*failure);
+			delete *failure;
+		}
+
+		else if (*error)
+		{
+			message = serialize_error (*error);
+			delete *error;
+		}
+
+		else
+			message = serialize_pass ();
+
+		message_len = strlen (message);
+		sprintf (buf, "%-10u", message_len);
+		write (pipes[1], buf, 10);
+		write (pipes[1], message, message_len);
+		free (message);
+
+		exit (0);
+	}
+}
+
+EXPORT void
+OutputHandler::run_test(Test* test, bool protect)
+{
+	begin (test);
+
+	Assertion *failure = NULL;
+	Error *test_error = NULL;
+
+	fork_test (test, protect, &failure, &test_error);
+
+	if (test_error)
+	{
+		error (test, test_error);
+		delete test_error;
+	}
+
+	else if (failure)
+	{
+		fail (test, failure);
+		delete failure;
+	}
+
+	else
+	{
+		pass (test);
+	}
 }
 
 EXPORT void OutputHandler::run_tests(List<Test> tests, bool protect) {
