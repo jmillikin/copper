@@ -151,6 +151,32 @@ unserialize (const char *message, Assertion **failure, Error **error)
 	lilac_element_free (element);
 }
 
+Error *
+process_error (int status)
+{
+	if (WIFSIGNALED (status))
+	{
+		int sig = WTERMSIG (status);
+		char *message;
+
+#		if HAVE_STRSIGNAL
+		message = strsignal(sig);
+#		elif HAVE_SYS_SIGLIST
+		message = sys_siglist[sig];
+#		else
+		message = "Unknown signal";
+#		endif
+
+		return new Error (message);
+	}
+
+	else
+	{
+		/* Something went wrong */
+		return new Error ("Child terminated early");
+	}
+}
+
 void
 fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 {
@@ -187,8 +213,7 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 
 		else
 		{
-			/* Something went wrong */
-			*error = new Error("Child terminated early");
+			*error = process_error (status);
 		}
 	}
 
