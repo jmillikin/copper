@@ -37,38 +37,30 @@ public:
     Guard a test with all protectors currently available
 
     @param test The Test to guard
-    @param failure If the test failed, this will be changed to the
-      assertion that caused the test to fail
     @param error If a protector caught an error, this will be changed to
       the error that was caught
   */
-  static void guard(Test* test, Assertion** failure, Error** error);
+  static void guard(Test* test, Error** error);
 
 protected:
   /**
     Call the next Protector in the global list to guard the test
 
     @param test The Test to guard
-
-    @param failure If the test failed, this will be changed to the
-      assertion that caused the test to fail
     @param error If a protector caught an error, this will be changed to
       the error that was caught
   */
-  void next_protector(Test* test, Assertion** failure, Error** error);
+  void next_protector(Test* test, Error** error);
 
   /**
     Guard a test with this Protector. It is important that protectors be
     nested for them to work properly, so use next_protector() to do so
 
     @param test The Test to guard
-
-    @param failure If the test failed, this will be changed to the
-      assertion that caused the test to fail
     @param error If a protector caught an error, this will be changed to
       the error that was caught
   */
-  virtual void _guard(Test* test, Assertion** failure, Error** error) = 0;
+  virtual void _guard(Test* test, Error** error) = 0;
 };
 
 } // namespace

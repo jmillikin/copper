@@ -17,14 +17,13 @@ ExceptionProtector::ExceptionProtector() throw (): Protector() {}
 
 ExceptionProtector::~ExceptionProtector() throw () {}
 
-void ExceptionProtector::_guard(Test* test, Assertion** failure,
-  Error** error) {
+void ExceptionProtector::_guard(Test* test, Error** error) {
 
 #if !HAVE_EXCEPTIONS
-  next_protector(test, failure, error);
+  next_protector(test, error);
 #else
   try {
-    next_protector(test, failure, error);
+    next_protector(test, error);
   }
 
   catch (const std::exception& e){

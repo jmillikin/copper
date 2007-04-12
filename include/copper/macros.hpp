@@ -22,28 +22,19 @@
   @param MESSAGE If this parameter is included, it will be used as a
     custom error message
 */
-#define assert(ASSERTION) {                                                    \
-  Copper::Assertion assertion(ASSERTION, #ASSERTION, __LINE__);                \
-  if (!assertion.passed()) {                                                   \
-    *bad_assertion = new Copper::Assertion(assertion);                         \
-    return;                                                                    \
-  }                                                                            \
-}
+#define assert(ASSERTION) if (Copper::do_assert(ASSERTION, #ASSERTION, __LINE__)) return;
 
 /**
   Used to manually fail a test
 */
-#define fail_test(MESSAGE)                                                     \
-  *bad_assertion = new Copper::Assertion(false, "", MESSAGE, __LINE__);        \
-  return;
+#define fail_test(MESSAGE) Copper::do_fail_test (#MESSAGE, __LINE__); return
 
 /**
   Invert the output from an assertion
 
   @param ASSERTION The Assertion to invert
 */
-#define failed(ASSERTION) Copper::failed_func(                                 \
-  Copper::Assertion(ASSERTION, #ASSERTION, __LINE__))
+#define failed(ASSERTION) Copper::do_failed (ASSERTION, #ASSERTION, __LINE__)
 
 /**
   Begin a test suite with the given name
@@ -78,15 +69,10 @@
   class test_##NAME##_##LINE : public Copper::Test {                           \
   public:                                                                      \
     test_##NAME##_##LINE(): Copper::Test(#NAME, &current_suite, __FILE__){}    \
-    Copper::Assertion* run() {                                                 \
-      Copper::Assertion* bad_assertion = 0;                                    \
-      _run(&bad_assertion);                                                    \
-      return bad_assertion;                                                    \
-    }                                                                          \
   protected:                                                                   \
-    void _run(Copper::Assertion** bad_assertion);                              \
+    void run();                                                                \
   } test_instance_##NAME##_##LINE;                                             \
-  void test_##NAME##_##LINE::_run(Copper::Assertion** bad_assertion)
+  void test_##NAME##_##LINE::run()
 
 /**
   Define a new Fixture, with the given name
@@ -122,19 +108,16 @@
     public:                                                                    \
       test_##NAME##_##LINE():                                                  \
         Copper::Test(#NAME, &current_suite, __FILE__) {}                       \
-      Copper::Assertion* run() {                                               \
-        Copper::Assertion* bad_assertion = 0;                                  \
+      void run() {                                                             \
         if (_set_up) _set_up();                                                \
-        _run(&bad_assertion);                                                  \
+        _run();                                                                \
         if (_tear_down) _tear_down();                                          \
-        return bad_assertion;                                                  \
       }                                                                        \
     protected:                                                                 \
-      void _run(Copper::Assertion** bad_assertion);                            \
+      void _run();                                                             \
     } test_instance_##NAME##_##LINE;                                           \
   }                                                                            \
-  void fixture_namespace_##FIXTURE::test_##NAME##_##LINE::_run(                \
-    Copper::Assertion** bad_assertion)
+  void fixture_namespace_##FIXTURE::test_##NAME##_##LINE::_run()
 
 #define throws(TYPE, CODE) \
   Copper::AssertionResult().fail("throws() cannot be used when exceptions are disabled")

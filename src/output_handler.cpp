@@ -220,7 +220,7 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 	else
 	{
 		if (protect)
-			Protector::guard(test, failure, error);
+			Protector::guard(test, error);
 		else
 			test->run();
 

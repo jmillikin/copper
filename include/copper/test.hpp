@@ -25,7 +25,7 @@ public:
   static List<Test> all();
 
   /** Run the test */
-  virtual Assertion* run() = 0;
+  virtual void run() = 0;
 
   /** The name of this test */
   const String name;
