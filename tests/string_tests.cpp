@@ -9,6 +9,13 @@
 
 TEST_SUITE(string_tests) {
 
+TEST (construct_with_size)
+{
+	Copper::String a ("test", 3), b ("test", 5);
+	assert (equal ("tes", a));
+	assert (equal ("test", b));
+}
+
 FIXTURE(str_fixture) {
   const Copper::String
     var1 = "test",
@@ -18,10 +25,10 @@ FIXTURE(str_fixture) {
   char* cvar1, *cvar2, *cvar3, *cvar4;
 
   SET_UP {
-    cvar1 = Copper::strdup(var1.c_str());
-    cvar2 = Copper::strdup(var2.c_str());
-    cvar3 = Copper::strdup(var3.c_str());
-    cvar4 = Copper::strdup(var4.c_str());
+    cvar1 = Copper::strndup(var1.c_str());
+    cvar2 = Copper::strndup(var2.c_str());
+    cvar3 = Copper::strndup(var3.c_str());
+    cvar4 = Copper::strndup(var4.c_str());
   }
 
   TEAR_DOWN {
