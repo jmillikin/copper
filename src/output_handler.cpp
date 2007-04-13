@@ -31,7 +31,19 @@ serialize_failure (const Assertion *failure)
 {
 	/* 7:failure text line message */
 	/* Example: "7:failure 6:0 == 1 2:10 18:values are unequal" */
-	return String ("7:failure");
+	String line_str;
+	String line_len, text_len, message_len;
+
+	line_str = format (failure->line());
+
+	line_len = format (line_str.size());
+	text_len = format (failure->text().size());
+	message_len = format (failure->failure_message().size());
+
+	return String ("7:failure") + " " +
+		text_len + ":" + failure->text() + " " +
+		line_len + ":" + line_str + " " +
+		message_len + ":" + failure->failure_message();
 }
 
 String
@@ -39,7 +51,12 @@ serialize_error (const Error *error)
 {
 	/* 5:error message */
 	/* Example: "5:error 18:segmentation fault" */
-	return String ("5:error");
+	String message_len;
+
+	message_len = format (error->message.size());
+
+	return String ("5:error") + " " +
+		message_len + ":" + error->message;
 }
 
 String
@@ -48,10 +65,50 @@ serialize_pass ()
 	return String ("6:passed");
 }
 
-void
-unserialize (const char *message, Assertion **failure, Error **error)
+String
+parse_token (const char *message, const char **_next)
 {
-	
+	char *next;
+	unsigned int size;
+	String token;
+
+	size = strtoul (message, &next, 10);
+	next++; /* Skip the colon */
+
+	/* Read the actual string */
+	token = String (next, size);
+	next += size;
+
+	/* Skip whitespace */
+	while (isspace (next[0])) ++next;
+
+	if (_next) *_next = next;
+	return token;
+}
+
+void
+unserialize (const char *c_message, Assertion **failure, Error **error)
+{
+	String type = parse_token (c_message, &c_message);
+
+	if (type == "failure")
+	{
+		String text, line_str, message;
+		unsigned int line;
+
+		text = parse_token (c_message, &c_message);
+		line_str = parse_token (c_message, &c_message);
+		message = parse_token (c_message, &c_message);
+
+		line = strtoul (line_str.c_str(), NULL, 10);
+
+		*failure = new Assertion (false, text, message, line);
+	}
+
+	else if (type == "error")
+	{
+		*error = new Error (parse_token (c_message, NULL));
+	}
 }
 
 Error *
