@@ -11,8 +11,6 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include <lilac.h>
-
 #include <copper/output_handler.hpp>
 #include <copper/protector.hpp>
 #include <copper/assertion.hpp>
@@ -27,129 +25,27 @@ EXPORT OutputHandler::OutputHandler() {
 
 EXPORT OutputHandler::~OutputHandler() {}
 
-LilacElement *
-make_named (const char *name, int var)
-{
-	LilacAtom *atom = lilac_atom_new_integer (var);
-	LilacNamedElement *named = lilac_named_element_new_atom (name, atom);
-	return LILAC_ELEMENT (named);
-}
-
-LilacElement *
-make_named (const char *name, const char* var)
-{
-	LilacAtom *atom = lilac_atom_new_string (var);
-	LilacNamedElement *named = lilac_named_element_new_atom (name, atom);
-	return LILAC_ELEMENT (named);
-}
-
 char *
 serialize_failure (const Assertion *failure)
 {
-	LilacObject *obj;
-	LilacList *attrs = lilac_list_new ();
-	char *message;
-
-	lilac_list_append (attrs, make_named ("text", failure->text().c_str()));
-	lilac_list_append (attrs, make_named ("line", failure->line()));
-	lilac_list_append (attrs,
-	                   make_named ("message",
-	                               failure->failure_message().c_str()));
-
-	obj = lilac_object_new ("failure", attrs);
-	message = lilac_element_serialize (LILAC_ELEMENT (obj));
-
-	lilac_element_free (LILAC_ELEMENT (obj));
-
-	return message;
+	return strdup ("");
 }
 
 char *
 serialize_error (const Error *error)
 {
-	LilacObject *obj;
-	LilacList *attrs = lilac_list_new ();
-	char *message;
-
-	lilac_list_append (attrs, make_named ("message",
-	                                      error->message.c_str()));
-
-	obj = lilac_object_new ("error", attrs);
-	message = lilac_element_serialize (LILAC_ELEMENT (obj));
-
-	lilac_element_free (LILAC_ELEMENT (obj));
-
-	return message;
+	return strdup ("");
 }
 
 char *
 serialize_pass ()
 {
-	return strdup ("(test (passed null))");
+	return strdup ("");
 }
 
 void
 unserialize (const char *message, Assertion **failure, Error **error)
 {
-	LilacElement *element;
-	LilacObject *obj;
-
-	lilac_element_parse (message, &element);
-
-	if (LILAC_IS_OBJECT (element))
-	{
-		String type;
-		obj = LILAC_OBJECT (element);
-
-		type = lilac_object_get_name (obj);
-
-		if (type == "failure")
-		{
-			LilacList *attrs;
-			LilacNamedElement *text_e, *line_e, *message_e;
-			LilacAtom *text_a, *line_a, *message_a;
-			const char *text, *message;
-			unsigned int line;
-
-			attrs = lilac_object_get_attributes (obj);
-			text_e = LILAC_NAMED_ELEMENT (lilac_list_get_child (attrs, 0));
-			line_e = LILAC_NAMED_ELEMENT (lilac_list_get_child (attrs, 1));
-			message_e = LILAC_NAMED_ELEMENT (lilac_list_get_child (attrs, 2));
-
-			text_a = lilac_named_element_get_atom (text_e);
-			line_a = lilac_named_element_get_atom (line_e);
-			message_a = lilac_named_element_get_atom (message_e);
-
-			text = lilac_atom_get_string (text_a);
-			line = lilac_atom_get_integer (line_a);
-			message = lilac_atom_get_string (message_a);
-
-			*failure = new Assertion(false, text, message, line);
-		}
-
-		else if (type == "error")
-		{
-			LilacList *attrs;
-			LilacNamedElement *message_e;
-			LilacAtom *message_a;
-			const char *message;
-
-			attrs = lilac_object_get_attributes (obj);
-
-			message_e = LILAC_NAMED_ELEMENT (lilac_list_get_child (attrs, 0));
-			message_a = lilac_named_element_get_atom (message_e);
-			message = lilac_atom_get_string (message_a);
-
-			*error = new Error(message);
-		}
-	}
-
-	else
-	{
-		*error = new Error("Invalid message from child process");
-	}
-
-	lilac_element_free (element);
 }
 
 Error *
