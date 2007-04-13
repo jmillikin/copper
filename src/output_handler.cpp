@@ -25,22 +25,22 @@ EXPORT OutputHandler::OutputHandler() {
 
 EXPORT OutputHandler::~OutputHandler() {}
 
-char *
+String
 serialize_failure (const Assertion *failure)
 {
-	return strdup ("");
+	return String ("");
 }
 
-char *
+String
 serialize_error (const Error *error)
 {
-	return strdup ("");
+	return String ("");
 }
 
-char *
+String
 serialize_pass ()
 {
-	return strdup ("");
+	return String ("");
 }
 
 void
@@ -74,31 +74,20 @@ process_error (int status)
 	}
 }
 
-void write_message (int fd, const char *message)
+void write_message (int fd, const String &message)
 {
 	char buf[30];
-	unsigned int message_len;
 
-	message_len = strlen (message);
-	sprintf (buf, "%-10u", message_len);
+	sprintf (buf, "%-10u", message.size());
 	write (fd, buf, 10);
-	write (fd, message, message_len);
+	write (fd, message.c_str(), message.size());
 }
-
-typedef struct _FailureInfo FailureInfo;
-struct _FailureInfo
-{
-	int fd;
-};
 
 void
 on_failure (const Assertion& failure, void *data)
 {
 	int *fd = (int*) data;
-	char *message = serialize_failure (&failure);
-
-	write_message (*fd, message);
-	free (message);
+	write_message (*fd, serialize_failure (&failure));
 	exit (1);
 }
 
@@ -108,8 +97,6 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 	pid_t pid;
 	int pipes[2];
 	char buf[30];
-	unsigned int message_len;
-	char *message;
 
 	pipe (pipes);
 
@@ -117,7 +104,10 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 
 	if (pid)
 	{
+		unsigned int message_len;
+		char *message;
 		int status;
+
 		waitpid (pid, &status, 0);
 
 		if (WIFEXITED (status))
@@ -153,18 +143,14 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 
 		if (*error)
 		{
-			message = serialize_error (*error);
-			write_message (pipes[1], message);
-			free (message);
+			write_message (pipes[1], serialize_error (*error));
 			delete *error;
 			exit (1);
 		}
 
 		else
 		{
-			message = serialize_pass ();
-			write_message (pipes[1], message);
-			free (message);
+			write_message (pipes[1], serialize_pass ());
 			exit (0);
 		}
 
