@@ -15,6 +15,7 @@
 #include <copper/protector.hpp>
 #include <copper/assertion.hpp>
 #include <copper/test_status.hpp>
+#include <copper/util/formatters.hpp>
 #include "export.hpp"
 
 namespace Copper {
@@ -28,24 +29,29 @@ EXPORT OutputHandler::~OutputHandler() {}
 String
 serialize_failure (const Assertion *failure)
 {
-	return String ("");
+	/* 7:failure text line message */
+	/* Example: "7:failure 6:0 == 1 2:10 18:values are unequal" */
+	return String ("7:failure");
 }
 
 String
 serialize_error (const Error *error)
 {
-	return String ("");
+	/* 5:error message */
+	/* Example: "5:error 18:segmentation fault" */
+	return String ("5:error");
 }
 
 String
 serialize_pass ()
 {
-	return String ("");
+	return String ("6:passed");
 }
 
 void
 unserialize (const char *message, Assertion **failure, Error **error)
 {
+	
 }
 
 Error *
