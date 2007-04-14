@@ -7,9 +7,6 @@
 #include <cstring>
 #include <cstdlib>
 
-// Undefine fail(), but it will be redefined later
-#undef fail
-
 #include <copper/output_handler.hpp>
 
 // Various self-tests of the framework, to try and avoid bugs
