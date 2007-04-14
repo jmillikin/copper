@@ -66,6 +66,13 @@ namespace Copper
 	              const char *file,
 	              const unsigned int line);
 
+	/**
+	 * Set the current failure handler function. This should be called once,
+	 * before a test is executed.
+	 * 
+	 * @param handler The handler function to be called on failure.
+	 * @param data User-defined data, which will be passed to the handler.
+	 */
 	void
 	set_failure_handler (FailureHandler *handler, void *data);
 }
