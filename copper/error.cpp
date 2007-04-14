@@ -3,15 +3,16 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <cstring>
-#include <cstdlib>
 #include <copper/error.hpp>
 
-namespace Copper {
+namespace Copper
+{
+	Error::Error (const String &_message) throw ():
+	              message (_message)
+	{
+	}
 
-Error::Error(const String& _message) throw ():
-  message(_message) {}
-
-Error::~Error() throw () {}
-
-} // namespace
+	Error::~Error () throw () 
+	{
+	}
+}
