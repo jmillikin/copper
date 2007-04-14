@@ -14,7 +14,7 @@ namespace Copper
 	void *handler_data = NULL;
 
 	void
-	do_assert (const bool, const int) throw ()
+	do_assert (const bool, const int)
 	{
 	}
 
@@ -22,7 +22,7 @@ namespace Copper
 	void
 	do_assert (const AssertionResult &result,
 	           const String &text,
-	           const unsigned int line) throw ()
+	           const unsigned int line)
 	{
 		assert (handler != NULL);
 
@@ -34,7 +34,7 @@ namespace Copper
 
 	EXPORT
 	void
-	do_fail_test (const String &message, const unsigned int line) throw ()
+	do_fail_test (const String &message, const unsigned int line)
 	{
 		do_fail_test ("", message, line);
 	}
@@ -43,7 +43,7 @@ namespace Copper
 	void
 	do_fail_test (const String &text,
 	              const String &message,
-	              const unsigned int line) throw ()
+	              const unsigned int line)
 	{
 		assert (handler != NULL);
 		handler (Assertion (false, text, message, line), handler_data);
