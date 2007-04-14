@@ -10,56 +10,56 @@ TEST_SUITE(sample_suite) {
 TEST(equality) {
   // Equality is performed with the 'equal' function. Equality works
   // with any two types that can be passed to ==
-  assert(equal(2, 2));
+  ASSERT(equal(2, 2));
 
   // Equality also works with C-style strings
-  assert(equal("test", "test"));
+  ASSERT(equal("test", "test"));
 }
 
 TEST(near_equality) {
   // Equal within is used for floating point numbers, where exactness
   // might not be possible (though it can take any type with >, < and +
   // operators
-  assert(equal_within(2.0, 2.0001, 0.001));
+  ASSERT(equal_within(2.0, 2.0001, 0.001));
 }
 
 TEST(inequality) {
   // Assert that two values are not equal
-  assert(unequal(1, 2));
+  ASSERT(unequal(1, 2));
 }
 
 TEST(is_NULL) {
   // Used to check that some pointer is NULL
   int* var = 0;
-  assert(null(var));
+  ASSERT(null(var));
 }
 
 TEST(is_not_NULL) {
   // Used to check that some pointer is not NULL
   int var;
-  assert(not_null(&var));
+  ASSERT(not_null(&var));
 }
 
 TEST(greater_than) {
   // Assert some value is > another value
-  assert(greater_than(2, 1));
+  ASSERT(greater_than(2, 1));
 }
 
 TEST(greater_than_or_equal) {
   // Assert some value is >= another value
-  assert(greater_than_or_equal(2, 2));
-  assert(greater_than_or_equal(2, 1));
+  ASSERT(greater_than_or_equal(2, 2));
+  ASSERT(greater_than_or_equal(2, 1));
 }
 
 TEST(less_than) {
   // Assert some value is < another value
-  assert(less_than(1, 2));
+  ASSERT(less_than(1, 2));
 }
 
 TEST(less_than_or_equal) {
   // Assert some value is <= another value
-  assert(less_than_or_equal(1, 2));
-  assert(less_than_or_equal(2, 2));
+  ASSERT(less_than_or_equal(1, 2));
+  ASSERT(less_than_or_equal(2, 2));
 }
 
 /*
@@ -80,8 +80,8 @@ FIXTURE(the_fixture) {
 }
 
 FIXTURE_TEST(test_with_a_fixture, the_fixture) {
-  assert(equal(fixture_var, 1));
-  assert(set_up_finished);
+  ASSERT(equal(fixture_var, 1));
+  ASSERT(set_up_finished);
 }
 
 // Some systems also support catching various programming errors

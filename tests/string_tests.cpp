@@ -12,8 +12,8 @@ TEST_SUITE(string_tests) {
 TEST (construct_with_size)
 {
 	Copper::String a ("test", 3), b ("test", 5);
-	assert (equal ("tes", a));
-	assert (equal ("test", b));
+	ASSERT (equal ("tes", a));
+	ASSERT (equal ("test", b));
 }
 
 FIXTURE(str_fixture) {
@@ -40,64 +40,64 @@ FIXTURE(str_fixture) {
 }
 
 FIXTURE_TEST(Copper_String_equal, str_fixture) {
-  assert(equal(var1, var2));
+  ASSERT(equal(var1, var2));
 }
 
 FIXTURE_TEST(Copper_String_equal_fail, str_fixture) {
-  assert(failed(equal(var1, var3)));
+  ASSERT(failed(equal(var1, var3)));
 }
 
 FIXTURE_TEST(char_star_equal, str_fixture) {
   // Confirm that the addresses are not being compared
-  assert(cvar1 != cvar2);
+  ASSERT(cvar1 != cvar2);
 
-  assert(equal("test", "test"));
-  assert(equal(cvar1, "test"));
-  assert(equal(cvar1, cvar2));
+  ASSERT(equal("test", "test"));
+  ASSERT(equal(cvar1, "test"));
+  ASSERT(equal(cvar1, cvar2));
 }
 
 FIXTURE_TEST(char_star_equal_fail, str_fixture) {
-  assert(failed(equal(cvar1, cvar3)));
+  ASSERT(failed(equal(cvar1, cvar3)));
 }
 
 FIXTURE_TEST(mixed_string_equality, str_fixture) {
-  assert(equal(var1, cvar1));
-  assert(equal(var2, cvar1));
+  ASSERT(equal(var1, cvar1));
+  ASSERT(equal(var2, cvar1));
 }
 
 FIXTURE_TEST(mixed_string_equality_fail, str_fixture) {
-  assert(failed(equal(var1, cvar3)));
+  ASSERT(failed(equal(var1, cvar3)));
 }
 
 FIXTURE_TEST(Copper_String_unequal, str_fixture) {
-  assert(unequal(var1, var3));
+  ASSERT(unequal(var1, var3));
 }
 
 FIXTURE_TEST(Copper_String_unequal_fail, str_fixture) {
-  assert(failed(unequal(var3, var4)));
+  ASSERT(failed(unequal(var3, var4)));
 }
 
 FIXTURE_TEST(char_star_unequal, str_fixture) {
-  assert(unequal("test", "other"));
-  assert(unequal(cvar1, "other"));
-  assert(unequal(cvar1, cvar3));
+  ASSERT(unequal("test", "other"));
+  ASSERT(unequal(cvar1, "other"));
+  ASSERT(unequal(cvar1, cvar3));
 }
 
 FIXTURE_TEST(char_star_unequal_fail, str_fixture) {
-  assert(failed(unequal(cvar3, cvar4)));
+  ASSERT(failed(unequal(cvar3, cvar4)));
 }
 
 FIXTURE_TEST(mixed_string_inequality, str_fixture) {
-  assert(unequal(var1, cvar3));
+  ASSERT(unequal(var1, cvar3));
 }
 
 FIXTURE_TEST(mixed_string_inequality_fail, str_fixture) {
-  assert(failed(unequal(var1, cvar2)));
+  ASSERT(failed(unequal(var1, cvar2)));
 }
 
 TEST(compare_to_NULL) {
-  assert(unequal("test", (char*)0));
-  assert(failed(equal("test", (char*)0)));
+  ASSERT(unequal("test", (char*)0));
+  ASSERT(failed(equal("test", (char*)0)));
 }
 
 }

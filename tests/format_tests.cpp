@@ -26,96 +26,96 @@ const unsigned long MY_ULONG_MAX = 4294967295UL;
 TEST_SUITE(format_tests) {
 
 TEST(bool_test) {
-  assert(equal("true", format(true)));
-  assert(equal("false", format(false)));
+  ASSERT(equal("true", format(true)));
+  ASSERT(equal("false", format(false)));
 }
 
 TEST(char_test) {
   /* Bad characters */
   for (char ii = '\0'; ii < ' '; ii++) {
-    assert(equal("", format(ii)));
+    ASSERT(equal("", format(ii)));
   }
   /* 0x7F = DEL */
-  assert(equal("", format('\x7F')));
+  ASSERT(equal("", format('\x7F')));
 
   char buffer[2];
   buffer[1] = '\0';
 
   for (buffer[0] = ' '; buffer[0] < '~'; buffer[0]++) {
-    assert(equal(buffer, format(buffer[0])));
+    ASSERT(equal(buffer, format(buffer[0])));
   }
 }
 
 TEST(signed_short_test) {
   signed short neg_one = -1, pos_one = 1, zero = 0;
-  assert(equal("-1", format(neg_one)));
-  assert(equal("1", format(pos_one)));
-  assert(equal("0", format(zero)));
+  ASSERT(equal("-1", format(neg_one)));
+  ASSERT(equal("1", format(pos_one)));
+  ASSERT(equal("0", format(zero)));
 
   /* Check limits */
-  assert(equal("-32768", format(MY_SHRT_MIN)));
-  assert(equal("32767", format(MY_SHRT_MAX)));
+  ASSERT(equal("-32768", format(MY_SHRT_MIN)));
+  ASSERT(equal("32767", format(MY_SHRT_MAX)));
 }
 
 TEST(unsigned_short_test) {
   unsigned short pos_one = 1, zero = 0;
-  assert(equal("1", format(pos_one)));
-  assert(equal("0", format(zero)));
+  ASSERT(equal("1", format(pos_one)));
+  ASSERT(equal("0", format(zero)));
 
   /* Check limits */
-  assert(equal("65535", format(MY_USHRT_MAX)));
+  ASSERT(equal("65535", format(MY_USHRT_MAX)));
 }
 
 TEST(signed_int_test) {
   signed int neg_one = -1, pos_one = 1, zero = 0;
-  assert(equal("-1", format(neg_one)));
-  assert(equal("1", format(pos_one)));
-  assert(equal("0", format(zero)));
+  ASSERT(equal("-1", format(neg_one)));
+  ASSERT(equal("1", format(pos_one)));
+  ASSERT(equal("0", format(zero)));
 
   /* Check limits */
-  assert(equal("-2147483648", format(MY_INT_MIN)));
-  assert(equal("2147483647", format(MY_INT_MAX)));
+  ASSERT(equal("-2147483648", format(MY_INT_MIN)));
+  ASSERT(equal("2147483647", format(MY_INT_MAX)));
 }
 
 TEST(unsigned_int_test) {
   unsigned int pos_one = 1, zero = 0;
-  assert(equal("1", format(pos_one)));
-  assert(equal("0", format(zero)));
+  ASSERT(equal("1", format(pos_one)));
+  ASSERT(equal("0", format(zero)));
 
   /* Check limits */
-  assert(equal("4294967295", format(MY_UINT_MAX)));
+  ASSERT(equal("4294967295", format(MY_UINT_MAX)));
 }
 
 TEST(signed_long_test) {
   signed long neg_one = -1, pos_one = 1, zero = 0;
-  assert(equal("-1", format(neg_one)));
-  assert(equal("1", format(pos_one)));
-  assert(equal("0", format(zero)));
+  ASSERT(equal("-1", format(neg_one)));
+  ASSERT(equal("1", format(pos_one)));
+  ASSERT(equal("0", format(zero)));
 
   /* Check limits */
-  assert(equal("-2147483648", format(MY_LONG_MIN)));
-  assert(equal("2147483647", format(MY_LONG_MAX)));
+  ASSERT(equal("-2147483648", format(MY_LONG_MIN)));
+  ASSERT(equal("2147483647", format(MY_LONG_MAX)));
 }
 
 TEST(unsigned_long_test) {
   unsigned long pos_one = 1, zero = 0;
-  assert(equal("1", format(pos_one)));
-  assert(equal("0", format(zero)));
+  ASSERT(equal("1", format(pos_one)));
+  ASSERT(equal("0", format(zero)));
 
   /* Check limits */
-  assert(equal("4294967295", format(MY_ULONG_MAX)));
+  ASSERT(equal("4294967295", format(MY_ULONG_MAX)));
 }
 
 TEST(float_test) {
-  assert(equal("1.2345", format(1.2345f)));
+  ASSERT(equal("1.2345", format(1.2345f)));
 }
 
 TEST(double_test) {
-  assert(equal("1.2345", format(1.2345)));
+  ASSERT(equal("1.2345", format(1.2345)));
 }
 
 TEST(Copper_String_test) {
-  assert(equal("some_string", format(Copper::String("some_string"))));
+  ASSERT(equal("some_string", format(Copper::String("some_string"))));
 }
 
 }

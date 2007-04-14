@@ -26,53 +26,53 @@ FIXTURE(the_fixture) {
 }
 
 FIXTURE_TEST(fixture_test, the_fixture) {
-  assert(equal(fixture_var, 1));
-  assert(set_up_finished);
+  ASSERT(equal(fixture_var, 1));
+  ASSERT(set_up_finished);
 }
 
 // Tests of implementation details
 
 TEST(assertion_result_fresh) {
   Copper::AssertionResult ar;
-  assert(!ar.passed());
-  assert(equal("Unitialized AssertionResult", ar.failure_message()));
+  ASSERT(!ar.passed());
+  ASSERT(equal("Unitialized AssertionResult", ar.failure_message()));
 }
 
 TEST(assertion_result_pass) {
   Copper::AssertionResult ar;
   ar.pass();
 
-  assert(ar.passed());
-  assert(equal("No Error", ar.failure_message()));
+  ASSERT(ar.passed());
+  ASSERT(equal("No Error", ar.failure_message()));
 
   ar.fail("Bad fail");
-  assert(ar.passed());
-  assert(equal("No Error", ar.failure_message()));
+  ASSERT(ar.passed());
+  ASSERT(equal("No Error", ar.failure_message()));
 }
 
 TEST(assertion_result_failure) {
   Copper::AssertionResult ar;
   ar.fail("Error goes here");
 
-  assert(!ar.passed());
-  assert(equal("Error goes here", ar.failure_message()));
+  ASSERT(!ar.passed());
+  ASSERT(equal("Error goes here", ar.failure_message()));
 
   ar.pass();
-  assert(!ar.passed());
-  assert(equal("Error goes here", ar.failure_message()));
+  ASSERT(!ar.passed());
+  ASSERT(equal("Error goes here", ar.failure_message()));
 }
 
 TEST(boolean_assertion_pass) {
   Copper::AssertionResult ar(true);
 
-  assert(ar.passed());
+  ASSERT(ar.passed());
 }
 
 TEST(boolean_assertion_failure) {
   Copper::AssertionResult ar(false);
 
-  assert(!ar.passed());
-  assert(equal("Boolean assertion failed", ar.failure_message()));
+  ASSERT(!ar.passed());
+  ASSERT(equal("Boolean assertion failed", ar.failure_message()));
 }
 
 TEST(assertion_pass) {
@@ -80,9 +80,9 @@ TEST(assertion_pass) {
   ar.pass();
   Copper::Assertion a(ar, "Assertion text", 12345);
 
-  assert(a.passed());
-  assert(equal("Assertion text", a.text()));
-  assert(equal(12345u, a.line()));
+  ASSERT(a.passed());
+  ASSERT(equal("Assertion text", a.text()));
+  ASSERT(equal(12345u, a.line()));
 }
 
 TEST(assertion_failure) {
@@ -90,10 +90,10 @@ TEST(assertion_failure) {
   ar.fail("Error goes here");
   Copper::Assertion a(ar, "Assertion text", 12345);
 
-  assert(!a.passed());
-  assert(equal("Assertion text", a.text()));
-  assert(equal(12345u, a.line()));
-  assert(equal("Error goes here", a.failure_message()));
+  ASSERT(!a.passed());
+  ASSERT(equal("Assertion text", a.text()));
+  ASSERT(equal(12345u, a.line()));
+  ASSERT(equal("Error goes here", a.failure_message()));
 }
 
 TEST(assertion_failure_custom_message) {
@@ -101,10 +101,10 @@ TEST(assertion_failure_custom_message) {
   ar.fail("Error goes here");
   Copper::Assertion a(ar, "Assertion text", "Custom error", 12345);
 
-  assert(!a.passed());
-  assert(equal("Assertion text", a.text()));
-  assert(equal(12345u, a.line()));
-  assert(equal("Custom error", a.failure_message()));
+  ASSERT(!a.passed());
+  ASSERT(equal("Assertion text", a.text()));
+  ASSERT(equal(12345u, a.line()));
+  ASSERT(equal("Custom error", a.failure_message()));
 }
 
 TEST(reverse_passed_assertion) {
@@ -112,8 +112,8 @@ TEST(reverse_passed_assertion) {
   ar.pass();
   Copper::AssertionResult reversed_ar = failed(ar);
 
-  assert(!reversed_ar.passed());
-  assert(equal("Unexpected success of assertion 'ar'",
+  ASSERT(!reversed_ar.passed());
+  ASSERT(equal("Unexpected success of assertion 'ar'",
     reversed_ar.failure_message()));
 }
 
@@ -122,20 +122,20 @@ TEST(reverse_failed_assertion) {
   ar.fail("");
   Copper::AssertionResult reversed_ar = failed(ar);
 
-  assert(reversed_ar.passed());
+  ASSERT(reversed_ar.passed());
 }
 
 int
 external_function ()
 {
-	assert (true);
-	assert (failed (false));
+	ASSERT (true);
+	ASSERT (failed (false));
 	return 0;
 }
 
-TEST (external_function_assert)
+TEST (external_function_ASSERT)
 {
-	assert (equal (0, external_function ()));
+	ASSERT (equal (0, external_function ()));
 }
 
 }

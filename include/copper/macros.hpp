@@ -7,10 +7,6 @@
 #include <config.h>
 #endif
 
-#ifdef assert
-#undef assert
-#endif
-
 #ifndef COPPER_MACROS_HPP
 #define COPPER_MACROS_HPP
 
@@ -22,7 +18,7 @@
   @param MESSAGE If this parameter is included, it will be used as a
     custom error message
 */
-#define assert(ASSERTION) Copper::do_assert(ASSERTION, #ASSERTION, __LINE__)
+#define ASSERT(ASSERTION) Copper::do_assert(ASSERTION, #ASSERTION, __LINE__)
 
 /**
   Used to manually fail a test

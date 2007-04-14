@@ -20,7 +20,7 @@ TEST(no_arguments) {
   char* argv[] = {""};
   Copper::List<Copper::Test> tests = parse_test_args(argc, argv);
 
-  assert(equal(Copper::Test::all().size(), tests.size()));
+  ASSERT(equal(Copper::Test::all().size(), tests.size()));
 }
 
 TEST(entire_suite) {
@@ -28,7 +28,7 @@ TEST(entire_suite) {
   char* argv[] = {"argument_parser_tests"};
   Copper::List<Copper::Test> tests = parse_test_args(argc, argv);
 
-  assert(equal(current_suite.get_tests().size(), tests.size()));
+  ASSERT(equal(current_suite.get_tests().size(), tests.size()));
 }
 
 TEST(single_test) {
@@ -36,7 +36,7 @@ TEST(single_test) {
   char* argv[] = {"argument_parser_tests.single_test"};
   Copper::List<Copper::Test> tests = parse_test_args(argc, argv);
 
-  assert(equal(1, tests.size()));
+  ASSERT(equal(1, tests.size()));
 }
 
 TEST(multiple_tests) {
@@ -47,7 +47,7 @@ TEST(multiple_tests) {
   };
   Copper::List<Copper::Test> tests = parse_test_args(argc, argv);
 
-  assert(equal(2, tests.size()));
+  ASSERT(equal(2, tests.size()));
 }
 
 TEST(invalid_suite) {
@@ -55,7 +55,7 @@ TEST(invalid_suite) {
   char* argv[] = {"nonexistant_suite"};
   Copper::List<Copper::Test> tests = parse_test_args(argc, argv);
 
-  assert(equal(Copper::Test::all().size(), tests.size()));
+  ASSERT(equal(Copper::Test::all().size(), tests.size()));
 }
 
 TEST(invalid_test) {
@@ -63,7 +63,7 @@ TEST(invalid_test) {
   char* argv[] = {"argument_parser_tests.nonexistant_test"};
   Copper::List<Copper::Test> tests = parse_test_args(argc, argv);
 
-  assert(equal(Copper::Test::all().size(), tests.size()));
+  ASSERT(equal(Copper::Test::all().size(), tests.size()));
 }
 
 TEST(mixed_valid_and_invalid) {
@@ -74,7 +74,7 @@ TEST(mixed_valid_and_invalid) {
   };
   Copper::List<Copper::Test> tests = parse_test_args(argc, argv);
 
-  assert(equal(1, tests.size()));
+  ASSERT(equal(1, tests.size()));
 }
 
 }
