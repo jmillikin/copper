@@ -1,4 +1,4 @@
-INCLUDES = -I$(top_srcdir)/include
+INCLUDES = -I$(top_srcdir)/copper
 
 # Used for 'make check'
 check_PROGRAMS=run_tests
@@ -11,7 +11,7 @@ run_tests_SOURCES=\
   output_handler.cpp \
   self_tests.cpp
 
-run_tests_LDADD = ../src/libcu.la
+run_tests_LDADD = ../copper/libcu.la
 
 check:
 	./run_tests

@@ -1,5 +1,5 @@
 AC_INIT(Copper, 0.2, jmillikin@gmail.com)
-AC_CONFIG_SRCDIR(src/test.cpp)
+AC_CONFIG_SRCDIR(copper/test.cpp)
 
 # Store autoconf cruft in a separate directory
 AC_CONFIG_AUX_DIR(autoconf)
@@ -213,13 +213,9 @@ LIBS="$OPTIMIZATION_LIBS $DEBUG_LIBS"
 
 AC_OUTPUT([
   Makefile
-  src/Makefile
-  src/protectors/Makefile
-  src/util/Makefile
-  include/Makefile
-  include/copper/Makefile
-  include/copper/protectors/Makefile
-  include/copper/util/Makefile
+  copper/Makefile
+  copper/protectors/Makefile
+  copper/util/Makefile
   tests/Makefile
   libcu.pc
 ])
