@@ -5,6 +5,7 @@
 #include <errno.h>
 
 #include <copper/protector.hpp>
+#include <copper/safe_exception.hpp>
 #include <copper/test_runner.hpp>
 #include <copper/test_status.hpp>
 #include <copper/util/formatters.hpp>
@@ -47,6 +48,18 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error);
 
 #elif COPPER_USE_NT_CREATE_PROCESS
 #else
+
+class FailureException : public Copper::SafeException
+{
+public:
+	FailureException (const Assertion _failure):
+	                  failure (_failure)
+	{
+	}
+
+	const Assertion failure;
+};
+
 #endif
 
 String
@@ -146,6 +159,21 @@ namespace Copper
 		fork_test (test, protect, failure, error);
 #elif COPPER_USE_NT_CREATE_PROCESS
 #else
+		set_failure_handler (on_failure, test);
+
+		try
+		{
+			if (protect)
+				Copper::Protector::guard (test, error);
+			else
+				test->run ();
+		}
+
+		catch (const FailureException& e)
+		{
+			*failure = new Assertion (e.failure);
+		}
+
 #endif
 	}
 
@@ -276,4 +304,16 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 	}
 }
 #elif COPPER_USE_NT_CREATE_PROCESS
+#else
+
+void
+on_failure (const Assertion &failure, void *data)
+{
+	Test *test = (Test *) data;
+
+	assert (test);
+	test->tear_down ();
+	throw FailureException (failure);
+}
+
 #endif
