@@ -136,7 +136,6 @@ external_function ()
 TEST (external_function_assert)
 {
 	assert (equal (0, external_function ()));
-	assert (false);
 }
 
 }
