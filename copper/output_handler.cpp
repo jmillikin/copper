@@ -30,7 +30,7 @@ OutputHandler::run_test (Test *test, bool protect)
 {
 	begin (test);
 
-	Assertion *failure = NULL;
+	Failure *failure = NULL;
 	Error *test_error = NULL;
 
 	exec_test (test, protect, &failure, &test_error);

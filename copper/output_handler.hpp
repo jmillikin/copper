@@ -8,6 +8,7 @@
 
 #include <copper/test.hpp>
 #include <copper/error.hpp>
+#include <copper/failure.hpp>
 #include <copper/util/list.hpp>
 #include <copper/util/string.hpp>
 
@@ -52,7 +53,7 @@ namespace Copper
 		 */
 		virtual
 		void
-		fail (const Test *test, const Assertion *assertion)
+		fail (const Test *test, const Failure *assertion)
 			throw () = 0;
 
 		/**
