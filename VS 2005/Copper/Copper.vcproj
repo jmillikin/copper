@@ -37,6 +37,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Administrator\Desktop\Code\Copper\trunk\include&quot;"
+				WarningLevel="4"
+				Detect64BitPortabilityProblems="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -90,6 +92,8 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Administrator\Desktop\Code\Copper\trunk\include&quot;"
+				WarningLevel="4"
+				Detect64BitPortabilityProblems="true"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
@@ -223,6 +227,14 @@
 				</File>
 				<File
 					RelativePath="..\..\include\copper\macros.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\copper\macros_exceptions.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\include\copper\macros_noexceptions.hpp"
 					>
 				</File>
 				<File

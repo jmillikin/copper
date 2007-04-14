@@ -46,7 +46,7 @@
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="4"
 			/>
@@ -120,7 +120,7 @@
 				PreprocessorDefinitions="WIN32;NDEBUG;_CONSOLE"
 				RuntimeLibrary="2"
 				UsePrecompiledHeader="0"
-				WarningLevel="3"
+				WarningLevel="4"
 				Detect64BitPortabilityProblems="true"
 				DebugInformationFormat="3"
 			/>
@@ -171,7 +171,7 @@
 	<References>
 		<ProjectReference
 			ReferencedProjectIdentifier="{B20D0A83-6283-4B9C-8294-9DBCB8F9AE73}"
-			RelativePathToProject=".\Copper.vcproj"
+			RelativePathToProject=".\Copper\Copper.vcproj"
 		/>
 	</References>
 	<Files>
@@ -180,6 +180,14 @@
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
+			<File
+				RelativePath="..\..\tests\argument_parser_tests.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\assertion_tests.cpp"
+				>
+			</File>
 			<File
 				RelativePath="..\..\tests\format_tests.cpp"
 				>
@@ -194,6 +202,10 @@
 			</File>
 			<File
 				RelativePath="..\..\tests\self_tests.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\string_tests.cpp"
 				>
 			</File>
 		</Filter>
