@@ -6,7 +6,6 @@
 #ifndef COPPER_TEST_HPP
 #define COPPER_TEST_HPP
 
-#include <copper/assertion.hpp>
 #include <copper/suite.hpp>
 #include <copper/util/list.hpp>
 #include <copper/util/string.hpp>
