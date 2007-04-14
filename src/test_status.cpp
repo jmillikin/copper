@@ -15,6 +15,11 @@ namespace Copper {
 FailureHandler *handler = NULL;
 void *handler_data = NULL;
 
+void
+do_assert (const bool, const int) throw ()
+{
+}
+
 EXPORT void
 do_assert (const AssertionResult& result,
            const String& text,
@@ -29,10 +34,18 @@ do_assert (const AssertionResult& result,
 }
 
 EXPORT void
-do_fail_test (const String& text, const unsigned int line) throw ()
+do_fail_test (const String& message, const unsigned int line) throw ()
+{
+	do_fail_test ("", message, line);
+}
+
+EXPORT void
+do_fail_test (const String& text,
+              const String& message,
+              const unsigned int line) throw ()
 {
 	assert (handler != NULL);
-	handler (Assertion (false, "", text, line), handler_data);
+	handler (Assertion (false, text, message, line), handler_data);
 }
 
 EXPORT void

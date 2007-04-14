@@ -118,7 +118,22 @@
   }                                                                            \
   void fixture_namespace_##FIXTURE::test_##NAME##_##LINE::_run()
 
-#define throws(TYPE, CODE) \
-  Copper::AssertionResult().fail("throws() cannot be used when exceptions are disabled")
+inline void __throws_cleanup(...) {}
+
+#define throws(TYPE, CODE)                                                     \
+  true, __LINE__);                                                             \
+  try {                                                                        \
+    this->exception_thrown = false;                                            \
+    CODE;                                                                      \
+  }                                                                            \
+  catch (const TYPE&) {                                                        \
+    printf ("Exception was caught\n");                                         \
+    this->exception_thrown = true;                                             \
+  }                                                                            \
+  if (!this->exception_thrown) {                                               \
+    printf ("Exception was not thrown\n");                                     \
+    Copper::do_fail_test("throws ("#TYPE", "#CODE")",                          \
+      "\""#CODE"\" didn't throw an exception of type \""#TYPE"\"", __LINE__);  \
+  } __throws_cleanup(0
 
 #endif /* COPPER_MACROS_HPP */

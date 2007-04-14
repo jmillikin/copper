@@ -14,12 +14,20 @@ namespace Copper {
 typedef void (FailureHandler)(const Assertion& failure, void *data);
 
 void
+do_assert (const bool, const int) throw ();
+
+void
 do_assert (const AssertionResult& result,
            const String& text,
            const unsigned int line) throw ();
 
 void
 do_fail_test (const String& text, const unsigned int line) throw ();
+
+void
+do_fail_test (const String& text,
+              const String& message,
+              const unsigned int line) throw ();
 
 void
 set_failure_handler (FailureHandler *handler, void *data);
