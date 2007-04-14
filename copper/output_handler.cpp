@@ -20,13 +20,19 @@
 #include <copper/util/formatters.hpp>
 #include "export.hpp"
 
+using namespace std;
+
 namespace Copper {
 
-EXPORT OutputHandler::OutputHandler() {
-  // For now, do nothing
+EXPORT
+OutputHandler::OutputHandler ()
+{
 }
 
-EXPORT OutputHandler::~OutputHandler() {}
+EXPORT
+OutputHandler::~OutputHandler ()
+{
+}
 
 String
 serialize_failure (const Assertion *failure)
@@ -36,16 +42,16 @@ serialize_failure (const Assertion *failure)
 	String line_str;
 	String line_len, text_len, message_len;
 
-	line_str = format (failure->line());
+	line_str = format (failure->line ());
 
-	line_len = format (line_str.size());
-	text_len = format (failure->text().size());
-	message_len = format (failure->failure_message().size());
+	line_len = format (line_str.size ());
+	text_len = format (failure->text ().size ());
+	message_len = format (failure->failure_message ().size ());
 
 	return String ("7:failure") + " " +
-		text_len + ":" + failure->text() + " " +
+		text_len + ":" + failure->text () + " " +
 		line_len + ":" + line_str + " " +
-		message_len + ":" + failure->failure_message();
+		message_len + ":" + failure->failure_message ();
 }
 
 String
@@ -55,7 +61,7 @@ serialize_error (const Error *error)
 	/* Example: "5:error 18:segmentation fault" */
 	String message_len;
 
-	message_len = format (error->message.size());
+	message_len = format (error->message.size ());
 
 	return String ("5:error") + " " +
 		message_len + ":" + error->message;
@@ -102,7 +108,7 @@ unserialize (const char *c_message, Assertion **failure, Error **error)
 		line_str = parse_token (c_message, &c_message);
 		message = parse_token (c_message, &c_message);
 
-		line = strtoul (line_str.c_str(), NULL, 10);
+		line = strtoul (line_str.c_str (), NULL, 10);
 
 		*failure = new Assertion (false, text, message, line);
 	}
@@ -122,7 +128,7 @@ process_error (int status)
 		char *message;
 
 #		if HAVE_STRSIGNAL
-		message = strsignal(sig);
+		message = strsignal (sig);
 #		elif HAVE_SYS_SIGLIST
 		message = sys_siglist[sig];
 #		else
@@ -143,9 +149,9 @@ void write_message (int fd, const String &message)
 {
 	char buf[30];
 
-	sprintf (buf, "%-10u", message.size());
+	sprintf (buf, "%-10u", message.size ());
 	write (fd, buf, 10);
-	write (fd, message.c_str(), message.size());
+	write (fd, message.c_str (), message.size ());
 }
 
 struct FailureHandlerData
@@ -155,7 +161,7 @@ struct FailureHandlerData
 };
 
 void
-on_failure (const Assertion& failure, void *_data)
+on_failure (const Assertion &failure, void *_data)
 {
 	FailureHandlerData *data = (FailureHandlerData *) _data;
 
@@ -222,9 +228,9 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 		set_failure_handler (on_failure, &data);
 
 		if (protect)
-			Protector::guard(test, error);
+			Protector::guard (test, error);
 		else
-			test->run();
+			test->run ();
 
 		if (*error)
 		{
@@ -243,7 +249,7 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 }
 
 EXPORT void
-OutputHandler::run_test(Test* test, bool protect)
+OutputHandler::run_test (Test *test, bool protect)
 {
 	begin (test);
 
@@ -270,100 +276,120 @@ OutputHandler::run_test(Test* test, bool protect)
 	}
 }
 
-EXPORT void OutputHandler::run_tests(List<Test> tests, bool protect) {
-  const ListNode<Test>* node = tests.root();
-  while (node) {
-    run_test(node->value, protect);
-    node = node->next;
-  }
+EXPORT
+void
+OutputHandler::run_tests (List<Test> tests, bool protect)
+{
+	const ListNode<Test> *node = tests.root ();
+	while (node)
+	{
+		run_test (node->value, protect);
+		node = node->next;
+	}
 }
 
-Suite* find_suite(const char* name) {
-  // Find all suites
-  List<Suite> all = Suite::all_suites();
+Suite *
+find_suite (const char *name)
+{
+	// Find all suites
+	List<Suite> all = Suite::all_suites ();
 
-  const ListNode<Suite>* node = all.root();
-  while (node) {
-    Suite* suite = node->value;
-    if (suite->name == name) {
-      return suite;
-    }
-    node = node->next;
-  }
+	const ListNode<Suite> *node = all.root ();
+	while (node)
+	{
+		Suite *suite = node->value;
+		if (suite->name == name)
+		{
+			return suite;
+		}
+		node = node->next;
+	}
 
-  return NULL;
+	return NULL;
 }
 
-Test* find_test(const char* full_name) {
-  // Separate the full name into suite name and test name
-  std::size_t len = std::strlen(full_name);
-  char* suite_name = new char[len+1];
-  std::strcpy(suite_name, full_name);
-  char* midpoint = std::strchr(suite_name, '.');
-  char* test_name = midpoint + 1;
-  *midpoint = 0;
+Test *
+find_test (const char *full_name)
+{
+	// Separate the full name into suite name and test name
+	size_t len = strlen (full_name);
+	char *suite_name = new char[len+1];
+	strcpy (suite_name, full_name);
+	char *midpoint = strchr (suite_name, '.');
+	char *test_name = midpoint + 1;
+	*midpoint = 0;
 
-  // Find the suite
-  Suite* suite = find_suite(suite_name);
+	// Find the suite
+	Suite *suite = find_suite (suite_name);
 
-  if (!suite) {
-    delete[] suite_name;
-    return NULL;
-  }
+	if (!suite)
+	{
+		delete[] suite_name;
+		return NULL;
+	}
 
-  // Find the test
-  List<Test> suite_tests = suite->get_tests();
-  const ListNode<Test>* node = suite_tests.root();
-  while (node) {
-    Test* test = node->value;
-    if (test->name == test_name) {
-      delete[] suite_name;
-      return test;
-    }
-    node = node->next;
-  }
+	// Find the test
+	List<Test> suite_tests = suite->get_tests ();
+	const ListNode<Test> *node = suite_tests.root ();
+	while (node)
+	{
+		Test *test = node->value;
+		if (test->name == test_name)
+		{
+			delete[] suite_name;
+			return test;
+		}
+		node = node->next;
+	}
 
-  delete[] suite_name;
-  return NULL;
+	delete[] suite_name;
+	return NULL;
 }
 
-EXPORT List<Test> OutputHandler::parse_test_args(int argc, char** argv) {
-  List<Test> tests;
+EXPORT
+List<Test>
+OutputHandler::parse_test_args (int argc, char **argv)
+{
+	List<Test> tests;
 
-  for (int ii = 0; ii < argc; ii++) {
-    const char* name = argv[ii];
-    const char* midpoint = std::strchr(name, '.');
+	for (int ii = 0; ii < argc; ii++)
+	{
+		const char *name = argv[ii];
+		const char *midpoint = strchr (name, '.');
 
-    if (midpoint) {
-      // This name includes a test name
-      Test* test = find_test(name);
-      if (test) {
-        tests.append(test);
-      }
-    }
+		if (midpoint)
+		{
+			// This name includes a test name
+			Test *test = find_test (name);
+			if (test)
+			{
+				tests.append (test);
+			}
+		}
 
-    else {
-      // No test name, append everything in the suite
-      Suite* suite = find_suite(name);
+		else
+		{
+			// No test name, append everything in the suite
+			Suite *suite = find_suite (name);
 
-      if (suite) {
-        List<Test> suite_tests = suite->get_tests();
-        const ListNode<Test>* node = suite_tests.root();
-        while (node) {
-          tests.append(node->value);
-          node = node->next;
-        }
-      }
-    }
-  }
+			if (suite)
+			{
+				List<Test> suite_tests = suite->get_tests ();
+				const ListNode<Test> *node = suite_tests.root ();
+				while (node)
+				{
+					tests.append (node->value);
+					node = node->next;
+				}
+			}
+		}
+	}
 
-  if (tests.size()) {
-    return tests;
-  }
+	if (tests.size ())
+		return tests;
 
-  else {
-    return Test::all();
-  }
+	else
+		return Test::all ();
 }
 
 } /* namespace */
