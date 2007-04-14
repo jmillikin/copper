@@ -15,6 +15,7 @@ copper_include_real_HEADERS = \
   protector.hpp \
   suite.hpp \
   test.hpp \
+  test_runner.hpp \
   test_status.hpp
 
 copper_includedir = $(includedir)/copper-0
@@ -35,6 +36,7 @@ libcu_la_SOURCES = \
   protector.cpp \
   suite.cpp \
   test.cpp \
+  test_runner.cpp \
   test_status.cpp
 
 libcu_la_LIBADD = protectors/libcu_protectors.la util/libcu_util.la
