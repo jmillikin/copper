@@ -46,7 +46,7 @@ OutputHandler::pass (const Copper::Test *) throw ()
 
 void
 OutputHandler::fail (const Copper::Test *test,
-                     const Copper::Assertion *assertion) throw ()
+                     const Copper::Failure *failure) throw ()
 {
 	++num_failed;
 
@@ -55,10 +55,10 @@ OutputHandler::fail (const Copper::Test *test,
 	        "%s.%s:\n"
 	        "\t%s\n"
 	        "\t%s\n\n",
-	        test->file_name.c_str(), assertion->line(),
+	        test->file_name.c_str(), failure->line,
 	        test->suite->name.c_str(), test->name.c_str(),
-	        assertion->text().c_str(),
-	        assertion->failure_message().c_str());
+	        failure->text.c_str(),
+	        failure->message.c_str());
 }
 
 void

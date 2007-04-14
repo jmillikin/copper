@@ -39,8 +39,8 @@ public:
 	 * @param assetion The assertion that caused the test to fail
 	 */
 	void
-	fail(const Copper::Test* test,
-	     const Copper::Assertion* assertion) throw ();
+	fail(const Copper::Test *test,
+	     const Copper::Failure *assertion) throw ();
 
 	/**
 	 * Outputs errors to the standard error stream. Also keeps track of how
@@ -50,7 +50,7 @@ public:
 	 * @param error The error that was thrown
 	 */
 	void
-	error(const Copper::Test* test, const Copper::Error* error) throw ();
+	error(const Copper::Test *test, const Copper::Error *error) throw ();
 
 	/**
 	 * Run every test available
