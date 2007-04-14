@@ -5,80 +5,91 @@
 
 #include <copper/util/string.hpp>
 #include <copper/assertion_result.hpp>
-#include <cstdio>
 
 #ifndef COPPER_ASSERTION_HPP
 #define COPPER_ASSERTION_HPP
 
-namespace Copper {
+namespace Copper
+{
+	class Assertion
+	{
+	public:
+		/**
+		 * Create a new assertion with the result of an assertion
+		 * function
+		 * 
+		 * @param result The result of running this Assertion
+		 * @param text The code that this Assertion tests
+		 * @param line The line this Assertion is located on
+		 */
+		Assertion (const AssertionResult &result,
+		           const String &text,
+		           const unsigned int line) throw ();
 
-class Assertion {
-public:
-  /**
-    Create a new assertion with the result of an assertion function
+		/**
+		 * Create a new assertion with the result of an assertion
+		 * function
+		 * 
+		 * @param result The result of running this Assertion
+		 * @param text The code that this Assertion tests
+		 * @param message If the assertion failed, this message will
+		 *                be used instead of the error message from
+		 *                the check
+		 * @param line The line this Assertion is located on
+		 */
+		Assertion (const AssertionResult &result,
+		           const String &text,
+		           const String &message,
+		           const unsigned int line) throw ();
 
-    @param result The result of running this Assertion
-    @param text The code that this Assertion tests
-    @param line The line this Assertion is located on
-  */
-  Assertion(const AssertionResult& result, const String& text,
-    const unsigned int line) throw ();
+		/**
+		 * Not a real constructor, used for implementing
+		 * assert (throws ()) in Visual Studio.
+		 */
+		Assertion (bool, int) throw ();
 
-  /**
-    Create a new assertion with the result of an assertion function
+		/** Copy constructor */
+		Assertion (const Assertion &other) throw ();
 
-    @param result The result of running this Assertion
-    @param text The code that this Assertion tests
-    @param message If the assertion failed, this message will be used
-      instead of the error message from the check
-    @param line The line this Assertion is located on
-  */
-  Assertion(const AssertionResult& result, const String& text,
-    const String& message, const unsigned int line) throw ();
+		/** Assignment operator */
+		const Assertion &
+		operator=(const Assertion &other) throw ();
 
-  /**
-    Not a real constructor, used for implementing
-    assert (throws ()) in Visual Studio.
-  */
-  Assertion(bool, int) throw ();
+		/** Default destructor */
+		~Assertion () throw ();
 
-  /** Copy constructor */
-  Assertion(const Assertion& other) throw ();
+		/** Whether this Assertion has pased or failed */
+		bool
+		passed () const throw ();
 
-  /** Assignment operator */
-  const Assertion& operator=(const Assertion& other) throw ();
+		/** Get the code that this Assertion tests */
+		const String &
+		text () const throw ();
 
-  /** Default destructor */
-  ~Assertion() throw ();
+		/** Get the line this Assertion is located on */
+		unsigned int
+		line () const throw ();
 
-  /** Whether this Assertion has pased or failed */
-  bool passed() const throw ();
+		/** If this Assertion failed, get the failure message */
+		const String &
+		failure_message () const throw ();
 
-  /** Get the code that this Assertion tests */
-  const String& text() const throw ();
+	protected:
+		/** The result of running this assertion */
+		AssertionResult m_result;
 
-  /** Get the line this Assertion is located on */
-  unsigned int line() const throw ();
+		/** The code that this Assertion tests */
+		String m_text;
 
-  /** If this Assertion failed, get the failure message */
-  const String& failure_message() const throw ();
+		/** The custom message passed to assert, if available */
+		String m_message;
 
-protected:
-  /** The result of running this assertion */
-  AssertionResult m_result;
+		/** The line this Assertion is located on */
+		unsigned int m_line;
+	};
 
-  /** The code that this Assertion tests */
-  String m_text;
-
-  /** The custom message passed to assert, if available */
-  String m_message;
-
-  /** The line this Assertion is located on */
-  unsigned int m_line;
-};
-
-Copper::AssertionResult failed_func(const Copper::Assertion& assertion) throw ();
-
-} // namespace
+	Copper::AssertionResult
+	failed_func (const Copper::Assertion &assertion) throw ();
+}
 
 #endif /* COPPER_ASSERTION_HPP */

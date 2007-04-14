@@ -8,35 +8,45 @@
 
 #include <cstddef>
 
-namespace Copper {
+namespace Copper
+{
+	/**
+	 * An implementation of the GNU project's strndup
+	 */
+	char *
+	strndup (const char *a, const unsigned int size = 0) throw ();
 
-// strndup isn't actually in the standard, and thus isn't available everywhere
-char* strndup(const char* a, const unsigned int size = 0) throw ();
+	class String
+	{
+	public:
+		String (const char *string = "",
+		        const unsigned int size = 0) throw ();
 
-class String {
-public:
-  String(const char* string = "", const unsigned int size = 0) throw ();
+		String (const String &other) throw ();
 
-  String(const String& other) throw ();
+		~String () throw ();
 
-  ~String() throw ();
+		const String &
+		operator=(const String &other) throw ();
 
-  const String& operator=(const String& other) throw ();
+		bool
+		operator== (const String &other) const throw ();
 
-  bool operator==(const String& other) const throw ();
+		String
+		operator+ (const String &other) const throw ();
 
-  String operator+(const String& other) const throw ();
+		std::size_t
+		size () const throw ();
 
-  std::size_t size() const throw ();
+		const char *
+		c_str () const throw ();
 
-  const char* c_str() const throw ();
+	protected:
+		char *str;
+	};
 
-protected:
-  char* str;
-};
-
-bool operator==(const char* a, const String& b) throw ();
-
-} /* Namespace */
+	bool
+	operator== (const char *a, const String &b) throw ();
+}
 
 #endif /* COPPER_UTIL_STRING_HPP */

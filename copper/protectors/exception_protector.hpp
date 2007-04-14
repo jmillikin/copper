@@ -8,32 +8,28 @@
 
 #include <copper/protector.hpp>
 
-namespace Copper {
+namespace Copper
+{
+	/** Guard against unknown exceptions being thrown by tests */
+	class ExceptionProtector : public Protector {
+	public:
+		/** Default constructor */
+		ExceptionProtector () throw ();
 
-/**
-  Guard against unknown exceptions being thrown by tests. This isn't added by
-  default, to allow tracing of thrown exceptions with a commandline option
-*/
-class ExceptionProtector : public Protector {
-public:
-  /** Default constructor */
-  ExceptionProtector() throw ();
+		/** Default destructor */
+		~ExceptionProtector () throw ();
 
-  /** Default destructor */
-  ~ExceptionProtector() throw ();
-
-protected:
-  /**
-    Guard a test with this Protector, to ensure it doesn't throw any weird
-    exceptions
-
-    @param test The Test to guard
-    @param error If a protector caught an error, this will be changed to
-      the error that was caught
-  */
-  virtual void _guard(Test* test, Error** error);
-} exception_protector_instance;
-
-} // namespace
+	protected:
+		/**
+		 * Guard a test with this Protector, to ensure it doesn't
+		 * throw any weird exceptions.
+		 * 
+		 * @param test The Test to guard
+		 * @param error If a protector caught an error, this will 
+		 *              be changed to the error that was caught.
+		*/
+		virtual void _guard (Test *test, Error **error);
+	} exception_protector_instance;
+}
 
 #endif /* COPPER_EXCEPTION_PROTECTOR_HPP */

@@ -11,44 +11,56 @@
 #include <copper/util/list.hpp>
 #include <copper/util/string.hpp>
 
-namespace Copper {
+namespace Copper
+{
+	class Test {
+	public:
+		Test (const String &name,
+		      Suite *suite,
+		      const String &file_name) throw ();
 
-class Test {
-public:
-  Test(
-    const String& name,
-    Suite* suite,
-    const String& file_name) throw ();
-  virtual ~Test();
+		virtual
+		~Test ();
 
-  /** Get a list of all tests */
-  static List<Test> all();
+		/** Get a list of all tests */
+		static
+		List<Test>
+		all ();
 
-  /** Run the test */
-  virtual void run() = 0;
+		/** Run the test */
+		virtual
+		void
+		run () = 0;
 
-  /** Default, does nothing */
-  virtual void set_up ();
-  virtual void tear_down ();
+		/** Default, does nothing */
+		virtual
+		void
+		set_up ();
 
-  /** The name of this test */
-  const String name;
+		/** Default, does nothing */
+		virtual
+		void
+		tear_down ();
 
-  /** The suite this test is part of */
-  const Suite* suite;
+		/** The name of this test */
+		const String name;
 
-  /** The file this test's implementation is in */
-  const String file_name;
+		/** The suite this test is part of */
+		const Suite *suite;
 
-protected:
-  /** Used for assert(throws()) */
-  bool exception_thrown;
+		/** The file this test's implementation is in */
+		const String file_name;
 
-private:
-  Test& operator= (const Test&) throw ();
-  Test (const Test&) throw ();
-};
+	protected:
+		/** Used for assert (throws ()) */
+		bool exception_thrown;
 
-} /* Namespace */
+	private:
+		Test &
+		operator= (const Test&) throw ();
+
+		Test (const Test&) throw ();
+	};
+}
 
 #endif /* COPPER_TEST_HPP */

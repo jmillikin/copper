@@ -8,63 +8,74 @@
 #include <copper/compat.hpp>
 
 #if HAVE_CXA_CURRENT_EXCEPTION_TYPE
-#include <cxxabi.h>
+#	include <cxxabi.h>
 #endif
 
-namespace Copper {
+namespace Copper
+{
+	ExceptionProtector::ExceptionProtector () throw ():
+	                                        Protector ()
+	{
+	}
 
-ExceptionProtector::ExceptionProtector() throw (): Protector() {}
+	ExceptionProtector::~ExceptionProtector () throw ()
+	{
+	}
 
-ExceptionProtector::~ExceptionProtector() throw () {}
+	void
+	ExceptionProtector::_guard (Test *test, Error **error)
+	{
+	#if !HAVE_EXCEPTIONS
+		next_protector (test, error);
+	#else
+		try
+		{
+			next_protector (test, error);
+		}
 
-void ExceptionProtector::_guard(Test* test, Error** error) {
+		catch (const std::exception &e)
+		{
+			String message = "Unhandled exception: ";
+			*error = new Error (message + e.what ());
+		}
 
-#if !HAVE_EXCEPTIONS
-  next_protector(test, error);
-#else
-  try {
-    next_protector(test, error);
-  }
+		catch (...)
+		{
+	#if HAVE_CXA_CURRENT_EXCEPTION_TYPE
+			/* Unhandled exception of type 'type' */
+			String message = "Unhandled exception of type ";
 
-  catch (const std::exception& e){
-    String message = "Unhandled exception: ";
-    *error = new Error(message + e.what());
-  }
+			std::type_info *info;
+			info = __cxxabiv1::__cxa_current_exception_type ();
 
-  catch (...){
-#if HAVE_CXA_CURRENT_EXCEPTION_TYPE
-    /* Unhandled exception of type 'type' */
-    String message = "Unhandled exception of type ";
+			int demangle_status = -1;
+			char *demangled_name = NULL;
 
-    std::type_info* info = __cxxabiv1::__cxa_current_exception_type();
+	#if HAVE_CXA_DEMANGLE
+			demangled_name = __cxxabiv1::__cxa_demangle (
+				info->name (), NULL, NULL, &demangle_status);
+	#endif /* HAVE_CXA_DEMANGLE */
 
-    int demangle_status = -1;
-    char* demangled_name = NULL;
+			String type_name;
+			if (demangle_status == 0)
+			{
+				type_name = demangled_name;
+				free (demangled_name);
+			}
 
-#if HAVE_CXA_DEMANGLE
-    demangled_name = __cxxabiv1::__cxa_demangle(
-      info->name(), NULL, NULL, &demangle_status);
-#endif /* HAVE_CXA_DEMANGLE */
+			else
+			{
+				/* De-mangling the name failed */
+				type_name = info->name ();
+			}
 
-    String type_name;
-    if (demangle_status == 0) {
-      type_name = demangled_name;
-      free(demangled_name);
-    }
+			message = message + "'" + type_name + "'";
 
-    else {
-      /* De-mangling the name failed, use the mangled name */
-      type_name = info->name();
-    }
-
-    message = message + "'" + type_name + "'";
-
-    *error = new Error(message);
-#else
-    *error = new Error("Unhandled exception with unknown type");
-#endif /* HAVE_CXA_CURRENT_EXCEPTION_TYPE */
-  }
-#endif /* HAVE_EXCEPTIONS */
+			*error = new Error (message);
+	#else
+			*error = new Error ("Unhandled exception with unknown type");
+	#endif /* HAVE_CXA_CURRENT_EXCEPTION_TYPE */
+		}
+	#endif /* HAVE_EXCEPTIONS */
+	}
 }
-
-} // namespace

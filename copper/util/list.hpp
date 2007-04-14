@@ -6,116 +6,151 @@
 #ifndef COPPER_UTIL_LIST_HPP
 #define COPPER_UTIL_LIST_HPP
 
-namespace Copper {
+#include <cstddef>
 
-template <class C>
-struct ListNode {
-  ListNode(C* _value): next(0), value(_value) {}
-  ListNode* next;
-  C* value;
-};
+namespace Copper
+{
+	template <class C>
+	struct ListNode
+	{
+		ListNode (C *_value):
+		          next (0),
+		          value (_value)
+		{
+		}
 
-template <class C>
-class List {
-public:
-  List() throw (): _root(0), _size(0) {}
+		ListNode *next;
+		C *value;
+	};
 
-  List(const List& b) {
-    if (!b._root) {
-      _root = 0;
-      return;
-    }
+	template <class C>
+	class List
+	{
+	public:
+		List () throw ():
+		      _root (0),
+		      _size (0)
+		{
+		}
 
-    _root = new ListNode<C>(b._root->value);
+		List (const List &b)
+		{
+			if (!b._root)
+			{
+				_root = 0;
+				return;
+			}
 
-    ListNode<C>* node = _root, *b_node = b._root->next;
+			_root = new ListNode<C> (b._root->value);
 
-    while (b_node) {
-      node->next = new ListNode<C>(b_node->value);
-      node = node->next;
-      b_node = b_node->next;
-    }
+			ListNode<C> *node = _root, *b_node = b._root->next;
 
-    _size = b._size;
-  }
+			while (b_node)
+			{
+				node->next = new ListNode<C> (b_node->value);
+				node = node->next;
+				b_node = b_node->next;
+			}
 
-  List& operator=(const List& b) {
-    if (!b._root) {
-      _root = 0;
-      return *this;
-    }
+			_size = b._size;
+		}
 
-    _root = new ListNode<C>(b._root->value);
+		List &
+		operator= (const List &b)
+		{
+			if (!b._root)
+			{
+				_root = 0;
+				return *this;
+			}
 
-    ListNode<C>* node = _root, *b_node = b._root->next;
+			_root = new ListNode<C> (b._root->value);
 
-    while (b_node) {
-      node->next = new ListNode<C>(b_node->value);
-      node = node->next;
-      b_node = b_node->next;
-    }
+			ListNode<C> *node = _root, *b_node = b._root->next;
 
-    _size = b._size;
-    return *this;
-  }
+			while (b_node)
+			{
+				node->next = new ListNode<C> (b_node->value);
+				node = node->next;
+				b_node = b_node->next;
+			}
 
-  ~List() throw () {
-    ListNode<C>* node = _root, *next;
-    while (node) {
-      next = node->next;
-      delete node;
-      node = next;
-    }
-  }
+			_size = b._size;
+			return *this;
+		}
 
-  void append(C* value) throw () {
-    if (_root) {
-      ListNode<C>* last = _root;
-      while (last->next) {
-        last = last->next;
-      }
+		~List () throw ()
+		{
+			ListNode<C> *node = _root, *next;
+			while (node)
+			{
+				next = node->next;
+				delete node;
+				node = next;
+			}
+		}
 
-      last->next = new ListNode<C>(value);
-    }
+		void
+		append (C *value) throw ()
+		{
+			if (_root)
+			{
+				ListNode<C> *last = _root;
+				while (last->next)
+				{
+					last = last->next;
+				}
 
-    else {
-      _root = new ListNode<C>(value);
-    }
+				last->next = new ListNode<C> (value);
+			}
 
-    ++_size;
-  }
+			else
+			{
+				_root = new ListNode<C> (value);
+			}
 
-  /**
-    Perform a search for the node containing the given key
+			++_size;
+		}
 
-    @return The list node containing the given key, or NULL if the key was not
-    found
-  */
-  const ListNode<C>* find(C* key) const throw () {
-    ListNode<C>* node = _root;
-    while (node) {
-      // Yes, this is meant to compare pointers
-      if (node->value == key) {
-        return node;
-      }
-      node = node->next;
-    }
-    return 0;
-  }
+		/**
+		 * Perform a search for the node containing the given key
+		 * 
+		 * @return The list node containing the given key, or NULL
+		 *         if the key was not found.
+		 */
+		const ListNode<C> *
+		find (C *key) const throw ()
+		{
+			ListNode<C> *node = _root;
+			while (node)
+			{
+				// Yes, this is meant to compare pointers
+				if (node->value == key)
+				{
+					return node;
+				}
+				node = node->next;
+			}
 
-  const ListNode<C>* root() const throw () {
-    return _root;
-  }
+			return NULL;
+		}
 
-  int size() const throw () {
-    return _size;
-  }
+		const ListNode<C> *
+		root () const throw ()
+		{
+			return _root;
+		}
 
-protected:
-  ListNode<C>* _root;
-  int _size;
-};
+		int
+		size () const throw ()
+		{
+			return _size;
+		}
 
-} /* Namespace */
+	protected:
+		ListNode<C> *_root;
+		int _size;
+	};
+}
 
 #endif /* COPPER_UTIL_LIST_HPP */
