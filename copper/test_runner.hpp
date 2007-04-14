@@ -6,11 +6,12 @@
 #ifndef COPPER_TEST_RUNNER_HPP
 #define COPPER_TEST_RUNNER_HPP
 
-#include <copper/test.hpp>
-#include <copper/error.hpp>
-
 namespace Copper
 {
+	class Test;
+	class Error;
+	class Failure;
+
 	/**
 	 * Execute a test. This function runs a test, usually in a restricted
 	 * environment or in a different process for safety reasons.
@@ -23,7 +24,7 @@ namespace Copper
 	void
 	exec_test (Test *test,
 	           bool protect,
-	           Assertion **failure,
+	           Failure **failure,
 	           Error **error);
 }
 

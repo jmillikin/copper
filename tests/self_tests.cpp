@@ -79,40 +79,14 @@ TEST_SUITE (self_tests)
 		               ar.failure_message ()));
 	}
 
-	TEST (assertion_pass)
+	TEST (failure)
 	{
-		Copper::AssertionResult ar;
-		ar.pass ();
-		Copper::Assertion a (ar, "Assertion text", 12345);
+		Copper::Failure f ("text", "message", "filename", 12345);
 
-		ASSERT (a.passed ());
-		ASSERT (equal ("Assertion text", a.text ()));
-		ASSERT (equal (12345u, a.line ()));
-	}
-
-	TEST (assertion_failure)
-	{
-		Copper::AssertionResult ar;
-		ar.fail ("Error goes here");
-		Copper::Assertion a (ar, "Assertion text", 12345);
-
-		ASSERT (!a.passed ());
-		ASSERT (equal ("Assertion text", a.text ()));
-		ASSERT (equal (12345u, a.line ()));
-		ASSERT (equal ("Error goes here", a.failure_message ()));
-	}
-
-	TEST (assertion_failure_custom_message)
-	{
-		Copper::AssertionResult ar;
-		ar.fail ("Error goes here");
-		Copper::Assertion a (ar, "Assertion text", "Custom error",
-		                     12345);
-
-		ASSERT (!a.passed ());
-		ASSERT (equal ("Assertion text", a.text ()));
-		ASSERT (equal (12345u, a.line ()));
-		ASSERT (equal ("Custom error", a.failure_message ()));
+		ASSERT (equal (f.text, "text"));
+		ASSERT (equal (f.message, "message"));
+		ASSERT (equal (f.file, "filename"));
+		ASSERT (equal (f.line, 12345u));
 	}
 
 	TEST (reverse_passed_assertion)

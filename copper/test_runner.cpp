@@ -3,7 +3,10 @@
  * For conditions of distribution and use, see COPYING
  */
 
+#include <copper/error.hpp>
+#include <copper/failure.hpp>
 #include <copper/protector.hpp>
+#include <copper/test.hpp>
 #include <copper/test_runner.hpp>
 #include <copper/test_status.hpp>
 #include <copper/util/formatters.hpp>
@@ -15,7 +18,7 @@
 #endif
 
 using Copper::String;
-using Copper::Assertion;
+using Copper::Failure;
 using Copper::Error;
 using Copper::Test;
 using Copper::format;
@@ -25,7 +28,7 @@ using Copper::format;
  * process forks from the parent, this function should call exit (1).
  */
 void
-on_failure (const Assertion &failure, void *_data);
+on_failure (const Failure &failure, void *_data);
 
 #ifdef COPPER_USE_FORK
 
@@ -48,7 +51,7 @@ void
 write_message (int fd, const String &message);
 
 void
-fork_test (Test *test, bool protect, Assertion **failure, Error **error);
+fork_test (Test *test, bool protect, Failure **failure, Error **error);
 
 #elif COPPER_USE_NT_CREATE_PROCESS
 #else
@@ -58,34 +61,34 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error);
 class FailureException : public Copper::SafeException
 {
 public:
-	FailureException (const Assertion _failure):
+	FailureException (const Failure _failure):
 	                  failure (_failure)
 	{
 	}
 
-	const Assertion failure;
+	const Failure failure;
 };
 
 #endif
 
 String
-serialize_failure (const Assertion *failure)
+serialize_failure (const Failure *failure)
 {
 	/* 7:failure text line message */
 	/* Example: "7:failure 6:0 == 1 2:10 18:values are unequal" */
 	String line_str;
 	String line_len, text_len, message_len;
 
-	line_str = format (failure->line ());
+	line_str = format (failure->line);
 
 	line_len = format (line_str.size ());
-	text_len = format (failure->text ().size ());
-	message_len = format (failure->failure_message ().size ());
+	text_len = format (failure->text.size ());
+	message_len = format (failure->message.size ());
 
 	return String ("7:failure") + " " +
-		text_len + ":" + failure->text () + " " +
+		text_len + ":" + failure->text + " " +
 		line_len + ":" + line_str + " " +
-		message_len + ":" + failure->failure_message ();
+		message_len + ":" + failure->message;
 }
 
 String
@@ -129,7 +132,7 @@ parse_token (const char *message, const char **_next)
 }
 
 void
-unserialize (const char *c_message, Assertion **failure, Error **error)
+unserialize (const char *c_message, Failure **failure, Error **error)
 {
 	String type = parse_token (c_message, &c_message);
 
@@ -144,7 +147,7 @@ unserialize (const char *c_message, Assertion **failure, Error **error)
 
 		line = strtoul (line_str.c_str (), NULL, 10);
 
-		*failure = new Assertion (false, text, message, line);
+		*failure = new Failure (text, message, "", line);
 	}
 
 	else if (type == "error")
@@ -158,7 +161,7 @@ namespace Copper
 	void
 	exec_test (Test *test,
 	           bool protect,
-	           Assertion **failure,
+	           Failure **failure,
 	           Error **error)
 	{
 #ifdef COPPER_USE_FORK
@@ -177,7 +180,7 @@ namespace Copper
 
 		catch (const FailureException& e)
 		{
-			*failure = new Assertion (e.failure);
+			*failure = new Failure (e.failure);
 		}
 
 #endif
@@ -223,7 +226,7 @@ write_message (int fd, const String &message)
 }
 
 void
-on_failure (const Assertion &failure, void *_data)
+on_failure (const Failure &failure, void *_data)
 {
 	FailureHandlerData *data = (FailureHandlerData *) _data;
 
@@ -233,7 +236,7 @@ on_failure (const Assertion &failure, void *_data)
 }
 
 void
-fork_test (Test *test, bool protect, Assertion **failure, Error **error)
+fork_test (Test *test, bool protect, Failure **failure, Error **error)
 {
 	pid_t pid;
 	int pipes[2];
@@ -313,7 +316,7 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 #else
 
 void
-on_failure (const Assertion &failure, void *data)
+on_failure (const Failure &failure, void *data)
 {
 	Test *test = (Test *) data;
 

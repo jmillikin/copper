@@ -7,7 +7,6 @@
 #define COPPER_ASSERTIONS_HPP
 
 #include <copper/assertion_result.hpp>
-#include <copper/assertion.hpp>
 #include <copper/compat.hpp>
 #include <copper/util/formatters.hpp>
 
