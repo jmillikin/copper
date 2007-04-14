@@ -9,11 +9,45 @@
 #include <copper/test_status.hpp>
 #include <copper/util/formatters.hpp>
 
+#if (defined __unix) || (defined __unix__)
+#define COPPER_USE_FORK
+#elif (defined __win32) || (defined __win32__)
+#define COPPER_USE_NT_CREATE_PROCESS
+#endif
+
 using Copper::String;
 using Copper::Assertion;
 using Copper::Error;
 using Copper::Test;
 using Copper::format;
+
+/**
+ * Sent to set_failure_handler by all types of test execution. When the child
+ * process forks from the parent, this function should call exit (1).
+ */
+void
+on_failure (const Assertion &failure, void *_data);
+
+#ifdef COPPER_USE_FORK
+
+struct FailureHandlerData
+{
+	int fd;
+	Test *test;
+};
+
+Error *
+process_error (int status);
+
+void
+write_message (int fd, const String &message);
+
+void
+fork_test (Test *test, bool protect, Assertion **failure, Error **error);
+
+#elif COPPER_USE_NT_CREATE_PROCESS
+#else
+#endif
 
 String
 serialize_failure (const Assertion *failure)
@@ -100,6 +134,24 @@ unserialize (const char *c_message, Assertion **failure, Error **error)
 	}
 }
 
+namespace Copper
+{
+	void
+	exec_test (Test *test,
+	           bool protect,
+	           Assertion **failure,
+	           Error **error)
+	{
+#ifdef COPPER_USE_FORK
+		fork_test (test, protect, failure, error);
+#elif COPPER_USE_NT_CREATE_PROCESS
+#else
+#endif
+	}
+
+}
+
+#ifdef COPPER_USE_FORK
 Error *
 process_error (int status)
 {
@@ -126,7 +178,8 @@ process_error (int status)
 	}
 }
 
-void write_message (int fd, const String &message)
+void
+write_message (int fd, const String &message)
 {
 	char buf[30];
 
@@ -134,12 +187,6 @@ void write_message (int fd, const String &message)
 	write (fd, buf, 10);
 	write (fd, message.c_str (), message.size ());
 }
-
-struct FailureHandlerData
-{
-	int fd;
-	Test *test;
-};
 
 void
 on_failure (const Assertion &failure, void *_data)
@@ -228,16 +275,5 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 
 	}
 }
-
-namespace Copper
-{
-	void
-	exec_test (Test *test,
-	           bool protect,
-	           Assertion **failure,
-	           Error **error)
-	{
-		fork_test (test, protect, failure, error);
-	}
-
-}
+#elif COPPER_USE_NT_CREATE_PROCESS
+#endif
