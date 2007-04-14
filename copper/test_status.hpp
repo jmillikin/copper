@@ -67,6 +67,17 @@ namespace Copper
 	              const unsigned int line);
 
 	/**
+	 * Check that an assertion was false. If it was true, the current
+	 * failure handler will be executed.
+	 * 
+	 * @param result The result of the assertion.
+	 * @param text The code that this Assertion tests.
+	 */
+	AssertionResult
+	do_failed (const AssertionResult &result,
+	           const char *text);
+
+	/**
 	 * Set the current failure handler function. This should be called once,
 	 * before a test is executed.
 	 * 

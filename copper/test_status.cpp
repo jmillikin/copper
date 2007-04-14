@@ -53,6 +53,26 @@ namespace Copper
 	}
 
 	EXPORT
+	AssertionResult
+	do_failed (const AssertionResult &result,
+	           const char *text)
+	{
+		Copper::AssertionResult new_result;
+
+		if (result.passed ())
+		{
+			String message = String ("Unexpected success of assertion '") +
+			                         text + "'";
+			new_result.fail (message);
+		}
+
+		else
+			new_result.pass ();
+
+		return new_result;
+	}
+
+	EXPORT
 	void
 	set_failure_handler (FailureHandler *new_handler, void *data)
 	{

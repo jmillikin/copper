@@ -30,7 +30,7 @@
  * 
  * @param ASSERTION The Assertion to invert
  */
-#define failed(ASSERTION) Copper::do_failed (ASSERTION, #ASSERTION, __FILE__, __LINE__)
+#define failed(ASSERTION) Copper::do_failed (ASSERTION, #ASSERTION)
 
 /**
  * Begin a test suite with the given name
