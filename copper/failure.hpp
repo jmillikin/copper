@@ -22,9 +22,9 @@ namespace Copper
 		 * @param file The name of the file containing the assertion.
 		 * @param line The line the assertion is located on.
 		 */
-		Failure (const String &text,
-		         const String &message,
-		         const String &file,
+		Failure (const char *text,
+		         const char *message,
+		         const char *file,
 		         const unsigned int line) throw ();
 
 		/** Default destructor */
