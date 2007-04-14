@@ -10,12 +10,12 @@
 
 namespace Copper {
 
-// strdup isn't actually in the standard, and thus isn't available everywhere
-char* strdup(const char* a) throw ();
+// strndup isn't actually in the standard, and thus isn't available everywhere
+char* strndup(const char* a, const unsigned int size = 0) throw ();
 
 class String {
 public:
-  String(const char* string = "") throw ();
+  String(const char* string = "", const unsigned int size = 0) throw ();
 
   String(const String& other) throw ();
 

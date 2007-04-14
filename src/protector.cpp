@@ -25,18 +25,17 @@ EXPORT void Protector::add(Protector* protector) {
   protectors().append(protector);
 }
 
-void Protector::guard(Test* test, Assertion** failure, Error** error) {
+void Protector::guard(Test* test, Error** error) {
   if (protectors().size() > 0) {
-    protectors().root()->value->_guard(test, failure, error);
+    protectors().root()->value->_guard(test, error);
   }
 
   else {
-    *failure = test->run();
+    test->run();
   }
 }
 
-void Protector::next_protector(Test* test, Assertion** failure,
-  Error** error) {
+void Protector::next_protector(Test* test, Error** error) {
 
   const ListNode<Protector>* node = protectors().find(this);
 
@@ -48,12 +47,12 @@ void Protector::next_protector(Test* test, Assertion** failure,
   node = node->next;
 
   if (node) {
-    node->value->_guard(test, failure, error);
+    node->value->_guard(test, error);
   }
 
   else {
     // Reached the end of the list
-    *failure = test->run();
+    test->run();
   }
 }
 

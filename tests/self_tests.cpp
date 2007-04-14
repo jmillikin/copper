@@ -125,4 +125,17 @@ TEST(reverse_failed_assertion) {
   assert(reversed_ar.passed());
 }
 
+int
+external_function ()
+{
+	assert (true);
+	assert (failed (false));
+	return 0;
+}
+
+TEST (external_function_assert)
+{
+	assert (equal (0, external_function ()));
+}
+
 }

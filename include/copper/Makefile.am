@@ -7,12 +7,11 @@ copper_include_real_HEADERS = \
   compat.hpp \
   error.hpp \
   macros.hpp \
-  macros_exceptions.hpp \
-  macros_noexceptions.hpp \
   output_handler.hpp \
   protector.hpp \
   suite.hpp \
-  test.hpp
+  test.hpp \
+  test_status.hpp
 
 copper_include_realdir = $(includedir)/copper-0/copper
 EXTRA_DIST = $(copper_include_real_HEADERS)

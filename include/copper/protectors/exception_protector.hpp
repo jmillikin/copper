@@ -28,13 +28,10 @@ protected:
     exceptions
 
     @param test The Test to guard
-
-    @param failure If the test failed, this will be changed to the
-      assertion that caused the test to fail
     @param error If a protector caught an error, this will be changed to
       the error that was caught
   */
-  virtual void _guard(Test* test, Assertion** failure, Error** error);
+  virtual void _guard(Test* test, Error** error);
 } exception_protector_instance;
 
 } // namespace
