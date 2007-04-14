@@ -22,7 +22,7 @@ namespace Copper
 	{
 		if (!result.passed ())
 		{
-			do_fail_test (text, result->failure_message.c_str (),
+			do_fail_test (text, result.failure_message ().c_str (),
 			              file, line);
 		}
 	}
