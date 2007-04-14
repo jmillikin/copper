@@ -13,6 +13,7 @@ copper_include_real_HEADERS = \
   macros.hpp \
   output_handler.hpp \
   protector.hpp \
+  safe_exception.hpp \
   suite.hpp \
   test.hpp \
   test_runner.hpp \
