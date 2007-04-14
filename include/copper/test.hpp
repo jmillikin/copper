@@ -27,6 +27,10 @@ public:
   /** Run the test */
   virtual void run() = 0;
 
+  /** Default, does nothing */
+  virtual void set_up ();
+  virtual void tear_down ();
+
   /** The name of this test */
   const String name;
 

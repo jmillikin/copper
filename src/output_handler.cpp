@@ -148,11 +148,19 @@ void write_message (int fd, const String &message)
 	write (fd, message.c_str(), message.size());
 }
 
-void
-on_failure (const Assertion& failure, void *data)
+struct FailureHandlerData
 {
-	int *fd = (int*) data;
-	write_message (*fd, serialize_failure (&failure));
+	int fd;
+	Test *test;
+};
+
+void
+on_failure (const Assertion& failure, void *_data)
+{
+	FailureHandlerData *data = (FailureHandlerData *) _data;
+
+	data->test->tear_down ();
+	write_message (data->fd, serialize_failure (&failure));
 	exit (1);
 }
 
@@ -210,7 +218,8 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 
 	else
 	{
-		set_failure_handler (on_failure, &pipes[1]);
+		FailureHandlerData data = { pipes[1], test };
+		set_failure_handler (on_failure, &data);
 
 		if (protect)
 			Protector::guard(test, error);

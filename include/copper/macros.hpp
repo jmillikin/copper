@@ -83,14 +83,14 @@
 #define FIXTURE(NAME) namespace fixture_namespace_##NAME
 
 #define SET_UP                                                                 \
-  void set_up();                                                               \
-  void (*_set_up)() = set_up;                                                  \
-  void set_up()
+  void __set_up();                                                             \
+  void (*_set_up)() = __set_up;                                                \
+  void __set_up()
 
 #define TEAR_DOWN                                                              \
-  void tear_down();                                                            \
-  void (*_tear_down)() = tear_down;                                            \
-  void tear_down()
+  void __tear_down();                                                          \
+  void (*_tear_down)() = __tear_down;                                          \
+  void __tear_down()
 
 /**
   Define a new Test with the given name. The fixture will be used to set up
@@ -109,10 +109,12 @@
     public:                                                                    \
       test_##NAME##_##LINE():                                                  \
         Copper::Test(#NAME, &current_suite, __FILE__) {}                       \
+      void set_up () { if (_set_up) _set_up(); }                               \
+      void tear_down () { if (_tear_down) _tear_down(); }                      \
       void run() {                                                             \
-        if (_set_up) _set_up();                                                \
+        set_up();                                                              \
         _run();                                                                \
-        if (_tear_down) _tear_down();                                          \
+        tear_down();                                                           \
       }                                                                        \
     protected:                                                                 \
       void _run();                                                             \
