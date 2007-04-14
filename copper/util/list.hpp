@@ -6,6 +6,8 @@
 #ifndef COPPER_UTIL_LIST_HPP
 #define COPPER_UTIL_LIST_HPP
 
+#include <cstddef>
+
 namespace Copper
 {
 	template <class C>
