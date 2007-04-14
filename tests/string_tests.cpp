@@ -4,8 +4,6 @@
  */
 
 #include <copper.hpp>
-#include <cstring>
-#include <cstdlib>
 
 TEST_SUITE (string_tests)
 {
@@ -33,10 +31,10 @@ TEST_SUITE (string_tests)
 		}
 
 		TEAR_DOWN {
-			std::free (cvar1);
-			std::free (cvar2);
-			std::free (cvar3);
-			std::free (cvar4);
+			delete cvar1;
+			delete cvar2;
+			delete cvar3;
+			delete cvar4;
 		}
 	}
 

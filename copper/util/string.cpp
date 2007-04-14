@@ -3,7 +3,6 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <cstdlib>
 #include <cstring>
 #include <copper/util/string.hpp>
 #include <copper/compat.hpp>
@@ -21,8 +20,9 @@ namespace Copper
 			a_len = size;
 		}
 
-		char *b = static_cast<char*>(calloc (a_len + 1, sizeof (char)));
+		char *b = new char [a_len + 1];
 		strncpy (b, a, a_len);
+		b[a_len] = 0;
 		return b;
 	}
 
@@ -37,13 +37,13 @@ namespace Copper
 	}
 
 	String::~String () throw () {
-		free (str);
+		delete str;
 	}
 
 	const String &
 	String::operator= (const String &other) throw ()
 	{
-		free (str);
+		delete str;
 		str = strndup (other.str);
 		return *this;
 	}
@@ -64,13 +64,16 @@ namespace Copper
 	String::operator+ (const String &other) const throw ()
 	{
 		size_t this_size = size ();
-		char *new_c_str = static_cast<char*> (
-			calloc (this_size + other.size () + 1, sizeof (char)));
+		size_t full_size = this_size + other.size ();
+
+		char *new_c_str = new char [full_size + 1];
 		strcpy (new_c_str, str);
 		strcpy (new_c_str + this_size, other.str);
 
+		new_c_str[full_size] = 0;
+
 		String new_str (new_c_str);
-		free (new_c_str);
+		delete new_c_str;
 
 		return new_str;
 	}
