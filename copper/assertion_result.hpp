@@ -9,55 +9,63 @@
 #include <copper/util/string.hpp>
 #include <copper/compat.hpp>
 
-namespace Copper {
+namespace Copper
+{
+	class AssertionResult
+	{
+	public:
+		/** Default constructor */
+		AssertionResult () throw ();
 
-class AssertionResult {
-public:
-  /** Default constructor */
-  AssertionResult() throw ();
+		/** Construct from a boolean value */
+		AssertionResult (bool result) throw ();
 
-  /** Construct from a boolean value */
-  AssertionResult(bool result) throw ();
+		/** Copy constructor */
+		AssertionResult (const AssertionResult &other) throw ();
 
-  /** Copy constructor */
-  AssertionResult(const AssertionResult& other) throw ();
+		/** Assignment operator */
+		const AssertionResult &
+		operator= (const AssertionResult &other) throw ();
 
-  /** Assignment operator */
-  const AssertionResult& operator=(const AssertionResult& other) throw ();
+		/** Default destructor */
+		~AssertionResult () throw ();
 
-  /** Default destructor */
-  ~AssertionResult() throw ();
+		/** Mark that the Assertion has passed */
+		void
+		pass () throw ();
 
-  /** Mark that the Assertion has passed */
-  void pass() throw ();
+		/**
+		 * Mark that the Assertion has failed
+		 * 
+		 * @param message The failure message
+		 * 
+		 * @return The AssertionResult, for use in constructing failed
+		 *         assertions with a single expression
+		 */
+		const AssertionResult &
+		fail (const String &failure_message) throw ();
 
-  /**
-    Mark that the Assertion has failed
+		/** Get whether the Assertion has passed or failed */
+		bool
+		passed () const throw ();
 
-    @param message The failure message
+		/** If the Assertion failed, get the failure message */
+		const String &
+		failure_message () const throw ();
 
-    @return The AssertionResult, for use in constructing failed assertions
-    with a single expression
-  */
-  const AssertionResult& fail(const String& failure_message) throw ();
+	protected:
+		/** True if pass () or fail () has been called */
+		bool m_finished;
 
-  /** Get whether the Assertion has passed or failed */
-  bool passed() const throw ();
+		/** Whether the Assertion has passed or failed */
+		bool m_passed;
 
-  /** If the Assertion failed, get the failure message */
-  const String& failure_message() const throw ();
-
-protected:
-  /** True if pass() or fail() has been called */
-  bool m_finished;
-
-  /** Whether the Assertion has passed or failed */
-  bool m_passed;
-
-  /** If the Assertion failed, this will contain the failure message */
-  String m_failure_message;
-};
-
-} // namespace
+		/**
+		 * If the Assertion failed, this will contain the failure
+		 * message
+		 */
+		String m_failure_message;
+	};
+}
 
 #endif /* COPPER_ASSERTION_RESULT_HPP */
