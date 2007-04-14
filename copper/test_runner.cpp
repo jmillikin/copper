@@ -13,8 +13,8 @@
 
 #if (defined __unix) || (defined __unix__)
 #define COPPER_USE_FORK
-#elif (defined __win32) || (defined __win32__)
-#define COPPER_USE_NT_CREATE_PROCESS
+/*#elif (defined __win32) || (defined __win32__)
+#define COPPER_USE_NT_CREATE_PROCESS*/
 #endif
 
 using Copper::String;
