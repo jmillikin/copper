@@ -3,9 +3,9 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <copper/test.hpp>
-#include <copper/suite.hpp>
 #include "export.hpp"
+#include "suite.hpp"
+#include "test.hpp"
 
 namespace Copper
 {

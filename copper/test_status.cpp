@@ -5,8 +5,8 @@
 
 #include <assert.h>
 
-#include <copper/test_status.hpp>
 #include "export.hpp"
+#include "test_status.hpp"
 
 namespace Copper
 {

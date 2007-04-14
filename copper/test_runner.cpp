@@ -3,13 +3,15 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <copper/error.hpp>
-#include <copper/failure.hpp>
-#include <copper/protector.hpp>
-#include <copper/test.hpp>
-#include <copper/test_runner.hpp>
-#include <copper/test_status.hpp>
-#include <copper/util/formatters.hpp>
+#include <cassert>
+
+#include "error.hpp"
+#include "failure.hpp"
+#include "protector.hpp"
+#include "test.hpp"
+#include "test_runner.hpp"
+#include "test_status.hpp"
+#include "util/formatters.hpp"
 
 #if (defined __unix) || (defined __unix__)
 #define COPPER_USE_FORK

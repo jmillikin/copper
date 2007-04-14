@@ -5,7 +5,8 @@
 
 #include <cstring>
 #include <cstdlib>
-#include <copper/assertion_result.hpp>
+
+#include "assertion_result.hpp"
 #include "export.hpp"
 
 namespace Copper

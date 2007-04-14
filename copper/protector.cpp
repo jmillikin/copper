@@ -5,10 +5,10 @@
 
 #include <cassert>
 
-#include <copper/protector.hpp>
-#include <copper/test.hpp>
-#include <copper/util/list.hpp>
 #include "export.hpp"
+#include "protector.hpp"
+#include "test.hpp"
+#include "util/list.hpp"
 
 namespace Copper
 {

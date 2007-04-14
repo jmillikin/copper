@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <copper/suite.hpp>
 #include "export.hpp"
+#include "suite.hpp"
 
 namespace Copper
 {

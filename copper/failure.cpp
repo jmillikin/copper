@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <copper/failure.hpp>
 #include "export.hpp"
+#include "failure.hpp"
 
 namespace Copper
 {

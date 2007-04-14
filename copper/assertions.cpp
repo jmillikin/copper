@@ -3,9 +3,9 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <copper/assertions.hpp>
-#include <copper/util/string.hpp>
+#include "assertions.hpp"
 #include "export.hpp"
+#include "util/string.hpp"
 
 // Used for when the user passes NULL to a string comparison assertion
 Copper::String
