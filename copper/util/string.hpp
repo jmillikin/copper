@@ -14,7 +14,7 @@ namespace Copper
 	 * An implementation of the GNU project's strndup
 	 */
 	char *
-	copper_strndup (const char *a, const unsigned int size = 0) throw ();
+	strndup (const char *a, const unsigned int size = 0) throw ();
 
 	class String
 	{
