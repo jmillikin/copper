@@ -10,6 +10,8 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
 
 #include <copper/output_handler.hpp>
 #include <copper/protector.hpp>
@@ -163,6 +165,8 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 
 	pipe (pipes);
 
+	fcntl (pipes[0], F_SETFL, O_NONBLOCK);
+
 	pid = fork ();
 
 	if (pid)
@@ -175,18 +179,27 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 
 		if (WIFEXITED (status))
 		{
-			read (pipes[0], buf, 10);
-			buf[10] = 0;
+			status = read (pipes[0], buf, 10);
 
-			sscanf (buf, "%u ", &message_len);
-			message = new char [message_len + 1];
+			if (status == -1)
+			{
+				*error = new Error (strerror (errno));
+			}
 
-			read (pipes[0], message, message_len);
-			message[message_len] = 0;
+			else
+			{
+				buf[10] = 0;
 
-			unserialize (message, failure, error);
+				sscanf (buf, "%u ", &message_len);
+				message = new char [message_len + 1];
 
-			delete message;
+				read (pipes[0], message, message_len);
+				message[message_len] = 0;
+
+				unserialize (message, failure, error);
+
+				delete message;
+			}
 		}
 
 		else
