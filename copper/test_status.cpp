@@ -13,40 +13,43 @@ namespace Copper
 	FailureHandler *handler = NULL;
 	void *handler_data = NULL;
 
-	void
-	do_assert (const bool, const int)
-	{
-	}
-
 	EXPORT
 	void
 	do_assert (const AssertionResult &result,
-	           const String &text,
+	           const char *text,
+	           const char *file,
 	           const unsigned int line)
 	{
-		assert (handler != NULL);
-
 		if (!result.passed ())
 		{
-			handler (Assertion (result, text, line), handler_data);
+			do_fail_test (text, result->failure_message.c_str (),
+			              file, line);
 		}
 	}
 
-	EXPORT
 	void
-	do_fail_test (const String &message, const unsigned int line)
+	do_assert ()
 	{
-		do_fail_test ("", message, line);
 	}
 
 	EXPORT
 	void
-	do_fail_test (const String &text,
-	              const String &message,
+	do_fail_test (const char *text,
+	              const char *message,
+	              const char *file,
 	              const unsigned int line)
 	{
 		assert (handler != NULL);
-		handler (Assertion (false, text, message, line), handler_data);
+		handler (Failure (text, message, file, line), handler_data);
+	}
+
+	EXPORT
+	void
+	do_fail_test (const char *message,
+	              const char *file,
+	              const unsigned int line)
+	{
+		do_fail_test ("", message, file, line);
 	}
 
 	EXPORT
@@ -56,5 +59,4 @@ namespace Copper
 		handler = new_handler;
 		handler_data = data;
 	}
-
 }

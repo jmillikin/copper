@@ -18,19 +18,19 @@
  * @param MESSAGE If this parameter is included, it will be used as a
  *                custom error message
  */
-#define ASSERT(ASSERTION) Copper::do_assert(ASSERTION, #ASSERTION, __LINE__)
+#define ASSERT(ASSERTION) Copper::do_assert(ASSERTION, #ASSERTION, __FILE__, __LINE__)
 
 /**
  * Used to manually fail a test
  */
-#define fail_test(MESSAGE) Copper::do_fail_test (#MESSAGE, __LINE__)
+#define fail_test(MESSAGE) Copper::do_fail_test (#MESSAGE, __FILE__, __LINE__)
 
 /**
  * Invert the output from an assertion
  * 
  * @param ASSERTION The Assertion to invert
  */
-#define failed(ASSERTION) Copper::do_failed (ASSERTION, #ASSERTION, __LINE__)
+#define failed(ASSERTION) Copper::do_failed (ASSERTION, #ASSERTION, __FILE__, __LINE__)
 
 /**
  * Begin a test suite with the given name
@@ -130,7 +130,7 @@
 
 inline void __throws_cleanup(...) {}
 
-#define throws(TYPE, CODE) true, __LINE__); \
+#define throws(TYPE, CODE) ); \
 	try \
 	{ \
 		this->exception_thrown = false; \
@@ -146,7 +146,7 @@ inline void __throws_cleanup(...) {}
 		printf ("Exception was not thrown\n"); \
 		Copper::do_fail_test("throws ("#TYPE", "#CODE")", \
 		                     "\""#CODE"\" didn't throw an exception of type \""#TYPE"\"", \
-		                     __LINE__); \
-	} __throws_cleanup(0
+		                     __FILE__, __LINE__); \
+	} __throws_cleanup(
 
 #endif /* COPPER_MACROS_HPP */
