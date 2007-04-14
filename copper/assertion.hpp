@@ -1,5 +1,5 @@
-/* assertion.hpp - Asserts that certain statements are true
- * Copyright (C) 2006 John Millikin
+/* assertion.hpp -- Asserts that certain statements are true
+ * Copyright (C) 2006-2007 John Millikin
  * For conditions of distribution and use, see COPYING
  */
 

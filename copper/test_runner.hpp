@@ -1,5 +1,5 @@
 /* test_runner.hpp -- Functions for safely and portably running a test
- * Copyright (C) 2006 John Millikin
+ * Copyright (C) 2007 John Millikin
  * For conditions of distribution and use, see COPYING
  */
 

@@ -1,5 +1,5 @@
 /* list.hpp -- Simple linked list to avoid dependency on std::list
- * Copyright (C) 2006 John Millikin
+ * Copyright (C) 2006-2007 John Millikin
  * For conditions of distribution and use, see COPYING
  */
 

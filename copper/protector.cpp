@@ -1,5 +1,5 @@
-/* protector.cpp - Base class for all protectors
- * Copyright (C) 2006 John Millikin
+/* protector.cpp -- Base class for all protectors
+ * Copyright (C) 2006-2007 John Millikin
  * For conditions of distribution and use, see COPYING
  */
 

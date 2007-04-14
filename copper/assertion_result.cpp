@@ -1,5 +1,5 @@
-/* assertion_result.cpp - The result of a single assertion
- * Copyright (C) 2006 John Millikin
+/* assertion_result.cpp -- The result of a single assertion
+ * Copyright (C) 2006-2007 John Millikin
  * For conditions of distribution and use, see COPYING
  */
 

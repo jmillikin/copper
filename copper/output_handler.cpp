@@ -1,5 +1,5 @@
 /* output_handler.cpp -- Base class for all output handlers
- * Copyright (C) 2006 John Millikin
+ * Copyright (C) 2006-2007 John Millikin
  * For conditions of distribution and use, see COPYING
  */
 

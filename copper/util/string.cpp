@@ -1,5 +1,5 @@
 /* string.cpp -- Simple string to avoid dependency on std::string
- * Copyright (C) 2006 John Millikin
+ * Copyright (C) 2006-2007 John Millikin
  * For conditions of distribution and use, see COPYING
  */
 

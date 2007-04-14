@@ -1,5 +1,5 @@
-/* format_tests.cpp - Test behaviour of the format () function
- * Copyright (C) 2006 John Millikin
+/* format_tests.cpp -- Test behaviour of the format () function
+ * Copyright (C) 2006-2007 John Millikin
  * For conditions of distribution and use, see COPYING
  */
 

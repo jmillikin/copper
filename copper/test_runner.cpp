@@ -1,11 +1,9 @@
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
+/* test_runner.cpp -- Functions for safely and portably running a test
+ * Copyright (C) 2007 John Millikin
+ * For conditions of distribution and use, see COPYING
+ */
 
 #include <copper/protector.hpp>
-#include <copper/safe_exception.hpp>
 #include <copper/test_runner.hpp>
 #include <copper/test_status.hpp>
 #include <copper/util/formatters.hpp>
@@ -31,6 +29,12 @@ on_failure (const Assertion &failure, void *_data);
 
 #ifdef COPPER_USE_FORK
 
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <unistd.h>
+#include <fcntl.h>
+#include <errno.h>
+
 struct FailureHandlerData
 {
 	int fd;
@@ -48,6 +52,8 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error);
 
 #elif COPPER_USE_NT_CREATE_PROCESS
 #else
+
+#include <copper/safe_exception.hpp>
 
 class FailureException : public Copper::SafeException
 {
