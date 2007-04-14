@@ -24,7 +24,10 @@ Copper::AssertionResult
 equal (const Expected &expected, const Actual &actual) throw ()
 {
 	Copper::AssertionResult result;
-	if (expected != actual)
+	if (expected == actual)
+		result.pass ();
+
+	else
 	{
 		Copper::String message;
 
@@ -35,9 +38,6 @@ equal (const Expected &expected, const Actual &actual) throw ()
 
 		result.fail (message);
 	}
-
-	else
-		result.pass ();
 
 	return result;
 }
