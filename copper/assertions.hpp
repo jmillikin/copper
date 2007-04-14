@@ -154,7 +154,7 @@ unequal (char bad[], char actual[]) throw ();
  */
 template <class Value>
 Copper::AssertionResult
-null (const Value *value) throw ()
+is_null (const Value *value) throw ()
 {
 	Copper::AssertionResult result;
 

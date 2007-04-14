@@ -49,12 +49,12 @@ TEST(unequal_fail) {
 
 TEST(is_null) {
   int* var = 0;
-  ASSERT(null(var));
+  ASSERT(is_null(var));
 }
 
 TEST(is_null_fail) {
   int var;
-  ASSERT(failed(null(&var)));
+  ASSERT(failed(is_null(&var)));
 }
 
 TEST(not_null) {

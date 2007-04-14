@@ -31,7 +31,7 @@ TEST(inequality) {
 TEST(is_NULL) {
   // Used to check that some pointer is NULL
   int* var = 0;
-  ASSERT(null(var));
+  ASSERT(is_null(var));
 }
 
 TEST(is_not_NULL) {
