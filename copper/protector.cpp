@@ -3,6 +3,8 @@
  * For conditions of distribution and use, see COPYING
  */
 
+#include <cassert>
+
 #include <copper/protector.hpp>
 #include <copper/test.hpp>
 #include <copper/util/list.hpp>
