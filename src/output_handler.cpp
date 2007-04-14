@@ -11,12 +11,11 @@
 #include <sys/wait.h>
 #include <unistd.h>
 
-#include <lilac.h>
-
 #include <copper/output_handler.hpp>
 #include <copper/protector.hpp>
 #include <copper/assertion.hpp>
 #include <copper/test_status.hpp>
+#include <copper/util/formatters.hpp>
 #include "export.hpp"
 
 namespace Copper {
@@ -27,129 +26,89 @@ EXPORT OutputHandler::OutputHandler() {
 
 EXPORT OutputHandler::~OutputHandler() {}
 
-LilacElement *
-make_named (const char *name, int var)
-{
-	LilacAtom *atom = lilac_atom_new_integer (var);
-	LilacNamedElement *named = lilac_named_element_new_atom (name, atom);
-	return LILAC_ELEMENT (named);
-}
-
-LilacElement *
-make_named (const char *name, const char* var)
-{
-	LilacAtom *atom = lilac_atom_new_string (var);
-	LilacNamedElement *named = lilac_named_element_new_atom (name, atom);
-	return LILAC_ELEMENT (named);
-}
-
-char *
+String
 serialize_failure (const Assertion *failure)
 {
-	LilacObject *obj;
-	LilacList *attrs = lilac_list_new ();
-	char *message;
+	/* 7:failure text line message */
+	/* Example: "7:failure 6:0 == 1 2:10 18:values are unequal" */
+	String line_str;
+	String line_len, text_len, message_len;
 
-	lilac_list_append (attrs, make_named ("text", failure->text().c_str()));
-	lilac_list_append (attrs, make_named ("line", failure->line()));
-	lilac_list_append (attrs,
-	                   make_named ("message",
-	                               failure->failure_message().c_str()));
+	line_str = format (failure->line());
 
-	obj = lilac_object_new ("failure", attrs);
-	message = lilac_element_serialize (LILAC_ELEMENT (obj));
+	line_len = format (line_str.size());
+	text_len = format (failure->text().size());
+	message_len = format (failure->failure_message().size());
 
-	lilac_element_free (LILAC_ELEMENT (obj));
-
-	return message;
+	return String ("7:failure") + " " +
+		text_len + ":" + failure->text() + " " +
+		line_len + ":" + line_str + " " +
+		message_len + ":" + failure->failure_message();
 }
 
-char *
+String
 serialize_error (const Error *error)
 {
-	LilacObject *obj;
-	LilacList *attrs = lilac_list_new ();
-	char *message;
+	/* 5:error message */
+	/* Example: "5:error 18:segmentation fault" */
+	String message_len;
 
-	lilac_list_append (attrs, make_named ("message",
-	                                      error->message.c_str()));
+	message_len = format (error->message.size());
 
-	obj = lilac_object_new ("error", attrs);
-	message = lilac_element_serialize (LILAC_ELEMENT (obj));
-
-	lilac_element_free (LILAC_ELEMENT (obj));
-
-	return message;
+	return String ("5:error") + " " +
+		message_len + ":" + error->message;
 }
 
-char *
+String
 serialize_pass ()
 {
-	return strdup ("(test (passed null))");
+	return String ("6:passed");
+}
+
+String
+parse_token (const char *message, const char **_next)
+{
+	char *next;
+	unsigned int size;
+	String token;
+
+	size = strtoul (message, &next, 10);
+	next++; /* Skip the colon */
+
+	/* Read the actual string */
+	token = String (next, size);
+	next += size;
+
+	/* Skip whitespace */
+	while (isspace (next[0])) ++next;
+
+	if (_next) *_next = next;
+	return token;
 }
 
 void
-unserialize (const char *message, Assertion **failure, Error **error)
+unserialize (const char *c_message, Assertion **failure, Error **error)
 {
-	LilacElement *element;
-	LilacObject *obj;
+	String type = parse_token (c_message, &c_message);
 
-	lilac_element_parse (message, &element);
-
-	if (LILAC_IS_OBJECT (element))
+	if (type == "failure")
 	{
-		String type;
-		obj = LILAC_OBJECT (element);
+		String text, line_str, message;
+		unsigned int line;
 
-		type = lilac_object_get_name (obj);
+		text = parse_token (c_message, &c_message);
+		line_str = parse_token (c_message, &c_message);
+		message = parse_token (c_message, &c_message);
 
-		if (type == "failure")
-		{
-			LilacList *attrs;
-			LilacNamedElement *text_e, *line_e, *message_e;
-			LilacAtom *text_a, *line_a, *message_a;
-			const char *text, *message;
-			unsigned int line;
+		line = strtoul (line_str.c_str(), NULL, 10);
 
-			attrs = lilac_object_get_attributes (obj);
-			text_e = LILAC_NAMED_ELEMENT (lilac_list_get_child (attrs, 0));
-			line_e = LILAC_NAMED_ELEMENT (lilac_list_get_child (attrs, 1));
-			message_e = LILAC_NAMED_ELEMENT (lilac_list_get_child (attrs, 2));
-
-			text_a = lilac_named_element_get_atom (text_e);
-			line_a = lilac_named_element_get_atom (line_e);
-			message_a = lilac_named_element_get_atom (message_e);
-
-			text = lilac_atom_get_string (text_a);
-			line = lilac_atom_get_integer (line_a);
-			message = lilac_atom_get_string (message_a);
-
-			*failure = new Assertion(false, text, message, line);
-		}
-
-		else if (type == "error")
-		{
-			LilacList *attrs;
-			LilacNamedElement *message_e;
-			LilacAtom *message_a;
-			const char *message;
-
-			attrs = lilac_object_get_attributes (obj);
-
-			message_e = LILAC_NAMED_ELEMENT (lilac_list_get_child (attrs, 0));
-			message_a = lilac_named_element_get_atom (message_e);
-			message = lilac_atom_get_string (message_a);
-
-			*error = new Error(message);
-		}
+		*failure = new Assertion (false, text, message, line);
 	}
 
-	else
+	else if (type == "error")
 	{
-		*error = new Error("Invalid message from child process");
+		*error = new Error (parse_token (c_message, NULL));
 	}
-
-	lilac_element_free (element);
 }
 
 Error *
@@ -178,31 +137,20 @@ process_error (int status)
 	}
 }
 
-void write_message (int fd, const char *message)
+void write_message (int fd, const String &message)
 {
 	char buf[30];
-	unsigned int message_len;
 
-	message_len = strlen (message);
-	sprintf (buf, "%-10u", message_len);
+	sprintf (buf, "%-10u", message.size());
 	write (fd, buf, 10);
-	write (fd, message, message_len);
+	write (fd, message.c_str(), message.size());
 }
-
-typedef struct _FailureInfo FailureInfo;
-struct _FailureInfo
-{
-	int fd;
-};
 
 void
 on_failure (const Assertion& failure, void *data)
 {
 	int *fd = (int*) data;
-	char *message = serialize_failure (&failure);
-
-	write_message (*fd, message);
-	free (message);
+	write_message (*fd, serialize_failure (&failure));
 	exit (1);
 }
 
@@ -212,8 +160,6 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 	pid_t pid;
 	int pipes[2];
 	char buf[30];
-	unsigned int message_len;
-	char *message;
 
 	pipe (pipes);
 
@@ -221,7 +167,10 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 
 	if (pid)
 	{
+		unsigned int message_len;
+		char *message;
 		int status;
+
 		waitpid (pid, &status, 0);
 
 		if (WIFEXITED (status))
@@ -257,18 +206,14 @@ fork_test (Test *test, bool protect, Assertion **failure, Error **error)
 
 		if (*error)
 		{
-			message = serialize_error (*error);
-			write_message (pipes[1], message);
-			free (message);
+			write_message (pipes[1], serialize_error (*error));
 			delete *error;
 			exit (1);
 		}
 
 		else
 		{
-			message = serialize_pass ();
-			write_message (pipes[1], message);
-			free (message);
+			write_message (pipes[1], serialize_pass ());
 			exit (0);
 		}
 
