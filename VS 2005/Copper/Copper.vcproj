@@ -36,7 +36,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Administrator\Desktop\Code\Copper\trunk\include&quot;"
+				AdditionalIncludeDirectories=""
+				RuntimeLibrary="1"
 				WarningLevel="4"
 				Detect64BitPortabilityProblems="true"
 			/>
@@ -51,6 +52,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
+				IgnoreAllDefaultLibraries="true"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -91,7 +93,8 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				AdditionalIncludeDirectories="&quot;C:\Documents and Settings\Administrator\Desktop\Code\Copper\trunk\include&quot;"
+				AdditionalOptions="/NODEFAULTLIB:library"
+				AdditionalIncludeDirectories=""
 				WarningLevel="4"
 				Detect64BitPortabilityProblems="true"
 			/>
@@ -133,50 +136,54 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\src\assertion.cpp"
+				RelativePath="..\..\copper\assertion_result.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\assertion_result.cpp"
+				RelativePath="..\..\copper\assertions.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\assertions.cpp"
+				RelativePath="..\..\copper\error.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\error.cpp"
+				RelativePath="..\..\copper\failure.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\export.hpp"
+				RelativePath="..\..\copper\output_handler.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\output_handler.cpp"
+				RelativePath="..\..\copper\protector.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\protector.cpp"
+				RelativePath="..\..\copper\suite.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\suite.cpp"
+				RelativePath="..\..\copper\test.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\src\test.cpp"
+				RelativePath="..\..\copper\test_runner.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\test_status.cpp"
 				>
 			</File>
 			<Filter
 				Name="util"
 				>
 				<File
-					RelativePath="..\..\src\util\formatters.cpp"
+					RelativePath="..\..\copper\util\formatters.cpp"
 					>
 				</File>
 				<File
-					RelativePath="..\..\src\util\string.cpp"
+					RelativePath="..\..\copper\util\string.cpp"
 					>
 				</File>
 			</Filter>
@@ -184,11 +191,7 @@
 				Name="protectors"
 				>
 				<File
-					RelativePath="..\..\src\protectors\exception_protector.cpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\src\protectors\unix_protector.cpp"
+					RelativePath="..\..\copper\protectors\exception_protector.cpp"
 					>
 				</File>
 			</Filter>
@@ -199,95 +202,85 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath="..\..\include\copper.hpp"
+				RelativePath="..\..\copper\assertion_result.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\assertions.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\copper.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\error.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\export.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\failure.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\macros.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\output_handler.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\protector.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\safe_exception.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\suite.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\test.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\test_runner.hpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\copper\test_status.hpp"
 				>
 			</File>
 			<Filter
-				Name="copper"
+				Name="protectors"
 				>
 				<File
-					RelativePath="..\..\include\copper\assertion.hpp"
+					RelativePath="..\..\copper\protectors\exception_protector.hpp"
 					>
 				</File>
-				<File
-					RelativePath="..\..\include\copper\assertion_result.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\copper\assertions.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\copper\compat.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\copper\error.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\copper\macros.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\copper\macros_exceptions.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\copper\macros_noexceptions.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\copper\output_handler.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\copper\protector.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\copper\suite.hpp"
-					>
-				</File>
-				<File
-					RelativePath="..\..\include\copper\test.hpp"
-					>
-				</File>
-				<Filter
-					Name="protectors"
-					>
-					<File
-						RelativePath="..\..\include\copper\protectors\exception_protector.hpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\include\copper\protectors\unix_protector.hpp"
-						>
-					</File>
-				</Filter>
-				<Filter
-					Name="util"
-					>
-					<File
-						RelativePath="..\..\include\copper\util\formatters.hpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\include\copper\util\list.hpp"
-						>
-					</File>
-					<File
-						RelativePath="..\..\include\copper\util\string.hpp"
-						>
-					</File>
-				</Filter>
 			</Filter>
-		</Filter>
-		<Filter
-			Name="Resource Files"
-			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
-			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
-			>
+			<Filter
+				Name="util"
+				>
+				<File
+					RelativePath="..\..\copper\util\formatters.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\copper\util\list.hpp"
+					>
+				</File>
+				<File
+					RelativePath="..\..\copper\util\string.hpp"
+					>
+				</File>
+			</Filter>
 		</Filter>
 	</Files>
 	<Globals>
