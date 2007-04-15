@@ -83,9 +83,8 @@ serialize_failure (const Failure *failure)
 
 	line_str = format (failure->line);
 
-	line_len = format (line_str.size ());
-	text_len = format (failure->text.size ());
-	message_len = format (failure->message.size ());
+	line_len = format (static_cast<unsigned int> (line_str.size ()));
+	text_len = format (static_cast<unsigned int> (failure->text.size ()));
 
 	return String ("7:failure") + " " +
 		text_len + ":" + failure->text + " " +
@@ -100,7 +99,7 @@ serialize_error (const Error *error)
 	/* Example: "5:error 18:segmentation fault" */
 	String message_len;
 
-	message_len = format (error->message.size ());
+	message_len = format (static_cast<unsigned int> (error->message.size ()));
 
 	return String ("5:error") + " " +
 		message_len + ":" + error->message;
