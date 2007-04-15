@@ -55,6 +55,10 @@ namespace Copper
 
 		/** The line the assertion is located on */
 		const unsigned int line;
+
+	private:
+		Failure &
+		operator= (const Failure &) throw ();
 	};
 }
 
