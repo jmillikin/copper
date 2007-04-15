@@ -11,9 +11,10 @@ using namespace std;
 
 namespace Copper
 {
-	char *strndup (const char *a, const unsigned int size) throw ()
+	char *
+	strndup (const char *a, const unsigned int size) throw ()
 	{
-		unsigned int a_len = strlen (a);
+		size_t a_len = strlen (a);
 
 		if (size && size < a_len)
 		{
