@@ -12,5 +12,5 @@ EXTRA_DIST = $(copper_include_util_HEADERS)
 #################################################
 ##########        Source files         ##########
 #################################################
-noinst_LTLIBRARIES=libcu_util.la
-libcu_util_la_SOURCES = formatters.cpp string.cpp
+noinst_LTLIBRARIES=libcopper_util.la
+libcopper_util_la_SOURCES = formatters.cpp string.cpp

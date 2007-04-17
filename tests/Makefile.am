@@ -10,7 +10,7 @@ run_tests_SOURCES=\
   main.cpp \
   self_tests.cpp
 
-run_tests_LDADD = ../copper/libcu.la
+run_tests_LDADD = ../copper/libcopper.la
 
 check:
 	./run_tests

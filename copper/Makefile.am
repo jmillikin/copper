@@ -27,9 +27,9 @@ EXTRA_DIST = $(copper_include_HEADERS) $(copper_include_real_HEADERS)
 #################################################
 ##########        Source files         ##########
 #################################################
-lib_LTLIBRARIES = libcu.la
+lib_LTLIBRARIES = libcopper.la
 
-libcu_la_SOURCES = \
+libcopper_la_SOURCES = \
   assertion_result.cpp \
   assertions.cpp \
   default_output_handler.cpp \
@@ -42,4 +42,4 @@ libcu_la_SOURCES = \
   test_runner.cpp \
   test_status.cpp
 
-libcu_la_LIBADD = protectors/libcu_protectors.la util/libcu_util.la
+libcopper_la_LIBADD = protectors/libcopper_protectors.la util/libcopper_util.la
