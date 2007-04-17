@@ -8,6 +8,7 @@ copper_include_real_HEADERS = \
   assertion_result.hpp \
   assertions.hpp \
   compat.hpp \
+  default_output_handler.hpp \
   error.hpp \
   failure.hpp \
   macros.hpp \
@@ -31,6 +32,7 @@ lib_LTLIBRARIES = libcu.la
 libcu_la_SOURCES = \
   assertion_result.cpp \
   assertions.cpp \
+  default_output_handler.cpp \
   error.cpp \
   failure.cpp \
   output_handler.cpp \

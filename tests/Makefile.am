@@ -8,7 +8,6 @@ run_tests_SOURCES=\
   string_tests.cpp \
   format_tests.cpp \
   main.cpp \
-  output_handler.cpp \
   self_tests.cpp
 
 run_tests_LDADD = ../copper/libcu.la
