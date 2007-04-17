@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <assert.h>
+#include <cassert>
 
 #include "export.hpp"
 #include "test_status.hpp"
