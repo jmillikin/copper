@@ -286,6 +286,9 @@ fork_test (Test *test, bool protect, Failure **failure, Error **error)
 		{
 			*error = process_error (status);
 		}
+
+		close (pipes[0]);
+		close (pipes[1]);
 	}
 
 	else
