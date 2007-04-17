@@ -217,5 +217,5 @@ AC_OUTPUT([
   copper/protectors/Makefile
   copper/util/Makefile
   tests/Makefile
-  libcu.pc
+  copper.pc
 ])
