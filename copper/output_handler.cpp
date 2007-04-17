@@ -66,7 +66,7 @@ namespace Copper
 	}
 
 	Suite *
-	find_suite (const char *name)
+	find_suite (const String &name)
 	{
 		// Find all suites
 		List<Suite> all = Suite::all_suites ();
@@ -89,19 +89,15 @@ namespace Copper
 	find_test (const char *full_name)
 	{
 		// Separate the full name into suite name and test name
-		size_t len = strlen (full_name);
-		char *suite_name = new char[len+1];
-		strcpy (suite_name, full_name);
-		char *midpoint = strchr (suite_name, '.');
-		char *test_name = midpoint + 1;
-		*midpoint = 0;
+		char *midpoint = strchr (full_name, '.');
+		String suite_name (full_name, midpoint - full_name);
+		String test_name (midpoint + 1);
 
 		// Find the suite
 		Suite *suite = find_suite (suite_name);
 
 		if (!suite)
 		{
-			delete[] suite_name;
 			return NULL;
 		}
 
@@ -113,13 +109,11 @@ namespace Copper
 			Test *test = node->value;
 			if (test->name == test_name)
 			{
-				delete[] suite_name;
 				return test;
 			}
 			node = node->next;
 		}
 
-		delete[] suite_name;
 		return NULL;
 	}
 
