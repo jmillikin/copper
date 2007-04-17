@@ -34,29 +34,33 @@ namespace Copper
 		 * 
 		 * @param protector The Protector to add
 		 */
-		static void
+		static
+		void
 		add (Protector *protector);
 
 		/**
 		 * Guard a test with all protectors currently available
 		 * 
 		 * @param test The Test to guard
-		 * @param error If a protector caught an error, this will be
-		 *              changed to the error that was caught.
+		 * 
+		 * @return If an error occurred, a pointer to the error
+		 * description. If no error occurred, returns NULL.
 		 */
-		static void
-		guard (Test *test, Error **error);
+		static
+		Error *
+		guard (Test *test);
 
 	protected:
 		/**
 		 * Call the next Protector in the global list to guard the test
 		 * 
 		 * @param test The Test to guard
-		 * @param error If a protector caught an error, this will be
-		 *              changed to the error that was caught.
+		 * 
+		 * @return If an error occurred, a pointer to the error
+		 * description. If no error occurred, returns NULL.
 		 */
-		void
-		next_protector (Test *test, Error **error);
+		Error *
+		next_protector (Test *test);
 
 		/**
 		 * Guard a test with this Protector. It is important that
@@ -64,11 +68,13 @@ namespace Copper
 		 * next_protector () to do so.
 		 * 
 		 * @param test The Test to guard
-		 * @param error If a protector caught an error, this will be
-		 *              changed to the error that was caught.
+		 * 
+		 * @return If an error occurred, a pointer to the error
+		 * description. If no error occurred, returns NULL.
 		 */
-		virtual void
-		_guard (Test *test, Error **error) = 0;
+		virtual
+		Error *
+		_guard (Test *test) = 0;
 	};
 }
 

@@ -35,18 +35,24 @@ namespace Copper
 		protectors ().append (protector);
 	}
 
-	void
-	Protector::guard (Test *test, Error **error)
+	Error *
+	Protector::guard (Test *test)
 	{
 		if (protectors ().size () > 0)
-			protectors ().root ()->value->_guard (test, error);
+		{
+			Protector *p = protectors ().root ()->value;
+			return p->_guard (test);
+		}
 
 		else
+		{
 			test->run ();
+			return NULL;
+		}
 	}
 
-	void
-	Protector::next_protector (Test *test, Error **error)
+	Error *
+	Protector::next_protector (Test *test)
 	{
 		const ListNode<Protector>* node = protectors ().find (this);
 
@@ -55,10 +61,15 @@ namespace Copper
 		node = node->next;
 
 		if (node)
-			node->value->_guard (test, error);
+		{
+			return node->value->_guard (test);
+		}
 
 		else
+		{
 			// Reached the end of the list
 			test->run ();
+			return NULL;
+		}
 	}
 }

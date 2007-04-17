@@ -23,27 +23,27 @@ namespace Copper
 	{
 	}
 
-	void
-	ExceptionProtector::_guard (Test *test, Error **error)
+	Error *
+	ExceptionProtector::_guard (Test *test)
 	{
 	#if !HAVE_EXCEPTIONS
-		next_protector (test, error);
+		return next_protector (test, error);
 	#else
 		try
 		{
-			next_protector (test, error);
+			return next_protector (test);
 		}
 
 		catch (const SafeException &)
 		{
 			/* Allow Copper exceptions to pass through */
-			throw ;
+			throw;
 		}
 
 		catch (const std::exception &e)
 		{
 			String message = "Unhandled exception: ";
-			*error = new Error (message + e.what ());
+			return new Error (message + e.what ());
 		}
 
 		catch (...)
@@ -78,9 +78,9 @@ namespace Copper
 
 			message = message + "'" + type_name + "'";
 
-			*error = new Error (message);
+			return new Error (message);
 	#else
-			*error = new Error ("Unhandled exception with unknown type");
+			return new Error ("Unhandled exception with unknown type");
 	#endif /* HAVE_CXA_CURRENT_EXCEPTION_TYPE */
 		}
 	#endif /* HAVE_EXCEPTIONS */

@@ -174,7 +174,7 @@ namespace Copper
 		try
 		{
 			if (protect)
-				Copper::Protector::guard (test, error);
+				error = Copper::Protector::guard (test);
 			else
 				test->run ();
 		}
@@ -297,7 +297,7 @@ fork_test (Test *test, bool protect, Failure **failure, Error **error)
 		set_failure_handler (on_failure, &data);
 
 		if (protect)
-			Copper::Protector::guard (test, error);
+			*error = Copper::Protector::guard (test);
 		else
 			test->run ();
 

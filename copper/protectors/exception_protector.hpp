@@ -25,10 +25,13 @@ namespace Copper
 		 * throw any weird exceptions.
 		 * 
 		 * @param test The Test to guard
-		 * @param error If a protector caught an error, this will 
-		 *              be changed to the error that was caught.
+		 * 
+		 * @return If an error occurred, a pointer to the error
+		 * description. If no error occurred, returns NULL.
 		*/
-		virtual void _guard (Test *test, Error **error);
+		virtual
+		Error *
+		_guard (Test *test);
 	} exception_protector_instance;
 }
 
