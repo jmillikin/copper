@@ -30,11 +30,6 @@
 
 	// Disable warnings about ANSI C functions being deprecated
 #	pragma warning (disable: 4996)
-
-#	define HAVE_SSTREAM 1
-#	define HAVE_BOOLEAN 1
-#	define HAVE_EXCEPTIONS 1
-
 #endif /* _MSC_VER */
 
 #endif /* COPPER_COMPAT_HPP */
