@@ -26,26 +26,22 @@ namespace Copper
 		{
 		}
 
+		/** True if pass () or fail () has been called. */
 		bool finished;
+
+		/** Whether the assertion passed or failed. */
 		bool passed;
+
+		/**
+		 * If the Assertion failed, this will contain the failure
+		 * message.
+		 */
 		String failure_message;
 	};
 
 
 	/** @class AssertionResult
 	 * Used for returning whether an assertion passed or not.
-	 */
-
-	/** @var AssertionResult::m_finished
-	 * True if pass () or fail () has been called.
-	 */
-
-	/** @var AssertionResult::m_passed
-	 * Whether the Assertion has passed or failed.
-	 */
-
-	/** @var AssertionResult::m_failure_message
-	 * If the Assertion failed, this will contain the failure message.
 	 */
 
 	/** Default constructor */
