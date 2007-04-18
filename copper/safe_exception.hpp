@@ -8,12 +8,10 @@
 
 namespace Copper
 {
-
-class SafeException
-{
-	/* Empty, subclass it */
-};
-
+	class SafeException
+	{
+		/* Empty, subclass it */
+	};
 }
 
 #endif /* COPPER_SAFE_EXCEPTION_HPP */
