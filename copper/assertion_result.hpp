@@ -53,6 +53,12 @@ namespace Copper
 		const String &
 		failure_message () const throw ();
 
+		/**
+		 * Allow automatic conversions to boolean, for operations
+		 * such as AND-ing.
+		 */
+		operator bool () const throw ();
+
 	protected:
 		/** True if pass () or fail () has been called */
 		bool m_finished;

@@ -94,4 +94,10 @@ namespace Copper
 	{
 		return m_failure_message;
 	}
+
+	EXPORT
+	AssertionResult::operator bool () const throw ()
+	{
+		return passed ();
+	}
 }
