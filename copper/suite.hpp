@@ -34,10 +34,9 @@ namespace Copper
 		/** This suite's name */
 		const String name;
 
-	protected:
-		List<Test> tests;
-
 	private:
+		class SuitePrivate *priv;
+
 		Suite &
 		operator= (const Suite&) throw ();
 

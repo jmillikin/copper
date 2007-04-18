@@ -7,11 +7,14 @@
 
 namespace Copper
 {
-	/** @class Suite
-	 */
+	class SuitePrivate
+	{
+	public:
+		/** All tests in this suite, in no particular order. */
+		List<Test> tests;
+	};
 
-	/** @var Suite::tests
-	 * All tests in this suite, in no particular order.
+	/** @class Suite
 	 */
 
 	List<Suite>&
@@ -27,7 +30,8 @@ namespace Copper
 	 * @param name The name of the test suite.
 	 */
 	Suite::Suite (const String &name, void (*&)(), void (*&)()) throw ():
-	              name (name)
+	              name (name),
+	              priv (new SuitePrivate)
 	{
 		suites ().append (this);
 	}
@@ -35,6 +39,7 @@ namespace Copper
 	/** Default destructor */
 	Suite::~Suite () throw ()
 	{
+		delete priv;
 	}
 
 	/**
@@ -46,7 +51,7 @@ namespace Copper
 	void
 	Suite::add_test (Test *test) throw ()
 	{
-		tests.append (test);
+		priv->tests.append (test);
 	}
 
 	/**
@@ -57,7 +62,7 @@ namespace Copper
 	List<Test>
 	Suite::get_tests () const throw ()
 	{
-		return tests;
+		return priv->tests;
 	}
 
 	/**
