@@ -127,7 +127,7 @@ TEST_SUITE (assertion_tests)
 	TEST (not_operator)
 	{
 		ASSERT (!equal (1, 2));
-		assert (failed (!equal (1, 1)));
+		ASSERT (failed (!equal (1, 1)));
 	}
 
 	TEST (and_operator)
@@ -141,8 +141,8 @@ TEST_SUITE (assertion_tests)
 	TEST (or_operator)
 	{
 		ASSERT (   equal (1, 1) ||  equal (1, 1));
-		ASSERT (  !equal (1, 1) ||  equal (1, 1)));
-		ASSERT (   equal (1, 1) || !equal (1, 1)));
+		ASSERT (  !equal (1, 1) ||  equal (1, 1));
+		ASSERT (   equal (1, 1) || !equal (1, 1));
 		ASSERT (!(!equal (1, 1) || !equal (1, 1)));
 	}
 
