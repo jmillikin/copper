@@ -58,20 +58,16 @@
  * 
  * @param NAME The name of the new test suite
  */
-#define TEST(NAME) TEST2(NAME, __LINE__)
-
-#define TEST2(NAME, LINE) TEST3(NAME, LINE)
-
-#define TEST3(NAME, LINE) \
-	class test_##NAME##_##LINE : public Copper::Test \
+#define TEST(NAME) \
+	class test_##NAME : public Copper::Test \
 	{ \
 	public: \
-		test_##NAME##_##LINE(): Copper::Test(#NAME, &current_suite, \
-		                                            __FILE__){} \
+		test_##NAME(): Copper::Test(#NAME, &current_suite, \
+		                            __FILE__){} \
 	protected: \
 		void run(); \
-	} test_instance_##NAME##_##LINE; \
-	void test_##NAME##_##LINE::run()
+	} test_instance_##NAME; \
+	void test_##NAME::run()
 
 /**
  * Define a new Fixture, with the given name
@@ -97,19 +93,15 @@
  * @param NAME The name of the new test suite
  * @param FIXTURE The Fixture to use for test management
  */
-#define FIXTURE_TEST(NAME, FIXTURE) FIXTURE_TEST2(NAME, FIXTURE, __LINE__)
-
-#define FIXTURE_TEST2(NAME, FIXTURE, LINE) FIXTURE_TEST3(NAME, FIXTURE, LINE)
-
-#define FIXTURE_TEST3(NAME, FIXTURE, LINE) \
+#define FIXTURE_TEST(NAME, FIXTURE) \
 	namespace fixture_namespace_##FIXTURE \
 	{ \
-		class test_##NAME##_##LINE : public Copper::Test \
+		class test_##NAME : public Copper::Test \
 		{ \
 		public: \
-			test_##NAME##_##LINE(): Copper::Test(#NAME, \
-			                                     &current_suite, \
-			                                     __FILE__) {} \
+			test_##NAME(): Copper::Test(#NAME, \
+			                            &current_suite, \
+			                            __FILE__) {} \
 			void set_up () { \
 				if (_set_up) _set_up(); \
 			} \
@@ -124,9 +116,9 @@
 			} \
 		protected: \
 			void _run(); \
-		} test_instance_##NAME##_##LINE; \
+		} test_instance_##NAME; \
 	} \
-	void fixture_namespace_##FIXTURE::test_##NAME##_##LINE::_run()
+	void fixture_namespace_##FIXTURE::test_##NAME::_run()
 
 inline void __throws_cleanup(...) {}
 
