@@ -4,7 +4,7 @@
  */
 
 #if __GNUC__ >= 4
-	#define EXPORT __attribute__((visibility ("default")))
+#	define EXPORT __attribute__((visibility ("default")))
 #else
-	#define EXPORT
+#	define EXPORT
 #endif

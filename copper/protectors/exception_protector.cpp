@@ -26,9 +26,9 @@ namespace Copper
 	Error *
 	ExceptionProtector::_guard (Test *test)
 	{
-	#if !HAVE_EXCEPTIONS
+#	if !HAVE_EXCEPTIONS
 		return next_protector (test, error);
-	#else
+#	else
 		try
 		{
 			return next_protector (test);
@@ -48,7 +48,7 @@ namespace Copper
 
 		catch (...)
 		{
-	#if HAVE_CXA_CURRENT_EXCEPTION_TYPE
+#	if HAVE_CXA_CURRENT_EXCEPTION_TYPE
 			/* Unhandled exception of type 'type' */
 			String message = "Unhandled exception of type ";
 
@@ -58,10 +58,10 @@ namespace Copper
 			int demangle_status = -1;
 			char *demangled_name = NULL;
 
-	#if HAVE_CXA_DEMANGLE
+#	if HAVE_CXA_DEMANGLE
 			demangled_name = __cxxabiv1::__cxa_demangle (
 				info->name (), NULL, NULL, &demangle_status);
-	#endif /* HAVE_CXA_DEMANGLE */
+#	endif /* HAVE_CXA_DEMANGLE */
 
 			String type_name;
 			if (demangle_status == 0)
@@ -79,10 +79,10 @@ namespace Copper
 			message = message + "'" + type_name + "'";
 
 			return new Error (message);
-	#else
+#	else
 			return new Error ("Unhandled exception with unknown type");
-	#endif /* HAVE_CXA_CURRENT_EXCEPTION_TYPE */
+#	endif /* HAVE_CXA_CURRENT_EXCEPTION_TYPE */
 		}
-	#endif /* HAVE_EXCEPTIONS */
+#	endif /* HAVE_EXCEPTIONS */
 	}
 }
