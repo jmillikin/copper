@@ -40,12 +40,8 @@ namespace Copper
 
 		operator bool () const throw ();
 
-	protected:
-		bool m_finished;
-
-		bool m_passed;
-
-		String m_failure_message;
+	private:
+		class AssertionResultPrivate *priv;
 	};
 }
 

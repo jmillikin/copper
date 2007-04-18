@@ -10,6 +10,28 @@
 
 namespace Copper
 {
+	class AssertionResultPrivate
+	{
+	public:
+		AssertionResultPrivate () throw ():
+	                                finished (false),
+	                                passed (false),
+	                                failure_message ("Unitialized AssertionResult")
+		{
+		}
+
+		AssertionResultPrivate (bool result) throw ():
+		                        finished (true),
+		                        passed (result)
+		{
+		}
+
+		bool finished;
+		bool passed;
+		String failure_message;
+	};
+
+
 	/** @class AssertionResult
 	 * Used for returning whether an assertion passed or not.
 	 */
@@ -28,39 +50,37 @@ namespace Copper
 
 	/** Default constructor */
 	AssertionResult::AssertionResult () throw ():
-	                                  m_finished (false),
-	                                  m_passed (false),
-	                                  m_failure_message ("Unitialized AssertionResult")
+	                                  priv (new AssertionResultPrivate)
 	{
 	}
 
 	/** Construct from a boolean value */
 	AssertionResult::AssertionResult (bool result) throw ():
-	                                  m_finished (true),
-	                                  m_passed (result)
+	                                  priv (new AssertionResultPrivate (result))
 	{
-		if (!passed ())
-			m_failure_message = "Boolean assertion failed";
+		if (!priv->passed)
+			priv->failure_message = "Boolean assertion failed";
 
 		else
-			m_failure_message = "No Error";
+			priv->failure_message = "No Error";
 	}
 
 	/** Copy constructor */
-	AssertionResult::AssertionResult (const AssertionResult &other) throw ()
+	AssertionResult::AssertionResult (const AssertionResult &other) throw ():
+	                                  priv (new AssertionResultPrivate)
 	{
-		m_finished = other.m_finished;
-		m_passed = other.m_passed;
-		m_failure_message = other.m_failure_message;
+		priv->finished = other.priv->finished;
+		priv->passed = other.priv->passed;
+		priv->failure_message = other.priv->failure_message;
 	}
 
 	/** Assignment operator */
 	const AssertionResult &
 	AssertionResult::operator= (const AssertionResult &other) throw ()
 	{
-		m_finished = other.m_finished;
-		m_passed = other.m_passed;
-		m_failure_message = other.m_failure_message;
+		priv->finished = other.priv->finished;
+		priv->passed = other.priv->passed;
+		priv->failure_message = other.priv->failure_message;
 
 		return *this;
 	}
@@ -68,17 +88,18 @@ namespace Copper
 	/** Default destructor */
 	AssertionResult::~AssertionResult () throw ()
 	{
+		delete priv;
 	}
 
 	/** Mark that the Assertion has passed */
 	void
 	AssertionResult::pass () throw ()
 	{
-		if (!m_finished)
+		if (!priv->finished)
 		{
-			m_passed = true;
-			m_finished = true;
-			m_failure_message = "No Error";
+			priv->passed = true;
+			priv->finished = true;
+			priv->failure_message = "No Error";
 		}
 	}
 
@@ -93,11 +114,11 @@ namespace Copper
 	const AssertionResult &
 	AssertionResult::fail (const String &message) throw ()
 	{
-		if (!m_finished)
+		if (!priv->finished)
 		{
-			m_passed = false;
-			m_finished = true;
-			m_failure_message = message;
+			priv->passed = false;
+			priv->finished = true;
+			priv->failure_message = message;
 		}
 
 		return *this;
@@ -107,14 +128,14 @@ namespace Copper
 	bool
 	AssertionResult::passed () const throw ()
 	{
-		return m_finished && m_passed;
+		return priv->finished && priv->passed;
 	}
 
 	/** If the Assertion failed, get the failure message */
 	const String &
 	AssertionResult::failure_message () const throw ()
 	{
-		return m_failure_message;
+		return priv->failure_message;
 	}
 
 	/**
