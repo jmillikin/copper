@@ -1,55 +1,30 @@
+/* formatters.cpp -- Convert various types to Copper::String
+ * Copyright (C) 2006-2007 John Millikin
+ * For conditions of distribution and use, see COPYING
+ */
+
+#include <cstdio>
+
 #include <copper/util/formatters.hpp>
 #include "../export.hpp"
 
 namespace Copper {
 
-#if HAVE_SSTREAM
-
 #if HAVE_BOOLEAN
-	template<>
+	EXPORT
 	String
-	format<bool>(const bool &v) throw ()
+	format(const bool &v) throw ()
 	{
 		return String (v ? "true" : "false");
 	}
 #endif /* HAVE_BOOLEAN */
 
-	template<>
+	EXPORT
 	String
-	format<char>(const char &v) throw ()
+	format(const char &v) throw ()
 	{
 		if (v < ' ' || v > '~')
 		{
-			return String ("");
-		}
-
-		char buffer[] = {v, '\0'};
-		return String (buffer);
-	}
-
-	template<>
-	String
-	format<String>(const String &v) throw ()
-	{
-		return v;
-	}
-
-#else
-
-#if HAVE_BOOLEAN
-	EXPORT
-	String
-	format (const bool &v) throw ()
-	{
-		return String (v ? "true" : "false");
-	}
-#endif /* HAVE_BOOLEAN */
-
-	EXPORT
-	String
-	format (const char &v) throw ()
-	{
-		if (v < ' ' || v > '~') {
 			return String ("");
 		}
 
@@ -69,6 +44,13 @@ namespace Copper {
 	format (const unsigned char &v) throw ()
 	{
 		return format (static_cast<char>(v));
+	}
+
+	EXPORT
+	String
+	format(const String &v) throw ()
+	{
+		return v;
 	}
 
 	EXPORT
@@ -149,13 +131,5 @@ namespace Copper {
 	{
 		return String (v);
 	}
-
-	EXPORT
-	String
-	format (const String &v) throw ()
-	{
-		return v;
-	}
-#endif /* HAVE_SSTREAM */
 }
 

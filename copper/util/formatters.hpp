@@ -11,12 +11,26 @@
 
 #if HAVE_SSTREAM
 #	include <sstream>
-#else
-#	include <cstdio>
-#	include <climits>
 #endif /* HAVE_SSTREAM */
 
 namespace Copper {
+
+#if HAVE_BOOLEAN
+	String
+	format(const bool &v) throw ();
+#endif
+
+	String
+	format(const char &v) throw ();
+
+	String
+	format (const signed char &v) throw ();
+
+	String
+	format (const unsigned char &v) throw ();
+
+	String
+	format(const String &v) throw ();
 
 #if HAVE_SSTREAM
 
@@ -29,35 +43,7 @@ namespace Copper {
 		return String (ss.str ().c_str ());
 	}
 
-#if HAVE_BOOLEAN
-	template<>
-	String
-	format<bool>(const bool &v) throw ();
-#endif
-
-	template<>
-	String
-	format<char>(const char &v) throw ();
-
-	template<>
-	String
-	format<String>(const String &v) throw ();
-
 #else /* No sstream, only support standard C types + Copper::String */
-
-#if HAVE_BOOLEAN
-	String
-	format (const bool &v) throw ();
-#endif
-
-	String
-	format (const char &v) throw ();
-
-	String
-	format (const signed char &v) throw ();
-
-	String
-	format (const unsigned char &v) throw ();
 
 	String
 	format (const signed short &v) throw ();
@@ -85,9 +71,6 @@ namespace Copper {
 
 	String
 	format (const char *v) throw ();
-
-	String
-	format (const String &v) throw ();
 #endif /* HAVE_SSTREAM */
 }
 
