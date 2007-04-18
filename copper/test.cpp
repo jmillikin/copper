@@ -80,12 +80,14 @@ namespace Copper
 	}
 
 	/** Default, does nothing */
+	EXPORT
 	void
 	Test::set_up ()
 	{
 	}
 
 	/** Default, does nothing */
+	EXPORT
 	void
 	Test::tear_down ()
 	{

@@ -9,10 +9,11 @@
 #include <copper/suite.hpp>
 #include <copper/util/list.hpp>
 #include <copper/util/string.hpp>
+#include <copper/export.hpp>
 
 namespace Copper
 {
-	class Test {
+	class EXPORT Test {
 	public:
 		Test (const String &name,
 		      Suite *suite,

@@ -6,7 +6,9 @@
 #include <ctime>
 #include <cstdio>
 #include <cstring>
+
 #include "default_output_handler.hpp"
+#include "export.hpp"
 
 using namespace std;
 
@@ -38,6 +40,7 @@ namespace Copper
 	 */
 
 	/** Default constructor */
+	EXPORT
 	DefaultOutputHandler::DefaultOutputHandler (int &argc, char **&argv) throw ():
 	                                            OutputHandler (),
 	                                            num_passed (0),
@@ -58,17 +61,20 @@ namespace Copper
 	}
 
 	/** Default destructor */
+	EXPORT
 	DefaultOutputHandler::~DefaultOutputHandler () throw ()
 	{
 	}
 
 	/** Does nothing */
+	EXPORT
 	void
 	DefaultOutputHandler::begin (const Test *) throw ()
 	{
 	}
 
 	/** Outputs nothing, but keeps track of how many tests passed. */
+	EXPORT
 	void
 	DefaultOutputHandler::pass (const Test *) throw ()
 	{
@@ -82,6 +88,7 @@ namespace Copper
 	 * @param test The test that failed.
 	 * @param failure Details of the failed assertion.
 	 */
+	EXPORT
 	void
 	DefaultOutputHandler::fail (const Test *test,
 	                            const Failure *failure) throw ()
@@ -106,6 +113,7 @@ namespace Copper
 	 * @param test The test that failed.
 	 * @param error The error that occurred.
 	 */
+	EXPORT
 	void
 	DefaultOutputHandler::error (const Test *test,
 	                             const Error *error) throw ()
@@ -126,6 +134,7 @@ namespace Copper
 	 * 
 	 * @return The number of failures + the number of errors.
 	 */
+	EXPORT
 	int
 	DefaultOutputHandler::run ()
 	{
