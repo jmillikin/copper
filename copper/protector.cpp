@@ -26,14 +26,14 @@ namespace Copper
 	}
 
 	/** Default constructor */
-	EXPORT
+	COPPER_EXPORT
 	Protector::Protector () throw ()
 	{
 		add (this);
 	}
 
 	/** Default destructor */
-	EXPORT
+	COPPER_EXPORT
 	Protector::~Protector () throw ()
 	{
 	}
@@ -43,7 +43,7 @@ namespace Copper
 	 * 
 	 * @param protector The Protector to add
 	 */
-	EXPORT
+	COPPER_EXPORT
 	void
 	Protector::add (Protector *protector)
 	{
@@ -82,7 +82,7 @@ namespace Copper
 	 * @return If an error occurred, a pointer to the error description.
 	 *         If no error occurred, returns NULL.
 	 */
-	EXPORT
+	COPPER_EXPORT
 	Error *
 	Protector::next_protector (Test *test)
 	{

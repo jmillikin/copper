@@ -11,7 +11,7 @@
 namespace Copper {
 
 #if HAVE_BOOLEAN
-	EXPORT
+	COPPER_EXPORT
 	String
 	format(const bool &v) throw ()
 	{
@@ -19,7 +19,7 @@ namespace Copper {
 	}
 #endif /* HAVE_BOOLEAN */
 
-	EXPORT
+	COPPER_EXPORT
 	String
 	format(const char &v) throw ()
 	{
@@ -32,28 +32,28 @@ namespace Copper {
 		return String (buffer);
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String
 	format (const signed char &v) throw ()
 	{
 		return format (static_cast<char>(v));
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String
 	format (const unsigned char &v) throw ()
 	{
 		return format (static_cast<char>(v));
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String
 	format(const String &v) throw ()
 	{
 		return v;
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String
 	format (const signed short &v) throw ()
 	{
@@ -62,7 +62,7 @@ namespace Copper {
 		return String (buffer);
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String
 	format (const unsigned short &v) throw ()
 	{
@@ -71,7 +71,7 @@ namespace Copper {
 		return String (buffer);
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String
 	format (const signed int &v) throw ()
 	{
@@ -80,7 +80,7 @@ namespace Copper {
 		return String (buffer);
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String
 	format (const unsigned int &v) throw ()
 	{
@@ -89,7 +89,7 @@ namespace Copper {
 		return String (buffer);
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String
 	format (const signed long &v) throw ()
 	{
@@ -98,7 +98,7 @@ namespace Copper {
 		return String (buffer);
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String
 	format (const unsigned long &v) throw ()
 	{
@@ -108,7 +108,7 @@ namespace Copper {
 	}
 
 	/* FIXME, see format (double) */
-	EXPORT
+	COPPER_EXPORT
 	String
 	format (const float &v) throw ()
 	{
@@ -116,7 +116,7 @@ namespace Copper {
 	}
 
 	/* FIXME I'm pretty sure this will break for weird values */
-	EXPORT
+	COPPER_EXPORT
 	String
 	format (const double &v) throw ()
 	{
@@ -125,7 +125,7 @@ namespace Copper {
 		return String (buffer);
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String
 	format (const char *v) throw ()
 	{

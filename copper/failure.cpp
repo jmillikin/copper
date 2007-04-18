@@ -36,7 +36,7 @@ namespace Copper
 	 * @param file The name of the file containing the assertion.
 	 * @param line The line the assertion is located on.
 	 */
-	EXPORT
+	COPPER_EXPORT
 	Failure::Failure (const char *text,
 	                  const char *message,
 	                  const char *file,
@@ -59,7 +59,7 @@ namespace Copper
 	 * @param file The name of the file containing the assertion.
 	 * @param line The line the assertion is located on.
 	 */
-	EXPORT
+	COPPER_EXPORT
 	Failure::Failure (const String &text,
 	                  const String &message,
 	                  const String &file,
@@ -73,7 +73,7 @@ namespace Copper
 	}
 
 	/** Default destructor */
-	EXPORT
+	COPPER_EXPORT
 	Failure::~Failure () throw ()
 	{
 	}

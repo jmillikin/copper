@@ -72,7 +72,7 @@ check_unequal_strings (const char *bad, const char *actual) throw ()
 
 // Overloads for equal ()
 
-EXPORT
+COPPER_EXPORT
 Copper::AssertionResult
 equal (const char *expected, const char *actual) throw ()
 {
@@ -83,7 +83,7 @@ equal (const char *expected, const char *actual) throw ()
 	return equal (s_expected, s_actual);
 }
 
-EXPORT
+COPPER_EXPORT
 Copper::AssertionResult
 equal (const char *expected, char actual[]) throw ()
 {
@@ -94,7 +94,7 @@ equal (const char *expected, char actual[]) throw ()
 	return equal (s_expected, s_actual);
 }
 
-EXPORT
+COPPER_EXPORT
 Copper::AssertionResult
 equal (char expected[], const char *actual) throw ()
 {
@@ -105,7 +105,7 @@ equal (char expected[], const char *actual) throw ()
 	return equal (s_expected, s_actual);
 }
 
-EXPORT
+COPPER_EXPORT
 Copper::AssertionResult
 equal (char expected[], char actual[]) throw ()
 {
@@ -118,7 +118,7 @@ equal (char expected[], char actual[]) throw ()
 
 // Overloads for unequal ()
 
-EXPORT
+COPPER_EXPORT
 Copper::AssertionResult
 unequal (const char *bad, const char *actual) throw ()
 {
@@ -129,7 +129,7 @@ unequal (const char *bad, const char *actual) throw ()
 	return unequal (s_bad, s_actual);
 }
 
-EXPORT
+COPPER_EXPORT
 Copper::AssertionResult
 unequal (const char *bad, char actual[]) throw ()
 {
@@ -140,7 +140,7 @@ unequal (const char *bad, char actual[]) throw ()
 	return unequal (s_bad, s_actual);
 }
 
-EXPORT
+COPPER_EXPORT
 Copper::AssertionResult
 unequal (char bad[], const char *actual) throw ()
 {
@@ -151,7 +151,7 @@ unequal (char bad[], const char *actual) throw ()
 	return unequal (s_bad, s_actual);
 }
 
-EXPORT
+COPPER_EXPORT
 Copper::AssertionResult
 unequal (char bad[], char actual[]) throw ()
 {

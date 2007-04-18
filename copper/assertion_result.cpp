@@ -28,7 +28,7 @@ namespace Copper
 	 */
 
 	/** Default constructor */
-	EXPORT
+	COPPER_EXPORT
 	AssertionResult::AssertionResult () throw ():
 	                                  m_finished (false),
 	                                  m_passed (false),
@@ -37,7 +37,7 @@ namespace Copper
 	}
 
 	/** Construct from a boolean value */
-	EXPORT
+	COPPER_EXPORT
 	AssertionResult::AssertionResult (bool result) throw ():
 	                                  m_finished (true),
 	                                  m_passed (result)
@@ -50,7 +50,7 @@ namespace Copper
 	}
 
 	/** Copy constructor */
-	EXPORT
+	COPPER_EXPORT
 	AssertionResult::AssertionResult (const AssertionResult &other) throw ()
 	{
 		m_finished = other.m_finished;
@@ -59,7 +59,7 @@ namespace Copper
 	}
 
 	/** Assignment operator */
-	EXPORT
+	COPPER_EXPORT
 	const AssertionResult &
 	AssertionResult::operator= (const AssertionResult &other) throw ()
 	{
@@ -71,13 +71,13 @@ namespace Copper
 	}
 
 	/** Default destructor */
-	EXPORT
+	COPPER_EXPORT
 	AssertionResult::~AssertionResult () throw ()
 	{
 	}
 
 	/** Mark that the Assertion has passed */
-	EXPORT
+	COPPER_EXPORT
 	void
 	AssertionResult::pass () throw ()
 	{
@@ -97,7 +97,7 @@ namespace Copper
 	 * @return The AssertionResult, for use in constructing failed
 	 *         assertions with a single expression
 	 */
-	EXPORT
+	COPPER_EXPORT
 	const AssertionResult &
 	AssertionResult::fail (const String &message) throw ()
 	{
@@ -112,7 +112,7 @@ namespace Copper
 	}
 
 	/** Get whether the Assertion has passed or failed */
-	EXPORT
+	COPPER_EXPORT
 	bool
 	AssertionResult::passed () const throw ()
 	{
@@ -120,7 +120,7 @@ namespace Copper
 	}
 
 	/** If the Assertion failed, get the failure message */
-	EXPORT
+	COPPER_EXPORT
 	const String &
 	AssertionResult::failure_message () const throw ()
 	{
@@ -131,7 +131,7 @@ namespace Copper
 	 * Allow automatic conversions to boolean, for operations
 	 * such as AND-ing.
 	 */
-	EXPORT
+	COPPER_EXPORT
 	AssertionResult::operator bool () const throw ()
 	{
 		return passed ();

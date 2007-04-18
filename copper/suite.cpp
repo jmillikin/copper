@@ -27,7 +27,7 @@ namespace Copper
 	 * 
 	 * @param name The name of the test suite.
 	 */
-	EXPORT
+	COPPER_EXPORT
 	Suite::Suite (const String &name, void (*&)(), void (*&)()) throw ():
 	              name (name)
 	{
@@ -35,7 +35,7 @@ namespace Copper
 	}
 
 	/** Default destructor */
-	EXPORT
+	COPPER_EXPORT
 	Suite::~Suite () throw ()
 	{
 	}
@@ -57,7 +57,7 @@ namespace Copper
 	 * 
 	 * @return All tests in this suite, in no particular order.
 	 */
-	EXPORT
+	COPPER_EXPORT
 	List<Test>
 	Suite::get_tests () const throw ()
 	{
@@ -69,7 +69,7 @@ namespace Copper
 	 * 
 	 * @return A list of all test suites.
 	 */
-	EXPORT
+	COPPER_EXPORT
 	List<Suite>
 	Suite::all_suites () throw ()
 	{

@@ -16,7 +16,7 @@ namespace Copper
 	/**
 	 * An implementation of the GNU project's strndup
 	 */
-	EXPORT
+	COPPER_EXPORT
 	char *
 	strndup (const char *a, const unsigned int size) throw ()
 	{
@@ -33,24 +33,24 @@ namespace Copper
 		return b;
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String::String (const char *_str, const unsigned int size) throw ():
 	                str (strndup (_str, size))
 	{
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String::String (const String &other) throw ():
 	                str (strndup (other.str))
 	{
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String::~String () throw () {
 		delete str;
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	const String &
 	String::operator= (const String &other) throw ()
 	{
@@ -59,21 +59,21 @@ namespace Copper
 		return *this;
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	bool
 	String::operator== (const String &other) const throw ()
 	{
 		return strcmp (str, other.str) == 0;
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	bool
 	operator==(const char *a, const String &b) throw ()
 	{
 		return strcmp (a, b.c_str ()) == 0;
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	String
 	String::operator+ (const String &other) const throw ()
 	{
@@ -92,14 +92,14 @@ namespace Copper
 		return new_str;
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	size_t
 	String::size () const throw ()
 	{
 		return strlen (str);
 	}
 
-	EXPORT
+	COPPER_EXPORT
 	const char *
 	String::c_str () const throw ()
 	{

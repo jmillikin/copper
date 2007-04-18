@@ -40,7 +40,7 @@ namespace Copper
 	 */
 
 	/** Default constructor */
-	EXPORT
+	COPPER_EXPORT
 	DefaultOutputHandler::DefaultOutputHandler (int &argc, char **&argv) throw ():
 	                                            OutputHandler (),
 	                                            num_passed (0),
@@ -61,20 +61,20 @@ namespace Copper
 	}
 
 	/** Default destructor */
-	EXPORT
+	COPPER_EXPORT
 	DefaultOutputHandler::~DefaultOutputHandler () throw ()
 	{
 	}
 
 	/** Does nothing */
-	EXPORT
+	COPPER_EXPORT
 	void
 	DefaultOutputHandler::begin (const Test *) throw ()
 	{
 	}
 
 	/** Outputs nothing, but keeps track of how many tests passed. */
-	EXPORT
+	COPPER_EXPORT
 	void
 	DefaultOutputHandler::pass (const Test *) throw ()
 	{
@@ -88,7 +88,7 @@ namespace Copper
 	 * @param test The test that failed.
 	 * @param failure Details of the failed assertion.
 	 */
-	EXPORT
+	COPPER_EXPORT
 	void
 	DefaultOutputHandler::fail (const Test *test,
 	                            const Failure *failure) throw ()
@@ -113,7 +113,7 @@ namespace Copper
 	 * @param test The test that failed.
 	 * @param error The error that occurred.
 	 */
-	EXPORT
+	COPPER_EXPORT
 	void
 	DefaultOutputHandler::error (const Test *test,
 	                             const Error *error) throw ()
@@ -134,7 +134,7 @@ namespace Copper
 	 * 
 	 * @return The number of failures + the number of errors.
 	 */
-	EXPORT
+	COPPER_EXPORT
 	int
 	DefaultOutputHandler::run ()
 	{

@@ -13,7 +13,8 @@
 
 namespace Copper
 {
-	class EXPORT Test {
+	class COPPER_EXPORT Test
+	{
 	public:
 		Test (const String &name,
 		      Suite *suite,

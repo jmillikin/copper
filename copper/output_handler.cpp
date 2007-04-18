@@ -26,13 +26,13 @@ namespace Copper
 	 */
 
 	/** Default constructor */
-	EXPORT
+	COPPER_EXPORT
 	OutputHandler::OutputHandler ()
 	{
 	}
 
 	/** Default destructor */
-	EXPORT
+	COPPER_EXPORT
 	OutputHandler::~OutputHandler ()
 	{
 	}
@@ -45,7 +45,7 @@ namespace Copper
 	 * 
 	 * @return A list of tests that match the given arguments.
 	 */
-	EXPORT
+	COPPER_EXPORT
 	List<Test>
 	OutputHandler::parse_test_args (int argc, char **argv)
 	{
@@ -102,7 +102,8 @@ namespace Copper
 	 * @param protect Whether to use Protectors to guard against runtime
 	 *                errors.
 	 */
-	EXPORT void
+	COPPER_EXPORT
+	void
 	OutputHandler::run_test (Test *test, bool protect)
 	{
 		begin (test);
@@ -138,7 +139,7 @@ namespace Copper
 	 * @param protect Whether to use Protectors to guard against
 	 *                runtime errors.
 	 */
-	EXPORT
+	COPPER_EXPORT
 	void
 	OutputHandler::run_tests (List<Test> tests, bool protect)
 	{
