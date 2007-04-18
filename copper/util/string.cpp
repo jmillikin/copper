@@ -53,14 +53,14 @@ namespace Copper
 	}
 
 	String::~String () throw () {
-		delete priv->str;
+		delete[] priv->str;
 		delete priv;
 	}
 
 	const String &
 	String::operator= (const String &other) throw ()
 	{
-		delete priv->str;
+		delete[] priv->str;
 		priv->str = strndup (other.priv->str);
 		return *this;
 	}
@@ -90,7 +90,7 @@ namespace Copper
 		new_c_str[full_size] = 0;
 
 		String new_str (new_c_str);
-		delete new_c_str;
+		delete[] new_c_str;
 
 		return new_str;
 	}

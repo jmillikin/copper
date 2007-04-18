@@ -31,10 +31,10 @@ TEST_SUITE (string_tests)
 		}
 
 		TEAR_DOWN {
-			delete cvar1;
-			delete cvar2;
-			delete cvar3;
-			delete cvar4;
+			delete[] cvar1;
+			delete[] cvar2;
+			delete[] cvar3;
+			delete[] cvar4;
 		}
 	}
 
