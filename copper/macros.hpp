@@ -123,20 +123,21 @@
 inline void __throws_cleanup(...) {}
 
 #define throws(TYPE, CODE) ); \
+{ bool __copper_exception_thrown = false; \
 	try \
 	{ \
-		this->exception_thrown = false; \
 		CODE; \
 	} \
 	catch (const TYPE&) \
 	{ \
-		this->exception_thrown = true; \
+		__copper_exception_thrown = true; \
 	} \
-	if (!this->exception_thrown) \
+	if (!__copper_exception_thrown) \
 	{ \
 		Copper::do_fail_test("throws ("#TYPE", "#CODE")", \
 		                     "\""#CODE"\" didn't throw an exception of type \""#TYPE"\"", \
 		                     __FILE__, __LINE__); \
-	} __throws_cleanup(0
+	} \
+} __throws_cleanup(0
 
 #endif /* COPPER_MACROS_HPP */

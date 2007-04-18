@@ -20,8 +20,6 @@ namespace Copper
 	{
 		if (suite)
 			_suite->add_test (this);
-
-		exception_thrown = false;
 	}
 
 	EXPORT

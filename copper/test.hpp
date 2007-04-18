@@ -50,10 +50,6 @@ namespace Copper
 		/** The file this test's implementation is in */
 		const String file_name;
 
-	protected:
-		/** Used for assert (throws ()) */
-		bool exception_thrown;
-
 	private:
 		Test &
 		operator= (const Test&) throw ();
