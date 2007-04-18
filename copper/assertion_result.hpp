@@ -43,7 +43,7 @@ namespace Copper
 		 *         assertions with a single expression
 		 */
 		const AssertionResult &
-		fail (const String &failure_message) throw ();
+		fail (const String &message) throw ();
 
 		/** Get whether the Assertion has passed or failed */
 		bool

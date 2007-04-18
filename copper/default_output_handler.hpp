@@ -39,7 +39,7 @@ namespace Copper
 		 * track of how many tests failed
 		 * 
 		 * @param test The test that failed
-		 * @param assetion The assertion that caused the test to fail
+		 * @param assertion The assertion that caused the test to fail
 		 */
 		void
 		fail(const Test *test, const Failure *assertion) throw ();

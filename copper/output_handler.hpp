@@ -49,7 +49,7 @@ namespace Copper
 		 * This function is called whenever a test fails.
 		 * 
 		 * @param test The test that failed
-		 * @param assetion The assertion that caused the test to fail
+		 * @param assertion The assertion that caused the test to fail
 		 */
 		virtual
 		void
