@@ -8,13 +8,14 @@
 
 #include <copper/test.hpp>
 #include <copper/error.hpp>
+#include <copper/export.hpp>
 #include <copper/failure.hpp>
 #include <copper/util/list.hpp>
 #include <copper/util/string.hpp>
 
 namespace Copper
 {
-	class OutputHandler
+	class COPPER_EXPORT OutputHandler
 	{
 	public:
 		OutputHandler ();

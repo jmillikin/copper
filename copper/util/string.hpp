@@ -8,12 +8,15 @@
 
 #include <cstddef>
 
+#include <copper/export.hpp>
+
 namespace Copper
 {
+	COPPER_EXPORT
 	char *
 	strndup (const char *a, const unsigned int size = 0) throw ();
 
-	class String
+	class COPPER_EXPORT String
 	{
 	public:
 		String (const char *string = "",
@@ -42,6 +45,7 @@ namespace Copper
 		char *str;
 	};
 
+	COPPER_EXPORT
 	bool
 	operator== (const char *a, const String &b) throw ();
 }

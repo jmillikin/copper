@@ -6,8 +6,9 @@
 #ifndef COPPER_UTIL_FORMATTERS_HPP
 #define COPPER_UTIL_FORMATTERS_HPP
 
-#include <copper/util/string.hpp>
 #include <copper/compat.hpp>
+#include <copper/export.hpp>
+#include <copper/util/string.hpp>
 
 #if HAVE_SSTREAM
 #	include <sstream>
@@ -16,19 +17,24 @@
 namespace Copper {
 
 #if HAVE_BOOLEAN
+	COPPER_EXPORT
 	String
 	format(const bool &v) throw ();
 #endif
 
+	COPPER_EXPORT
 	String
 	format(const char &v) throw ();
 
+	COPPER_EXPORT
 	String
 	format (const signed char &v) throw ();
 
+	COPPER_EXPORT
 	String
 	format (const unsigned char &v) throw ();
 
+	COPPER_EXPORT
 	String
 	format(const String &v) throw ();
 
@@ -45,30 +51,39 @@ namespace Copper {
 
 #else /* No sstream, only support standard C types + Copper::String */
 
+	COPPER_EXPORT
 	String
 	format (const signed short &v) throw ();
 
+	COPPER_EXPORT
 	String
 	format (const unsigned short &v) throw ();
 
+	COPPER_EXPORT
 	String
 	format (const signed int &v) throw ();
 
+	COPPER_EXPORT
 	String
 	format (const unsigned int &v) throw ();
 
+	COPPER_EXPORT
 	String
 	format (const signed long &v) throw ();
 
+	COPPER_EXPORT
 	String
 	format (const unsigned long &v) throw ();
 
+	COPPER_EXPORT
 	String
 	format (const float &v) throw ();
 
+	COPPER_EXPORT
 	String
 	format (const double &v) throw ();
 
+	COPPER_EXPORT
 	String
 	format (const char *v) throw ();
 #endif /* HAVE_SSTREAM */

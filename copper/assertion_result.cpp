@@ -7,7 +7,6 @@
 #include <cstdlib>
 
 #include "assertion_result.hpp"
-#include "export.hpp"
 
 namespace Copper
 {
@@ -28,7 +27,6 @@ namespace Copper
 	 */
 
 	/** Default constructor */
-	COPPER_EXPORT
 	AssertionResult::AssertionResult () throw ():
 	                                  m_finished (false),
 	                                  m_passed (false),
@@ -37,7 +35,6 @@ namespace Copper
 	}
 
 	/** Construct from a boolean value */
-	COPPER_EXPORT
 	AssertionResult::AssertionResult (bool result) throw ():
 	                                  m_finished (true),
 	                                  m_passed (result)
@@ -50,7 +47,6 @@ namespace Copper
 	}
 
 	/** Copy constructor */
-	COPPER_EXPORT
 	AssertionResult::AssertionResult (const AssertionResult &other) throw ()
 	{
 		m_finished = other.m_finished;
@@ -59,7 +55,6 @@ namespace Copper
 	}
 
 	/** Assignment operator */
-	COPPER_EXPORT
 	const AssertionResult &
 	AssertionResult::operator= (const AssertionResult &other) throw ()
 	{
@@ -71,13 +66,11 @@ namespace Copper
 	}
 
 	/** Default destructor */
-	COPPER_EXPORT
 	AssertionResult::~AssertionResult () throw ()
 	{
 	}
 
 	/** Mark that the Assertion has passed */
-	COPPER_EXPORT
 	void
 	AssertionResult::pass () throw ()
 	{
@@ -97,7 +90,6 @@ namespace Copper
 	 * @return The AssertionResult, for use in constructing failed
 	 *         assertions with a single expression
 	 */
-	COPPER_EXPORT
 	const AssertionResult &
 	AssertionResult::fail (const String &message) throw ()
 	{
@@ -112,7 +104,6 @@ namespace Copper
 	}
 
 	/** Get whether the Assertion has passed or failed */
-	COPPER_EXPORT
 	bool
 	AssertionResult::passed () const throw ()
 	{
@@ -120,7 +111,6 @@ namespace Copper
 	}
 
 	/** If the Assertion failed, get the failure message */
-	COPPER_EXPORT
 	const String &
 	AssertionResult::failure_message () const throw ()
 	{
@@ -131,7 +121,6 @@ namespace Copper
 	 * Allow automatic conversions to boolean, for operations
 	 * such as AND-ing.
 	 */
-	COPPER_EXPORT
 	AssertionResult::operator bool () const throw ()
 	{
 		return passed ();

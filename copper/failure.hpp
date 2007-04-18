@@ -3,15 +3,16 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <copper/util/string.hpp>
 #include <copper/assertion_result.hpp>
+#include <copper/export.hpp>
+#include <copper/util/string.hpp>
 
 #ifndef COPPER_FAILURE_HPP
 #define COPPER_FAILURE_HPP
 
 namespace Copper
 {
-	class Failure
+	class COPPER_EXPORT Failure
 	{
 	public:
 		Failure (const char *text,

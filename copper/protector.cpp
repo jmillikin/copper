@@ -5,7 +5,6 @@
 
 #include <cassert>
 
-#include "export.hpp"
 #include "protector.hpp"
 #include "test.hpp"
 #include "util/list.hpp"
@@ -26,14 +25,12 @@ namespace Copper
 	}
 
 	/** Default constructor */
-	COPPER_EXPORT
 	Protector::Protector () throw ()
 	{
 		add (this);
 	}
 
 	/** Default destructor */
-	COPPER_EXPORT
 	Protector::~Protector () throw ()
 	{
 	}
@@ -43,7 +40,6 @@ namespace Copper
 	 * 
 	 * @param protector The Protector to add
 	 */
-	COPPER_EXPORT
 	void
 	Protector::add (Protector *protector)
 	{
@@ -82,7 +78,6 @@ namespace Copper
 	 * @return If an error occurred, a pointer to the error description.
 	 *         If no error occurred, returns NULL.
 	 */
-	COPPER_EXPORT
 	Error *
 	Protector::next_protector (Test *test)
 	{

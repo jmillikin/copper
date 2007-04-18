@@ -3,7 +3,6 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include "export.hpp"
 #include "suite.hpp"
 
 namespace Copper
@@ -27,7 +26,6 @@ namespace Copper
 	 * 
 	 * @param name The name of the test suite.
 	 */
-	COPPER_EXPORT
 	Suite::Suite (const String &name, void (*&)(), void (*&)()) throw ():
 	              name (name)
 	{
@@ -35,7 +33,6 @@ namespace Copper
 	}
 
 	/** Default destructor */
-	COPPER_EXPORT
 	Suite::~Suite () throw ()
 	{
 	}
@@ -57,7 +54,6 @@ namespace Copper
 	 * 
 	 * @return All tests in this suite, in no particular order.
 	 */
-	COPPER_EXPORT
 	List<Test>
 	Suite::get_tests () const throw ()
 	{
@@ -69,7 +65,6 @@ namespace Copper
 	 * 
 	 * @return A list of all test suites.
 	 */
-	COPPER_EXPORT
 	List<Suite>
 	Suite::all_suites () throw ()
 	{

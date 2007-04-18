@@ -6,6 +6,7 @@
 #ifndef COPPER_SUITE_HPP
 #define COPPER_SUITE_HPP
 
+#include <copper/export.hpp>
 #include <copper/util/list.hpp>
 #include <copper/util/string.hpp>
 
@@ -13,7 +14,7 @@ namespace Copper
 {
 	class Test;
 
-	class Suite
+	class COPPER_EXPORT Suite
 	{
 	public:
 		Suite (const String &name, void (*&)(), void (*&)()) throw ();

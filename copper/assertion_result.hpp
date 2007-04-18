@@ -6,12 +6,13 @@
 #ifndef COPPER_ASSERTION_RESULT_HPP
 #define COPPER_ASSERTION_RESULT_HPP
 
-#include <copper/util/string.hpp>
 #include <copper/compat.hpp>
+#include <copper/export.hpp>
+#include <copper/util/string.hpp>
 
 namespace Copper
 {
-	class AssertionResult
+	class COPPER_EXPORT AssertionResult
 	{
 	public:
 		AssertionResult () throw ();

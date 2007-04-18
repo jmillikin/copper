@@ -8,6 +8,7 @@
 
 #include <copper/assertion_result.hpp>
 #include <copper/compat.hpp>
+#include <copper/export.hpp>
 #include <copper/util/formatters.hpp>
 
 /**
@@ -49,15 +50,19 @@ equal (const Expected &expected, const Actual &actual) throw ()
  * 
  * @return An AssertionResult.
  */
+COPPER_EXPORT
 Copper::AssertionResult
 equal (const char *expected, const char *actual) throw ();
 
+COPPER_EXPORT
 Copper::AssertionResult
 equal (const char *expected, char actual[]) throw ();
 
+COPPER_EXPORT
 Copper::AssertionResult
 equal (char expected[], const char *actual) throw ();
 
+COPPER_EXPORT
 Copper::AssertionResult
 equal (char expected[], char actual[]) throw ();
 
@@ -132,15 +137,19 @@ unequal (const Bad &bad, const Actual &actual) throw ()
  * 
  * @return An AssertionResult.
  */
+COPPER_EXPORT
 Copper::AssertionResult
 unequal (const char *bad, const char *actual) throw ();
 
+COPPER_EXPORT
 Copper::AssertionResult
 unequal (const char *bad, char actual[]) throw ();
 
+COPPER_EXPORT
 Copper::AssertionResult
 unequal (char bad[], const char *actual) throw ();
 
+COPPER_EXPORT
 Copper::AssertionResult
 unequal (char bad[], char actual[]) throw ();
 

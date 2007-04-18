@@ -6,37 +6,44 @@
 #ifndef COPPER_TEST_STATUS_HPP
 #define COPPER_TEST_STATUS_HPP
 
-#include <copper/failure.hpp>
 #include <copper/assertion_result.hpp>
+#include <copper/export.hpp>
+#include <copper/failure.hpp>
 
 namespace Copper
 {
 	typedef void (FailureHandler)(const Failure &failure, void *data);
 
+	COPPER_EXPORT
 	void
 	do_assert (const AssertionResult &result,
 	           const char *text,
 	           const char *file,
 	           const unsigned int line);
 
+	COPPER_EXPORT
 	void
 	do_assert ();
 
+	COPPER_EXPORT
 	void
 	do_fail_test (const char *text,
 	              const char *message,
 	              const char *file,
 	              const unsigned int line);
 
+	COPPER_EXPORT
 	void
 	do_fail_test (const char *message,
 	              const char *file,
 	              const unsigned int line);
 
+	COPPER_EXPORT
 	AssertionResult
 	do_failed (const AssertionResult &result,
 	           const char *text);
 
+	COPPER_EXPORT
 	void
 	set_failure_handler (FailureHandler *new_handler, void *data);
 }

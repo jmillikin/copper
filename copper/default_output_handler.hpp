@@ -6,11 +6,12 @@
 #ifndef COPPER_DEFAULT_OUTPUT_HANDLER_HPP
 #define COPPER_DEFAULT_OUTPUT_HANDLER_HPP
 
+#include <copper/export.hpp>
 #include <copper/output_handler.hpp>
 
 namespace Copper
 {
-	class DefaultOutputHandler : public OutputHandler
+	class COPPER_EXPORT DefaultOutputHandler : public OutputHandler
 	{
 	public:
 		DefaultOutputHandler (int &argc, char **&argv) throw ();

@@ -8,13 +8,14 @@
 
 #include <copper/compat.hpp>
 #include <copper/error.hpp>
+#include <copper/export.hpp>
 
 namespace Copper
 {
 	class Test;
 	class Assertion;
 
-	class Protector
+	class COPPER_EXPORT Protector
 	{
 	public:
 		Protector () throw ();

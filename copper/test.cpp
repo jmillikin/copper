@@ -3,7 +3,6 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include "export.hpp"
 #include "suite.hpp"
 #include "test.hpp"
 
@@ -33,7 +32,6 @@ namespace Copper
 	 * @param suite The suite this test is part of.
 	 * @param file_name The file this test's implementation is in.
 	 */
-	COPPER_EXPORT
 	Test::Test (const String &name,
 	            Suite *suite,
 	            const String &file_name) throw ():
@@ -47,13 +45,11 @@ namespace Copper
 	}
 
 	/** Default destructor */
-	COPPER_EXPORT
 	Test::~Test ()
 	{
 	}
 
 	/** Get a list of all tests */
-	COPPER_EXPORT
 	List<Test>
 	Test::all ()
 	{
@@ -80,14 +76,12 @@ namespace Copper
 	}
 
 	/** Default, does nothing */
-	COPPER_EXPORT
 	void
 	Test::set_up ()
 	{
 	}
 
 	/** Default, does nothing */
-	COPPER_EXPORT
 	void
 	Test::tear_down ()
 	{

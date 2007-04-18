@@ -7,7 +7,6 @@
 #include <cstdlib>
 #include <cstddef>
 
-#include "export.hpp"
 #include "output_handler.hpp"
 #include "test_runner.hpp"
 
@@ -26,13 +25,11 @@ namespace Copper
 	 */
 
 	/** Default constructor */
-	COPPER_EXPORT
 	OutputHandler::OutputHandler ()
 	{
 	}
 
 	/** Default destructor */
-	COPPER_EXPORT
 	OutputHandler::~OutputHandler ()
 	{
 	}
@@ -45,7 +42,6 @@ namespace Copper
 	 * 
 	 * @return A list of tests that match the given arguments.
 	 */
-	COPPER_EXPORT
 	List<Test>
 	OutputHandler::parse_test_args (int argc, char **argv)
 	{
@@ -102,7 +98,6 @@ namespace Copper
 	 * @param protect Whether to use Protectors to guard against runtime
 	 *                errors.
 	 */
-	COPPER_EXPORT
 	void
 	OutputHandler::run_test (Test *test, bool protect)
 	{
@@ -139,7 +134,6 @@ namespace Copper
 	 * @param protect Whether to use Protectors to guard against
 	 *                runtime errors.
 	 */
-	COPPER_EXPORT
 	void
 	OutputHandler::run_tests (List<Test> tests, bool protect)
 	{

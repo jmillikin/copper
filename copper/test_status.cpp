@@ -5,7 +5,6 @@
 
 #include <cassert>
 
-#include "export.hpp"
 #include "test_status.hpp"
 
 namespace Copper
@@ -30,7 +29,6 @@ namespace Copper
 	 * @param file The name of the file containing the assertion.
 	 * @param line The line the assertion is located on.
 	 */
-	COPPER_EXPORT
 	void
 	do_assert (const AssertionResult &result,
 	           const char *text,
@@ -58,7 +56,6 @@ namespace Copper
 	 * @param file The file this function is being called from.
 	 * @param line The line of the file this function is being called from.
 	 */
-	COPPER_EXPORT
 	void
 	do_fail_test (const char *text,
 	              const char *message,
@@ -77,7 +74,6 @@ namespace Copper
 	 * @param file The file this function is being called from.
 	 * @param line The line of the file this function is being called from.
 	 */
-	COPPER_EXPORT
 	void
 	do_fail_test (const char *message,
 	              const char *file,
@@ -93,7 +89,6 @@ namespace Copper
 	 * @param result The result of the assertion.
 	 * @param text The code that this Assertion tests.
 	 */
-	COPPER_EXPORT
 	AssertionResult
 	do_failed (const AssertionResult &result,
 	           const char *text)
@@ -120,7 +115,6 @@ namespace Copper
 	 * @param new_handler The handler function to be called on failure.
 	 * @param data User-defined data, which will be passed to the handler.
 	 */
-	COPPER_EXPORT
 	void
 	set_failure_handler (FailureHandler *new_handler, void *data)
 	{

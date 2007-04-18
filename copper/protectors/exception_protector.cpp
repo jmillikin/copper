@@ -4,9 +4,10 @@
  */
 
 #include <stdexcept>
-#include <copper/protectors/exception_protector.hpp>
-#include <copper/compat.hpp>
-#include <copper/safe_exception.hpp>
+
+#include "../compat.hpp"
+#include "exception_protector.hpp"
+#include "../safe_exception.hpp"
 
 #if HAVE_CXA_CURRENT_EXCEPTION_TYPE
 #	include <cxxabi.h>
