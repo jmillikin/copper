@@ -56,7 +56,7 @@
 	{ \
 	public: \
 		test_##NAME(): Copper::Test(#NAME, &current_suite, \
-		                            __FILE__){} \
+		                            __FILE__, __LINE__){} \
 	protected: \
 		void run(); \
 	} test_instance_##NAME; \
@@ -102,7 +102,8 @@
 		public: \
 			test_##NAME(): Copper::Test(#NAME, \
 			                            &current_suite, \
-			                            __FILE__) {} \
+			                            __FILE__, \
+			                            __LINE__) {} \
 			void set_up () { \
 				if (_set_up) _set_up(); \
 			} \

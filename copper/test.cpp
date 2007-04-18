@@ -34,11 +34,13 @@ namespace Copper
 	 */
 	Test::Test (const String &name,
 	            Suite *suite,
-	            const String &file_name) throw ():
+	            const String &file_name,
+	            const unsigned int line) throw ():
 
 	            name (name),
 	            suite (suite),
-	            file_name (file_name)
+	            file_name (file_name),
+	            line (line)
 	{
 		if (suite)
 			suite->add_test (this);

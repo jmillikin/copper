@@ -18,7 +18,8 @@ namespace Copper
 	public:
 		Test (const String &name,
 		      Suite *suite,
-		      const String &file_name) throw ();
+		      const String &file_name,
+		      const unsigned int line) throw ();
 
 		virtual
 		~Test ();
@@ -45,6 +46,8 @@ namespace Copper
 		const Suite *suite;
 
 		const String file_name;
+
+		const unsigned int line;
 
 	private:
 		Test &
