@@ -41,6 +41,13 @@ AC_ARG_ENABLE(exceptions,
   [enable_exceptions=yes]
 )
 
+AC_ARG_ENABLE(sstream,
+  AS_HELP_STRING(--disable-sstream,
+    Disable using sstream for formatting operations),
+  [enable_sstream="$enableval"],
+  [enable_sstream=yes]
+)
+
 # Required features
 COPPER_CHECK_NAMESPACES
 COPPER_CHECK_STATIC_CAST
@@ -60,17 +67,27 @@ else
   )
 fi
 
-COPPER_CHECK_SSTREAM
-if test "$coppper_sstream_support" = "no"; then
-  AC_MSG_WARN(
-    [stringstreams are not supported, only some types may be checked])
+AC_MSG_CHECKING([if sstreams should be tested])
+if test "$enable_sstream" = "yes"; then
+  AC_MSG_RESULT([yes])
 
-  AC_DEFINE(HAVE_SSTREAM, 0,
-    [The compiler does not have the sstream header]
-  )
+  COPPER_CHECK_SSTREAM
+  if test "$coppper_sstream_support" = "no"; then
+    AC_MSG_WARN(
+      [stringstreams are not supported, only some types may be converted])
+
+    AC_DEFINE(HAVE_SSTREAM, 0,
+      [The compiler does not have the sstream header]
+    )
+  else
+    AC_DEFINE(HAVE_SSTREAM, 1,
+      [The compiler has the sstream header]
+    )
+  fi
 else
-  AC_DEFINE(HAVE_SSTREAM, 1,
-    [The compiler has the sstream header]
+  AC_MSG_RESULT([no])
+  AC_DEFINE(HAVE_SSTREAM, 0,
+    [The user has disabled sstream]
   )
 fi
 
