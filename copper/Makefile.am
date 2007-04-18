@@ -10,6 +10,7 @@ copper_include_real_HEADERS = \
   compat.hpp \
   default_output_handler.hpp \
   error.hpp \
+  export.hpp \
   failure.hpp \
   macros.hpp \
   output_handler.hpp \
