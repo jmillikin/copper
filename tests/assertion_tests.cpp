@@ -145,4 +145,28 @@ TEST_SUITE (assertion_tests)
 		ASSERT (   equal (1, 1) || !equal (1, 1)));
 		ASSERT (!(!equal (1, 1) || !equal (1, 1)));
 	}
+
+	TEST (and_operator_booleans)
+	{
+		ASSERT (true && equal (1, 1));
+		ASSERT (equal (1, 1) && true);
+
+		ASSERT (!(true && equal (1, 2)));
+		ASSERT (!(equal (1, 1) &&  false));
+
+		ASSERT (!(false && equal (1, 1)));
+		ASSERT (!(equal (1, 2) && false));
+	}
+
+	TEST (or_operator_booleans)
+	{
+		ASSERT (true || equal (1, 1));
+		ASSERT (equal (1, 1) || true);
+
+		ASSERT (true || equal (1, 2));
+		ASSERT (equal (1, 2) || true);
+
+		ASSERT (false || equal (1, 1));
+		ASSERT (equal (1, 1) || false);
+	}
 }
