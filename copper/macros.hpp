@@ -12,51 +12,44 @@
 
 /**
  * Assert that something is true. If an assertion fails, the test will
- * terminate
+ * terminate.
  * 
- * @param ASSERTION The Assertion to test
- * @param MESSAGE If this parameter is included, it will be used as a
- *                custom error message
+ * @param ASSERTION The assertion to test.
  */
 #define ASSERT(ASSERTION) Copper::do_assert(ASSERTION, #ASSERTION, __FILE__, __LINE__)
 
 /**
- * Used to manually fail a test
+ * When this macro is called, it will force the test to fail.
+ * 
+ * @param MESSAGE The error message to fail with.
  */
 #define fail_test(MESSAGE) Copper::do_fail_test (#MESSAGE, __FILE__, __LINE__)
 
 /**
- * Invert the output from an assertion
+ * Inverts the output from an assertion.
  * 
- * @param ASSERTION The Assertion to invert
+ * @param ASSERTION The assertion to invert.
  */
 #define failed(ASSERTION) Copper::do_failed (ASSERTION, #ASSERTION)
 
 /**
- * Begin a test suite with the given name
+ * Begins a test suite with the given name.
  * 
- * The reason the namespace is used twice is to allow the use of this macro
- * as TEST_SUITE(name) {
- * 
- * @param NAME The name of the new test suite
+ * @param NAME The name of the new test suite.
  */
-#define TEST_SUITE(NAME) TEST_SUITE2(NAME, __LINE__)
-
-#define TEST_SUITE2(NAME, LINE) TEST_SUITE3(NAME, LINE)
-
-#define TEST_SUITE3(NAME, LINE) \
-	namespace suite_namespace_##NAME##_##LINE \
+#define TEST_SUITE(NAME) \
+	namespace suite_namespace_##NAME \
 	{ \
 		static void (*_set_up)() = 0; \
 		static void (*_tear_down)() = 0; \
 		static Copper::Suite current_suite(#NAME, _set_up, _tear_down); \
 	} \
-	namespace suite_namespace_##NAME##_##LINE
+	namespace suite_namespace_##NAME
 
 /**
- * Define a new Test with the given name
+ * Defines a new test with the given name.
  * 
- * @param NAME The name of the new test suite
+ * @param NAME The name of the new test.
  */
 #define TEST(NAME) \
 	class test_##NAME : public Copper::Test \
@@ -70,28 +63,36 @@
 	void test_##NAME::run()
 
 /**
- * Define a new Fixture, with the given name
+ * Define a new fixture, with the given name.
  * 
- * @param NAME The name of the new fixture
+ * @param NAME The name of the new fixture.
  */
 #define FIXTURE(NAME) namespace fixture_namespace_##NAME
 
+/**
+ * Defines a function that should be called whenever the fixture containing
+ * it is initialized.
+ */
 #define SET_UP \
 	void __set_up(); \
 	void (*_set_up)() = __set_up; \
 	void __set_up()
 
+/**
+ * Defines a function that should be called whenever the fixture containing
+ * it is de-initialized.
+ */
 #define TEAR_DOWN \
 	void __tear_down(); \
 	void (*_tear_down)() = __tear_down; \
 	void __tear_down()
 
 /**
- * Define a new Test with the given name. The fixture will be used to set up
+ * Define a new test with the given name. The fixture will be used to set up
  * or tear down the test.
-
- * @param NAME The name of the new test suite
- * @param FIXTURE The Fixture to use for test management
+ * 
+ * @param NAME The name of the new test suite.
+ * @param FIXTURE The fixture to use for test management.
  */
 #define FIXTURE_TEST(NAME, FIXTURE) \
 	namespace fixture_namespace_##FIXTURE \
@@ -122,6 +123,13 @@
 
 inline void __throws_cleanup(...) {}
 
+/**
+ * Used to check if some code throws a certain type of exception.
+ * 
+ * @param TYPE The type of exception that should be thrown.
+ * @param CODE Some valid C++ code. This code will be executed, and any
+ *             exceptions it throws will be checked against TYPE.
+ */
 #define throws(TYPE, CODE) ); \
 { bool __copper_exception_thrown = false; \
 	try \

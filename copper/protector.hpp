@@ -14,51 +14,23 @@ namespace Copper
 	class Test;
 	class Assertion;
 
-	/**
-	 * Protectors guard against possible errors while running a test. This
-	 * is an abstract interface for a Protector, which must be subclassed
-	 * to be useful.
-	 */
 	class Protector
 	{
 	public:
-		/** Default constructor */
 		Protector () throw ();
 
-		/** Default destructor */
 		virtual
 		~Protector () throw ();
 
-		/**
-		 * Add a protector to the list of available protectors
-		 * 
-		 * @param protector The Protector to add
-		 */
 		static
 		void
 		add (Protector *protector);
 
-		/**
-		 * Guard a test with all protectors currently available
-		 * 
-		 * @param test The Test to guard
-		 * 
-		 * @return If an error occurred, a pointer to the error
-		 * description. If no error occurred, returns NULL.
-		 */
 		static
 		Error *
 		guard (Test *test);
 
 	protected:
-		/**
-		 * Call the next Protector in the global list to guard the test
-		 * 
-		 * @param test The Test to guard
-		 * 
-		 * @return If an error occurred, a pointer to the error
-		 * description. If no error occurred, returns NULL.
-		 */
 		Error *
 		next_protector (Test *test);
 
@@ -67,10 +39,10 @@ namespace Copper
 		 * protectors be nested for them to work properly, so use
 		 * next_protector () to do so.
 		 * 
-		 * @param test The Test to guard
+		 * @param test The test to guard.
 		 * 
 		 * @return If an error occurred, a pointer to the error
-		 * description. If no error occurred, returns NULL.
+		 *         description. If no error occurred, returns NULL.
 		 */
 		virtual
 		Error *

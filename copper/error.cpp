@@ -7,11 +7,26 @@
 
 namespace Copper
 {
-	Error::Error (const String &_message) throw ():
-	              message (_message)
+	/** @class Error
+	 * This is used to indicate that something unexpected went wrong
+	 * running a test.
+	 */
+
+	/** @var Error::message
+	 * The error that occurred
+	 */
+
+	/**
+	 * Default constructor
+	 * 
+	 * @param message The error string
+	 */
+	Error::Error (const String &message) throw ():
+	              message (message)
 	{
 	}
 
+	/** Default destructor */
 	Error::~Error () throw () 
 	{
 	}

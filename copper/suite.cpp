@@ -8,6 +8,13 @@
 
 namespace Copper
 {
+	/** @class Suite
+	 */
+
+	/** @var Suite::tests
+	 * All tests in this suite, in no particular order.
+	 */
+
 	List<Suite>&
 	suites () throw ()
 	{
@@ -15,24 +22,41 @@ namespace Copper
 		return _suites;
 	}
 
+	/**
+	 * Default constructor
+	 * 
+	 * @param name The name of the test suite.
+	 */
 	EXPORT
-	Suite::Suite (const String &_name, void (*&)(), void (*&)()) throw ():
-	              name (_name)
+	Suite::Suite (const String &name, void (*&)(), void (*&)()) throw ():
+	              name (name)
 	{
 		suites ().append (this);
 	}
 
+	/** Default destructor */
 	EXPORT
 	Suite::~Suite () throw ()
 	{
 	}
 
+	/**
+	 * Add a test to this suite. This should never be called except by
+	 * the constructor for the Test class.
+	 * 
+	 * @param test The test to add.
+	 */
 	void
 	Suite::add_test (Test *test) throw ()
 	{
 		tests.append (test);
 	}
 
+	/**
+	 * Get the list of tests in this suite.
+	 * 
+	 * @return All tests in this suite, in no particular order.
+	 */
 	EXPORT
 	List<Test>
 	Suite::get_tests () const throw ()
@@ -40,6 +64,11 @@ namespace Copper
 		return tests;
 	}
 
+	/**
+	 * Get a list of all test suites.
+	 * 
+	 * @return A list of all test suites.
+	 */
 	EXPORT
 	List<Suite>
 	Suite::all_suites () throw ()

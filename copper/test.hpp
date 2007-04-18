@@ -21,7 +21,6 @@ namespace Copper
 		virtual
 		~Test ();
 
-		/** Get a list of all tests */
 		static
 		List<Test>
 		all ();
@@ -31,23 +30,18 @@ namespace Copper
 		void
 		run () = 0;
 
-		/** Default, does nothing */
 		virtual
 		void
 		set_up ();
 
-		/** Default, does nothing */
 		virtual
 		void
 		tear_down ();
 
-		/** The name of this test */
 		const String name;
 
-		/** The suite this test is part of */
 		const Suite *suite;
 
-		/** The file this test's implementation is in */
 		const String file_name;
 
 	private:

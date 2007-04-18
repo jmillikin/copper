@@ -16,32 +16,16 @@ namespace Copper
 	class Suite
 	{
 	public:
-		/**
-		 * Default constructor
-		 * 
-		 * @param name The name of the test suite
-		 */
 		Suite (const String &name, void (*&)(), void (*&)()) throw ();
 
-		/** Default destructor */
 		~Suite () throw ();
 
-		/**
-		 * Add a test to this suite. Should never be used except in
-		 * the constructor for the Test class
-		 */
 		void
 		add_test (Test *test) throw ();
 
-		/**
-		 * Get the list of tests in this suite
-		 * 
-		 * @return All tests in this suite, in no particular order
-		 */
 		List<Test>
 		get_tests () const throw ();
 
-		/** Get a list of all test suites */
 		static
 		List<Suite>
 		all_suites () throw ();
@@ -50,7 +34,6 @@ namespace Copper
 		const String name;
 
 	protected:
-		/** All tests in this suite, in no particular order */
 		List<Test> tests;
 
 	private:

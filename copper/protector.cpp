@@ -12,6 +12,12 @@
 
 namespace Copper
 {
+	/** @class Protector
+	 * Protectors guard against possible errors while running a test. This
+	 * is an abstract interface for a Protector, which must be subclassed
+	 * to be useful.
+	 */
+
 	List<Protector>&
 	protectors () throw ()
 	{
@@ -19,15 +25,24 @@ namespace Copper
 		return _protectors;
 	}
 
+	/** Default constructor */
+	EXPORT
 	Protector::Protector () throw ()
 	{
 		add (this);
 	}
 
+	/** Default destructor */
+	EXPORT
 	Protector::~Protector () throw ()
 	{
 	}
 
+	/**
+	 * Add a protector to the list of available protectors
+	 * 
+	 * @param protector The Protector to add
+	 */
 	EXPORT
 	void
 	Protector::add (Protector *protector)
@@ -35,6 +50,14 @@ namespace Copper
 		protectors ().append (protector);
 	}
 
+	/**
+	 * Guard a test with all protectors currently available
+	 * 
+	 * @param test The test to guard
+	 * 
+	 * @return If an error occurred, a pointer to the error description.
+	 *         If no error occurred, returns NULL.
+	 */
 	Error *
 	Protector::guard (Test *test)
 	{
@@ -51,6 +74,15 @@ namespace Copper
 		}
 	}
 
+	/**
+	 * Call the next protector in the global list to guard the test.
+	 * 
+	 * @param test The test to guard.
+	 * 
+	 * @return If an error occurred, a pointer to the error description.
+	 *         If no error occurred, returns NULL.
+	 */
+	EXPORT
 	Error *
 	Protector::next_protector (Test *test)
 	{

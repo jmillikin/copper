@@ -9,24 +9,50 @@
 
 namespace Copper
 {
-	EXPORT
-	Test::Test (const String &_name,
-	            Suite *_suite,
-	            const String &_file_name) throw ():
+	/** @class Test
+	 * Does nothing interesting by itself, but is subclassed to provide
+	 * runnable test classes.
+	 */
 
-	            name (_name),
-	            suite (_suite),
-	            file_name (_file_name)
+	/** @var Test::name
+	 * The name of this test.
+	 */
+
+	/** @var Test::suite
+	 * The suite this test is part of.
+	 */
+
+	/** @var Test::file_name
+	 * The file this test's implementation is in.
+	 */
+
+	/**
+	 * Constructs a new test.
+	 * 
+	 * @param name The name of this test.
+	 * @param suite The suite this test is part of.
+	 * @param file_name The file this test's implementation is in.
+	 */
+	EXPORT
+	Test::Test (const String &name,
+	            Suite *suite,
+	            const String &file_name) throw ():
+
+	            name (name),
+	            suite (suite),
+	            file_name (file_name)
 	{
 		if (suite)
-			_suite->add_test (this);
+			suite->add_test (this);
 	}
 
+	/** Default destructor */
 	EXPORT
 	Test::~Test ()
 	{
 	}
 
+	/** Get a list of all tests */
 	EXPORT
 	List<Test>
 	Test::all ()
@@ -53,11 +79,13 @@ namespace Copper
 		return all_tests;
 	}
 
+	/** Default, does nothing */
 	void
 	Test::set_up ()
 	{
 	}
 
+	/** Default, does nothing */
 	void
 	Test::tear_down ()
 	{

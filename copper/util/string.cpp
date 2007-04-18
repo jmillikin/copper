@@ -11,6 +11,9 @@ using namespace std;
 
 namespace Copper
 {
+	/**
+	 * An implementation of the GNU project's strndup
+	 */
 	char *
 	strndup (const char *a, const unsigned int size) throw ()
 	{

@@ -12,6 +12,32 @@ using namespace std;
 
 namespace Copper
 {
+	/** @class DefaultOutputHandler
+	 * This is a default implementation of an OutputHandler. It will
+	 * output failures to the standard error stream.
+	 */
+
+	/** @var DefaultOutputHandler::num_passed
+	 * The number of tests that have passed.
+	 */
+
+	/** @var DefaultOutputHandler::num_failed
+	 * The number of failed tests.
+	 */
+
+	/** @var DefaultOutputHandler::num_errors
+	 * The number of tests that had errors.
+	 */
+
+	/** @var DefaultOutputHandler::protect
+	 * Whether to protect running tests from runtime errors.
+	 */
+
+	/** @var DefaultOutputHandler::tests
+	 * A list of which tests to run.
+	 */
+
+	/** Default constructor */
 	DefaultOutputHandler::DefaultOutputHandler (int &argc, char **&argv) throw ():
 	                                            OutputHandler (),
 	                                            num_passed (0),
@@ -31,21 +57,31 @@ namespace Copper
 		}
 	}
 
+	/** Default destructor */
 	DefaultOutputHandler::~DefaultOutputHandler () throw ()
 	{
 	}
 
+	/** Does nothing */
 	void
 	DefaultOutputHandler::begin (const Test *) throw ()
 	{
 	}
 
+	/** Outputs nothing, but keeps track of how many tests passed. */
 	void
 	DefaultOutputHandler::pass (const Test *) throw ()
 	{
 		++num_passed;
 	}
 
+	/**
+	 * Outputs failures to the standard error stream. Also keeps track of
+	 * how many tests failed.
+	 * 
+	 * @param test The test that failed.
+	 * @param failure Details of the failed assertion.
+	 */
 	void
 	DefaultOutputHandler::fail (const Test *test,
 	                            const Failure *failure) throw ()
@@ -63,6 +99,13 @@ namespace Copper
 		        failure->message.c_str());
 	}
 
+	/**
+	 * Outputs errors to the standard error stream. Also keeps track of
+	 * how many tests errored out.
+	 * 
+	 * @param test The test that failed.
+	 * @param error The error that occurred.
+	 */
 	void
 	DefaultOutputHandler::error (const Test *test,
 	                             const Error *error) throw ()
@@ -78,6 +121,11 @@ namespace Copper
 		        error->message.c_str());
 	}
 
+	/**
+	 * Run every test available.
+	 * 
+	 * @return The number of failures + the number of errors.
+	 */
 	int
 	DefaultOutputHandler::run ()
 	{

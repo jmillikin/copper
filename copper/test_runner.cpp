@@ -159,6 +159,15 @@ unserialize (const char *c_message, Failure **failure, Error **error)
 
 namespace Copper
 {
+	/**
+	 * Execute a test. This function runs a test, usually in a restricted
+	 * environment or in a different process for safety reasons.
+	 * 
+	 * @param test The test to run.
+	 * @param protect Whether protectors should wrap the test's execution.
+	 * @param failure This parameter will be set if a failure occurs.
+	 * @param error This parameter will be set if an error occurs.
+	 */
 	void
 	exec_test (Test *test,
 	           bool protect,

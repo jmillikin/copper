@@ -15,16 +15,93 @@ using namespace std;
 
 namespace Copper
 {
+	Suite *
+	find_suite (const String &name);
+
+	Test *
+	find_test (const char *full_name);
+
+	/** @class OutputHandler
+	 * This class must be subclassed to provide different output formats.
+	 */
+
+	/** Default constructor */
 	EXPORT
 	OutputHandler::OutputHandler ()
 	{
 	}
 
+	/** Default destructor */
 	EXPORT
 	OutputHandler::~OutputHandler ()
 	{
 	}
 
+	/**
+	 * Get a list of tests to run, by parsing commandline arguments.
+	 * 
+	 * @param argc The argument count.
+	 * @param argv The arguments.
+	 * 
+	 * @return A list of tests that match the given arguments.
+	 */
+	EXPORT
+	List<Test>
+	OutputHandler::parse_test_args (int argc, char **argv)
+	{
+		List<Test> tests;
+
+		for (int ii = 0; ii < argc; ii++)
+		{
+			const char *name = argv[ii];
+			const char *midpoint = strchr (name, '.');
+
+			if (midpoint)
+			{
+				// This name includes a test name
+				Test *test = find_test (name);
+				if (test)
+				{
+					tests.append (test);
+				}
+			}
+
+			else
+			{
+				// No test name, append everything in the suite
+				Suite *suite = find_suite (name);
+
+				if (suite)
+				{
+					List<Test> suite_tests;
+					const ListNode<Test> *node;
+
+					suite_tests = suite->get_tests ();
+					node = suite_tests.root ();
+					while (node)
+					{
+						tests.append (node->value);
+						node = node->next;
+					}
+				}
+			}
+		}
+
+		if (tests.size ())
+			return tests;
+
+		else
+			return Test::all ();
+	}
+
+	/**
+	 * Run a single test. This function automatically manages Protectors
+	 * and exception handling.
+	 * 
+	 * @param test The test to run.
+	 * @param protect Whether to use Protectors to guard against runtime
+	 *                errors.
+	 */
 	EXPORT void
 	OutputHandler::run_test (Test *test, bool protect)
 	{
@@ -53,6 +130,14 @@ namespace Copper
 		}
 	}
 
+	/**
+	 * Run a many tests. This function automatically manages
+	 * Protectors and exception handling.
+	 * 
+	 * @param tests The tests to run
+	 * @param protect Whether to use Protectors to guard against
+	 *                runtime errors.
+	 */
 	EXPORT
 	void
 	OutputHandler::run_tests (List<Test> tests, bool protect)
@@ -115,54 +200,5 @@ namespace Copper
 		}
 
 		return NULL;
-	}
-
-	EXPORT
-	List<Test>
-	OutputHandler::parse_test_args (int argc, char **argv)
-	{
-		List<Test> tests;
-
-		for (int ii = 0; ii < argc; ii++)
-		{
-			const char *name = argv[ii];
-			const char *midpoint = strchr (name, '.');
-
-			if (midpoint)
-			{
-				// This name includes a test name
-				Test *test = find_test (name);
-				if (test)
-				{
-					tests.append (test);
-				}
-			}
-
-			else
-			{
-				// No test name, append everything in the suite
-				Suite *suite = find_suite (name);
-
-				if (suite)
-				{
-					List<Test> suite_tests;
-					const ListNode<Test> *node;
-
-					suite_tests = suite->get_tests ();
-					node = suite_tests.root ();
-					while (node)
-					{
-						tests.append (node->value);
-						node = node->next;
-					}
-				}
-			}
-		}
-
-		if (tests.size ())
-			return tests;
-
-		else
-			return Test::all ();
 	}
 }

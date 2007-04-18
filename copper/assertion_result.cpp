@@ -11,6 +11,23 @@
 
 namespace Copper
 {
+	/** @class AssertionResult
+	 * Used for returning whether an assertion passed or not.
+	 */
+
+	/** @var AssertionResult::m_finished
+	 * True if pass () or fail () has been called.
+	 */
+
+	/** @var AssertionResult::m_passed
+	 * Whether the Assertion has passed or failed.
+	 */
+
+	/** @var AssertionResult::m_failure_message
+	 * If the Assertion failed, this will contain the failure message.
+	 */
+
+	/** Default constructor */
 	EXPORT
 	AssertionResult::AssertionResult () throw ():
 	                                  m_finished (false),
@@ -19,6 +36,7 @@ namespace Copper
 	{
 	}
 
+	/** Construct from a boolean value */
 	EXPORT
 	AssertionResult::AssertionResult (bool result) throw ():
 	                                  m_finished (true),
@@ -31,6 +49,7 @@ namespace Copper
 			m_failure_message = "No Error";
 	}
 
+	/** Copy constructor */
 	EXPORT
 	AssertionResult::AssertionResult (const AssertionResult &other) throw ()
 	{
@@ -39,6 +58,7 @@ namespace Copper
 		m_failure_message = other.m_failure_message;
 	}
 
+	/** Assignment operator */
 	EXPORT
 	const AssertionResult &
 	AssertionResult::operator= (const AssertionResult &other) throw ()
@@ -50,11 +70,13 @@ namespace Copper
 		return *this;
 	}
 
+	/** Default destructor */
 	EXPORT
 	AssertionResult::~AssertionResult () throw ()
 	{
 	}
 
+	/** Mark that the Assertion has passed */
 	EXPORT
 	void
 	AssertionResult::pass () throw ()
@@ -67,20 +89,29 @@ namespace Copper
 		}
 	}
 
+	/**
+	 * Mark that the Assertion has failed
+	 * 
+	 * @param message The failure message
+	 * 
+	 * @return The AssertionResult, for use in constructing failed
+	 *         assertions with a single expression
+	 */
 	EXPORT
 	const AssertionResult &
-	AssertionResult::fail (const String &failure_message) throw ()
+	AssertionResult::fail (const String &message) throw ()
 	{
 		if (!m_finished)
 		{
 			m_passed = false;
 			m_finished = true;
-			m_failure_message = failure_message;
+			m_failure_message = message;
 		}
 
 		return *this;
 	}
 
+	/** Get whether the Assertion has passed or failed */
 	EXPORT
 	bool
 	AssertionResult::passed () const throw ()
@@ -88,6 +119,7 @@ namespace Copper
 		return m_finished && m_passed;
 	}
 
+	/** If the Assertion failed, get the failure message */
 	EXPORT
 	const String &
 	AssertionResult::failure_message () const throw ()
@@ -95,6 +127,10 @@ namespace Copper
 		return m_failure_message;
 	}
 
+	/**
+	 * Allow automatic conversions to boolean, for operations
+	 * such as AND-ing.
+	 */
 	EXPORT
 	AssertionResult::operator bool () const throw ()
 	{

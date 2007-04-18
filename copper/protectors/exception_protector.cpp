@@ -14,15 +14,30 @@
 
 namespace Copper
 {
+	/** @class ExceptionProtector
+	 * Guards against unknown exceptions being thrown by tests.
+	 */
+
+	/** Default constructor */
 	ExceptionProtector::ExceptionProtector () throw ():
 	                                        Protector ()
 	{
 	}
 
+	/** Default destructor */
 	ExceptionProtector::~ExceptionProtector () throw ()
 	{
 	}
 
+	/**
+	 * Guard a test with this Protector, to ensure it doesn't throw any
+	 * weird exceptions.
+	 * 
+	 * @param test The Test to guard
+	 * 
+	 * @return If an error occurred, a pointer to the error
+	 * description. If no error occurred, returns NULL.
+	*/
 	Error *
 	ExceptionProtector::_guard (Test *test)
 	{
