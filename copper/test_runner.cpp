@@ -4,6 +4,8 @@
  */
 
 #include <cassert>
+#include <cstdlib>
+#include <cctype>
 
 #include "error.hpp"
 #include "failure.hpp"
@@ -34,6 +36,8 @@ on_failure (const Failure &failure, void *_data);
 
 #ifdef COPPER_USE_FORK
 
+#include <cstring>
+#include <cstdio>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
