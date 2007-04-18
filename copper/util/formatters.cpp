@@ -107,22 +107,22 @@ namespace Copper {
 		return String (buffer);
 	}
 
-	/* FIXME I'm pretty sure this will break for weird values */
+	/* FIXME, see format (double) */
 	EXPORT
 	String
 	format (const float &v) throw ()
 	{
-		char buffer[100]; /* FIXME: enough? */
-		std::sprintf (buffer, "%g", v);
-		return String (buffer);
+		return format (static_cast<double>(v));
 	}
 
-	/* FIXME, see format (float) */
+	/* FIXME I'm pretty sure this will break for weird values */
 	EXPORT
 	String
 	format (const double &v) throw ()
 	{
-		return format (static_cast<float>(v));
+		char buffer[100]; /* FIXME: enough? */
+		std::sprintf (buffer, "%g", v);
+		return String (buffer);
 	}
 
 	EXPORT
