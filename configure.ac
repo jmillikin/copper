@@ -91,17 +91,6 @@ else
   )
 fi
 
-COPPER_CHECK_SIGBUS
-if test "$coppper_sigbus_support" = "no"; then
-  AC_DEFINE(HAVE_SIGBUS, 0,
-    [The compiler does not have the SIGBUS signal]
-  )
-else
-  AC_DEFINE(HAVE_SIGBUS, 1,
-    [The compiler has the SIGBUS signal]
-  )
-fi
-
 COPPER_CHECK_STRSIGNAL
 if test "$coppper_strsignal_support" = "no"; then
   AC_DEFINE(HAVE_STRSIGNAL, 0,
