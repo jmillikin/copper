@@ -25,12 +25,17 @@ namespace Copper
 	 * The file this test's implementation is in.
 	 */
 
+	/** @var Test::line
+	 * The line this test was defined on.
+	 */
+
 	/**
 	 * Constructs a new test.
 	 * 
 	 * @param name The name of this test.
 	 * @param suite The suite this test is part of.
 	 * @param file_name The file this test's implementation is in.
+	 * @param line The line this test was defined on.
 	 */
 	Test::Test (const String &name,
 	            Suite *suite,
