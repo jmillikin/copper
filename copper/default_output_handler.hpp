@@ -31,14 +31,13 @@ namespace Copper
 		int
 		run();
 
-	protected:
-		unsigned int num_passed;
-		unsigned int num_failed;
-		unsigned int num_errors;
+	private:
+		class DefaultOutputHandlerPrivate *priv;
 
-		bool protect;
+		DefaultOutputHandler (const DefaultOutputHandler&) throw ();
 
-		List<Test> tests;
+		DefaultOutputHandler &
+		operator= (const DefaultOutputHandler&) throw ();
 	};
 }
 

@@ -13,46 +13,55 @@ using namespace std;
 
 namespace Copper
 {
+	/**
+	 * Private implementation details of DefaultOutputHandler.
+	 */
+	class DefaultOutputHandlerPrivate
+	{
+	public:
+		DefaultOutputHandlerPrivate (List<Test> tests):
+		                             num_passed (0),
+		                             num_failed (0),
+		                             num_errors (0),
+		                             protect (true),
+		                             tests (tests)
+		{
+		}
+
+		/** The number of tests that have passed. */
+		unsigned int num_passed;
+
+		/** The number of failed tests. */
+		unsigned int num_failed;
+
+		/** The number of tests that had errors. */
+		unsigned int num_errors;
+
+		/** Whether to protect running tests from runtime errors. */
+		bool protect;
+
+		/* A list of which tests to run. */
+		List<Test> tests;
+	};
+
+	typedef DefaultOutputHandlerPrivate DOHP;
+
 	/** @class DefaultOutputHandler
 	 * This is a default implementation of an OutputHandler. It will
 	 * output failures to the standard error stream.
 	 */
 
-	/** @var DefaultOutputHandler::num_passed
-	 * The number of tests that have passed.
-	 */
-
-	/** @var DefaultOutputHandler::num_failed
-	 * The number of failed tests.
-	 */
-
-	/** @var DefaultOutputHandler::num_errors
-	 * The number of tests that had errors.
-	 */
-
-	/** @var DefaultOutputHandler::protect
-	 * Whether to protect running tests from runtime errors.
-	 */
-
-	/** @var DefaultOutputHandler::tests
-	 * A list of which tests to run.
-	 */
-
 	/** Default constructor */
 	DefaultOutputHandler::DefaultOutputHandler (int &argc, char **&argv) throw ():
 	                                            OutputHandler (),
-	                                            num_passed (0),
-	                                            num_failed (0),
-	                                            num_errors (0),
-	                                            protect (true),
-	                                            tests (parse_test_args (argc, argv))
+	                                            priv (new DOHP (parse_test_args (argc, argv)))
 	{
 		// Allow exception catching to be toggled on or off at runtime
 		for (int ii = 1; ii < argc; ii++)
 		{
 			if (strcmp (argv[ii], "--no-protection") == 0)
 			{
-				protect = false;
+				priv->protect = false;
 				break;
 			}	 
 		}
@@ -61,6 +70,7 @@ namespace Copper
 	/** Default destructor */
 	DefaultOutputHandler::~DefaultOutputHandler () throw ()
 	{
+		delete priv;
 	}
 
 	/** Does nothing */
@@ -73,7 +83,7 @@ namespace Copper
 	void
 	DefaultOutputHandler::pass (const Test *) throw ()
 	{
-		++num_passed;
+		++priv->num_passed;
 	}
 
 	/**
@@ -87,7 +97,7 @@ namespace Copper
 	DefaultOutputHandler::fail (const Test *test,
 	                            const Failure *failure) throw ()
 	{
-		++num_failed;
+		++priv->num_failed;
 
 		fprintf(stderr,
 		        "FAILURE in %s:%u:\n"
@@ -111,7 +121,7 @@ namespace Copper
 	DefaultOutputHandler::error (const Test *test,
 	                             const Error *error) throw ()
 	{
-		++num_errors;
+		++priv->num_errors;
 
 		fprintf(stderr,
 		        "ERROR in %s:\n"
@@ -131,16 +141,16 @@ namespace Copper
 	DefaultOutputHandler::run ()
 	{
 		// Reset statistics
-		num_passed = 0;
-		num_failed = 0;
-		num_errors = 0;
+		priv->num_passed = 0;
+		priv->num_failed = 0;
+		priv->num_errors = 0;
 
 		// Store when the tests started
 		time_t start_time;
 		time (&start_time);
 
 		// Run all tests
-		run_tests (tests, protect);
+		run_tests (priv->tests, priv->protect);
 
 		// Calculate running time
 		time_t now;
@@ -149,12 +159,15 @@ namespace Copper
 		// Print statistics
 		printf ("%u tests passed\n"
 		        "%u tests failed\n"
-		        "%u errors\n", num_passed, num_failed, num_errors);
+		        "%u errors\n",
+		        priv->num_passed,
+		        priv->num_failed,
+		        priv->num_errors);
 
 		// Print running time
 		printf ("Completed in %g seconds\n",
 		        difftime (now, start_time));
 
-		return num_failed + num_errors;
+		return priv->num_failed + priv->num_errors;
 	}
 }
