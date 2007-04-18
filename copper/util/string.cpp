@@ -12,6 +12,17 @@ using namespace std;
 
 namespace Copper
 {
+	class StringPrivate
+	{
+	public:
+		StringPrivate (char *str):
+		               str(str)
+		{
+		}
+
+		char *str;
+	};
+
 	/**
 	 * An implementation of the GNU project's strndup
 	 */
@@ -32,31 +43,32 @@ namespace Copper
 	}
 
 	String::String (const char *_str, const unsigned int size) throw ():
-	                str (strndup (_str, size))
+	                priv (new StringPrivate (strndup (_str, size)))
 	{
 	}
 
 	String::String (const String &other) throw ():
-	                str (strndup (other.str))
+	                priv (new StringPrivate (strndup (other.priv->str)))
 	{
 	}
 
 	String::~String () throw () {
-		delete str;
+		delete priv->str;
+		delete priv;
 	}
 
 	const String &
 	String::operator= (const String &other) throw ()
 	{
-		delete str;
-		str = strndup (other.str);
+		delete priv->str;
+		priv->str = strndup (other.priv->str);
 		return *this;
 	}
 
 	bool
 	String::operator== (const String &other) const throw ()
 	{
-		return strcmp (str, other.str) == 0;
+		return strcmp (priv->str, other.priv->str) == 0;
 	}
 
 	bool
@@ -72,8 +84,8 @@ namespace Copper
 		size_t full_size = this_size + other.size ();
 
 		char *new_c_str = new char [full_size + 1];
-		strcpy (new_c_str, str);
-		strcpy (new_c_str + this_size, other.str);
+		strcpy (new_c_str, priv->str);
+		strcpy (new_c_str + this_size, other.priv->str);
 
 		new_c_str[full_size] = 0;
 
@@ -86,13 +98,13 @@ namespace Copper
 	size_t
 	String::size () const throw ()
 	{
-		return strlen (str);
+		return strlen (priv->str);
 	}
 
 	const char *
 	String::c_str () const throw ()
 	{
-		return str;
+		return priv->str;
 	}
 
 }

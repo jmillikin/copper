@@ -41,8 +41,8 @@ namespace Copper
 		const char *
 		c_str () const throw ();
 
-	protected:
-		char *str;
+	private:
+		class StringPrivate *priv;
 	};
 
 	COPPER_EXPORT
