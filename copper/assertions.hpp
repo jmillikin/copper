@@ -11,12 +11,12 @@
 #include <copper/util/formatters.hpp>
 
 /**
- * Assert two values are equal
+ * Assert two values are equal.
  * 
- * @param expected The expected value of this assertion
- * @param actual The value which should be tested against the expected value
+ * @param expected The expected value of this assertion.
+ * @param actual The value which should be tested against the expected value.
  * 
- * @return An AssertionResult
+ * @return An AssertionResult.
  */
 template <class Expected, class Actual>
 Copper::AssertionResult
@@ -42,12 +42,12 @@ equal (const Expected &expected, const Actual &actual) throw ()
 }
 
 /**
- * Overloaded forms of equal (), used for character strings
+ * An overloaded forms of equal (), used for character strings.
  * 
- * @param expected The expected value of this assertion
- * @param actual The value which should be tested against the expected value
+ * @param expected The expected value of this assertion.
+ * @param actual The value which should be tested against the expected value.
  * 
- * @return An AssertionResult
+ * @return An AssertionResult.
  */
 Copper::AssertionResult
 equal (const char *expected, const char *actual) throw ();
@@ -62,12 +62,12 @@ Copper::AssertionResult
 equal (char expected[], char actual[]) throw ();
 
 /**
- * Check that the two values are nearly equal within a certain delta
+ * Check that the two values are nearly equal within a certain delta.
  * 
- * @param result The value which should be tested against the expected value
- * @param expected The expected value of this assertion
+ * @param expected The expected value of this assertion.
+ * @param actual The value which should be tested against the expected value.
  * @param delta The allowable difference between the expected and actual
- * values
+ *              values.
  * 
  * @return An AssertionResult
  */
@@ -96,12 +96,12 @@ equal_within (const Value &expected,
 }
 
 /**
- * Assert two values are unequal
+ * Assert two values are unequal.
  * 
- * @param bad Something that #actual should not be
- * @param actual The value which should be tested against the expected value
+ * @param bad Something that actual should not be.
+ * @param actual The value which should be tested against the expected value.
  * 
- * @return An AssertionResult
+ * @return An AssertionResult.
  */
 template <class Bad, class Actual>
 Copper::AssertionResult
@@ -125,12 +125,12 @@ unequal (const Bad &bad, const Actual &actual) throw ()
 }
 
 /**
- * An overloaded form of unequal (), used for character strings
+ * An overloaded form of unequal (), used for character strings.
  * 
- * @param bad Something that #actual should not be
- * @param actual The value which should be tested against the expected value
+ * @param bad Something that actual should not be.
+ * @param actual The value which should be tested against the expected value.
  * 
- * @return An AssertionResult
+ * @return An AssertionResult.
  */
 Copper::AssertionResult
 unequal (const char *bad, const char *actual) throw ();
@@ -145,11 +145,11 @@ Copper::AssertionResult
 unequal (char bad[], char actual[]) throw ();
 
 /**
- * Assert some pointer is NULL
+ * Assert some pointer is NULL.
  * 
- * @param pointer The pointer to check for NULL-ness
+ * @param value The pointer to check for NULL-ness.
  * 
- * @return An AssertionResult
+ * @return An AssertionResult.
  */
 template <class Value>
 Copper::AssertionResult
@@ -167,11 +167,11 @@ is_null (const Value *value) throw ()
 }
 
 /**
- * Assert some pointer is not NULL
+ * Assert some pointer is not NULL.
  * 
- * @param pointer The pointer to check for NULL-ness
+ * @param value The pointer to check for NULL-ness.
  * 
- * @return An AssertionResult
+ * @return An AssertionResult.
  */
 template <class Value>
 Copper::AssertionResult
@@ -189,12 +189,12 @@ not_null (const Value *value) throw ()
 }
 
 /**
- * Check that the result is greater than some expected value
+ * Check that the result is greater than some expected value.
  * 
- * @param actual The value which should be tested against the limit
- * @param limit The value the result must be above
+ * @param actual The value which should be tested against the limit.
+ * @param limit The value the result must be above.
  * 
- * @return An AssertionResult
+ * @return An AssertionResult.
  */
 template <class Value>
 Copper::AssertionResult
@@ -218,12 +218,12 @@ greater_than (const Value &actual, const Value &limit) throw ()
 }
 
 /**
- * Check that the result is greater than or equal to some expected value
+ * Check that the result is greater than or equal to some expected value.
  * 
- * @param actual The value which should be tested against the limit
- * @param limit The number the result must be above or equal to
+ * @param actual The value which should be tested against the limit.
+ * @param limit The number the result must be above or equal to.
  * 
- * @return An AssertionResult
+ * @return An AssertionResult.
  */
 template <class Value>
 Copper::AssertionResult
@@ -247,12 +247,12 @@ greater_than_or_equal (const Value &actual, const Value &limit) throw ()
 }
 
 /**
- * Check that the result is less than some expected value
+ * Check that the result is less than some expected value.
  * 
- * @param actual The value which should be tested against the limit
- * @param limit The number the result must be below
+ * @param actual The value which should be tested against the limit.
+ * @param limit The number the result must be below.
  * 
- * @return An AssertionResult
+ * @return An AssertionResult.
  */
 template <class Value>
 Copper::AssertionResult
@@ -276,12 +276,12 @@ less_than (const Value &actual, const Value &limit) throw ()
 }
 
 /**
- * Check that the result is less than or equal to some expected value
+ * Check that the result is less than or equal to some expected value.
  * 
- * @param result The value which should be tested against the limit
- * @param limit The number the result must be below or equal to
+ * @param actual The value which should be tested against the limit.
+ * @param limit The number the result must be below or equal to.
  * 
- * @return An AssertionResult
+ * @return An AssertionResult.
  */
 template <class Value>
 Copper::AssertionResult
