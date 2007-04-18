@@ -291,7 +291,7 @@ fork_test (Test *test, bool protect, Failure **failure, Error **error)
 
 				unserialize (message, failure, error);
 
-				delete message;
+				delete[] message;
 			}
 		}
 
