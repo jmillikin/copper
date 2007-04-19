@@ -14,9 +14,6 @@ using namespace std;
 
 namespace Copper
 {
-	Suite *
-	find_suite (const String &name);
-
 	Test *
 	find_test (const String &suite_name, const String &test_name);
 
@@ -68,7 +65,7 @@ namespace Copper
 			else
 			{
 				// No test name, append everything in the suite
-				Suite *suite = find_suite (name);
+				const Suite *suite = Suite::find (name);
 
 				if (suite)
 				{
@@ -147,23 +144,11 @@ namespace Copper
 		return key->name == *static_cast<const String *> (data);
 	}
 
-	Suite *
-	find_suite (const String &name)
-	{
-		const ListNode<Suite> *node;
-		node = Suite::all_suites ().find (matcher, &name);
-
-		if (node)
-			return node->value;
-
-		return NULL;
-	}
-
 	Test *
 	find_test (const String &suite_name, const String &test_name)
 	{
 		// Find the suite
-		Suite *suite = find_suite (suite_name);
+		const Suite *suite = Suite::find (suite_name);
 
 		if (suite)
 		{
