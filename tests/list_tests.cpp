@@ -72,4 +72,18 @@ TEST_SUITE (list_tests)
 		ASSERT (equal (a.root ()->value, &i));
 		ASSERT (equal (1, a.size ()));
 	}
+
+	TEST (extend)
+	{
+		int i, j;
+		Copper::List<int> a, b;
+		a.append (&i);
+		b.append (&j);
+
+		a.extend (b);
+		ASSERT (not_null (a.root ()));
+		ASSERT (equal (2, a.size ()));
+		ASSERT (equal (a.root ()->value, &i));
+		ASSERT (equal (a.root ()->next->value, &j));
+	}
 }
