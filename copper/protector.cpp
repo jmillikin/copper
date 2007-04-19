@@ -72,7 +72,7 @@ namespace Copper
 
 	static
 	bool
-	test_matcher (const Protector *key, void *data)
+	test_matcher (const Protector *key, const void *data)
 	{
 		return key == data;
 	}

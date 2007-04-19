@@ -64,7 +64,7 @@ namespace Copper
 		 * 
 		 * @return whether key is the key being searched for.
 		 */
-		typedef bool (type_matcher)(const C *key, void *data);
+		typedef bool (type_matcher)(const C *key, const void *data);
 
 		/**
 		 * @brief Constructs a new, empty list.
@@ -201,7 +201,7 @@ namespace Copper
 		 *         if the key was not found.
 		 */
 		const ListNode<C> *
-		find (type_matcher *matches, void *data)
+		find (type_matcher *matches, const void *data)
 		{
 			ListNode<C> *node = _root;
 			while (node)
