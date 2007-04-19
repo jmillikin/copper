@@ -31,6 +31,10 @@ namespace Copper
 		List<Suite>
 		all_suites () throw ();
 
+		static
+		const Suite *
+		find (const String &name) throw ();
+
 		/** This suite's name */
 		const String name;
 

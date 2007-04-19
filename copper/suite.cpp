@@ -75,4 +75,31 @@ namespace Copper
 	{
 		return suites ();
 	}
+
+	static
+	bool
+	matcher (const Suite *key, const void *data)
+	{
+		return key->name == *static_cast<const String *> (data);
+	}
+
+	/**
+	 * @brief Find a named suite.
+	 * 
+	 * @param name The name of the suite.
+	 * 
+	 * @return The suite with the given name, or NULL if no such
+	 *         suite exists.
+	 */
+	const Suite *
+	Suite::find (const String &name) throw ()
+	{
+		const ListNode<Suite> *node;
+		node = all_suites ().find (matcher, &name);
+
+		if (node)
+			return node->value;
+
+		return NULL;
+	}
 }
