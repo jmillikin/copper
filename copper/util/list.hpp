@@ -14,7 +14,7 @@ namespace Copper
 	struct ListNode
 	{
 		ListNode (C *_value):
-		          next (0),
+		          next (NULL),
 		          value (_value)
 		{
 		}
@@ -28,18 +28,17 @@ namespace Copper
 	{
 	public:
 		List () throw ():
-		      _root (0),
+		      _root (NULL),
 		      _size (0)
 		{
 		}
 
-		List (const List &b)
+		List (const List &b):
+		      _root (NULL),
+		      _size (0)
 		{
 			if (!b._root)
-			{
-				_root = 0;
 				return;
-			}
 
 			_root = new ListNode<C> (b._root->value);
 
@@ -60,7 +59,8 @@ namespace Copper
 		{
 			if (!b._root)
 			{
-				_root = 0;
+				_root = NULL;
+				_size = 0;
 				return *this;
 			}
 
