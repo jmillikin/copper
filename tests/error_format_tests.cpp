@@ -29,27 +29,4 @@ TEST_SUITE (error_format_tests)
 		ASSERT (equal ("\"a\" test \"b\"",
 		               error_format ("a", "test", "b")));
 	}
-
-	TEST (null)
-	{
-		ASSERT (equal ("NULL test", error_format (NULL, "test")));
-	}
-
-	TEST (nulls)
-	{
-		ASSERT (equal ("NULL test NULL",
-		               error_format (NULL, "test", NULL)));
-	}
-
-	TEST (integer_and_null)
-	{
-		ASSERT (equal ("1 test NULL",
-		               error_format (1, "test", NULL)));
-	}
-
-	TEST (string_and_null)
-	{
-		ASSERT (equal ("\"a\" test NULL",
-		               error_format ("a", "test", NULL)));
-	}
 }
