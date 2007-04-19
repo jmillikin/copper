@@ -74,6 +74,42 @@ namespace Copper
 		return all_tests;
 	}
 
+	static
+	bool
+	matcher (const Test *key, const void *data)
+	{
+		return key->name == *static_cast<const String *> (data);
+	}
+
+	/**
+	 * @brief Find a named test.
+	 * 
+	 * @param suite_name The name of the suite containing this test.
+	 * @param test_name The name of the test.
+	 * 
+	 * @return The test with the given name, or NULL if no such
+	 *         test exists.
+	 */
+	Test *
+	Test::find (const String &suite_name,
+	            const String &test_name) throw ()
+	{
+		// Find the suite
+		const Suite *suite = Suite::find (suite_name);
+
+		if (suite)
+		{
+			const ListNode<Test> *node;
+			node = suite->get_tests ().find (matcher,
+			                                 &test_name);
+
+			if (node)
+				return node->value;
+		}
+
+		return NULL;
+	}
+
 	/** Default, does nothing */
 	void
 	Test::set_up ()

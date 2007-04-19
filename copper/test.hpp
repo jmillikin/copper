@@ -28,6 +28,11 @@ namespace Copper
 		List<Test>
 		all ();
 
+		static
+		Test *
+		find (const String &suite_name,
+		      const String &test_name) throw ();
+
 		/** Run the test */
 		virtual
 		void
