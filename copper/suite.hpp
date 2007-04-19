@@ -32,7 +32,7 @@ namespace Copper
 		all_suites () throw ();
 
 		static
-		const Suite *
+		Suite *
 		find (const String &name) throw ();
 
 		/** This suite's name */

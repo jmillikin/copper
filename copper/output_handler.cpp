@@ -65,7 +65,7 @@ namespace Copper
 			else
 			{
 				// No test name, append everything in the suite
-				const Suite *suite = Suite::find (name);
+				Suite *suite = Suite::find (name);
 
 				if (suite)
 				{

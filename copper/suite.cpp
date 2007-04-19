@@ -91,7 +91,7 @@ namespace Copper
 	 * @return The suite with the given name, or NULL if no such
 	 *         suite exists.
 	 */
-	const Suite *
+	Suite *
 	Suite::find (const String &name) throw ()
 	{
 		const ListNode<Suite> *node;
