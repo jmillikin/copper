@@ -55,7 +55,8 @@ namespace Copper
 				String suite_name (name, midpoint - name);
 				String test_name (midpoint + 1);
 
-				Test *test = find_test (suite_name, test_name);
+				Test *test = Test::find (suite_name,
+				                               test_name);
 				if (test)
 				{
 					tests.append (test);
@@ -134,31 +135,5 @@ namespace Copper
 			run_test (node->value, protect);
 			node = node->next;
 		}
-	}
-
-	template <class C>
-	static
-	bool
-	matcher (const C *key, const void *data)
-	{
-		return key->name == *static_cast<const String *> (data);
-	}
-
-	Test *
-	find_test (const String &suite_name, const String &test_name)
-	{
-		// Find the suite
-		const Suite *suite = Suite::find (suite_name);
-
-		if (suite)
-		{
-			const ListNode<Test> *node;
-			node = suite->get_tests ().find (matcher, &test_name);
-
-			if (node)
-				return node->value;
-		}
-
-		return NULL;
 	}
 }
