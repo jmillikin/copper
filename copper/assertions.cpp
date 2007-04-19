@@ -7,31 +7,31 @@
 #include "util/string.hpp"
 
 Copper::AssertionResult
-check_equal_strings (const char *expected, const char *actual) throw ()
+check_equal_strings (const char *first, const char *second) throw ()
 {
 	Copper::AssertionResult result;
 
 	// Both of the values are NULL
 	// assert (null ()) should be used instead
-	if (!expected && !actual)
+	if (!first && !second)
 		result.pass ();
 
 	else
 		// One of the values is NULL
-		result.fail (Copper::error_format (expected, "!=", actual));
+		result.fail (Copper::error_format (first, "!=", second));
 
 	return result;
 }
 
 Copper::AssertionResult
-check_unequal_strings (const char *bad, const char *actual) throw ()
+check_unequal_strings (const char *first, const char *second) throw ()
 {
 	Copper::AssertionResult result;
 
 	// Both of the values are NULL
 	// assert (not_null ()) should be used instead
-	if (!bad && !actual)
-		result.fail (Copper::error_format (bad, "==", actual));
+	if (!first && !second)
+		result.fail (Copper::error_format (first, "==", second));
 
 	else
 		// Only one the values is NULL
@@ -43,83 +43,83 @@ check_unequal_strings (const char *bad, const char *actual) throw ()
 // Overloads for equal ()
 
 Copper::AssertionResult
-equal (const char *expected, const char *actual) throw ()
+equal (const char *first, const char *second) throw ()
 {
-	if (!expected || !actual)
-		return check_equal_strings (expected, actual);
+	if (!first || !second)
+		return check_equal_strings (first, second);
 
-	Copper::String s_expected (expected), s_actual (actual);
-	return equal (s_expected, s_actual);
+	Copper::String s_first (first), s_second (second);
+	return equal (s_first, s_second);
 }
 
 Copper::AssertionResult
-equal (const char *expected, char actual[]) throw ()
+equal (const char *first, char second[]) throw ()
 {
-	if (!expected || !actual)
-		return check_equal_strings (expected, actual);
+	if (!first || !second)
+		return check_equal_strings (first, second);
 
-	Copper::String s_expected (expected), s_actual (actual);
-	return equal (s_expected, s_actual);
+	Copper::String s_first (first), s_second (second);
+	return equal (s_first, s_second);
 }
 
 Copper::AssertionResult
-equal (char expected[], const char *actual) throw ()
+equal (char first[], const char *second) throw ()
 {
-	if (!expected || !actual)
-		return check_equal_strings (expected, actual);
+	if (!first || !second)
+		return check_equal_strings (first, second);
 
-	Copper::String s_expected (expected), s_actual (actual);
-	return equal (s_expected, s_actual);
+	Copper::String s_first (first), s_second (second);
+	return equal (s_first, s_second);
 }
 
 Copper::AssertionResult
-equal (char expected[], char actual[]) throw ()
+equal (char first[], char second[]) throw ()
 {
-	if (!expected || !actual)
-		return check_equal_strings (expected, actual);
+	if (!first || !second)
+		return check_equal_strings (first, second);
 
-	Copper::String s_expected (expected), s_actual (actual);
-	return equal (s_expected, s_actual);
+	Copper::String s_first (first), s_second (second);
+	return equal (s_first, s_second);
 }
 
 // Overloads for unequal ()
 
 Copper::AssertionResult
-unequal (const char *bad, const char *actual) throw ()
+unequal (const char *first, const char *second) throw ()
 {
-	if (!bad || !actual)
-		return check_unequal_strings (bad, actual);
+	if (!first || !second)
+		return check_unequal_strings (first, second);
 
-	Copper::String s_actual (actual), s_bad (bad);
-	return unequal (s_bad, s_actual);
+	Copper::String s_second (second), s_first (first);
+	return unequal (s_first, s_second);
 }
 
 Copper::AssertionResult
-unequal (const char *bad, char actual[]) throw ()
+unequal (const char *first, char second[]) throw ()
 {
-	if (!bad || !actual)
-		return check_unequal_strings (bad, actual);
+	if (!first || !second)
+		return check_unequal_strings (first, second);
 
-	Copper::String s_actual (actual), s_bad (bad);
-	return unequal (s_bad, s_actual);
+	Copper::String s_second (second), s_first (first);
+	return unequal (s_first, s_second);
 }
 
 Copper::AssertionResult
-unequal (char bad[], const char *actual) throw ()
+unequal (char first[], const char *second) throw ()
 {
-	if (!bad || !actual)
-		return check_unequal_strings (bad, actual);
+	if (!first || !second)
+		return check_unequal_strings (first, second);
 
-	Copper::String s_actual (actual), s_bad (bad);
-	return unequal (s_bad, s_actual);
+	Copper::String s_second (second), s_first (first);
+	return unequal (s_first, s_second);
 }
 
 Copper::AssertionResult
-unequal (char bad[], char actual[]) throw ()
+unequal (char first[], char second[]) throw ()
 {
-	if (!bad || !actual)
-		return check_unequal_strings (bad, actual);
+	if (!first || !second)
+		return check_unequal_strings (first, second);
 
-	Copper::String s_actual (actual), s_bad (bad);
-	return unequal (s_bad, s_actual);
+	Copper::String s_second (second), s_first (first);
+	return unequal (s_first, s_second);
 }

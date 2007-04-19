@@ -14,21 +14,21 @@
 /**
  * @brief Assert two values are equal.
  * 
- * @param expected The expected value of this assertion.
- * @param actual The value which should be tested against the expected value.
+ * @param first The first value.
+ * @param second The second value, which should equal the first value.
  * 
  * @return whether the values are equal.
  */
-template <class Expected, class Actual>
+template <class First, class Second>
 Copper::AssertionResult
-equal (const Expected &expected, const Actual &actual) throw ()
+equal (const First &first, const Second &second) throw ()
 {
 	Copper::AssertionResult result;
-	if (expected == actual)
+	if (first == second)
 		result.pass ();
 
 	else
-		result.fail (Copper::error_format (expected, "!=", actual));
+		result.fail (Copper::error_format (first, "!=", second));
 
 	return result;
 }
@@ -39,7 +39,7 @@ equal (const Expected &expected, const Actual &actual) throw ()
  */
 COPPER_EXPORT
 Copper::AssertionResult
-equal (const char *expected, const char *actual) throw ();
+equal (const char *first, const char *second) throw ();
 
 /**
  * @brief Overloaded equal ()
@@ -47,7 +47,7 @@ equal (const char *expected, const char *actual) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-equal (const char *expected, char actual[]) throw ();
+equal (const char *first, char second[]) throw ();
 
 /**
  * @brief Overloaded equal ()
@@ -55,7 +55,7 @@ equal (const char *expected, char actual[]) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-equal (char expected[], const char *actual) throw ();
+equal (char first[], const char *second) throw ();
 
 /**
  * @brief Overloaded equal ()
@@ -63,7 +63,7 @@ equal (char expected[], const char *actual) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-equal (char expected[], char actual[]) throw ();
+equal (char first[], char second[]) throw ();
 
 /**
  * @brief Assert two values are nearly equal, within a certain delta.
@@ -102,19 +102,19 @@ equal_within (const Value &expected,
 /**
  * @brief Assert two values are not equal.
  * 
- * @param bad Something that actual should not be.
- * @param actual The value which should be tested against the expected value.
+ * @param first The first value.
+ * @param second The second value, which should not equal the first value.
  * 
  * @return whether the two values are unequal.
  */
-template <class Bad, class Actual>
+template <class First, class Second>
 Copper::AssertionResult
-unequal (const Bad &bad, const Actual &actual) throw ()
+unequal (const First &first, const Second &second) throw ()
 {
 	Copper::AssertionResult result;
 
-	if (actual == bad)
-		result.fail (Copper::error_format (bad, "==", actual));
+	if (first == second)
+		result.fail (Copper::error_format (first, "==", second));
 
 	else
 		result.pass ();
@@ -128,7 +128,7 @@ unequal (const Bad &bad, const Actual &actual) throw ()
  */
 COPPER_EXPORT
 Copper::AssertionResult
-unequal (const char *bad, const char *actual) throw ();
+unequal (const char *first, const char *second) throw ();
 
 /**
  * @brief Overloaded unequal ()
@@ -136,7 +136,7 @@ unequal (const char *bad, const char *actual) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-unequal (const char *bad, char actual[]) throw ();
+unequal (const char *first, char second[]) throw ();
 
 /**
  * @brief Overloaded unequal ()
@@ -144,7 +144,7 @@ unequal (const char *bad, char actual[]) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-unequal (char bad[], const char *actual) throw ();
+unequal (char first[], const char *second) throw ();
 
 /**
  * @brief Overloaded unequal ()
@@ -152,7 +152,7 @@ unequal (char bad[], const char *actual) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-unequal (char bad[], char actual[]) throw ();
+unequal (char first[], char second[]) throw ();
 
 /**
  * @brief Assert some pointer is NULL.
@@ -201,19 +201,19 @@ not_null (const Value *value) throw ()
 /**
  * @brief Assert some value is greater than some limit.
  * 
- * @param actual The value which should be tested against the limit.
+ * @param value The value which should be tested against the limit.
  * @param limit The value the result must be above.
  * 
  * @return whether value > limit.
  */
 template <class Value>
 Copper::AssertionResult
-greater_than (const Value &actual, const Value &limit) throw ()
+greater_than (const Value &value, const Value &limit) throw ()
 {
 	Copper::AssertionResult result;
 
-	if (actual <= limit)
-		result.fail (Copper::error_format (actual, "<=", limit));
+	if (value <= limit)
+		result.fail (Copper::error_format (value, "<=", limit));
 
 	else
 		result.pass ();
@@ -224,19 +224,19 @@ greater_than (const Value &actual, const Value &limit) throw ()
 /**
  * @brief Assert some value is greater than or equal to some limit.
  * 
- * @param actual The value which should be tested against the limit.
+ * @param value The value which should be tested against the limit.
  * @param limit The number the result must be above or equal to.
  * 
  * @return whether value >= limit.
  */
 template <class Value>
 Copper::AssertionResult
-greater_than_or_equal (const Value &actual, const Value &limit) throw ()
+greater_than_or_equal (const Value &value, const Value &limit) throw ()
 {
 	Copper::AssertionResult result;
 
-	if (actual < limit)
-		result.fail (Copper::error_format (actual, "<", limit));
+	if (value < limit)
+		result.fail (Copper::error_format (value, "<", limit));
 
 	else
 		result.pass ();
@@ -247,19 +247,19 @@ greater_than_or_equal (const Value &actual, const Value &limit) throw ()
 /**
  * @brief Assert some value is less than some limit.
  * 
- * @param actual The value which should be tested against the limit.
+ * @param value The value which should be tested against the limit.
  * @param limit The number the result must be below.
  * 
  * @return whether value < limit.
  */
 template <class Value>
 Copper::AssertionResult
-less_than (const Value &actual, const Value &limit) throw ()
+less_than (const Value &value, const Value &limit) throw ()
 {
 	Copper::AssertionResult result;
 
-	if (actual >= limit)
-		result.fail (Copper::error_format (actual, ">=", limit));
+	if (value >= limit)
+		result.fail (Copper::error_format (value, ">=", limit));
 
 	else
 		result.pass ();
@@ -270,19 +270,19 @@ less_than (const Value &actual, const Value &limit) throw ()
 /**
  * @brief Assert some value is less than or equal to some limit.
  * 
- * @param actual The value which should be tested against the limit.
+ * @param value The value which should be tested against the limit.
  * @param limit The number the result must be below or equal to.
  * 
  * @return whether value <= limit.
  */
 template <class Value>
 Copper::AssertionResult
-less_than_or_equal (const Value &actual, const Value &limit) throw ()
+less_than_or_equal (const Value &value, const Value &limit) throw ()
 {
 	Copper::AssertionResult result;
 
-	if (actual > limit)
-		result.fail (Copper::error_format (actual, ">", limit));
+	if (value > limit)
+		result.fail (Copper::error_format (value, ">", limit));
 
 	else
 		result.pass ();
