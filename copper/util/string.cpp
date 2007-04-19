@@ -71,12 +71,6 @@ namespace Copper
 		return strcmp (priv->str, other.priv->str) == 0;
 	}
 
-	bool
-	operator==(const char *a, const String &b) throw ()
-	{
-		return strcmp (a, b.c_str ()) == 0;
-	}
-
 	String
 	String::operator+ (const String &other) const throw ()
 	{
@@ -107,4 +101,15 @@ namespace Copper
 		return priv->str;
 	}
 
+	String
+	operator+ (const char *a, const String &b) throw ()
+	{
+		return String (a) + b;
+	}
+
+	bool
+	operator==(const char *a, const String &b) throw ()
+	{
+		return strcmp (a, b.c_str ()) == 0;
+	}
 }

@@ -46,6 +46,10 @@ namespace Copper
 	};
 
 	COPPER_EXPORT
+	String
+	operator+ (const char *a, const String &b) throw ();
+
+	COPPER_EXPORT
 	bool
 	operator== (const char *a, const String &b) throw ();
 }
