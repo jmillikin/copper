@@ -55,6 +55,18 @@ namespace Copper
 	{
 	public:
 		/**
+		 * @brief A function to check if key is the key being searched
+		 *        for, with user data.
+		 * 
+		 * @param key The key to check.
+		 * @param data User-defined data, to be used for checking the
+		 *             key.
+		 * 
+		 * @return whether key is the key being searched for.
+		 */
+		typedef bool (type_matcher)(const C *key, void *data);
+
+		/**
 		 * @brief Constructs a new, empty list.
 		 */
 		List () throw ():
@@ -175,22 +187,26 @@ namespace Copper
 		}
 
 		/**
-		 * @brief Searches the list for a particular pointer.
+		 * @brief Search for a value in the list
 		 * 
-		 * Note that this compares pointer addresses, not the value
-		 * of whatever is being pointed to.
+		 * Searches the list for a value that matches a particular
+		 * function. The first node for which the function returns
+		 * true will be returned.
+		 * 
+		 * @param matches A function which should return true if the
+		 *                given data is what is being searched for.
+		 * @param data User-defined data to pass to matches.
 		 * 
 		 * @return the list node containing the given key, or NULL
 		 *         if the key was not found.
 		 */
 		const ListNode<C> *
-		find (C *key) const throw ()
+		find (type_matcher *matches, void *data)
 		{
 			ListNode<C> *node = _root;
 			while (node)
 			{
-				// Yes, this is meant to compare pointers
-				if (node->value == key)
+				if (matches (node->value, data))
 				{
 					return node;
 				}

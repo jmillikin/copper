@@ -70,6 +70,13 @@ namespace Copper
 		}
 	}
 
+	static
+	bool
+	test_matcher (const Protector *key, void *data)
+	{
+		return key == data;
+	}
+
 	/**
 	 * Call the next protector in the global list to guard the test.
 	 * 
@@ -81,7 +88,8 @@ namespace Copper
 	Error *
 	Protector::next_protector (Test *test)
 	{
-		const ListNode<Protector>* node = protectors ().find (this);
+		const ListNode<Protector>* node;
+		node = protectors ().find (test_matcher, this);
 
 		assert (node);
 
