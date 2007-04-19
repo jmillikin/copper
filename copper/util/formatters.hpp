@@ -87,6 +87,47 @@ namespace Copper {
 	String
 	format (const char *v) throw ();
 #endif /* HAVE_SSTREAM */
+
+	template <class Value>
+	String
+	error_format (const Value &value)
+	{
+		return format (value);
+	}
+
+	COPPER_EXPORT
+	String
+	error_format(const char &v) throw ();
+
+	COPPER_EXPORT
+	String
+	error_format (const signed char &v) throw ();
+
+	COPPER_EXPORT
+	String
+	error_format (const unsigned char &v) throw ();
+
+	COPPER_EXPORT
+	String
+	error_format(const String &v) throw ();
+
+	COPPER_EXPORT
+	String
+	error_format (const char *v) throw ();
+
+	template <class Value>
+	String
+	error_format (const Value &value, const String &rest)
+	{
+		return error_format (value) + " " + rest;
+	}
+
+	template <class A, class B>
+	String
+	error_format (const A &a, const String& join, const B &b)
+	{
+		return error_format (a) + " " + join + " " + error_format (b);
+	}
 }
 
 #endif /* COPPER_UTIL_FORMATTERS_HPP */
