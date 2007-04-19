@@ -6,6 +6,7 @@
 #include "assertions.hpp"
 #include "util/string.hpp"
 
+static
 Copper::AssertionResult
 check_equal_strings (const char *first, const char *second) throw ()
 {
@@ -23,6 +24,7 @@ check_equal_strings (const char *first, const char *second) throw ()
 	return result;
 }
 
+static
 Copper::AssertionResult
 check_unequal_strings (const char *first, const char *second) throw ()
 {
