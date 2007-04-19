@@ -19,6 +19,14 @@ TEST_SUITE (error_format_tests)
 		ASSERT (equal ("\"a\"", error_format ("a")));
 	}
 
+	TEST (null_string)
+	{
+		char *a = 0;
+		const char *b = 0;
+		ASSERT (equal ("NULL", error_format (a)));
+		ASSERT (equal ("NULL", error_format (b)));
+	}
+
 	TEST (character)
 	{
 		ASSERT (equal ("'a'", error_format ('a')));
