@@ -5,6 +5,7 @@ check_PROGRAMS=run_tests
 run_tests_SOURCES=\
   argument_parser_tests.cpp \
   assertion_tests.cpp \
+  error_format_tests.cpp \
   format_tests.cpp \
   list_tests.cpp \
   main.cpp \
