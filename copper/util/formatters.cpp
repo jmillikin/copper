@@ -116,5 +116,35 @@ namespace Copper {
 	{
 		return String (v);
 	}
+
+	String
+	error_format(const char &v) throw ()
+	{
+		return "'" + format (v) + "'";
+	}
+
+	String
+	error_format (const signed char &v) throw ()
+	{
+		return error_format (static_cast<char>(v));
+	}
+
+	String
+	error_format (const unsigned char &v) throw ()
+	{
+		return error_format (static_cast<char>(v));
+	}
+
+	String
+	error_format(const String &v) throw ()
+	{
+		return "\"" + v + "\"";
+	}
+
+	String
+	error_format (const char *v) throw ()
+	{
+		return error_format (String (v));
+	}
 }
 
