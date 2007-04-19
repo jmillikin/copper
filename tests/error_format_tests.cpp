@@ -11,10 +11,25 @@ TEST_SUITE (error_format_tests)
 {
 	TEST (integer)
 	{
-		ASSERT (equal ("1 test", error_format (1, "test")));
+		ASSERT (equal ("1", error_format (1)));
 	}
 
 	TEST (string)
+	{
+		ASSERT (equal ("\"a\"", error_format ("a")));
+	}
+
+	TEST (character)
+	{
+		ASSERT (equal ("'a'", error_format ('a')));
+	}
+
+	TEST (integer_and_join)
+	{
+		ASSERT (equal ("1 test", error_format (1, "test")));
+	}
+
+	TEST (string_and_join)
 	{
 		ASSERT (equal ("\"a\" test", error_format ("a", "test")));
 	}
