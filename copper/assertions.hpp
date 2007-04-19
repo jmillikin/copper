@@ -28,16 +28,7 @@ equal (const Expected &expected, const Actual &actual) throw ()
 		result.pass ();
 
 	else
-	{
-		Copper::String message;
-
-		message = Copper::String ("Unequal values: expected '") + 
-		                          Copper::format (expected) +
-		                          "', got '" +
-		                          Copper::format (actual) + "'";
-
-		result.fail (message);
-	}
+		result.fail (Copper::error_format (expected, "!=", actual));
 
 	return result;
 }
@@ -123,13 +114,7 @@ unequal (const Bad &bad, const Actual &actual) throw ()
 	Copper::AssertionResult result;
 
 	if (actual == bad)
-	{
-		Copper::String message;
-		message = Copper::String ("'") + Copper::format (actual) + "'"
-		          " is equal to '" + Copper::format (bad) + "'";
-
-		result.fail (message);
-	}
+		result.fail (Copper::error_format (bad, "==", actual));
 
 	else
 		result.pass ();
@@ -183,7 +168,7 @@ is_null (const Value *value) throw ()
 	Copper::AssertionResult result;
 
 	if (value != 0)
-		result.fail ("Expected value to be NULL");
+		result.fail (Copper::error_format (value, "!= NULL"));
 
 	else
 		result.pass ();
@@ -205,7 +190,7 @@ not_null (const Value *value) throw ()
 	Copper::AssertionResult result;
 
 	if (value == 0)
-		result.fail ("Expected value to be non-NULL");
+		result.fail (Copper::error_format (value, "== NULL"));
 
 	else
 		result.pass ();
@@ -228,13 +213,7 @@ greater_than (const Value &actual, const Value &limit) throw ()
 	Copper::AssertionResult result;
 
 	if (actual <= limit)
-	{
-		Copper::String message;
-		message = Copper::String ("'") + Copper::format (actual) + "'"
-		          " is not greater than '" + Copper::format (limit) + "'";
-
-		result.fail (message);
-	}
+		result.fail (Copper::error_format (actual, "<=", limit));
 
 	else
 		result.pass ();
@@ -257,13 +236,7 @@ greater_than_or_equal (const Value &actual, const Value &limit) throw ()
 	Copper::AssertionResult result;
 
 	if (actual < limit)
-	{
-		Copper::String message;
-		message = Copper::String ("'") + Copper::format (actual) + "'"
-		          " is less than '" + Copper::format (limit) + "'";
-
-		result.fail (message);
-	}
+		result.fail (Copper::error_format (actual, "<", limit));
 
 	else
 		result.pass ();
@@ -286,13 +259,7 @@ less_than (const Value &actual, const Value &limit) throw ()
 	Copper::AssertionResult result;
 
 	if (actual >= limit)
-	{
-		Copper::String message;
-		message = Copper::String ("'") + Copper::format (actual) + "'"
-		          " is not less than '" + Copper::format (limit) + "'";
-
-		result.fail (message);
-	}
+		result.fail (Copper::error_format (actual, ">=", limit));
 
 	else
 		result.pass ();
@@ -315,13 +282,7 @@ less_than_or_equal (const Value &actual, const Value &limit) throw ()
 	Copper::AssertionResult result;
 
 	if (actual > limit)
-	{
-		Copper::String message;
-		message = Copper::String ("'") + Copper::format (actual) + "'"
-		          " is greater than '" + Copper::format (limit) + "'";
-
-		result.fail (message);
-	}
+		result.fail (Copper::error_format (actual, ">", limit));
 
 	else
 		result.pass ();
