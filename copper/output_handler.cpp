@@ -18,7 +18,7 @@ namespace Copper
 	find_suite (const String &name);
 
 	Test *
-	find_test (const char *full_name);
+	find_test (const String &suite_name, const String &test_name);
 
 	/** @class OutputHandler
 	 * This class must be subclassed to provide different output formats.
@@ -55,7 +55,10 @@ namespace Copper
 			if (midpoint)
 			{
 				// This name includes a test name
-				Test *test = find_test (name);
+				String suite_name (name, midpoint - name);
+				String test_name (midpoint + 1);
+
+				Test *test = find_test (suite_name, test_name);
 				if (test)
 				{
 					tests.append (test);
@@ -136,53 +139,39 @@ namespace Copper
 		}
 	}
 
+	template <class C>
+	static
+	bool
+	matcher (const C *key, const void *data)
+	{
+		return key->name == *static_cast<const String *> (data);
+	}
+
 	Suite *
 	find_suite (const String &name)
 	{
-		// Find all suites
-		List<Suite> all = Suite::all_suites ();
+		const ListNode<Suite> *node;
+		node = Suite::all_suites ().find (matcher, &name);
 
-		const ListNode<Suite> *node = all.root ();
-		while (node)
-		{
-			Suite *suite = node->value;
-			if (suite->name == name)
-			{
-				return suite;
-			}
-			node = node->next;
-		}
+		if (node)
+			return node->value;
 
 		return NULL;
 	}
 
 	Test *
-	find_test (const char *full_name)
+	find_test (const String &suite_name, const String &test_name)
 	{
-		// Separate the full name into suite name and test name
-		char *midpoint = strchr (full_name, '.');
-		String suite_name (full_name, midpoint - full_name);
-		String test_name (midpoint + 1);
-
 		// Find the suite
 		Suite *suite = find_suite (suite_name);
 
-		if (!suite)
+		if (suite)
 		{
-			return NULL;
-		}
+			const ListNode<Test> *node;
+			node = suite->get_tests ().find (matcher, &test_name);
 
-		// Find the test
-		List<Test> suite_tests = suite->get_tests ();
-		const ListNode<Test> *node = suite_tests.root ();
-		while (node)
-		{
-			Test *test = node->value;
-			if (test->name == test_name)
-			{
-				return test;
-			}
-			node = node->next;
+			if (node)
+				return node->value;
 		}
 
 		return NULL;
