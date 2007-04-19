@@ -142,9 +142,18 @@ namespace Copper {
 	}
 
 	String
+	error_format (char *v) throw ()
+	{
+		return error_format (static_cast <const char *> (v));
+	}
+
+	String
 	error_format (const char *v) throw ()
 	{
-		return error_format (String (v));
+		if (v)
+			return error_format (String (v));
+		else
+			return String ("NULL");
 	}
 }
 

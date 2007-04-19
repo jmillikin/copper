@@ -113,6 +113,10 @@ namespace Copper {
 
 	COPPER_EXPORT
 	String
+	error_format (char *v) throw ();
+
+	COPPER_EXPORT
+	String
 	error_format (const char *v) throw ();
 
 	template <class Value>
