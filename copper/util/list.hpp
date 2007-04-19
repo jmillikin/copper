@@ -239,6 +239,24 @@ namespace Copper
 			return _size;
 		}
 
+		/**
+		 * @brief Appends all items of another list to this list.
+		 * 
+		 * @param other The list to copy from.
+		 */
+		void
+		extend (const List<C> &other)
+		{
+			const ListNode<C> *node;
+
+			node = other.root ();
+			while (node)
+			{
+				append (node->value);
+				node = node->next;
+			}
+		}
+
 	private:
 		ListNode<C> *_root;
 		int _size;
