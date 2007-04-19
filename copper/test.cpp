@@ -63,20 +63,12 @@ namespace Copper
 		List<Test> all_tests;
 
 		List<Suite> suites = Suite::all_suites ();
-		const ListNode<Suite>* suite = suites.root ();
+		const ListNode<Suite>* suite_node = suites.root ();
 
-		while (suite)
+		while (suite_node)
 		{
-			List<Test> tests = suite->value->get_tests ();
-			const ListNode<Test> *test = tests.root ();
-
-			while (test)
-			{
-				all_tests.append (test->value);
-				test = test->next;
-			}
-
-			suite = suite->next;
+			all_tests.extend (suite_node->value->get_tests ());
+			suite_node = suite_node->next;
 		}
 
 		return all_tests;

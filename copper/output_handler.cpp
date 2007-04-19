@@ -69,16 +69,7 @@ namespace Copper
 
 				if (suite)
 				{
-					List<Test> suite_tests;
-					const ListNode<Test> *node;
-
-					suite_tests = suite->get_tests ();
-					node = suite_tests.root ();
-					while (node)
-					{
-						tests.append (node->value);
-						node = node->next;
-					}
+					tests.extend (suite->get_tests ());
 				}
 			}
 		}
