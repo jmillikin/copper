@@ -6,40 +6,19 @@
 #include "assertions.hpp"
 #include "util/string.hpp"
 
-// Used for when the user passes NULL to a string comparison assertion
-Copper::String
-check_NULL (const char *str) throw ()
-{
-	using Copper::String;
-
-	if (str)
-		return String ("'") + String (str) + String ("'");
-
-	else
-		return String ("NULL");
-}
-
 Copper::AssertionResult
 check_equal_strings (const char *expected, const char *actual) throw ()
 {
-	using Copper::String;
-
 	Copper::AssertionResult result;
 
 	// Both of the values are NULL
 	// assert (null ()) should be used instead
 	if (!expected && !actual)
-	{
 		result.pass ();
-	}
 
 	else
-	{
 		// One of the values is NULL
-		result.fail (String ("Unequal values: expected ") +
-		             check_NULL (expected) + String (", got ") +
-		             check_NULL (actual));
-	}
+		result.fail (Copper::error_format (expected, "!=", actual));
 
 	return result;
 }
@@ -47,24 +26,16 @@ check_equal_strings (const char *expected, const char *actual) throw ()
 Copper::AssertionResult
 check_unequal_strings (const char *bad, const char *actual) throw ()
 {
-
-	using Copper::String;
-
 	Copper::AssertionResult result;
 
 	// Both of the values are NULL
 	// assert (not_null ()) should be used instead
 	if (!bad && !actual)
-	{
-		result.fail (check_NULL (actual) + String (" is equal to ") +
-		             check_NULL (bad));
-	}
+		result.fail (Copper::error_format (bad, "==", actual));
 
 	else
-	{
 		// Only one the values is NULL
 		result.pass ();
-	}
 
 	return result;
 }
