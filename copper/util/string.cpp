@@ -162,6 +162,23 @@ namespace Copper
 		return priv->str;
 	}
 
+	char *
+	strjoin (const char *first, const char *second) throw ()
+	{
+		printf ("  Joining \"%s\" and \"%s\"\n", first, second);
+
+		size_t first_size = strlen (first);
+		size_t full_size = first_size + strlen (second);
+		char *new_c_str = new char [full_size + 1];
+
+		strcpy (new_c_str, first);
+		strcpy (new_c_str + first_size, second);
+
+		new_c_str[full_size] = 0;
+
+		return new_c_str;
+	}
+
 	/**
 	 * @brief Concatenate two strings.
 	 * 
@@ -173,17 +190,31 @@ namespace Copper
 	String
 	operator+ (const String &first, const String &second) throw ()
 	{
-		size_t first_size = first.size ();
-		size_t full_size = first_size + second.size ();
-		char *new_c_str = new char [full_size + 1];
 		String new_str;
 
-		strcpy (new_c_str, first.c_str ());
-		strcpy (new_c_str + first_size, second.c_str ());
+		new_str.priv->str = strjoin (first.c_str (), second.c_str ());
+		new_str.priv->should_delete = true;
+		return new_str;
+	}
 
-		new_c_str[full_size] = 0;
+	String
+	operator+ (const char *first,
+	           const String &second) throw ()
+	{
+		String new_str;
 
-		new_str.priv->str = new_c_str;
+		new_str.priv->str = strjoin (first, second.c_str ());
+		new_str.priv->should_delete = true;
+		return new_str;
+	}
+
+	String
+	operator+ (const String &first,
+	           const char *second) throw ()
+	{
+		String new_str;
+
+		new_str.priv->str = strjoin (first.c_str (), second);
 		new_str.priv->should_delete = true;
 		return new_str;
 	}
