@@ -105,7 +105,7 @@ namespace Copper
 		        "\t%s\n"
 		        "\t%s\n\n",
 		        test->file_name.c_str(), failure->line,
-		        test->suite->name.c_str(), test->name.c_str(),
+		        test->suite.c_str(), test->name.c_str(),
 		        failure->text.c_str(),
 		        failure->message.c_str());
 	}
@@ -128,7 +128,7 @@ namespace Copper
 		        "%s.%s:\n"
 		        "\t%s\n\n",
 		        test->file_name.c_str(),
-		        test->suite->name.c_str(), test->name.c_str(),
+		        test->suite.c_str(), test->name.c_str(),
 		        error->message.c_str());
 	}
 

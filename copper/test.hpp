@@ -6,7 +6,6 @@
 #ifndef COPPER_TEST_HPP
 #define COPPER_TEST_HPP
 
-#include <copper/suite.hpp>
 #include <copper/util/list.hpp>
 #include <copper/util/string.hpp>
 #include <copper/export.hpp>
@@ -17,7 +16,7 @@ namespace Copper
 	{
 	public:
 		Test (const String &name,
-		      Suite *suite,
+		      const String &suite,
 		      const String &file_name,
 		      const unsigned int line) throw ();
 
@@ -32,6 +31,10 @@ namespace Copper
 		Test *
 		find (const String &suite_name,
 		      const String &test_name) throw ();
+
+		static
+		List<Test>
+		in_suite (const String &suite_name) throw ();
 
 		/** Run the test */
 		virtual
@@ -48,7 +51,7 @@ namespace Copper
 
 		const String name;
 
-		const Suite *suite;
+		const String suite;
 
 		const String file_name;
 
