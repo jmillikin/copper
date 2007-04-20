@@ -3,11 +3,17 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include "suite.hpp"
 #include "test.hpp"
 
 namespace Copper
 {
+	List<Test> &
+	all_tests () throw ()
+	{
+		static List<Test> _tests;
+		return _tests;
+	}
+
 	/** @class Test
 	 * Does nothing interesting by itself, but is subclassed to provide
 	 * runnable test classes.
@@ -38,7 +44,7 @@ namespace Copper
 	 * @param line The line this test was defined on.
 	 */
 	Test::Test (const String &name,
-	            Suite *suite,
+	            const String &suite,
 	            const String &file_name,
 	            const unsigned int line) throw ():
 
@@ -47,8 +53,7 @@ namespace Copper
 	            file_name (file_name),
 	            line (line)
 	{
-		if (suite)
-			suite->add_test (this);
+		all_tests ().append (this);
 	}
 
 	/** Default destructor */
@@ -60,25 +65,22 @@ namespace Copper
 	List<Test>
 	Test::all ()
 	{
-		List<Test> all_tests;
-
-		List<Suite> suites = Suite::all_suites ();
-		const ListNode<Suite>* suite_node = suites.root ();
-
-		while (suite_node)
-		{
-			all_tests.extend (suite_node->value->get_tests ());
-			suite_node = suite_node->next;
-		}
-
-		return all_tests;
+		return all_tests ();
 	}
+
+	struct MatchInfo
+	{
+		const String *suite_name;
+		const String *test_name;
+	};
 
 	static
 	bool
-	matcher (const Test *key, const void *data)
+	full_matcher (const Test *key, const void *data)
 	{
-		return key->name == *static_cast<const String *> (data);
+		const MatchInfo *info = static_cast <const MatchInfo *> (data);
+		return (key->name == *(info->test_name)) &&
+		       (key->suite == *(info->suite_name));
 	}
 
 	/**
@@ -94,20 +96,36 @@ namespace Copper
 	Test::find (const String &suite_name,
 	            const String &test_name) throw ()
 	{
-		// Find the suite
-		const Suite *suite = Suite::find (suite_name);
+		const ListNode<Test> *node;
+		MatchInfo info = { &suite_name, &test_name };
+		node = all_tests ().find (full_matcher, &info);
 
-		if (suite)
-		{
-			const ListNode<Test> *node;
-			node = suite->get_tests ().find (matcher,
-			                                 &test_name);
-
-			if (node)
-				return node->value;
-		}
+		if (node)
+			return node->value;
 
 		return NULL;
+	}
+
+	static
+	bool
+	suite_matcher (const Test *key, const void *data)
+	{
+		const MatchInfo *info = static_cast <const MatchInfo *> (data);
+		return (key->suite == *(info->suite_name));
+	}
+
+	/**
+	 * @brief Find all tests in a suite.
+	 * 
+	 * @param suite_name The name of the suite to find tests in.
+	 * 
+	 * @return a list of tests in the suite.
+	 */
+	List<Test>
+	Test::in_suite (const String &suite_name) throw ()
+	{
+		MatchInfo info = { &suite_name, NULL };
+		return all_tests ().filter (suite_matcher, &info);
 	}
 
 	/** Default, does nothing */
