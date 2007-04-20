@@ -42,7 +42,7 @@
 	{ \
 		static void (*_set_up)() = 0; \
 		static void (*_tear_down)() = 0; \
-		static Copper::Suite current_suite(#NAME, _set_up, _tear_down); \
+		static char current_suite[] = #NAME; \
 	} \
 	namespace suite_namespace_##NAME
 
@@ -55,7 +55,7 @@
 	class test_##NAME : public Copper::Test \
 	{ \
 	public: \
-		test_##NAME(): Copper::Test(#NAME, &current_suite, \
+		test_##NAME(): Copper::Test(#NAME, current_suite, \
 		                            __FILE__, __LINE__){} \
 	protected: \
 		void run(); \
@@ -101,7 +101,7 @@
 		{ \
 		public: \
 			test_##NAME(): Copper::Test(#NAME, \
-			                            &current_suite, \
+			                            current_suite, \
 			                            __FILE__, \
 			                            __LINE__) {} \
 			void set_up () { \
