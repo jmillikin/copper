@@ -19,7 +19,7 @@ check_equal_strings (const char *first, const char *second) throw ()
 
 	else
 		// One of the values is NULL
-		result.fail (Copper::error_format (first, "!=", second));
+		result.fail (Copper::failure_format (first, "!=", second));
 
 	return result;
 }
@@ -33,7 +33,7 @@ check_unequal_strings (const char *first, const char *second) throw ()
 	// Both of the values are NULL
 	// assert (not_null ()) should be used instead
 	if (!first && !second)
-		result.fail (Copper::error_format (first, "==", second));
+		result.fail (Copper::failure_format (first, "==", second));
 
 	else
 		// Only one the values is NULL

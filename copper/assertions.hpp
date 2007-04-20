@@ -28,7 +28,7 @@ equal (const First &first, const Second &second) throw ()
 		result.pass ();
 
 	else
-		result.fail (Copper::error_format (first, "!=", second));
+		result.fail (Copper::failure_format (first, "!=", second));
 
 	return result;
 }
@@ -114,7 +114,7 @@ unequal (const First &first, const Second &second) throw ()
 	Copper::AssertionResult result;
 
 	if (first == second)
-		result.fail (Copper::error_format (first, "==", second));
+		result.fail (Copper::failure_format (first, "==", second));
 
 	else
 		result.pass ();
@@ -168,7 +168,7 @@ is_null (const Value *value) throw ()
 	Copper::AssertionResult result;
 
 	if (value != 0)
-		result.fail (Copper::error_format (value, "!= NULL"));
+		result.fail (Copper::failure_format (value, "!= NULL"));
 
 	else
 		result.pass ();
@@ -190,7 +190,7 @@ not_null (const Value *value) throw ()
 	Copper::AssertionResult result;
 
 	if (value == 0)
-		result.fail (Copper::error_format (value, "== NULL"));
+		result.fail (Copper::failure_format (value, "== NULL"));
 
 	else
 		result.pass ();
@@ -213,7 +213,7 @@ greater_than (const Value &value, const Value &limit) throw ()
 	Copper::AssertionResult result;
 
 	if (value <= limit)
-		result.fail (Copper::error_format (value, "<=", limit));
+		result.fail (Copper::failure_format (value, "<=", limit));
 
 	else
 		result.pass ();
@@ -236,7 +236,7 @@ greater_than_or_equal (const Value &value, const Value &limit) throw ()
 	Copper::AssertionResult result;
 
 	if (value < limit)
-		result.fail (Copper::error_format (value, "<", limit));
+		result.fail (Copper::failure_format (value, "<", limit));
 
 	else
 		result.pass ();
@@ -259,7 +259,7 @@ less_than (const Value &value, const Value &limit) throw ()
 	Copper::AssertionResult result;
 
 	if (value >= limit)
-		result.fail (Copper::error_format (value, ">=", limit));
+		result.fail (Copper::failure_format (value, ">=", limit));
 
 	else
 		result.pass ();
@@ -282,7 +282,7 @@ less_than_or_equal (const Value &value, const Value &limit) throw ()
 	Copper::AssertionResult result;
 
 	if (value > limit)
-		result.fail (Copper::error_format (value, ">", limit));
+		result.fail (Copper::failure_format (value, ">", limit));
 
 	else
 		result.pass ();

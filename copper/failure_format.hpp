@@ -11,47 +11,47 @@
 namespace Copper {
 	template <class Value>
 	String
-	error_format (const Value &value)
+	failure_format (const Value &value)
 	{
 		return format (value);
 	}
 
 	COPPER_EXPORT
 	String
-	error_format(const char &v) throw ();
+	failure_format(const char &v) throw ();
 
 	COPPER_EXPORT
 	String
-	error_format (const signed char &v) throw ();
+	failure_format (const signed char &v) throw ();
 
 	COPPER_EXPORT
 	String
-	error_format (const unsigned char &v) throw ();
+	failure_format (const unsigned char &v) throw ();
 
 	COPPER_EXPORT
 	String
-	error_format(const String &v) throw ();
+	failure_format(const String &v) throw ();
 
 	COPPER_EXPORT
 	String
-	error_format (char *v) throw ();
+	failure_format (char *v) throw ();
 
 	COPPER_EXPORT
 	String
-	error_format (const char *v) throw ();
+	failure_format (const char *v) throw ();
 
 	template <class Value>
 	String
-	error_format (const Value &value, const String &rest)
+	failure_format (const Value &value, const String &rest)
 	{
-		return error_format (value) + " " + rest;
+		return failure_format (value) + " " + rest;
 	}
 
 	template <class A, class B>
 	String
-	error_format (const A &a, const String& join, const B &b)
+	failure_format (const A &a, const String& join, const B &b)
 	{
-		return error_format (a) + " " + join + " " + error_format (b);
+		return failure_format (a) + " " + join + " " + failure_format (b);
 	}
 }
 
