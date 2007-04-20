@@ -9,7 +9,7 @@
 #include <copper/assertion_result.hpp>
 #include <copper/compat.hpp>
 #include <copper/export.hpp>
-#include <copper/util/formatters.hpp>
+#include <copper/failure_format.hpp>
 
 /**
  * @brief Assert two values are equal.

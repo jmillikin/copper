@@ -12,6 +12,7 @@ copper_include_real_HEADERS = \
   error.hpp \
   export.hpp \
   failure.hpp \
+  failure_format.hpp \
   macros.hpp \
   output_handler.hpp \
   protector.hpp \
@@ -36,6 +37,7 @@ libcopper_la_SOURCES = \
   default_output_handler.cpp \
   error.cpp \
   failure.cpp \
+  failure_format.cpp \
   output_handler.cpp \
   protector.cpp \
   suite.cpp \
