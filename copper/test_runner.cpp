@@ -139,6 +139,9 @@ parse_token (const char *message, const char **_next)
 void
 unserialize (const char *c_message, Failure **failure, Error **error)
 {
+	if (strcmp (c_message, "6:passed") == 0)
+		return;
+
 	String type = parse_token (c_message, &c_message);
 
 	if (type == "failure")
