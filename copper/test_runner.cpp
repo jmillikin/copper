@@ -190,7 +190,7 @@ namespace Copper
 		try
 		{
 			if (protect)
-				error = Copper::Protector::guard (test);
+				*error = Copper::Protector::guard (test);
 			else
 				test->run ();
 		}
