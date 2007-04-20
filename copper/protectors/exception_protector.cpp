@@ -15,6 +15,10 @@
 
 namespace Copper
 {
+	static
+	String
+	demangle (const char *name);
+
 	/** @class ExceptionProtector
 	 * Guards against unknown exceptions being thrown by tests.
 	 */
@@ -71,26 +75,7 @@ namespace Copper
 			std::type_info *info;
 			info = __cxxabiv1::__cxa_current_exception_type ();
 
-			int demangle_status = -1;
-			char *demangled_name = NULL;
-
-#	if HAVE_CXA_DEMANGLE
-			demangled_name = __cxxabiv1::__cxa_demangle (
-				info->name (), NULL, NULL, &demangle_status);
-#	endif /* HAVE_CXA_DEMANGLE */
-
-			String type_name;
-			if (demangle_status == 0)
-			{
-				type_name = demangled_name;
-				free (demangled_name);
-			}
-
-			else
-			{
-				/* De-mangling the name failed */
-				type_name = info->name ();
-			}
+			String type_name = demangle (info->name ());
 
 			message = message + "'" + type_name + "'";
 
@@ -100,5 +85,34 @@ namespace Copper
 #	endif /* HAVE_CXA_CURRENT_EXCEPTION_TYPE */
 		}
 #	endif /* HAVE_EXCEPTIONS */
+	}
+
+	static
+	String
+	demangle (const char *name)
+	{
+		int demangle_status = -1;
+		char *demangled_name = NULL;
+
+#	if HAVE_CXA_DEMANGLE
+		demangled_name = __cxxabiv1::__cxa_demangle (
+			name, NULL, NULL,
+		        &demangle_status);
+#	endif /* HAVE_CXA_DEMANGLE */
+
+		String type_name;
+		if (demangle_status == 0)
+		{
+			type_name = demangled_name;
+			free (demangled_name);
+		}
+
+		else
+		{
+			/* De-mangling the name failed */
+			type_name = name;
+		}
+
+		return type_name;
 	}
 }
