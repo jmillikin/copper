@@ -42,7 +42,7 @@ namespace Copper {
 		if (v)
 			return failure_format (String (v));
 		else
-			return String ("NULL");
+			return String::from_static ("NULL");
 	}
 }
 
