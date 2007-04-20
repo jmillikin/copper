@@ -87,21 +87,7 @@ namespace Copper
 		      _root (NULL),
 		      _size (0)
 		{
-			if (!other._root)
-				return;
-
-			_root = new ListNode<C> (other._root->value);
-
-			ListNode<C> *node = _root, *b_node = other._root->next;
-
-			while (b_node)
-			{
-				node->next = new ListNode<C> (b_node->value);
-				node = node->next;
-				b_node = b_node->next;
-			}
-
-			_size = other._size;
+			copy (other);
 		}
 
 		/**
@@ -117,25 +103,8 @@ namespace Copper
 		List &
 		operator= (const List &other)
 		{
-			if (!other._root)
-			{
-				_root = NULL;
-				_size = 0;
-				return *this;
-			}
-
-			_root = new ListNode<C> (other._root->value);
-
-			ListNode<C> *node = _root, *b_node = other._root->next;
-
-			while (b_node)
-			{
-				node->next = new ListNode<C> (b_node->value);
-				node = node->next;
-				b_node = b_node->next;
-			}
-
-			_size = other._size;
+			clear ();
+			copy (other);
 			return *this;
 		}
 
@@ -147,13 +116,7 @@ namespace Copper
 		 */
 		~List () throw ()
 		{
-			ListNode<C> *node = _root, *next;
-			while (node)
-			{
-				next = node->next;
-				delete node;
-				node = next;
-			}
+			clear ();
 		}
 
 		/**
@@ -288,6 +251,39 @@ namespace Copper
 		}
 
 	private:
+		void clear ()
+		{
+			ListNode<C> *node = _root, *next;
+			while (node)
+			{
+				next = node->next;
+				delete node;
+				node = next;
+			}
+			_root = NULL;
+			_size = 0;
+		}
+
+		void
+		copy (const List<C> &other)
+		{
+			if (!other._root)
+				return;
+
+			_root = new ListNode<C> (other._root->value);
+
+			ListNode<C> *node = _root, *b_node = other._root->next;
+
+			while (b_node)
+			{
+				node->next = new ListNode<C> (b_node->value);
+				node = node->next;
+				b_node = b_node->next;
+			}
+
+			_size = other._size;
+		}
+
 		ListNode<C> *_root;
 		int _size;
 	};
