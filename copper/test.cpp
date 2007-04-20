@@ -38,9 +38,11 @@ namespace Copper
 	/**
 	 * Constructs a new test.
 	 * 
-	 * @param name The name of this test.
-	 * @param suite The suite this test is part of.
+	 * @param name The name of this test. This must be static data.
+	 * @param suite The suite this test is part of. This must be
+	 *              static data.
 	 * @param file_name The file this test's implementation is in.
+	 *                  This must be static data.
 	 * @param line The line this test was defined on.
 	 */
 	Test::Test (const char *name,
@@ -48,9 +50,9 @@ namespace Copper
 	            const char *file_name,
 	            const unsigned int line) throw ():
 
-	            name (name),
-	            suite (suite),
-	            file_name (file_name),
+	            name (String::from_static (name)),
+	            suite (String::from_static (suite)),
+	            file_name (String::from_static (file_name)),
 	            line (line)
 	{
 		all_tests ().append (this);
