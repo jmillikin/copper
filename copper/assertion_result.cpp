@@ -16,7 +16,7 @@ namespace Copper
 		AssertionResultPrivate () throw ():
 	                                finished (false),
 	                                passed (false),
-	                                failure_message ("Unitialized AssertionResult")
+	                                failure_message (String::from_static ("Unitialized AssertionResult"))
 		{
 		}
 
@@ -55,10 +55,10 @@ namespace Copper
 	                                  priv (new AssertionResultPrivate (result))
 	{
 		if (!priv->passed)
-			priv->failure_message = "Boolean assertion failed";
+			priv->failure_message = String::from_static ("Boolean assertion failed");
 
 		else
-			priv->failure_message = "No Error";
+			priv->failure_message = String::from_static ("No Error");
 	}
 
 	/** Copy constructor */
@@ -95,7 +95,7 @@ namespace Copper
 		{
 			priv->passed = true;
 			priv->finished = true;
-			priv->failure_message = "No Error";
+			priv->failure_message = String::from_static ("No Error");
 		}
 	}
 
