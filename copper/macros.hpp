@@ -16,7 +16,7 @@
  * 
  * @param ASSERTION The assertion to test.
  */
-#define ASSERT(ASSERTION) Copper::do_assert(ASSERTION, #ASSERTION, __FILE__, __LINE__)
+#define ASSERT(ASSERTION) Copper::do_assert (ASSERTION, #ASSERTION, __FILE__, __LINE__)
 
 /**
  * When this macro is called, it will force the test to fail.
@@ -40,9 +40,9 @@
 #define TEST_SUITE(NAME) \
 	namespace suite_namespace_##NAME \
 	{ \
-		COPPER_UNUSED static const void (*_set_up)() = 0; \
-		COPPER_UNUSED static const void (*_tear_down)() = 0; \
-		static const char current_suite[] = #NAME; \
+		COPPER_UNUSED static const void (*_copper_set_up) () = 0; \
+		COPPER_UNUSED static const void (*_copper_tear_down) () = 0; \
+		static const char _copper_current_suite[] = #NAME; \
 	} \
 	namespace suite_namespace_##NAME
 
@@ -55,12 +55,12 @@
 	class test_##NAME : public Copper::Test \
 	{ \
 	public: \
-		test_##NAME(): Copper::Test(#NAME, current_suite, \
-		                            __FILE__, __LINE__){} \
+		test_##NAME(): Copper::Test (#NAME, _copper_current_suite, \
+		                             __FILE__, __LINE__){} \
 	protected: \
-		void run(); \
+		void run (); \
 	} test_instance_##NAME; \
-	void test_##NAME::run()
+	void test_##NAME::run ()
 
 /**
  * Define a new fixture, with the given name.
@@ -74,18 +74,18 @@
  * it is initialized.
  */
 #define SET_UP \
-	void __set_up(); \
-	void (*_set_up)() = __set_up; \
-	void __set_up()
+	void __copper_set_up (); \
+	void (*_copper_set_up) () = __copper_set_up; \
+	void __copper_set_up ()
 
 /**
  * Defines a function that should be called whenever the fixture containing
  * it is de-initialized.
  */
 #define TEAR_DOWN \
-	void __tear_down(); \
-	void (*_tear_down)() = __tear_down; \
-	void __tear_down()
+	void __copper_tear_down (); \
+	void (*_copper_tear_down) () = __copper_tear_down; \
+	void __copper_tear_down ()
 
 /**
  * Define a new test with the given name. The fixture will be used to set up
@@ -100,29 +100,31 @@
 		class test_##NAME : public Copper::Test \
 		{ \
 		public: \
-			test_##NAME(): Copper::Test(#NAME, \
-			                            current_suite, \
-			                            __FILE__, \
-			                            __LINE__) {} \
+			test_##NAME(): Copper::Test (#NAME, \
+			                             _copper_current_suite, \
+			                             __FILE__, \
+			                             __LINE__) {} \
 			void set_up () { \
-				if (_set_up) _set_up(); \
+				if (_copper_set_up) \
+					_copper_set_up (); \
 			} \
 			void tear_down () { \
-				if (_tear_down) _tear_down(); \
+				if (_copper_tear_down) \
+					_copper_tear_down (); \
 			} \
 			void run() \
 			{ \
-				set_up(); \
-				_run(); \
-				tear_down(); \
+				set_up (); \
+				_run (); \
+				tear_down (); \
 			} \
 		protected: \
-			void _run(); \
+			void _run (); \
 		} test_instance_##NAME; \
 	} \
-	void fixture_namespace_##FIXTURE::test_##NAME::_run()
+	void fixture_namespace_##FIXTURE::test_##NAME::_run ()
 
-inline void __throws_cleanup(...) {}
+inline void __throws_cleanup (...) {}
 
 /**
  * Used to check if some code throws a certain type of exception.
@@ -143,10 +145,10 @@ inline void __throws_cleanup(...) {}
 	} \
 	if (!__copper_exception_thrown) \
 	{ \
-		Copper::do_fail_test("throws ("#TYPE", "#CODE")", \
-		                     "\""#CODE"\" didn't throw an exception of type \""#TYPE"\"", \
-		                     __FILE__, __LINE__); \
+		Copper::do_fail_test ("throws ("#TYPE", "#CODE")", \
+		                      "\""#CODE"\" didn't throw an exception of type \""#TYPE"\"", \
+		                      __FILE__, __LINE__); \
 	} \
-} __throws_cleanup(0
+} __throws_cleanup (0
 
 #endif /* COPPER_MACROS_HPP */
