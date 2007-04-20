@@ -110,4 +110,12 @@ TEST_SUITE (string_tests)
 		ASSERT (unequal ("test", (char *)0));
 		ASSERT (failed (equal ("test", (char *)0)));
 	}
+
+	TEST (build)
+	{
+		using Copper::String;
+		String str = String::build (4, "a", " b ", "c", "d");
+
+		ASSERT (equal ("a b cd", str));
+	}
 }
