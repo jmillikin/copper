@@ -175,16 +175,16 @@ namespace Copper
 	{
 		size_t first_size = first.size ();
 		size_t full_size = first_size + second.size ();
-
 		char *new_c_str = new char [full_size + 1];
+		String new_str;
+
 		strcpy (new_c_str, first.c_str ());
 		strcpy (new_c_str + first_size, second.c_str ());
 
 		new_c_str[full_size] = 0;
 
-		String new_str (new_c_str);
-		delete[] new_c_str;
-
+		new_str.priv->str = new_c_str;
+		new_str.priv->should_delete = true;
 		return new_str;
 	}
 

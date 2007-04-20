@@ -18,6 +18,11 @@ namespace Copper
 
 	class COPPER_EXPORT String
 	{
+		COPPER_EXPORT
+		friend
+		String
+		operator+ (const String &first,
+		           const String &second) throw ();
 	public:
 		String () throw ();
 
@@ -44,10 +49,6 @@ namespace Copper
 	private:
 		class StringPrivate *priv;
 	};
-
-	COPPER_EXPORT
-	String
-	operator+ (const String &first, const String &second) throw ();
 
 	COPPER_EXPORT
 	bool
