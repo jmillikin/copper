@@ -84,7 +84,7 @@ namespace Copper
 		run_test (Test *test, bool protect = true);
 
 		void
-		run_tests (List<Test> tests, bool protect = true);
+		run_tests (const List<Test> &tests, bool protect = true);
 	};
 }
 

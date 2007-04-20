@@ -119,7 +119,7 @@ namespace Copper
 	 *                runtime errors.
 	 */
 	void
-	OutputHandler::run_tests (List<Test> tests, bool protect)
+	OutputHandler::run_tests (const List<Test> &tests, bool protect)
 	{
 		const ListNode<Test> *node = tests.root ();
 		while (node)
