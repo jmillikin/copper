@@ -74,7 +74,10 @@ namespace Copper
 	String::String (const char *string,
 	                const std::size_t size) throw ()
 	{
-		priv = new StringPrivate (strndup (string, size), true);
+		if (string[0])
+			priv = new StringPrivate (strndup (string, size), true);
+		else
+			priv = new StringPrivate ("", false);
 	}
 
 	/**
