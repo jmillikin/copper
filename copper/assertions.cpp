@@ -6,6 +6,8 @@
 #include "assertions.hpp"
 #include "util/string.hpp"
 
+using Copper::String;
+
 static
 Copper::AssertionResult
 check_equal_strings (const char *first, const char *second) throw ()
@@ -45,83 +47,74 @@ check_unequal_strings (const char *first, const char *second) throw ()
 // Overloads for equal ()
 
 Copper::AssertionResult
-equal (const char *first, const char *second) throw ()
+_equal (const char *first, const char *second) throw ()
 {
 	if (!first || !second)
 		return check_equal_strings (first, second);
 
-	Copper::String s_first (first), s_second (second);
+	String s_first = String::from_static (first),
+	       s_second = String::from_static (second);
 	return equal (s_first, s_second);
+}
+
+Copper::AssertionResult
+equal (const char *first, const char *second) throw ()
+{
+	return _equal (first, second);
 }
 
 Copper::AssertionResult
 equal (const char *first, char second[]) throw ()
 {
-	if (!first || !second)
-		return check_equal_strings (first, second);
-
-	Copper::String s_first (first), s_second (second);
-	return equal (s_first, s_second);
+	return _equal (first, second);
 }
 
 Copper::AssertionResult
 equal (char first[], const char *second) throw ()
 {
-	if (!first || !second)
-		return check_equal_strings (first, second);
-
-	Copper::String s_first (first), s_second (second);
-	return equal (s_first, s_second);
+	return _equal (first, second);
 }
 
 Copper::AssertionResult
 equal (char first[], char second[]) throw ()
 {
-	if (!first || !second)
-		return check_equal_strings (first, second);
-
-	Copper::String s_first (first), s_second (second);
-	return equal (s_first, s_second);
+	return _equal (first, second);
 }
 
 // Overloads for unequal ()
 
+static
 Copper::AssertionResult
-unequal (const char *first, const char *second) throw ()
+_unequal (const char *first, const char *second) throw ()
 {
 	if (!first || !second)
 		return check_unequal_strings (first, second);
 
-	Copper::String s_second (second), s_first (first);
+	String s_first = String::from_static (first),
+	       s_second = String::from_static (second);
 	return unequal (s_first, s_second);
+}
+
+Copper::AssertionResult
+unequal (const char *first, const char *second) throw ()
+{
+	return _unequal (first, second);
 }
 
 Copper::AssertionResult
 unequal (const char *first, char second[]) throw ()
 {
-	if (!first || !second)
-		return check_unequal_strings (first, second);
-
-	Copper::String s_second (second), s_first (first);
-	return unequal (s_first, s_second);
+	return _unequal (first, second);
 }
 
 Copper::AssertionResult
 unequal (char first[], const char *second) throw ()
 {
-	if (!first || !second)
-		return check_unequal_strings (first, second);
-
-	Copper::String s_second (second), s_first (first);
-	return unequal (s_first, s_second);
+	return _unequal (first, second);
 }
 
 Copper::AssertionResult
 unequal (char first[], char second[]) throw ()
 {
-	if (!first || !second)
-		return check_unequal_strings (first, second);
-
-	Copper::String s_second (second), s_first (first);
-	return unequal (s_first, s_second);
+	return _unequal (first, second);
 }
