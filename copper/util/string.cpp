@@ -28,8 +28,8 @@ namespace Copper
 	 * @brief A version of strdup that takes an optional size parameter.
 	 * 
 	 * @param string The source string to duplicate.
-	 * @param size If > 0, only this many characters will be copied
-	 *             from the source string.
+	 * @param size If > 0, only this many bytes will be copied from
+	 *             the source string.
 	 * 
 	 * @return a new character array, which must be deallocated with
 	 *         delete[].
@@ -53,21 +53,43 @@ namespace Copper
 		return new_str;
 	}
 
-	String::String (const char *_str, const size_t size) throw ():
-	                priv (new StringPrivate (strndup (_str, size)))
+	/**
+	 * @brief Construct a new string.
+	 * 
+	 * @param string The source string to be stored.
+	 * @param size If > 0, only this many bytes will be copied from
+	 *             the source string.
+	 */
+	String::String (const char *string, const std::size_t size) throw ():
+	                priv (new StringPrivate (strndup (string, size)))
 	{
 	}
 
+	/**
+	 * @brief Copy an existing string.
+	 * 
+	 * @param other The string to copy.
+	 */
 	String::String (const String &other) throw ():
 	                priv (new StringPrivate (strndup (other.priv->str)))
 	{
 	}
 
+	/**
+	 * @brief Deallocate resources used by this string.
+	 */
 	String::~String () throw () {
 		delete[] priv->str;
 		delete priv;
 	}
 
+	/**
+	 * @brief Copy another string over the contents of this string.
+	 * 
+	 * @param other The string to copy.
+	 * 
+	 * @return A reference to this string.
+	 */
 	const String &
 	String::operator= (const String &other) throw ()
 	{
@@ -76,21 +98,45 @@ namespace Copper
 		return *this;
 	}
 
-	bool
-	String::operator== (const String &other) const throw ()
+	/**
+	 * @brief Get the size of the string.
+	 * 
+	 * @return the size of this string, in bytes.
+	 */
+	size_t
+	String::size () const throw ()
 	{
-		return strcmp (priv->str, other.priv->str) == 0;
+		return strlen (priv->str);
 	}
 
-	String
-	String::operator+ (const String &other) const throw ()
+	/**
+	 * @brief Get a char * representation of this string.
+	 * 
+	 * @return a char * representation of this string.
+	 */
+	const char *
+	String::c_str () const throw ()
 	{
-		size_t this_size = size ();
-		size_t full_size = this_size + other.size ();
+		return priv->str;
+	}
+
+	/**
+	 * @brief Concatenate two strings.
+	 * 
+	 * @param first The first part of the new string.
+	 * @param second The second part of the new string.
+	 * 
+	 * @return The two strings, concatenated together.
+	 */
+	String
+	operator+ (const String &first, const String &second) throw ()
+	{
+		size_t first_size = first.size ();
+		size_t full_size = first_size + second.size ();
 
 		char *new_c_str = new char [full_size + 1];
-		strcpy (new_c_str, priv->str);
-		strcpy (new_c_str + this_size, other.priv->str);
+		strcpy (new_c_str, first.c_str ());
+		strcpy (new_c_str + first_size, second.c_str ());
 
 		new_c_str[full_size] = 0;
 
@@ -100,27 +146,17 @@ namespace Copper
 		return new_str;
 	}
 
-	size_t
-	String::size () const throw ()
-	{
-		return strlen (priv->str);
-	}
-
-	const char *
-	String::c_str () const throw ()
-	{
-		return priv->str;
-	}
-
-	String
-	operator+ (const char *a, const String &b) throw ()
-	{
-		return String (a) + b;
-	}
-
+	/**
+	 * @brief Compare two strings for equality.
+	 * 
+	 * @param first The first string to compare.
+	 * @param second The second string to compare.
+	 * 
+	 * @return whether the strings are equal.
+	 */
 	bool
-	operator==(const char *a, const String &b) throw ()
+	operator== (const String &first, const String &second) throw ()
 	{
-		return strcmp (a, b.c_str ()) == 0;
+		return strcmp (first.c_str (), second.c_str ()) == 0;
 	}
 }

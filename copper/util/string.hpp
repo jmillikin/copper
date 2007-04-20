@@ -29,11 +29,6 @@ namespace Copper
 		const String &
 		operator=(const String &other) throw ();
 
-		bool
-		operator== (const String &other) const throw ();
-
-		String
-		operator+ (const String &other) const throw ();
 
 		std::size_t
 		size () const throw ();
@@ -47,11 +42,11 @@ namespace Copper
 
 	COPPER_EXPORT
 	String
-	operator+ (const char *a, const String &b) throw ();
+	operator+ (const String &first, const String &second) throw ();
 
 	COPPER_EXPORT
 	bool
-	operator== (const char *a, const String &b) throw ();
+	operator== (const String &first, const String &second) throw ();
 }
 
 #endif /* COPPER_UTIL_STRING_HPP */
