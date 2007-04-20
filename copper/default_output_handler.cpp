@@ -53,9 +53,10 @@ namespace Copper
 
 	/** Default constructor */
 	DefaultOutputHandler::DefaultOutputHandler (int &argc, char **&argv) throw ():
-	                                            OutputHandler (),
-	                                            priv (new DOHP (parse_test_args (argc, argv)))
+	                                            OutputHandler ()
 	{
+		priv = new DOHP (parse_test_args (argc - 1, argv + 1));
+
 		// Allow exception catching to be toggled on or off at runtime
 		for (int ii = 1; ii < argc; ii++)
 		{
