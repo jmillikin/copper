@@ -105,7 +105,7 @@ namespace Copper
 	/**
 	 * @brief Construct a new string from static data.
 	 * 
-	 * This version is provided for performance reasons, to avoid
+	 * This function is provided for performance reasons, to avoid
 	 * copying static character data.
 	 * 
 	 * @param string The static character data to store.
