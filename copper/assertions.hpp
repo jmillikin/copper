@@ -66,6 +66,22 @@ Copper::AssertionResult
 equal (char first[], char second[]) throw ();
 
 /**
+ * @brief Overloaded for performance
+ * @overload
+ */
+COPPER_EXPORT
+Copper::AssertionResult
+equal (const char *first, const Copper::String &second) throw ();
+
+/**
+ * @brief Overloaded for performance
+ * @overload
+ */
+COPPER_EXPORT
+Copper::AssertionResult
+equal (char first[], const Copper::String &second) throw ();
+
+/**
  * @brief Assert two values are nearly equal, within a certain delta.
  * 
  * @param expected The expected value of this assertion.

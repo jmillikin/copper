@@ -81,6 +81,18 @@ equal (char first[], char second[]) throw ()
 	return _equal (first, second);
 }
 
+Copper::AssertionResult
+equal (const char *first, const String &second) throw ()
+{
+	return equal (String::from_static (first), second);
+}
+
+Copper::AssertionResult
+equal (char first[], const String &second) throw ()
+{
+	return equal (String::from_static (first), second);
+}
+
 // Overloads for unequal ()
 
 static
