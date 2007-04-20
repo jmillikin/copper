@@ -226,7 +226,7 @@ namespace Copper
 		 * 
 		 * @return the size of the list.
 		 */
-		int
+		std::size_t
 		size () const throw ()
 		{
 			return _size;
@@ -285,7 +285,7 @@ namespace Copper
 		}
 
 		ListNode<C> *_root;
-		int _size;
+		std::size_t _size;
 	};
 }
 

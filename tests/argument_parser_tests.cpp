@@ -33,7 +33,7 @@ TEST_SUITE (argument_parser_tests)
 		char *argv[] = {"argument_parser_tests"};
 		TestList tests = parse_test_args (argc, argv);
 
-		ASSERT (equal (7, tests.size ()));
+		ASSERT (equal (7u, tests.size ()));
 	}
 
 	TEST (single_test)
@@ -42,7 +42,7 @@ TEST_SUITE (argument_parser_tests)
 		char *argv[] = {"argument_parser_tests.single_test"};
 		TestList tests = parse_test_args (argc, argv);
 
-		ASSERT (equal (1, tests.size ()));
+		ASSERT (equal (1u, tests.size ()));
 	}
 
 	TEST (multiple_tests)
@@ -54,7 +54,7 @@ TEST_SUITE (argument_parser_tests)
 		};
 		TestList tests = parse_test_args (argc, argv);
 
-		ASSERT (equal (2, tests.size ()));
+		ASSERT (equal (2u, tests.size ()));
 	}
 
 	TEST (invalid_suite)
@@ -84,6 +84,6 @@ TEST_SUITE (argument_parser_tests)
 		};
 		TestList tests = parse_test_args (argc, argv);
 
-		ASSERT (equal (1, tests.size ()));
+		ASSERT (equal (1u, tests.size ()));
 	}
 }
