@@ -15,21 +15,39 @@ using namespace std;
 namespace Copper
 {
 	/** @class OutputHandler
+	 * @brief Abstract class for output handlers.
+	 * 
+	 * An output handler decides which tests to run, and how to display
+	 * the output to the user.
+	 * 
 	 * This class must be subclassed to provide different output formats.
 	 */
 
-	/** Default constructor */
+	/**
+	 * @brief Default constructor
+	 */
 	OutputHandler::OutputHandler ()
 	{
 	}
 
-	/** Default destructor */
+	/**
+	 * @brief Default destructor
+	 */
 	OutputHandler::~OutputHandler ()
 	{
 	}
 
 	/**
-	 * Get a list of tests to run, by parsing commandline arguments.
+	 * @brief Parse commandline arguments into a list of tests.
+	 * 
+	 * Arguments may be in one of two forms: suite_name, or
+	 * suite_name.test_name. In the first case, every test in the named
+	 * suite will be added to the test list. In the second, only the
+	 * single test will be added.
+	 * 
+	 * The parameters to main () should not be passed directly to this
+	 * function, because they contain the executable name. Instead,
+	 * pass argc-1 and argv+1.
 	 * 
 	 * @param argc The argument count.
 	 * @param argv The arguments.
@@ -75,8 +93,11 @@ namespace Copper
 	}
 
 	/**
-	 * Run a single test. This function automatically manages Protectors
-	 * and exception handling.
+	 * @brief Run a single test.
+	 * 
+	 * This will try to run a test. begin () will be called before the
+	 * test starts. After the test completes, one of error (), fail (),
+	 * or pass () will be called with the proper arguments.
 	 * 
 	 * @param test The test to run.
 	 * @param protect Whether to use Protectors to guard against runtime
@@ -111,8 +132,9 @@ namespace Copper
 	}
 
 	/**
-	 * Run a many tests. This function automatically manages
-	 * Protectors and exception handling.
+	 * @brief Run a list of tests.
+	 * 
+	 * @see run_test ()
 	 * 
 	 * @param tests The tests to run
 	 * @param protect Whether to use Protectors to guard against

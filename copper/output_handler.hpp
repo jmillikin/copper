@@ -75,6 +75,7 @@ namespace Copper
 		virtual
 		int
 		run () = 0;
+
 		static
 		List<Test>
 		parse_test_args (int argc, char **argv);
