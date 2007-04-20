@@ -17,7 +17,6 @@ copper_include_real_HEADERS = \
   output_handler.hpp \
   protector.hpp \
   safe_exception.hpp \
-  suite.hpp \
   test.hpp \
   test_runner.hpp \
   test_status.hpp
@@ -40,7 +39,6 @@ libcopper_la_SOURCES = \
   failure_format.cpp \
   output_handler.cpp \
   protector.cpp \
-  suite.cpp \
   test.cpp \
   test_runner.cpp \
   test_status.cpp
