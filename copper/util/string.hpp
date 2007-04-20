@@ -14,7 +14,7 @@ namespace Copper
 {
 	COPPER_EXPORT
 	char *
-	strndup (const char *a, const std::size_t size = 0) throw ();
+	strndup (const char *string, const std::size_t size = 0) throw ();
 
 	class COPPER_EXPORT String
 	{

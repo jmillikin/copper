@@ -24,22 +24,29 @@ namespace Copper
 	};
 
 	/**
-	 * An implementation of the GNU project's strndup
+	 * @brief A version of strdup that takes an optional size parameter.
+	 * 
+	 * @param string The source string to duplicate.
+	 * @param size If > 0, only this many characters will be copied
+	 *             from the source string.
+	 * 
+	 * @return a new character array, which must be deallocated with
+	 *         delete[].
 	 */
 	char *
-	strndup (const char *a, const size_t size) throw ()
+	strndup (const char *string, const size_t size) throw ()
 	{
-		size_t a_len = strlen (a);
+		size_t string_len = strlen (string);
 
-		if (size && size < a_len)
+		if (size && size < string_len)
 		{
-			a_len = size;
+			string_len = size;
 		}
 
-		char *b = new char [a_len + 1];
-		strncpy (b, a, a_len);
-		b[a_len] = 0;
-		return b;
+		char *new_str = new char [string_len + 1];
+		strncpy (new_str, string, string_len);
+		new_str[string_len] = 0;
+		return new_str;
 	}
 
 	String::String (const char *_str, const size_t size) throw ():
