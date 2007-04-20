@@ -19,16 +19,21 @@ namespace Copper
 	class COPPER_EXPORT String
 	{
 	public:
-		String (const char *string = "",
+		String () throw ();
+
+		String (const char *string,
 		        const std::size_t size = 0) throw ();
 
 		String (const String &other) throw ();
 
 		~String () throw ();
 
+		static
+		String
+		from_static (const char *string) throw ();
+
 		const String &
 		operator=(const String &other) throw ();
-
 
 		std::size_t
 		size () const throw ();

@@ -16,16 +16,19 @@ namespace Copper
 	class StringPrivate
 	{
 	public:
-		StringPrivate (char *str):
-		               str(str)
+		StringPrivate (char *str, bool should_delete):
+		               str(str),
+		               should_delete (should_delete)
 		{
 		}
 
 		char *str;
+		bool should_delete;
 	};
 
 	/**
-	 * @brief A version of strdup that takes an optional size parameter.
+	 * @brief A version of strdup that takes an optional size
+	 *        parameter.
 	 * 
 	 * @param string The source string to duplicate.
 	 * @param size If > 0, only this many bytes will be copied from
@@ -54,15 +57,24 @@ namespace Copper
 	}
 
 	/**
+	 * @brief Construct an empty string
+	 */
+	String::String () throw ()
+	{
+		priv = new StringPrivate ("", false);
+	}
+
+	/**
 	 * @brief Construct a new string.
 	 * 
 	 * @param string The source string to be stored.
 	 * @param size If > 0, only this many bytes will be copied from
 	 *             the source string.
 	 */
-	String::String (const char *string, const std::size_t size) throw ():
-	                priv (new StringPrivate (strndup (string, size)))
+	String::String (const char *string,
+	                const std::size_t size) throw ()
 	{
+		priv = new StringPrivate (strndup (string, size), true);
 	}
 
 	/**
@@ -70,17 +82,40 @@ namespace Copper
 	 * 
 	 * @param other The string to copy.
 	 */
-	String::String (const String &other) throw ():
-	                priv (new StringPrivate (strndup (other.priv->str)))
+	String::String (const String &other) throw ()
 	{
+		if (other.priv->should_delete)
+		{
+			char *new_str = strndup (other.priv->str);
+			priv = new StringPrivate (new_str, true);
+		}
+		else
+			priv = new StringPrivate (other.priv->str, false);
 	}
 
 	/**
 	 * @brief Deallocate resources used by this string.
 	 */
 	String::~String () throw () {
-		delete[] priv->str;
+		if (priv->should_delete)
+			delete[] priv->str;
 		delete priv;
+	}
+
+	/**
+	 * @brief Construct a new string from static data.
+	 * 
+	 * This version is provided for performance reasons, to avoid
+	 * copying static character data.
+	 * 
+	 * @param string The static character data to store.
+	 */
+	String
+	String::from_static (const char *string) throw ()
+	{
+		String new_string;
+		new_string.priv->str = const_cast<char *> (string);
+		return new_string;
 	}
 
 	/**
@@ -93,8 +128,15 @@ namespace Copper
 	const String &
 	String::operator= (const String &other) throw ()
 	{
-		delete[] priv->str;
-		priv->str = strndup (other.priv->str);
+		if (priv->should_delete)
+			delete[] priv->str;
+
+		priv->should_delete = other.priv->should_delete;
+		if (other.priv->should_delete)
+			priv->str = strndup (other.priv->str);
+		else
+			priv->str = other.priv->str;
+
 		return *this;
 	}
 
