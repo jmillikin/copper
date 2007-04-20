@@ -3,6 +3,7 @@
  * For conditions of distribution and use, see COPYING
  */
 
+#include <cassert>
 #include <cstring>
 
 #include "../compat.hpp"
@@ -36,7 +37,10 @@ namespace Copper
 	char *
 	strndup (const char *string, const size_t size) throw ()
 	{
-		size_t string_len = strlen (string);
+		size_t string_len;
+
+		assert (string != NULL);
+		string_len = strlen (string);
 
 		if (size && size < string_len)
 		{
