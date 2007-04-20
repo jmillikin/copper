@@ -33,8 +33,7 @@ TEST_SUITE (argument_parser_tests)
 		char *argv[] = {"argument_parser_tests"};
 		TestList tests = parse_test_args (argc, argv);
 
-		ASSERT (equal (current_suite.get_tests ().size (),
-		              tests.size ()));
+		ASSERT (equal (7, tests.size ()));
 	}
 
 	TEST (single_test)
