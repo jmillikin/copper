@@ -9,7 +9,7 @@ namespace Copper {
 	String
 	failure_format(const char &v) throw ()
 	{
-		return "'" + format (v) + "'";
+		return String::build (3, "'", format (v).c_str (), "'");
 	}
 
 	String
@@ -27,7 +27,7 @@ namespace Copper {
 	String
 	failure_format(const String &v) throw ()
 	{
-		return "\"" + v + "\"";
+		return String::build (3, "\"", v.c_str (), "\"");
 	}
 
 	String

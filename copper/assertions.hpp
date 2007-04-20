@@ -97,15 +97,22 @@ equal_within (const Value &expected,
               const Value &actual,
               const Value &delta) throw ()
 {
+	using Copper::String;
+	using Copper::format;
+
 	Copper::AssertionResult result;
 
 	if ((actual < expected - delta) || (actual > expected + delta))
 	{
-		Copper::String message;
-		message = Copper::String ("'") + Copper::format (actual) + "'"
-		          " is not within '" + Copper::format (delta) +
-		          "' of '" + Copper::format (expected) + "'";
-
+		String message = String::build (7,
+		                                "'",
+		                                format (actual).c_str (),
+		                                "'",
+		                                " is not within '",
+		                                format (delta).c_str (),
+		                                "' of '",
+		                                format (expected).c_str (),
+		                                "'");
 		result.fail (message);
 	}
 

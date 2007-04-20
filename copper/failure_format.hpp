@@ -51,7 +51,11 @@ namespace Copper {
 	String
 	failure_format (const A &a, const String& join, const B &b)
 	{
-		return failure_format (a) + " " + join + " " + failure_format (b);
+		return String::build (5, failure_format (a).c_str (),
+		                         " ",
+		                         join.c_str (),
+		                         " ",
+		                         failure_format (b).c_str ());
 	}
 }
 
