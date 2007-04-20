@@ -168,8 +168,6 @@ namespace Copper
 	char *
 	strjoin (const char *first, const char *second) throw ()
 	{
-		printf ("  Joining \"%s\" and \"%s\"\n", first, second);
-
 		size_t first_size = strlen (first);
 		size_t full_size = first_size + strlen (second);
 		char *new_c_str = new char [full_size + 1];
