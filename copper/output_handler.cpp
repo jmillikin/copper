@@ -63,12 +63,7 @@ namespace Copper
 			else
 			{
 				// No test name, append everything in the suite
-				Suite *suite = Suite::find (name);
-
-				if (suite)
-				{
-					tests.extend (suite->get_tests ());
-				}
+				tests.extend (Test::in_suite (name));
 			}
 		}
 
