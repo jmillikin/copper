@@ -90,10 +90,15 @@ serialize_failure (const Failure *failure)
 	line_len = format (static_cast<unsigned int> (line_str.size ()));
 	text_len = format (static_cast<unsigned int> (failure->text.size ()));
 
-	return String ("7:failure") + " " +
-		text_len + ":" + failure->text + " " +
-		line_len + ":" + line_str + " " +
-		message_len + ":" + failure->message;
+	return String::build (10, "7:failure ",
+	                      text_len.c_str (), ":",
+	                      failure->text.c_str (),
+
+	                      line_len.c_str (), ":",
+	                      line_str.c_str (),
+
+	                      message_len.c_str (), ":",
+	                      failure->message.c_str ());
 }
 
 String
@@ -105,8 +110,9 @@ serialize_error (const Error *error)
 
 	message_len = format (static_cast<unsigned int> (error->message.size ()));
 
-	return String ("5:error") + " " +
-		message_len + ":" + error->message;
+	return String::build (4, "5:error ",
+	                      message_len.c_str (), ":",
+	                      error->message.c_str ());
 }
 
 String
