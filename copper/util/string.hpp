@@ -14,13 +14,13 @@ namespace Copper
 {
 	COPPER_EXPORT
 	char *
-	strndup (const char *a, const unsigned int size = 0) throw ();
+	strndup (const char *a, const std::size_t size = 0) throw ();
 
 	class COPPER_EXPORT String
 	{
 	public:
 		String (const char *string = "",
-		        const unsigned int size = 0) throw ();
+		        const std::size_t size = 0) throw ();
 
 		String (const String &other) throw ();
 

@@ -27,7 +27,7 @@ namespace Copper
 	 * An implementation of the GNU project's strndup
 	 */
 	char *
-	strndup (const char *a, const unsigned int size) throw ()
+	strndup (const char *a, const size_t size) throw ()
 	{
 		size_t a_len = strlen (a);
 
@@ -42,7 +42,7 @@ namespace Copper
 		return b;
 	}
 
-	String::String (const char *_str, const unsigned int size) throw ():
+	String::String (const char *_str, const size_t size) throw ():
 	                priv (new StringPrivate (strndup (_str, size)))
 	{
 	}
