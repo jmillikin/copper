@@ -15,9 +15,9 @@ namespace Copper
 	class COPPER_EXPORT Test
 	{
 	public:
-		Test (const String &name,
-		      const String &suite,
-		      const String &file_name,
+		Test (const char *name,
+		      const char *suite,
+		      const char *file_name,
 		      const unsigned int line) throw ();
 
 		virtual

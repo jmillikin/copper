@@ -43,9 +43,9 @@ namespace Copper
 	 * @param file_name The file this test's implementation is in.
 	 * @param line The line this test was defined on.
 	 */
-	Test::Test (const String &name,
-	            const String &suite,
-	            const String &file_name,
+	Test::Test (const char *name,
+	            const char *suite,
+	            const char *file_name,
 	            const unsigned int line) throw ():
 
 	            name (name),
