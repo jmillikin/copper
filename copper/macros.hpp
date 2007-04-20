@@ -40,9 +40,9 @@
 #define TEST_SUITE(NAME) \
 	namespace suite_namespace_##NAME \
 	{ \
-		static void (*_set_up)() = 0; \
-		static void (*_tear_down)() = 0; \
-		static char current_suite[] = #NAME; \
+		COPPER_UNUSED static const void (*_set_up)() = 0; \
+		COPPER_UNUSED static const void (*_tear_down)() = 0; \
+		static const char current_suite[] = #NAME; \
 	} \
 	namespace suite_namespace_##NAME
 
