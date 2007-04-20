@@ -217,6 +217,36 @@ namespace Copper
 		}
 
 		/**
+		 * @brief Filter the list through a function
+		 * 
+		 * Searches the list for all values that match a particular
+		 * function, and return a list of such values.
+		 * 
+		 * @param matches A function which should return true if the
+		 *                given data is what is being searched for.
+		 * @param data User-defined data to pass to matches.
+		 * 
+		 * @return a list of values matching the given function.
+		 */
+		List<C>
+		filter (type_matcher *matches, const void *data)
+		{
+			List<C> new_list;
+
+			ListNode<C> *node = _root;
+			while (node)
+			{
+				if (matches (node->value, data))
+				{
+					new_list.append (node->value);
+				}
+				node = node->next;
+			}
+
+			return new_list;
+		}
+
+		/**
 		 * @brief Returns the first node in the list.
 		 * 
 		 * @return the first node in the list, or NULL if the list is
