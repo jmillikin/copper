@@ -112,7 +112,7 @@ serialize_error (const Error *error)
 String
 serialize_pass ()
 {
-	return String ("6:passed");
+	return String::from_static ("6:passed");
 }
 
 String
