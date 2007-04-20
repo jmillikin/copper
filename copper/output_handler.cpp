@@ -14,9 +14,6 @@ using namespace std;
 
 namespace Copper
 {
-	Test *
-	find_test (const String &suite_name, const String &test_name);
-
 	/** @class OutputHandler
 	 * This class must be subclassed to provide different output formats.
 	 */
@@ -56,7 +53,7 @@ namespace Copper
 				String test_name (midpoint + 1);
 
 				Test *test = Test::find (suite_name,
-				                               test_name);
+				                         test_name);
 				if (test)
 				{
 					tests.append (test);
