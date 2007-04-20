@@ -4,6 +4,7 @@
  */
 
 #include <cassert>
+#include <cstdarg>
 #include <cstring>
 
 #include "../compat.hpp"
@@ -119,6 +120,50 @@ namespace Copper
 		String new_string;
 		new_string.priv->str = const_cast<char *> (string);
 		return new_string;
+	}
+
+	struct BuilderInfo
+	{
+		char *str;
+		size_t len;
+	};
+
+	String
+	String::build (const size_t count, ...) throw ()
+	{
+		va_list args;
+		va_start (args, count);
+		size_t full_size = 0, ii, idx = 0;
+		String new_str;
+		BuilderInfo *strings = new BuilderInfo[count];
+		char *new_c_str;
+
+		/* Find the total size */
+		for (ii = 0; ii < count; ii++)
+		{
+			strings[ii].str = va_arg (args, char *);
+			strings[ii].len = strlen (strings[ii].str);
+			full_size += strings[ii].len;
+		}
+
+		va_end (args);
+
+		/* Build the new string */
+		new_c_str = new char[full_size + 1];
+
+		for (ii = 0; ii < count; ii++)
+		{
+			strcpy (new_c_str + idx, strings[ii].str);
+			idx += strings[ii].len;
+		}
+
+		new_c_str[full_size] = 0;
+
+		delete[] strings;
+
+		new_str.priv->str = new_c_str;
+		new_str.priv->should_delete = true;
+		return new_str;
 	}
 
 	/**

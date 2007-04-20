@@ -49,6 +49,10 @@ namespace Copper
 		String
 		from_static (const char *string) throw ();
 
+		static
+		String
+		build (const std::size_t count, ...) throw ();
+
 		const String &
 		operator=(const String &other) throw ();
 
