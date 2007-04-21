@@ -141,7 +141,7 @@ namespace Copper
 	 *         together.
 	 */
 	String
-	String::build (const size_t count, ...) throw ()
+	String::build (const std::size_t count, ...) throw ()
 	{
 		va_list args;
 		va_start (args, count);
