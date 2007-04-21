@@ -13,7 +13,7 @@ namespace Copper {
 	String
 	format(const bool &v) throw ()
 	{
-		return String (v ? "true" : "false");
+		return String::from_static (v ? "true" : "false");
 	}
 #endif /* HAVE_BOOLEAN */
 
@@ -22,7 +22,7 @@ namespace Copper {
 	{
 		if (v < ' ' || v > '~')
 		{
-			return String ("");
+			return String::from_static ("");
 		}
 
 		char buffer[] = {v, '\0'};
