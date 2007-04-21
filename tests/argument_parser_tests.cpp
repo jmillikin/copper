@@ -16,7 +16,7 @@ parse_test_args (int argc, char** argv)
 }
 
 // Test the argument parser
-TEST_SUITE (argument_parser_tests)
+SUITE (argument_parser_tests)
 {
 	TEST (no_arguments)
 	{

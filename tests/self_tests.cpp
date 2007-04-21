@@ -10,7 +10,7 @@
 #include <copper/output_handler.hpp>
 
 // Various self-tests of the framework, to try and avoid bugs
-TEST_SUITE (self_tests)
+SUITE (self_tests)
 {
 	FIXTURE (the_fixture)
 	{

@@ -5,7 +5,7 @@
 
 #include <copper.hpp>
 
-TEST_SUITE (string_tests)
+SUITE (string_tests)
 {
 	TEST (construct_with_size)
 	{

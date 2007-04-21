@@ -23,7 +23,7 @@ const signed long MY_LONG_MIN = -MY_LONG_MAX - 1;
 
 const unsigned long MY_ULONG_MAX = 4294967295UL;
 
-TEST_SUITE(format_tests)
+SUITE(format_tests)
 {
 	TEST (bool_test)
 	{

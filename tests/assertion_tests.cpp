@@ -7,7 +7,7 @@
 #include <cstring>
 #include <cstdlib>
 
-TEST_SUITE (assertion_tests)
+SUITE (assertion_tests)
 {
 	TEST (boolean_true)
 	{

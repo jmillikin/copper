@@ -37,7 +37,7 @@
  * 
  * @param NAME The name of the new test suite.
  */
-#define TEST_SUITE(NAME) \
+#define SUITE(NAME) \
 	namespace suite_namespace_##NAME \
 	{ \
 		COPPER_UNUSED static const void (*_copper_set_up) () = 0; \

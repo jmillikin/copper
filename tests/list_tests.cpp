@@ -5,7 +5,7 @@
 
 #include <copper.hpp>
 
-TEST_SUITE (list_tests)
+SUITE (list_tests)
 {
 	TEST (constructor)
 	{

@@ -7,7 +7,7 @@
 
 using Copper::failure_format;
 
-TEST_SUITE (failure_format_tests)
+SUITE (failure_format_tests)
 {
 	TEST (integer)
 	{

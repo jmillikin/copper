@@ -5,7 +5,7 @@
 
 #include <copper.hpp>
 
-TEST_SUITE (sample_suite)
+SUITE (sample_suite)
 {
 	TEST (equality)
 	{
