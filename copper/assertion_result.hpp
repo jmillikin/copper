@@ -21,9 +21,6 @@ namespace Copper
 
 		AssertionResult (const AssertionResult &other) throw ();
 
-		const AssertionResult &
-		operator= (const AssertionResult &other) throw ();
-
 		~AssertionResult () throw ();
 
 		void
@@ -41,6 +38,9 @@ namespace Copper
 		operator bool () const throw ();
 
 	private:
+		const AssertionResult &
+		operator= (const AssertionResult &other) throw ();
+
 		class AssertionResultPrivate *priv;
 	};
 }

@@ -103,21 +103,6 @@ namespace Copper
 	}
 
 	/**
-	 * @brief Copy one assertion result to another.
-	 * 
-	 * @param other The AssertionResult to copy.
-	 */
-	const AssertionResult &
-	AssertionResult::operator= (const AssertionResult &other) throw ()
-	{
-		priv->finished = other.priv->finished;
-		priv->passed = other.priv->passed;
-		priv->failure_message = other.priv->failure_message;
-
-		return *this;
-	}
-
-	/**
 	 * @brief Deallocate used memory.
 	 */
 	AssertionResult::~AssertionResult () throw ()
