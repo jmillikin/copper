@@ -20,7 +20,6 @@ namespace Copper
 			return String::from_static ("No Error");
 	}
 
-
 	/**
 	 * @brief Implementation details of AssertionResult
 	 */
@@ -102,11 +101,8 @@ namespace Copper
 	 * @param other The AssertionResult to copy.
 	 */
 	AssertionResult::AssertionResult (const AssertionResult &other) throw ():
-	                                  priv (new AssertionResultPrivate)
+	                                  priv (new AssertionResultPrivate (*other.priv))
 	{
-		priv->finished = other.priv->finished;
-		priv->passed = other.priv->passed;
-		priv->failure_message = other.priv->failure_message;
 	}
 
 	/**
