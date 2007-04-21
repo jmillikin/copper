@@ -8,26 +8,24 @@
 namespace Copper
 {
 	/** @class Error
+	 * @brief Stores information on an unexpected error.
+	 * 
 	 * This is used to indicate that something unexpected went wrong
-	 * running a test.
+	 * running a test. Errors should only be used for problems that
+	 * would not be expected.
 	 */
 
 	/** @var Error::message
-	 * The error that occurred
+	 * @brief The error that occurred.
 	 */
 
 	/**
-	 * Default constructor
+	 * @brief Initialize a new error.
 	 * 
-	 * @param message The error string
+	 * @param message The error string.
 	 */
 	Error::Error (const String &message) throw ():
 	              message (message)
-	{
-	}
-
-	/** Default destructor */
-	Error::~Error () throw () 
 	{
 	}
 }

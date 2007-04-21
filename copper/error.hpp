@@ -15,8 +15,6 @@ namespace Copper
 	public:
 		Error (const String &message) throw ();
 
-		~Error () throw ();
-
 		const String message;
 
 	private:
