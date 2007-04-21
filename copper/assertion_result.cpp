@@ -10,6 +10,17 @@
 
 namespace Copper
 {
+	static
+	String
+	make_failure_message (bool passed) throw ()
+	{
+		if (!passed)
+			return String::from_static ("Boolean assertion failed");
+		else
+			return String::from_static ("No Error");
+	}
+
+
 	/**
 	 * @brief Implementation details of AssertionResult
 	 */
@@ -33,7 +44,8 @@ namespace Copper
 		 */
 		AssertionResultPrivate (bool result) throw ():
 		                        finished (true),
-		                        passed (result)
+		                        passed (result),
+		                        failure_message (make_failure_message (result))
 		{
 		}
 
@@ -82,11 +94,6 @@ namespace Copper
 	AssertionResult::AssertionResult (bool result) throw ():
 	                                  priv (new AssertionResultPrivate (result))
 	{
-		if (!priv->passed)
-			priv->failure_message = String::from_static ("Boolean assertion failed");
-
-		else
-			priv->failure_message = String::from_static ("No Error");
 	}
 
 	/**
