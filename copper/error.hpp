@@ -22,8 +22,6 @@ namespace Copper
 	private:
 		Error &
 		operator= (const Error&) throw ();
-
-		Error (const Error&) throw ();
 	};
 }
 
