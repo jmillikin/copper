@@ -10,9 +10,15 @@
 
 namespace Copper
 {
+	/**
+	 * @brief Implementation details of AssertionResult
+	 */
 	class AssertionResultPrivate
 	{
 	public:
+		/**
+		 * @brief Initialize with default values.
+		 */
 		AssertionResultPrivate () throw ():
 	                                finished (false),
 	                                passed (false),
@@ -20,19 +26,30 @@ namespace Copper
 		{
 		}
 
+		/**
+		 * @brief Initialize with a boolean result.
+		 * 
+		 * @param result Whether the assertion passed.
+		 */
 		AssertionResultPrivate (bool result) throw ():
 		                        finished (true),
 		                        passed (result)
 		{
 		}
 
-		/** True if pass () or fail () has been called. */
+		/**
+		 * @brief True if pass () or fail () has been called.
+		 */
 		bool finished;
 
-		/** Whether the assertion passed or failed. */
+		/**
+		 * @brief Whether the assertion passed or failed.
+		 */
 		bool passed;
 
 		/**
+		 * @brief The failure message, if available.
+		 * 
 		 * If the Assertion failed, this will contain the failure
 		 * message.
 		 */
@@ -41,16 +58,27 @@ namespace Copper
 
 
 	/** @class AssertionResult
+	 * @brief Detailed information about an assertion.
+	 * 
 	 * Used for returning whether an assertion passed or not.
 	 */
 
-	/** Default constructor */
+	/**
+	 * @brief Initialize with default values.
+	 * 
+	 * This initializes an AssertionResult that has been marked as not
+	 * yet completed.
+	 */
 	AssertionResult::AssertionResult () throw ():
 	                                  priv (new AssertionResultPrivate)
 	{
 	}
 
-	/** Construct from a boolean value */
+	/**
+	 * @brief Initialize with a boolean result.
+	 * 
+	 * @param result Whether the assertion passed.
+	 */
 	AssertionResult::AssertionResult (bool result) throw ():
 	                                  priv (new AssertionResultPrivate (result))
 	{
@@ -61,7 +89,11 @@ namespace Copper
 			priv->failure_message = String::from_static ("No Error");
 	}
 
-	/** Copy constructor */
+	/**
+	 * @brief Copy an existing assertion result.
+	 * 
+	 * @param other The AssertionResult to copy.
+	 */
 	AssertionResult::AssertionResult (const AssertionResult &other) throw ():
 	                                  priv (new AssertionResultPrivate)
 	{
@@ -70,7 +102,11 @@ namespace Copper
 		priv->failure_message = other.priv->failure_message;
 	}
 
-	/** Assignment operator */
+	/**
+	 * @brief Copy one assertion result to another.
+	 * 
+	 * @param other The AssertionResult to copy.
+	 */
 	const AssertionResult &
 	AssertionResult::operator= (const AssertionResult &other) throw ()
 	{
@@ -81,13 +117,20 @@ namespace Copper
 		return *this;
 	}
 
-	/** Default destructor */
+	/**
+	 * @brief Deallocate used memory.
+	 */
 	AssertionResult::~AssertionResult () throw ()
 	{
 		delete priv;
 	}
 
-	/** Mark that the Assertion has passed */
+	/** 
+	 * @brief Mark that the assertion has passed.
+	 * 
+	 * If this function is called after this result has been marked as
+	 * finished, nothing will happen.
+	 */
 	void
 	AssertionResult::pass () throw ()
 	{
@@ -100,12 +143,15 @@ namespace Copper
 	}
 
 	/**
-	 * Mark that the Assertion has failed
+	 * @brief Mark that the Assertion has failed.
 	 * 
-	 * @param message The failure message
+	 * If this function is called after this result has been marked as
+	 * finished, nothing will happen.
+	 * 
+	 * @param message The failure message.
 	 * 
 	 * @return The AssertionResult, for use in constructing failed
-	 *         assertions with a single expression
+	 *         assertions with a single expression.
 	 */
 	const AssertionResult &
 	AssertionResult::fail (const String &message) throw ()
@@ -120,14 +166,25 @@ namespace Copper
 		return *this;
 	}
 
-	/** Get whether the Assertion has passed or failed */
+	/**
+	 * @brief Get whether the assertion has passed or failed.
+	 * 
+	 * @return whether the assertion has passed or failed.
+	 */
 	bool
 	AssertionResult::passed () const throw ()
 	{
 		return priv->finished && priv->passed;
 	}
 
-	/** If the Assertion failed, get the failure message */
+	/**
+	 * @brief Get the failure message
+	 * 
+	 * If the result has not been set, or passed, an appropriate string
+	 * will be returned instead of a failure message.
+	 * 
+	 * @return the failure message, if one exists.
+	 */
 	const String &
 	AssertionResult::failure_message () const throw ()
 	{
@@ -135,8 +192,9 @@ namespace Copper
 	}
 
 	/**
-	 * Allow automatic conversions to boolean, for operations
-	 * such as AND-ing.
+	 * @brief Automatic boolean conversion
+	 * 
+	 * @return whether the assertion has passed or failed.
 	 */
 	AssertionResult::operator bool () const throw ()
 	{
