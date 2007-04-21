@@ -128,6 +128,18 @@ namespace Copper
 		size_t len;
 	};
 
+	/**
+	 * @brief Builds a string from several character arrays.
+	 * 
+	 * Concatenates all the character arrays into one string, and
+	 * returns it.
+	 * 
+	 * @param count How many character arrays were passed.
+	 * @param ... The character arrays to concatenate.
+	 * 
+	 * @return a string containing all the arrays, concatenated
+	 *         together.
+	 */
 	String
 	String::build (const size_t count, ...) throw ()
 	{
