@@ -8,6 +8,13 @@
 
 namespace Copper
 {
+	/**
+	 * @brief Used for bypassing the exception protector.
+	 * 
+	 * This is an empty base class, which can be subclassed to create a
+	 * class which will be thrown through the exception protector. For
+	 * internal use of Copper only.
+	 */
 	class SafeException
 	{
 		/* Empty, subclass it */
