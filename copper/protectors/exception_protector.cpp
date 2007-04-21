@@ -69,15 +69,14 @@ namespace Copper
 		catch (...)
 		{
 #	if HAVE_CXA_CURRENT_EXCEPTION_TYPE
-			/* Unhandled exception of type 'type' */
-			String message = "Unhandled exception of type ";
-
 			std::type_info *info;
 			info = __cxxabiv1::__cxa_current_exception_type ();
 
-			String type_name = demangle (info->name ());
-
-			message = message + "'" + type_name + "'";
+			/* Unhandled exception of type 'type' */
+			String message = String::build (3,
+			                                "Unhandled exception of type '",
+			                                demangle (info->name ()).c_str (),
+			                                "'");
 
 			return new Error (message);
 #	else
@@ -100,19 +99,17 @@ namespace Copper
 		        &demangle_status);
 #	endif /* HAVE_CXA_DEMANGLE */
 
-		String type_name;
 		if (demangle_status == 0)
 		{
-			type_name = demangled_name;
+			String type_name = demangled_name;
 			free (demangled_name);
+			return type_name;
 		}
 
 		else
 		{
 			/* De-mangling the name failed */
-			type_name = name;
+			return name;
 		}
-
-		return type_name;
 	}
 }
