@@ -45,9 +45,9 @@ namespace Copper
 	 *                  This must be static data.
 	 * @param line The line this test was defined on.
 	 */
-	Test::Test (const char *name,
-	            const char *suite,
-	            const char *file_name,
+	Test::Test (const char name[],
+	            const char suite[],
+	            const char file_name[],
 	            const unsigned int line) throw ():
 
 	            name (String::from_static (name)),
