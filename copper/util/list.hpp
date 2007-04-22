@@ -83,7 +83,7 @@ namespace Copper
 		 * 
 		 * @param other The list to copy.
 		 */
-		List (const List &other):
+		List (const List &other) throw ():
 		      _root (NULL),
 		      _size (0)
 		{
@@ -101,7 +101,7 @@ namespace Copper
 		 * @return a reference to this list.
 		 */
 		List &
-		operator= (const List &other)
+		operator= (const List &other) throw ()
 		{
 			clear ();
 			copy (other);
@@ -251,7 +251,7 @@ namespace Copper
 		}
 
 	private:
-		void clear ()
+		void clear () throw ()
 		{
 			ListNode<C> *node = _root, *next;
 			while (node)
@@ -265,7 +265,7 @@ namespace Copper
 		}
 
 		void
-		copy (const List<C> &other)
+		copy (const List<C> &other) throw ()
 		{
 			if (!other._root)
 				return;
