@@ -63,7 +63,8 @@ namespace Copper
 		c_str () const throw ();
 
 	private:
-		class StringPrivate *priv;
+		char *str;
+		bool should_delete;
 	};
 
 	COPPER_EXPORT

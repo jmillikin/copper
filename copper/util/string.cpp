@@ -14,19 +14,6 @@ using namespace std;
 
 namespace Copper
 {
-	class StringPrivate
-	{
-	public:
-		StringPrivate (char *str, bool should_delete):
-		               str(str),
-		               should_delete (should_delete)
-		{
-		}
-
-		char *str;
-		bool should_delete;
-	};
-
 	/**
 	 * @brief A version of strdup that takes an optional size
 	 *        parameter.
@@ -60,9 +47,10 @@ namespace Copper
 	/**
 	 * @brief Construct an empty string
 	 */
-	String::String () throw ()
+	String::String () throw ():
+	                str (""),
+	                should_delete (false)
 	{
-		priv = new StringPrivate ("", false);
 	}
 
 	/**
@@ -73,12 +61,15 @@ namespace Copper
 	 *             the source string.
 	 */
 	String::String (const char *string,
-	                const std::size_t size) throw ()
+	                const std::size_t size) throw ():
+	                str (""),
+	                should_delete (false)
 	{
 		if (string[0])
-			priv = new StringPrivate (strndup (string, size), true);
-		else
-			priv = new StringPrivate ("", false);
+		{
+			str = strndup (string, size);
+			should_delete = true;
+		}
 	}
 
 	/**
@@ -88,22 +79,23 @@ namespace Copper
 	 */
 	String::String (const String &other) throw ()
 	{
-		if (other.priv->should_delete)
+		should_delete = other.should_delete;
+		if (should_delete)
 		{
-			char *new_str = strndup (other.priv->str);
-			priv = new StringPrivate (new_str, true);
+			str = strndup (other.str);
 		}
 		else
-			priv = new StringPrivate (other.priv->str, false);
+		{
+			str = other.str;
+		}
 	}
 
 	/**
 	 * @brief Deallocate resources used by this string.
 	 */
 	String::~String () throw () {
-		if (priv->should_delete)
-			delete[] priv->str;
-		delete priv;
+		if (should_delete)
+			delete[] str;
 	}
 
 	/**
@@ -118,7 +110,7 @@ namespace Copper
 	String::from_static (const char *string) throw ()
 	{
 		String new_string;
-		new_string.priv->str = const_cast<char *> (string);
+		new_string.str = const_cast<char *> (string);
 		return new_string;
 	}
 
@@ -173,8 +165,8 @@ namespace Copper
 
 		delete[] strings;
 
-		new_str.priv->str = new_c_str;
-		new_str.priv->should_delete = true;
+		new_str.str = new_c_str;
+		new_str.should_delete = true;
 		return new_str;
 	}
 
@@ -188,14 +180,14 @@ namespace Copper
 	const String &
 	String::operator= (const String &other) throw ()
 	{
-		if (priv->should_delete)
-			delete[] priv->str;
+		if (should_delete)
+			delete[] str;
 
-		priv->should_delete = other.priv->should_delete;
-		if (other.priv->should_delete)
-			priv->str = strndup (other.priv->str);
+		should_delete = other.should_delete;
+		if (should_delete)
+			str = strndup (other.str);
 		else
-			priv->str = other.priv->str;
+			str = other.str;
 
 		return *this;
 	}
@@ -208,7 +200,7 @@ namespace Copper
 	size_t
 	String::size () const throw ()
 	{
-		return strlen (priv->str);
+		return strlen (str);
 	}
 
 	/**
@@ -219,7 +211,7 @@ namespace Copper
 	const char *
 	String::c_str () const throw ()
 	{
-		return priv->str;
+		return str;
 	}
 
 	char *
@@ -250,8 +242,8 @@ namespace Copper
 	{
 		String new_str;
 
-		new_str.priv->str = strjoin (first.c_str (), second.c_str ());
-		new_str.priv->should_delete = true;
+		new_str.str = strjoin (first.c_str (), second.c_str ());
+		new_str.should_delete = true;
 		return new_str;
 	}
 
@@ -261,8 +253,8 @@ namespace Copper
 	{
 		String new_str;
 
-		new_str.priv->str = strjoin (first, second.c_str ());
-		new_str.priv->should_delete = true;
+		new_str.str = strjoin (first, second.c_str ());
+		new_str.should_delete = true;
 		return new_str;
 	}
 
@@ -272,8 +264,8 @@ namespace Copper
 	{
 		String new_str;
 
-		new_str.priv->str = strjoin (first.c_str (), second);
-		new_str.priv->should_delete = true;
+		new_str.str = strjoin (first.c_str (), second);
+		new_str.should_delete = true;
 		return new_str;
 	}
 
