@@ -47,7 +47,11 @@ namespace Copper
 
 		static
 		String
-		from_static (const char *string) throw ();
+		from_static (const char string[]) throw ();
+
+		static
+		String
+		no_copy (const char *string) throw ();
 
 		static
 		String

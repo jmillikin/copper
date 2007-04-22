@@ -107,7 +107,24 @@ namespace Copper
 	 * @param string The static character data to store.
 	 */
 	String
-	String::from_static (const char *string) throw ()
+	String::from_static (const char string[]) throw ()
+	{
+		String new_string;
+		new_string.str = const_cast<char *> (string);
+		return new_string;
+	}
+
+	/**
+	 * @brief Construct a new string without copying data.
+	 * 
+	 * This function is provided for performance reasons, to avoid
+	 * copying character data if the data is guaranteed to exist for the
+	 * lifetime of the String object.
+	 * 
+	 * @param string The data to store in this string.
+	 */
+	String
+	String::no_copy (const char *string) throw ()
 	{
 		String new_string;
 		new_string.str = const_cast<char *> (string);
