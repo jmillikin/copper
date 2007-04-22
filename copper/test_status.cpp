@@ -35,14 +35,38 @@ namespace Copper
 	           const char *file,
 	           const unsigned int line)
 	{
-		if (!result.passed ())
+		if (!result.passed)
 		{
-			do_fail_test (text, result.failure_message ().c_str (),
+			do_fail_test (text, result.failure_message.c_str (),
 			              file, line);
 		}
 	}
 
-	/** For assert (throws ()) only, do not use */
+	/**
+	 * Check that a boolean value is true. If it is not true, the current
+	 * failure handler will be executed.
+	 * 
+	 * @param passed Whether the assertion passed.
+	 * @param text The code that this Assertion tests.
+	 * @param file The name of the file containing the assertion.
+	 * @param line The line the assertion is located on.
+	 */
+	void
+	do_assert (const bool passed,
+	           const char *text,
+	           const char *file,
+	           const unsigned int line)
+	{
+		if (!passed)
+		{
+			do_fail_test (text, "Boolean assertion failed",
+			              file, line);
+		}
+	}
+
+	/**
+	 * @brief For internal use only, do not use
+	 */
 	void
 	do_assert ()
 	{
@@ -93,19 +117,41 @@ namespace Copper
 	do_failed (const AssertionResult &result,
 	           const char *text)
 	{
-		Copper::AssertionResult new_result;
-
-		if (result.passed ())
+		if (result.passed)
 		{
-			String message = String ("Unexpected success of assertion '") +
-			                         text + "'";
-			new_result.fail (message);
+			String message (String::build (3,
+			                               "Unexpected success "
+			                               "of assertion '",
+			                               text, "'"));
+			return AssertionResult::fail (message);
 		}
 
 		else
-			new_result.pass ();
+			return AssertionResult::pass ();
+	}
 
-		return new_result;
+	/**
+	 * Check that an assertion was false. If it was true, the current
+	 * failure handler will be executed.
+	 * 
+	 * @param passed Whether the assertion passed.
+	 * @param text The code that this Assertion tests.
+	 */
+	AssertionResult
+	do_failed (const bool passed,
+	           const char *text)
+	{
+		if (passed)
+		{
+			String message (String::build (3,
+			                               "Unexpected success "
+			                               "of assertion '",
+			                               text, "'"));
+			return AssertionResult::fail (message);
+		}
+
+		else
+			return AssertionResult::pass ();
 	}
 
 	/**

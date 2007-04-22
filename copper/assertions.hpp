@@ -23,14 +23,16 @@ template <class First, class Second>
 Copper::AssertionResult
 equal (const First &first, const Second &second) throw ()
 {
-	Copper::AssertionResult result;
+	using namespace Copper;
+
 	if (first == second)
-		result.pass ();
+		return AssertionResult::pass ();
 
 	else
-		result.fail (Copper::failure_format (first, "!=", second));
-
-	return result;
+	{
+		String message (failure_format (first, "!=", second));
+		return AssertionResult::fail (message);
+	}
 }
 
 /**
@@ -97,29 +99,24 @@ equal_within (const Value &expected,
               const Value &actual,
               const Value &delta) throw ()
 {
-	using Copper::String;
-	using Copper::format;
-
-	Copper::AssertionResult result;
+	using namespace Copper;
 
 	if ((actual < expected - delta) || (actual > expected + delta))
 	{
-		String message = String::build (7,
-		                                "'",
-		                                format (actual).c_str (),
-		                                "'",
-		                                " is not within '",
-		                                format (delta).c_str (),
-		                                "' of '",
-		                                format (expected).c_str (),
-		                                "'");
-		result.fail (message);
+		String message (String::build (7,
+		                              "'",
+		                              format (actual).c_str (),
+		                              "'",
+		                              " is not within '",
+		                              format (delta).c_str (),
+		                              "' of '",
+		                              format (expected).c_str (),
+		                              "'"));
+		return AssertionResult::fail (message);
 	}
 
 	else
-		result.pass ();
-
-	return result;
+		return AssertionResult::pass ();
 }
 
 /**
@@ -134,15 +131,16 @@ template <class First, class Second>
 Copper::AssertionResult
 unequal (const First &first, const Second &second) throw ()
 {
-	Copper::AssertionResult result;
+	using namespace Copper;
 
 	if (first == second)
-		result.fail (Copper::failure_format (first, "==", second));
+	{
+		String message (failure_format (first, "==", second));
+		return AssertionResult::fail (message);
+	}
 
 	else
-		result.pass ();
-
-	return result;
+		return AssertionResult::pass ();
 }
 
 /**
@@ -188,15 +186,16 @@ template <class Value>
 Copper::AssertionResult
 is_null (const Value *value) throw ()
 {
-	Copper::AssertionResult result;
+	using namespace Copper;
 
-	if (value != 0)
-		result.fail (Copper::failure_format (value, "!= NULL"));
+	if (value != NULL)
+	{
+		String message (failure_format (value, "!= NULL"));
+		return AssertionResult::fail (message);
+	}
 
 	else
-		result.pass ();
-
-	return result;
+		return AssertionResult::pass ();
 }
 
 /**
@@ -210,15 +209,16 @@ template <class Value>
 Copper::AssertionResult
 not_null (const Value *value) throw ()
 {
-	Copper::AssertionResult result;
+	using namespace Copper;
 
-	if (value == 0)
-		result.fail (Copper::failure_format (value, "== NULL"));
+	if (value == NULL)
+	{
+		String message (failure_format (value, "== NULL"));
+		return AssertionResult::fail (message);
+	}
 
 	else
-		result.pass ();
-
-	return result;
+		return AssertionResult::pass ();
 }
 
 /**
@@ -233,15 +233,16 @@ template <class Value>
 Copper::AssertionResult
 greater_than (const Value &value, const Value &limit) throw ()
 {
-	Copper::AssertionResult result;
+	using namespace Copper;
 
 	if (value <= limit)
-		result.fail (Copper::failure_format (value, "<=", limit));
+	{
+		String message (failure_format (value, "<=", limit));
+		return AssertionResult::fail (message);
+	}
 
 	else
-		result.pass ();
-
-	return result;
+		return AssertionResult::pass ();
 }
 
 /**
@@ -256,15 +257,16 @@ template <class Value>
 Copper::AssertionResult
 greater_than_or_equal (const Value &value, const Value &limit) throw ()
 {
-	Copper::AssertionResult result;
+	using namespace Copper;
 
 	if (value < limit)
-		result.fail (Copper::failure_format (value, "<", limit));
+	{
+		String message (failure_format (value, "<", limit));
+		return AssertionResult::fail (message);
+	}
 
 	else
-		result.pass ();
-
-	return result;
+		return AssertionResult::pass ();
 }
 
 /**
@@ -279,15 +281,16 @@ template <class Value>
 Copper::AssertionResult
 less_than (const Value &value, const Value &limit) throw ()
 {
-	Copper::AssertionResult result;
+	using namespace Copper;
 
 	if (value >= limit)
-		result.fail (Copper::failure_format (value, ">=", limit));
+	{
+		String message (failure_format (value, ">=", limit));
+		return AssertionResult::fail (message);
+	}
 
 	else
-		result.pass ();
-
-	return result;
+		return AssertionResult::pass ();
 }
 
 /**
@@ -302,15 +305,16 @@ template <class Value>
 Copper::AssertionResult
 less_than_or_equal (const Value &value, const Value &limit) throw ()
 {
-	Copper::AssertionResult result;
+	using namespace Copper;
 
 	if (value > limit)
-		result.fail (Copper::failure_format (value, ">", limit));
+	{
+		String message (failure_format (value, ">", limit));
+		return AssertionResult::fail (message);
+	}
 
 	else
-		result.pass ();
-
-	return result;
+		return AssertionResult::pass ();
 }
 
 #endif /* COPPER_ASSERTIONS_HPP */

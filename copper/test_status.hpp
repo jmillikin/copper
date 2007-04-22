@@ -23,6 +23,13 @@ namespace Copper
 
 	COPPER_EXPORT
 	void
+	do_assert (const bool passed,
+	           const char *text,
+	           const char *file,
+	           const unsigned int line);
+
+	COPPER_EXPORT
+	void
 	do_assert ();
 
 	COPPER_EXPORT
@@ -41,6 +48,11 @@ namespace Copper
 	COPPER_EXPORT
 	AssertionResult
 	do_failed (const AssertionResult &result,
+	           const char *text);
+
+	COPPER_EXPORT
+	AssertionResult
+	do_failed (const bool passed,
 	           const char *text);
 
 	COPPER_EXPORT

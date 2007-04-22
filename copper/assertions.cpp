@@ -7,41 +7,40 @@
 #include "util/string.hpp"
 
 using Copper::String;
+using Copper::AssertionResult;
 
 static
 Copper::AssertionResult
 check_equal_strings (const char *first, const char *second) throw ()
 {
-	Copper::AssertionResult result;
-
 	// Both of the values are NULL
 	// assert (null ()) should be used instead
 	if (!first && !second)
-		result.pass ();
+		return AssertionResult::pass ();
 
 	else
+	{
 		// One of the values is NULL
-		result.fail (Copper::failure_format (first, "!=", second));
-
-	return result;
+		String message (Copper::failure_format (first, "!=", second));
+		return AssertionResult::fail (message);
+	}
 }
 
 static
 Copper::AssertionResult
 check_unequal_strings (const char *first, const char *second) throw ()
 {
-	Copper::AssertionResult result;
-
 	// Both of the values are NULL
 	// assert (not_null ()) should be used instead
 	if (!first && !second)
-		result.fail (Copper::failure_format (first, "==", second));
+	{
+		String message (Copper::failure_format (first, "==", second));
+		return AssertionResult::fail (message);
+	}
 
 	else
 		// Only one the values is NULL
-		result.pass ();
-
-	return result;
+		return AssertionResult::pass ();
 }
 
 // Overloads for equal ()
