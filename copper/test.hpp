@@ -24,7 +24,7 @@ namespace Copper
 		~Test ();
 
 		static
-		List<Test>
+		const List<Test> &
 		all ();
 
 		static

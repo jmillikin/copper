@@ -64,7 +64,7 @@ namespace Copper
 	}
 
 	/** Get a list of all tests */
-	List<Test>
+	const List<Test> &
 	Test::all ()
 	{
 		return all_tests ();
