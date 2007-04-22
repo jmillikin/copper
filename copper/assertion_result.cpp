@@ -16,6 +16,15 @@ namespace Copper
 	 * Used for returning whether an assertion passed or not.
 	 */
 
+	/** @var AssertionResult::passed
+	 * @brief Whether the assertion passed.
+	 */
+
+	/** @var AssertionResult::failure_message
+	 * @brief If the assertion failed, this will contain the failure
+	 *        message.
+	 */
+
 	/**
 	 * @brief Initialize a result for an assertion that passed.
 	 */
