@@ -87,7 +87,7 @@ namespace Copper
 		      _root (NULL),
 		      _size (0)
 		{
-			copy (other);
+			extend (other);
 		}
 
 		/**
@@ -104,7 +104,7 @@ namespace Copper
 		operator= (const List &other) throw ()
 		{
 			clear ();
-			copy (other);
+			extend (other);
 			return *this;
 		}
 
@@ -262,26 +262,6 @@ namespace Copper
 			}
 			_root = NULL;
 			_size = 0;
-		}
-
-		void
-		copy (const List<C> &other) throw ()
-		{
-			if (!other._root)
-				return;
-
-			_root = new ListNode<C> (other._root->value);
-
-			ListNode<C> *node = _root, *b_node = other._root->next;
-
-			while (b_node)
-			{
-				node->next = new ListNode<C> (b_node->value);
-				node = node->next;
-				b_node = b_node->next;
-			}
-
-			_size = other._size;
 		}
 
 		ListNode<C> *_root;
