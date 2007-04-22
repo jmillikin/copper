@@ -28,4 +28,11 @@ namespace Copper
 	              message (message)
 	{
 	}
+
+	/**
+	 * @brief Default, empty destructor
+	 */
+	Error::~Error () throw ()
+	{
+	}
 }
