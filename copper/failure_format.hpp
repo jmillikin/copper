@@ -42,20 +42,24 @@ namespace Copper {
 
 	template <class Value>
 	String
-	failure_format (const Value &value, const String &rest)
+	failure_format (const Value &value, const char *rest)
 	{
-		return failure_format (value) + " " + rest;
+		return String::build (3,
+		                      failure_format (value).c_str (),
+		                      " ",
+		                      rest);
 	}
 
 	template <class A, class B>
 	String
-	failure_format (const A &a, const String& join, const B &b)
+	failure_format (const A &a, const char *join, const B &b)
 	{
-		return String::build (5, failure_format (a).c_str (),
-		                         " ",
-		                         join.c_str (),
-		                         " ",
-		                         failure_format (b).c_str ());
+		return String::build (5,
+		                      failure_format (a).c_str (),
+		                      " ",
+		                      join,
+		                      " ",
+		                      failure_format (b).c_str ());
 	}
 }
 

@@ -40,7 +40,7 @@ namespace Copper {
 	failure_format (const char *v) throw ()
 	{
 		if (v)
-			return failure_format (String (v));
+			return failure_format (String::from_static (v));
 		else
 			return String::from_static ("NULL");
 	}
