@@ -51,8 +51,8 @@ _equal (const char *first, const char *second) throw ()
 	if (!first || !second)
 		return check_equal_strings (first, second);
 
-	String s_first = String::from_static (first),
-	       s_second = String::from_static (second);
+	String s_first = String::no_copy (first),
+	       s_second = String::no_copy (second);
 	return equal (s_first, s_second);
 }
 
@@ -83,13 +83,13 @@ equal (char first[], char second[]) throw ()
 Copper::AssertionResult
 equal (const char *first, const String &second) throw ()
 {
-	return equal (String::from_static (first), second);
+	return equal (String::no_copy (first), second);
 }
 
 Copper::AssertionResult
 equal (char first[], const String &second) throw ()
 {
-	return equal (String::from_static (first), second);
+	return equal (String::no_copy (first), second);
 }
 
 // Overloads for unequal ()
@@ -101,8 +101,8 @@ _unequal (const char *first, const char *second) throw ()
 	if (!first || !second)
 		return check_unequal_strings (first, second);
 
-	String s_first = String::from_static (first),
-	       s_second = String::from_static (second);
+	String s_first = String::no_copy (first),
+	       s_second = String::no_copy (second);
 	return unequal (s_first, s_second);
 }
 
