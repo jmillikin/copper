@@ -19,7 +19,7 @@ namespace Copper
 	class DefaultOutputHandlerPrivate
 	{
 	public:
-		DefaultOutputHandlerPrivate (List<Test> tests):
+		DefaultOutputHandlerPrivate (List<Test> *tests):
 		                             num_passed (0),
 		                             num_failed (0),
 		                             num_errors (0),
@@ -41,7 +41,7 @@ namespace Copper
 		bool protect;
 
 		/* A list of which tests to run. */
-		List<Test> tests;
+		List<Test> *tests;
 	};
 
 	typedef DefaultOutputHandlerPrivate DOHP;
@@ -71,6 +71,7 @@ namespace Copper
 	/** Default destructor */
 	DefaultOutputHandler::~DefaultOutputHandler () throw ()
 	{
+		delete priv->tests;
 		delete priv;
 	}
 

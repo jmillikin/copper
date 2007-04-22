@@ -52,12 +52,13 @@ namespace Copper
 	 * @param argc The argument count.
 	 * @param argv The arguments.
 	 * 
-	 * @return A list of tests that match the given arguments.
+	 * @return A list of tests that match the given arguments. This list
+	 *         must be deleted when it is no longer needed.
 	 */
-	List<Test>
+	List<Test> *
 	OutputHandler::parse_test_args (int argc, char **argv)
 	{
-		List<Test> tests;
+		List<Test> *tests = new List<Test>;
 
 		for (int ii = 0; ii < argc; ii++)
 		{
@@ -74,22 +75,21 @@ namespace Copper
 				                         test_name);
 				if (test)
 				{
-					tests.append (test);
+					tests->append (test);
 				}
 			}
 
 			else
 			{
 				// No test name, append everything in the suite
-				tests.extend (Test::in_suite (name));
+				tests->extend (Test::in_suite (name));
 			}
 		}
 
-		if (tests.size ())
-			return tests;
+		if (!tests->size ())
+			tests->extend (Test::all ());
 
-		else
-			return Test::all ();
+		return tests;
 	}
 
 	/**
@@ -141,9 +141,9 @@ namespace Copper
 	 *                runtime errors.
 	 */
 	void
-	OutputHandler::run_tests (const List<Test> &tests, bool protect)
+	OutputHandler::run_tests (const List<Test> *tests, bool protect)
 	{
-		const ListNode<Test> *node = tests.root ();
+		const ListNode<Test> *node = tests->root ();
 		while (node)
 		{
 			run_test (node->value, protect);

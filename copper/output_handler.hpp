@@ -77,7 +77,7 @@ namespace Copper
 		run () = 0;
 
 		static
-		List<Test>
+		List<Test> *
 		parse_test_args (int argc, char **argv);
 
 	protected:
@@ -85,7 +85,7 @@ namespace Copper
 		run_test (Test *test, bool protect = true);
 
 		void
-		run_tests (const List<Test> &tests, bool protect = true);
+		run_tests (const List<Test> *tests, bool protect = true);
 	};
 }
 
