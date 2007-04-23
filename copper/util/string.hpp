@@ -51,6 +51,7 @@ namespace Copper
 		operator= (const String &other);
 
 		char *str;
+		std::size_t _size;
 		bool should_delete;
 	};
 

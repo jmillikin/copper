@@ -49,6 +49,7 @@ namespace Copper
 	 */
 	String::String () throw ():
 	                str (""),
+	                _size (0u),
 	                should_delete (false)
 	{
 	}
@@ -63,6 +64,7 @@ namespace Copper
 	String::String (const char *string,
 	                const std::size_t size) throw ():
 	                str (""),
+	                _size (0u),
 	                should_delete (false)
 	{
 		if (string[0])
@@ -77,17 +79,15 @@ namespace Copper
 	 * 
 	 * @param other The string to copy.
 	 */
-	String::String (const String &other) throw ()
+	String::String (const String &other) throw ():
+	                _size (other._size),
+	                should_delete (other.should_delete)
 	{
-		should_delete = other.should_delete;
 		if (should_delete)
-		{
 			str = strndup (other.str);
-		}
+
 		else
-		{
 			str = other.str;
-		}
 	}
 
 	/**
@@ -183,6 +183,7 @@ namespace Copper
 		delete[] strings;
 
 		new_str.str = new_c_str;
+		new_str._size = full_size;
 		new_str.should_delete = true;
 		return new_str;
 	}
@@ -195,7 +196,11 @@ namespace Copper
 	size_t
 	String::size () const throw ()
 	{
-		return strlen (str);
+		if (!_size)
+			// I know this is evil, but it allows size to be
+			// calculated only for strings that need it.
+			const_cast<String *> (this)->_size = strlen (str);
+		return _size;
 	}
 
 	/**
@@ -235,6 +240,7 @@ namespace Copper
 	bool
 	operator== (const String &first, const String &second) throw ()
 	{
-		return strcmp (first.c_str (), second.c_str ()) == 0;
+		return (first.size () == second.size ()) &&
+		       (strcmp (first.c_str (), second.c_str ()) == 0);
 	}
 }
