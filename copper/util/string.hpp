@@ -40,9 +40,6 @@ namespace Copper
 		String
 		build (const std::size_t count, ...) throw ();
 
-		const String &
-		operator=(const String &other) throw ();
-
 		std::size_t
 		size () const throw ();
 
@@ -50,6 +47,9 @@ namespace Copper
 		c_str () const throw ();
 
 	private:
+		const String &
+		operator= (const String &other);
+
 		char *str;
 		bool should_delete;
 	};

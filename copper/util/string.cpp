@@ -188,28 +188,6 @@ namespace Copper
 	}
 
 	/**
-	 * @brief Copy another string over the contents of this string.
-	 * 
-	 * @param other The string to copy.
-	 * 
-	 * @return A reference to this string.
-	 */
-	const String &
-	String::operator= (const String &other) throw ()
-	{
-		if (should_delete)
-			delete[] str;
-
-		should_delete = other.should_delete;
-		if (should_delete)
-			str = strndup (other.str);
-		else
-			str = other.str;
-
-		return *this;
-	}
-
-	/**
 	 * @brief Get the size of the string.
 	 * 
 	 * @return the size of this string, in bytes.

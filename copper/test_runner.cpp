@@ -83,13 +83,11 @@ serialize_failure (const Failure *failure)
 {
 	/* 7:failure text line message */
 	/* Example: "7:failure 6:0 == 1 2:10 18:values are unequal" */
-	String line_str;
-	String line_len, text_len, message_len;
+	String line_str = format (failure->line),
 
-	line_str = format (failure->line);
-
-	line_len = format (static_cast<unsigned int> (line_str.size ()));
-	text_len = format (static_cast<unsigned int> (failure->text.size ()));
+	       line_len = format (line_str.size ()),
+	       text_len = format (failure->text.size ()),
+	       message_len = format (failure->message.size ());
 
 	return String::build (10, "7:failure ",
 	                      text_len.c_str (), ":",
@@ -107,9 +105,7 @@ serialize_error (const Error *error)
 {
 	/* 5:error message */
 	/* Example: "5:error 18:segmentation fault" */
-	String message_len;
-
-	message_len = format (static_cast<unsigned int> (error->message.size ()));
+	String message_len = format (error->message.size ());
 
 	return String::build (4, "5:error ",
 	                      message_len.c_str (), ":",
@@ -127,13 +123,12 @@ parse_token (const char *message, const char **_next)
 {
 	char *next;
 	unsigned int size;
-	String token;
 
 	size = strtoul (message, &next, 10);
 	next++; /* Skip the colon */
 
 	/* Read the actual string */
-	token = String (next, size);
+	String token = String (next, size);
 	next += size;
 
 	/* Skip whitespace */
@@ -153,12 +148,11 @@ unserialize (const char *c_message, Failure **failure, Error **error)
 
 	if (type == "failure")
 	{
-		String text, line_str, message;
 		unsigned int line;
 
-		text = parse_token (c_message, &c_message);
-		line_str = parse_token (c_message, &c_message);
-		message = parse_token (c_message, &c_message);
+		String text = parse_token (c_message, &c_message),
+		       line_str = parse_token (c_message, &c_message),
+		       message = parse_token (c_message, &c_message);
 
 		line = strtoul (line_str.c_str (), NULL, 10);
 
