@@ -44,6 +44,13 @@ namespace Copper
 		return new_str;
 	}
 
+	/** @class String
+	 * @brief Immutable string class.
+	 * 
+	 * This is a simple String class to have some of the benefits of
+	 * RAII without having to depend on std::string.
+	 */
+
 	/**
 	 * @brief Construct an empty string
 	 */
