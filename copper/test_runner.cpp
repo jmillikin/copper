@@ -4,8 +4,9 @@
  */
 
 #include <cassert>
-#include <cstdlib>
 #include <cctype>
+#include <cstdlib>
+#include <cstring>
 
 #include "error.hpp"
 #include "failure.hpp"
