@@ -3,7 +3,6 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <ctime>
 #include <cstdio>
 #include <cstring>
 
@@ -175,16 +174,8 @@ namespace Copper
 		priv->num_failed = 0;
 		priv->num_errors = 0;
 
-		// Store when the tests started
-		time_t start_time;
-		time (&start_time);
-
 		// Run all tests
 		run_tests (priv->tests, priv->protect);
-
-		// Calculate running time
-		time_t now;
-		time (&now);
 
 		// Print statistics
 		printf ("%u tests passed\n"
@@ -193,10 +184,6 @@ namespace Copper
 		        priv->num_passed,
 		        priv->num_failed,
 		        priv->num_errors);
-
-		// Print running time
-		printf ("Completed in %g seconds\n",
-		        difftime (now, start_time));
 
 		return priv->num_failed + priv->num_errors;
 	}
