@@ -199,7 +199,7 @@ namespace Copper
 		if (!_size)
 			// I know this is evil, but it allows size to be
 			// calculated only for strings that need it.
-			const_cast<String *> (this)->_size = strlen (str);
+			_size = strlen (str);
 		return _size;
 	}
 
