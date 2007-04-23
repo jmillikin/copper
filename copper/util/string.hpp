@@ -18,23 +18,6 @@ namespace Copper
 
 	class COPPER_EXPORT String
 	{
-		COPPER_EXPORT
-		friend
-		String
-		operator+ (const String &first,
-		           const String &second) throw ();
-
-		COPPER_EXPORT
-		friend
-		String
-		operator+ (const char *first,
-		           const String &second) throw ();
-
-		COPPER_EXPORT
-		friend
-		String
-		operator+ (const String &first,
-		           const char *second) throw ();
 	public:
 		String () throw ();
 

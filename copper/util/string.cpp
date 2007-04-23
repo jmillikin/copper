@@ -247,46 +247,6 @@ namespace Copper
 	}
 
 	/**
-	 * @brief Concatenate two strings.
-	 * 
-	 * @param first The first part of the new string.
-	 * @param second The second part of the new string.
-	 * 
-	 * @return The two strings, concatenated together.
-	 */
-	String
-	operator+ (const String &first, const String &second) throw ()
-	{
-		String new_str;
-
-		new_str.str = strjoin (first.c_str (), second.c_str ());
-		new_str.should_delete = true;
-		return new_str;
-	}
-
-	String
-	operator+ (const char *first,
-	           const String &second) throw ()
-	{
-		String new_str;
-
-		new_str.str = strjoin (first, second.c_str ());
-		new_str.should_delete = true;
-		return new_str;
-	}
-
-	String
-	operator+ (const String &first,
-	           const char *second) throw ()
-	{
-		String new_str;
-
-		new_str.str = strjoin (first.c_str (), second);
-		new_str.should_delete = true;
-		return new_str;
-	}
-
-	/**
 	 * @brief Compare two strings for equality.
 	 * 
 	 * @param first The first string to compare.
