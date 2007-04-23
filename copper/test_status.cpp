@@ -11,7 +11,9 @@ namespace Copper
 {
 	/** @var FailureHandler
 	 * A function that will be called whenever a failure is encountered
-	 * while running a test. See set_failure_handler().
+	 * while running a test.
+	 * 
+	 * @see set_failure_handler ()
 	 * 
 	 * @param failure The failure that occurred.
 	 * @param data User-defined data passed to set_failure_handler().
@@ -23,6 +25,8 @@ namespace Copper
 	/**
 	 * Check that an assertion was true. If it was not true, the current
 	 * failure handler will be executed.
+	 * 
+	 * @see ASSERT ()
 	 * 
 	 * @param result The result of the assertion.
 	 * @param text The code that this Assertion tests.
@@ -45,6 +49,8 @@ namespace Copper
 	/**
 	 * Check that a boolean value is true. If it is not true, the current
 	 * failure handler will be executed.
+	 * 
+	 * @see ASSERT ()
 	 * 
 	 * @param passed Whether the assertion passed.
 	 * @param text The code that this Assertion tests.
@@ -75,6 +81,8 @@ namespace Copper
 	/**
 	 * Forces the current test to fail.
 	 * 
+	 * @see fail_test ()
+	 * 
 	 * @param text The text that should be displayed as the assertion text.
 	 * @param message The failure message, to be displayed to the user.
 	 * @param file The file this function is being called from.
@@ -94,6 +102,8 @@ namespace Copper
 	 * Forces the current test to fail. This is an overloaded version, for
 	 * use when the user has called fail_test ().
 	 * 
+	 * @see fail_test ()
+	 * 
 	 * @param message The failure message, to be displayed to the user.
 	 * @param file The file this function is being called from.
 	 * @param line The line of the file this function is being called from.
@@ -109,6 +119,8 @@ namespace Copper
 	/**
 	 * Check that an assertion was false. If it was true, the current
 	 * failure handler will be executed.
+	 * 
+	 * @see failed ()
 	 * 
 	 * @param result The result of the assertion.
 	 * @param text The code that this Assertion tests.
@@ -134,6 +146,8 @@ namespace Copper
 	 * Check that an assertion was false. If it was true, the current
 	 * failure handler will be executed.
 	 * 
+	 * @see failed ()
+	 * 
 	 * @param passed Whether the assertion passed.
 	 * @param text The code that this Assertion tests.
 	 */
@@ -157,6 +171,8 @@ namespace Copper
 	/**
 	 * Set the current failure handler function. This should be called once,
 	 * before a test is executed.
+	 * 
+	 * @see FailureHandler
 	 * 
 	 * @param new_handler The handler function to be called on failure.
 	 * @param data User-defined data, which will be passed to the handler.
