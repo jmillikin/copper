@@ -8,29 +8,51 @@
 namespace Copper
 {
 	/** @class Failure
+	 * @brief Stores information on a failed assertion.
 	 */
 
-
 	/** @var Failure::text
-	 * The code that this Assertion tests
+	 * @brief The code that this Assertion tests.
 	 */
 
 	/** @var Failure::message
-	 * The human-readable failure message
+	 * @brief The human-readable failure message.
 	 */
 
 	/** @var Failure::file
-	 * The name of the file containing the assertion
+	 * @brief The name of the file containing the assertion.
 	 */
 
 	/** @var Failure::line
-	 * The line the assertion is located on
+	 * @brief The line the assertion is located on.
 	 */
 
 	/**
-	 * Create a new failure record, to represent a failed assertion
+	 * @brief Create a new failure record.
 	 * 
-	 * @param text The code that this Assertion tests.
+	 * @param text The code that was asserted.
+	 * @param message The human-readable failure message.
+	 * @param file The name of the file containing the assertion.
+	 * @param line The line the assertion is located on.
+	 */
+	Failure::Failure (const String &text,
+	                  const String &message,
+	                  const String &file,
+	                  const unsigned int line) throw ():
+
+	                  text (text),
+	                  message (message),
+	                  file (file),
+	                  line (line)
+	{
+	}
+
+	/**
+	 * @brief Create a new failure record.
+	 * 
+	 * @overload
+	 * 
+	 * @param text The code that was asserted.
 	 * @param message The human-readable failure message.
 	 * @param file The name of the file containing the assertion.
 	 * @param line The line the assertion is located on.
@@ -48,28 +70,8 @@ namespace Copper
 	}
 
 	/**
-	 * Create a new failure record, to represent a failed assertion. This
-	 * is an overloaded form, used to prevent unneeded copies of parameter
-	 * data from String to char * and back.
-	 * 
-	 * @param text The code that this Assertion tests.
-	 * @param message The human-readable failure message.
-	 * @param file The name of the file containing the assertion.
-	 * @param line The line the assertion is located on.
+	 * @brief Default destructor
 	 */
-	Failure::Failure (const String &text,
-	                  const String &message,
-	                  const String &file,
-	                  const unsigned int line) throw ():
-
-	                  text (text),
-	                  message (message),
-	                  file (file),
-	                  line (line)
-	{
-	}
-
-	/** Default destructor */
 	Failure::~Failure () throw ()
 	{
 	}

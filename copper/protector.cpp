@@ -12,9 +12,13 @@
 namespace Copper
 {
 	/** @class Protector
-	 * Protectors guard against possible errors while running a test. This
-	 * is an abstract interface for a Protector, which must be subclassed
-	 * to be useful.
+	 * @brief Protectors guard against possible errors while running a
+	 *        test.
+	 * 
+	 * This is an abstract interface for a Protector, and must be
+	 * subclassed to be useful. If the subclass should be added to the
+	 * protector stack automatically, it should construct a static
+	 * instance of itself.
 	 */
 
 	List<Protector>&
@@ -24,19 +28,25 @@ namespace Copper
 		return _protectors;
 	}
 
-	/** Default constructor */
+	/**
+	 * @brief Default constructor.
+	 * 
+	 * This automatically adds the protector to the stack.
+	 */
 	Protector::Protector () throw ()
 	{
 		add (this);
 	}
 
-	/** Default destructor */
+	/**
+	 * @brief Default destructor
+	 */
 	Protector::~Protector () throw ()
 	{
 	}
 
 	/**
-	 * Add a protector to the list of available protectors
+	 * @brief Add a protector to the list of available protectors
 	 * 
 	 * @param protector The Protector to add
 	 */
@@ -47,7 +57,7 @@ namespace Copper
 	}
 
 	/**
-	 * Guard a test with all protectors currently available
+	 * @brief Guard a test with all protectors currently available
 	 * 
 	 * @param test The test to guard
 	 * 

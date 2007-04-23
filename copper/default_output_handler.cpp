@@ -14,7 +14,7 @@ using namespace std;
 namespace Copper
 {
 	/**
-	 * Private implementation details of DefaultOutputHandler.
+	 * @brief Private implementation details of DefaultOutputHandler.
 	 */
 	class DefaultOutputHandlerPrivate
 	{
@@ -28,30 +28,48 @@ namespace Copper
 		{
 		}
 
-		/** The number of tests that have passed. */
+		/**
+		 * @brief The number of tests that have passed.
+		 */
 		unsigned int num_passed;
 
-		/** The number of failed tests. */
+		/**
+		 * @brief The number of failed tests.
+		 */
 		unsigned int num_failed;
 
-		/** The number of tests that had errors. */
+		/**
+		 * @brief The number of tests that had errors.
+		 */
 		unsigned int num_errors;
 
-		/** Whether to protect running tests from runtime errors. */
+		/**
+		 * @brief Whether to protect running tests from runtime errors.
+		 */
 		bool protect;
 
-		/* A list of which tests to run. */
+		/*
+		 * @brief A list of which tests to run.
+		 */
 		List<Test> *tests;
 	};
 
 	typedef DefaultOutputHandlerPrivate DOHP;
 
 	/** @class DefaultOutputHandler
-	 * This is a default implementation of an OutputHandler. It will
-	 * output failures to the standard error stream.
+	 * @brief Uses C's standard input/output library for printing
+	 *        execution information.
+	 * 
+	 * This class also serves as a useful example of how to create a
+	 * simple output handler.
 	 */
 
-	/** Default constructor */
+	/**
+	 * @brief Default constructor
+	 * 
+	 * @param argc The argument count.
+	 * @param argv The arguments.
+	 */
 	DefaultOutputHandler::DefaultOutputHandler (int &argc, char **&argv) throw ():
 	                                            OutputHandler ()
 	{
@@ -68,20 +86,28 @@ namespace Copper
 		}
 	}
 
-	/** Default destructor */
+	/**
+	 * @brief Default destructor
+	 */
 	DefaultOutputHandler::~DefaultOutputHandler () throw ()
 	{
 		delete priv->tests;
 		delete priv;
 	}
 
-	/** Does nothing */
+	/**
+	 * @brief Does nothing
+	 */
 	void
 	DefaultOutputHandler::begin (const Test *) throw ()
 	{
 	}
 
-	/** Outputs nothing, but keeps track of how many tests passed. */
+	/**
+	 * @brief Output nothing.
+	 * 
+	 * Also keeps track of how many tests passed.
+	 */
 	void
 	DefaultOutputHandler::pass (const Test *) throw ()
 	{
@@ -89,8 +115,9 @@ namespace Copper
 	}
 
 	/**
-	 * Outputs failures to the standard error stream. Also keeps track of
-	 * how many tests failed.
+	 * @brief Output failures to the standard error stream.
+	 * 
+	 * Also keeps track of how many tests failed.
 	 * 
 	 * @param test The test that failed.
 	 * @param failure Details of the failed assertion.
@@ -113,8 +140,9 @@ namespace Copper
 	}
 
 	/**
-	 * Outputs errors to the standard error stream. Also keeps track of
-	 * how many tests errored out.
+	 * @brief Output errors to the standard error stream.
+	 * 
+	 * Also keeps track of how many tests errored out.
 	 * 
 	 * @param test The test that failed.
 	 * @param error The error that occurred.
@@ -135,7 +163,7 @@ namespace Copper
 	}
 
 	/**
-	 * Run every test available.
+	 * @brief Run every test available.
 	 * 
 	 * @return The number of failures + the number of errors.
 	 */

@@ -15,14 +15,14 @@ namespace Copper
 	class COPPER_EXPORT Failure
 	{
 	public:
-		Failure (const char *text,
-		         const char *message,
-		         const char *file,
-		         const unsigned int line) throw ();
-
 		Failure (const String &text,
 		         const String &message,
 		         const String &file,
+		         const unsigned int line) throw ();
+
+		Failure (const char *text,
+		         const char *message,
+		         const char *file,
 		         const unsigned int line) throw ();
 
 		~Failure () throw ();
