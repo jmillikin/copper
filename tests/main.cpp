@@ -6,7 +6,7 @@
 #include <cstdlib>
 #include <copper/default_output_handler.hpp>
 
-Copper::DefaultOutputHandler *output;
+Copper::OutputHandler *output;
 
 void
 do_exit ()
