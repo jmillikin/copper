@@ -214,21 +214,6 @@ namespace Copper
 		return str;
 	}
 
-	char *
-	strjoin (const char *first, const char *second) throw ()
-	{
-		size_t first_size = strlen (first);
-		size_t full_size = first_size + strlen (second);
-		char *new_c_str = new char [full_size + 1];
-
-		strcpy (new_c_str, first);
-		strcpy (new_c_str + first_size, second);
-
-		new_c_str[full_size] = 0;
-
-		return new_c_str;
-	}
-
 	/**
 	 * @brief Compare two strings for equality.
 	 * 
