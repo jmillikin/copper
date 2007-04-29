@@ -15,9 +15,11 @@
 
 namespace Copper
 {
+#if HAVE_CXA_CURRENT_EXCEPTION_TYPE
 	static
 	String
 	demangle (const char *name);
+#endif
 
 	/** @class ExceptionProtector
 	 * @brief Guards against unknown exceptions being thrown by tests.
@@ -91,6 +93,7 @@ namespace Copper
 #	endif /* HAVE_EXCEPTIONS */
 	}
 
+#if HAVE_CXA_CURRENT_EXCEPTION_TYPE
 	static
 	String
 	demangle (const char *name)
@@ -117,4 +120,5 @@ namespace Copper
 			return name;
 		}
 	}
+#endif
 }
