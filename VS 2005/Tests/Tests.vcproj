@@ -190,7 +190,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\tests\failure_format_tests.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\tests\format_tests.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\tests\list_tests.cpp"
 				>
 			</File>
 			<File
@@ -198,8 +206,24 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\tests\output_handler.cpp"
+				RelativePath="..\..\tests\sample_tests.cpp"
 				>
+				<FileConfiguration
+					Name="Debug|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
+				<FileConfiguration
+					Name="Release|Win32"
+					ExcludedFromBuild="true"
+					>
+					<Tool
+						Name="VCCLCompilerTool"
+					/>
+				</FileConfiguration>
 			</File>
 			<File
 				RelativePath="..\..\tests\self_tests.cpp"
@@ -215,10 +239,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath="..\..\tests\output_handler.hpp"
-				>
-			</File>
 		</Filter>
 	</Files>
 	<Globals>
