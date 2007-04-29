@@ -106,19 +106,22 @@
 				RelativePath="..\..\copper\assertions.cpp">
 			</File>
 			<File
+				RelativePath="..\..\copper\default_output_handler.cpp">
+			</File>
+			<File
 				RelativePath="..\..\copper\error.cpp">
 			</File>
 			<File
 				RelativePath="..\..\copper\failure.cpp">
 			</File>
 			<File
+				RelativePath="..\..\copper\failure_format.cpp">
+			</File>
+			<File
 				RelativePath="..\..\copper\output_handler.cpp">
 			</File>
 			<File
 				RelativePath="..\..\copper\protector.cpp">
-			</File>
-			<File
-				RelativePath="..\..\copper\suite.cpp">
 			</File>
 			<File
 				RelativePath="..\..\copper\test.cpp">
@@ -161,6 +164,9 @@
 				RelativePath="..\..\copper\copper.hpp">
 			</File>
 			<File
+				RelativePath="..\..\copper\default_output_handler.hpp">
+			</File>
+			<File
 				RelativePath="..\..\copper\error.hpp">
 			</File>
 			<File
@@ -168,6 +174,9 @@
 			</File>
 			<File
 				RelativePath="..\..\copper\failure.hpp">
+			</File>
+			<File
+				RelativePath="..\..\copper\failure_format.hpp">
 			</File>
 			<File
 				RelativePath="..\..\copper\macros.hpp">
@@ -180,9 +189,6 @@
 			</File>
 			<File
 				RelativePath="..\..\copper\safe_exception.hpp">
-			</File>
-			<File
-				RelativePath="..\..\copper\suite.hpp">
 			</File>
 			<File
 				RelativePath="..\..\copper\test.hpp">
