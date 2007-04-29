@@ -75,7 +75,7 @@ namespace Copper
 		{
 #	if HAVE_CXA_CURRENT_EXCEPTION_TYPE
 			std::type_info *info;
-			info = __cxxabiv1::__cxa_current_exception_type ();
+			info = ::abi::__cxa_current_exception_type ();
 
 			/* Unhandled exception of type 'type' */
 			String message = String::build (3,
@@ -99,7 +99,7 @@ namespace Copper
 		char *demangled_name = NULL;
 
 #	if HAVE_CXA_DEMANGLE
-		demangled_name = __cxxabiv1::__cxa_demangle (
+		demangled_name = ::abi::__cxa_demangle (
 			name, NULL, NULL,
 		        &demangle_status);
 #	endif /* HAVE_CXA_DEMANGLE */

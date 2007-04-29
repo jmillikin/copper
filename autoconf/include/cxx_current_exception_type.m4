@@ -16,7 +16,7 @@ AC_DEFUN([COPPER_CHECK_CXA_CURRENT_EXCEPTION_TYPE],[
           }
 
           catch (...) {
-            std::type_info* info = __cxxabiv1::__cxa_current_exception_type();
+            std::type_info* info = ::abi::__cxa_current_exception_type();
           }
           return 0;
         ]
