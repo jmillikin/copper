@@ -11,10 +11,10 @@
 #include "error.hpp"
 #include "failure.hpp"
 #include "protector.hpp"
+#include "safe_exception.hpp"
 #include "test.hpp"
 #include "test_runner.hpp"
 #include "test_status.hpp"
-#include "util/formatters.hpp"
 
 #if (defined __unix) || (defined __unix__)
 #define COPPER_USE_FORK
@@ -26,14 +26,6 @@ using Copper::String;
 using Copper::Failure;
 using Copper::Error;
 using Copper::Test;
-using Copper::format;
-
-/**
- * Sent to set_failure_handler by all types of test execution. When the child
- * process forks from the parent, this function should call exit (1).
- */
-void
-on_failure (const Failure &failure, void *_data);
 
 #ifdef COPPER_USE_FORK
 
@@ -44,6 +36,9 @@ on_failure (const Failure &failure, void *_data);
 #include <unistd.h>
 #include <fcntl.h>
 #include <errno.h>
+
+#include "util/formatters.hpp"
+using Copper::format;
 
 struct FailureHandlerData
 {
@@ -59,11 +54,7 @@ write_message (int fd, const String &message);
 
 void
 fork_test (Test *test, bool protect, Failure **failure, Error **error);
-
-#elif COPPER_USE_NT_CREATE_PROCESS
-#else
-
-#include <copper/safe_exception.hpp>
+#endif
 
 class FailureException : public Copper::SafeException
 {
@@ -76,7 +67,67 @@ public:
 	const Failure failure;
 };
 
+void
+on_thrown_failure (const Failure &failure, void *data)
+{
+	Test *test = (Test *) data;
+
+	assert (test);
+	test->tear_down ();
+	throw FailureException (failure);
+}
+
+/**
+ * Sent to set_failure_handler by all types of test execution. When the child
+ * process forks from the parent, this function should call exit (1).
+ */
+void
+on_failure (const Failure &failure, void *_data);
+
+namespace Copper
+{
+	/**
+	 * Execute a test. This function runs a test, usually in a restricted
+	 * environment or in a different process for safety reasons.
+	 * 
+	 * @param test The test to run.
+	 * @param protect Whether protectors should wrap the test's execution.
+	 * @param failure This parameter will be set if a failure occurs.
+	 * @param error This parameter will be set if an error occurs.
+	 */
+	void
+	exec_test (Test *test,
+	           bool protect,
+	           Failure **failure,
+	           Error **error)
+	{
+		if (protect)
+		{
+#ifdef COPPER_USE_FORK
+			fork_test (test, protect, failure, error);
+#elif COPPER_USE_NT_CREATE_PROCESS
+#else
+			set_failure_handler (on_thrown_failure, test);
+			*error = Copper::Protector::guard (test);
 #endif
+		}
+		else
+		{
+			try
+			{
+				set_failure_handler (on_thrown_failure, test);
+				test->run ();
+			}
+
+			catch (const FailureException& e)
+			{
+				*failure = new Failure (e.failure);
+			}
+		}
+	}
+}
+
+#ifdef COPPER_USE_FORK
 
 String
 serialize_failure (const Failure *failure)
@@ -165,48 +216,7 @@ unserialize (const char *c_message, Failure **failure, Error **error)
 	}
 }
 
-namespace Copper
-{
-	/**
-	 * Execute a test. This function runs a test, usually in a restricted
-	 * environment or in a different process for safety reasons.
-	 * 
-	 * @param test The test to run.
-	 * @param protect Whether protectors should wrap the test's execution.
-	 * @param failure This parameter will be set if a failure occurs.
-	 * @param error This parameter will be set if an error occurs.
-	 */
-	void
-	exec_test (Test *test,
-	           bool protect,
-	           Failure **failure,
-	           Error **error)
-	{
-#ifdef COPPER_USE_FORK
-		fork_test (test, protect, failure, error);
-#elif COPPER_USE_NT_CREATE_PROCESS
-#else
-		set_failure_handler (on_failure, test);
 
-		try
-		{
-			if (protect)
-				*error = Copper::Protector::guard (test);
-			else
-				test->run ();
-		}
-
-		catch (const FailureException& e)
-		{
-			*failure = new Failure (e.failure);
-		}
-
-#endif
-	}
-
-}
-
-#ifdef COPPER_USE_FORK
 Error *
 process_error (int status)
 {
@@ -335,15 +345,4 @@ fork_test (Test *test, bool protect, Failure **failure, Error **error)
 }
 #elif COPPER_USE_NT_CREATE_PROCESS
 #else
-
-void
-on_failure (const Failure &failure, void *data)
-{
-	Test *test = (Test *) data;
-
-	assert (test);
-	test->tear_down ();
-	throw FailureException (failure);
-}
-
 #endif
