@@ -16,18 +16,12 @@
 #include "test_runner.hpp"
 #include "test_status.hpp"
 
-#if (defined __unix) || (defined __unix__)
-#define COPPER_USE_FORK
-/*#elif (defined __win32) || (defined __win32__)
-#define COPPER_USE_NT_CREATE_PROCESS*/
-#endif
-
 using Copper::String;
 using Copper::Failure;
 using Copper::Error;
 using Copper::Test;
 
-#ifdef COPPER_USE_FORK
+#ifdef HAVE_FORK
 
 #include <cstring>
 #include <cstdio>
@@ -103,9 +97,8 @@ namespace Copper
 	{
 		if (protect)
 		{
-#ifdef COPPER_USE_FORK
+#ifdef HAVE_FORK
 			fork_test (test, protect, failure, error);
-#elif COPPER_USE_NT_CREATE_PROCESS
 #else
 			set_failure_handler (on_thrown_failure, test);
 			*error = Copper::Protector::guard (test);
@@ -127,7 +120,7 @@ namespace Copper
 	}
 }
 
-#ifdef COPPER_USE_FORK
+#ifdef HAVE_FORK
 
 String
 serialize_failure (const Failure *failure)
@@ -343,6 +336,5 @@ fork_test (Test *test, bool protect, Failure **failure, Error **error)
 
 	}
 }
-#elif COPPER_USE_NT_CREATE_PROCESS
 #else
 #endif

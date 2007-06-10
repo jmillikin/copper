@@ -67,6 +67,13 @@ else
   )
 fi
 
+COPPER_CHECK_FORK
+if test "$copper_fork_support" = "yes"; then
+  AC_DEFINE(HAVE_FORK, 0, [fork() is not available.])
+else
+  AC_DEFINE(HAVE_FORK, 1, [fork() is available.])
+fi
+
 AC_MSG_CHECKING([if sstreams should be tested])
 if test "$enable_sstream" = "yes"; then
   AC_MSG_RESULT([yes])
