@@ -143,11 +143,8 @@ namespace Copper
 	void
 	OutputHandler::run_tests (const List<Test> *tests, bool protect)
 	{
-		const ListNode<Test> *node = tests->root ();
-		while (node)
-		{
+		const ListNode<Test> *node = NULL;
+		while (tests->each (&node))
 			run_test (node->value, protect);
-			node = node->next;
-		}
 	}
 }
