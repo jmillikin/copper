@@ -166,16 +166,11 @@ namespace Copper
 		const ListNode<C> *
 		find (type_matcher *matches, const void *data)
 		{
-			ListNode<C> *node = _root;
-			while (node)
-			{
+			const ListNode<C> *node = NULL;
+			while (each (&node))
 				if (matches (node->value, data))
-				{
 					return node;
-				}
-				node = node->next;
-			}
-
+			
 			return NULL;
 		}
 
@@ -195,17 +190,11 @@ namespace Copper
 		filter (type_matcher *matches, const void *data)
 		{
 			List<C> new_list;
-
-			ListNode<C> *node = _root;
-			while (node)
-			{
+			const ListNode<C> *node = NULL;
+			while (each (&node))
 				if (matches (node->value, data))
-				{
 					new_list.append (node->value);
-				}
-				node = node->next;
-			}
-
+			
 			return new_list;
 		}
 
@@ -240,16 +229,49 @@ namespace Copper
 		void
 		extend (const List<C> &other)
 		{
-			const ListNode<C> *node;
-
-			node = other.root ();
-			while (node)
-			{
+			const ListNode<C> *node = NULL;
+			while (other.each (&node))
 				append (node->value);
-				node = node->next;
+		}
+		
+		/**
+		 * @brief Iterate through the list
+		 * 
+		 * C value;
+		 * while (list.each (&value))
+		 * {
+		 *   ...
+		 * }
+		 * 
+		 * @param
+		**/
+		bool
+		each (const ListNode<C> **node_ptr) const
+		{
+			const ListNode<C> *node = *node_ptr;
+			
+			if (node)
+			{
+				if (node->next)
+				{
+					*node_ptr = node->next;
+					return true;
+				}
+				
+				else
+				{
+					*node_ptr = NULL;
+					return false;
+				}
+			}
+			
+			else
+			{
+				*node_ptr = root ();
+				return (*node_ptr != NULL);
 			}
 		}
-
+		
 	private:
 		void clear () throw ()
 		{
