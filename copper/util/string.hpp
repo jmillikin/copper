@@ -50,7 +50,7 @@ namespace Copper
 		const String &
 		operator= (const String &other);
 
-		char *str;
+		const char *str;
 		mutable std::size_t _size;
 		bool should_delete;
 	};

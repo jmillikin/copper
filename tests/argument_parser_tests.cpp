@@ -10,7 +10,7 @@
 typedef Copper::List<Copper::Test> TestList;
 
 TestList *
-parse_test_args (int argc, char** argv)
+parse_test_args (int argc, char* argv[])
 {
 	return Copper::OutputHandler::parse_test_args (argc, argv);
 }
@@ -21,7 +21,8 @@ SUITE (argument_parser_tests)
 	TEST (no_arguments)
 	{
 		int argc = 0;
-		char *argv[] = {""};
+		char argv_0[] = "";
+		char *argv[] = {argv_0};
 		TestList *tests = parse_test_args (argc, argv);
 
 		ASSERT (equal (Copper::Test::all ().size (), tests->size ()));
@@ -31,7 +32,8 @@ SUITE (argument_parser_tests)
 	TEST (entire_suite)
 	{
 		int argc = 1;
-		char *argv[] = {"argument_parser_tests"};
+		char argv_0[] = "argument_parser_tests";
+		char *argv[] = {argv_0};
 		TestList *tests = parse_test_args (argc, argv);
 
 		ASSERT (equal (7u, tests->size ()));
@@ -41,7 +43,8 @@ SUITE (argument_parser_tests)
 	TEST (single_test)
 	{
 		int argc = 1;
-		char *argv[] = {"argument_parser_tests.single_test"};
+		char argv_0[] = "argument_parser_tests.single_test";
+		char *argv[] = {argv_0};
 		TestList *tests = parse_test_args (argc, argv);
 
 		ASSERT (equal (1u, tests->size ()));
@@ -51,10 +54,9 @@ SUITE (argument_parser_tests)
 	TEST (multiple_tests)
 	{
 		int argc = 2;
-		char *argv[] = {
-			"argument_parser_tests.single_test",
-			"argument_parser_tests.multiple_tests",
-		};
+		char argv_0[] = "argument_parser_tests.single_test";
+		char argv_1[] = "argument_parser_tests.multiple_tests";
+		char *argv[] = {argv_0, argv_1};
 		TestList *tests = parse_test_args (argc, argv);
 
 		ASSERT (equal (2u, tests->size ()));
@@ -64,7 +66,8 @@ SUITE (argument_parser_tests)
 	TEST (invalid_suite)
 	{
 		int argc = 1;
-		char *argv[] = {"nonexistant_suite"};
+		char argv_0[] = "nonexistant_suite";
+		char *argv[] = {argv_0};
 		TestList *tests = parse_test_args (argc, argv);
 
 		ASSERT (equal (Copper::Test::all ().size (), tests->size ()));
@@ -74,7 +77,8 @@ SUITE (argument_parser_tests)
 	TEST (invalid_test)
 	{
 		int argc = 1;
-		char *argv[] = {"argument_parser_tests.nonexistant_test"};
+		char argv_0[] = "argument_parser_tests.nonexistant_test";
+		char *argv[] = {argv_0};
 		TestList *tests = parse_test_args (argc, argv);
 
 		ASSERT (equal (Copper::Test::all ().size (), tests->size ()));
@@ -84,10 +88,9 @@ SUITE (argument_parser_tests)
 	TEST (mixed_valid_and_invalid)
 	{
 		int argc = 2;
-		char *argv[] = {
-			"argument_parser_tests.single_test",
-			"argument_parser_tests.nonexistant_test",
-		};
+		char argv_0[] = "argument_parser_tests.single_test";
+		char argv_1[] = "argument_parser_tests.nonexistant_test";
+		char *argv[] = {argv_0, argv_1};
 		TestList *tests = parse_test_args (argc, argv);
 
 		ASSERT (equal (1u, tests->size ()));
