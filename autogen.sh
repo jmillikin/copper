@@ -1,6 +1,6 @@
 #!/bin/sh
 
-libtoolize --force
+libtoolize --force --copy
 autoheader
 aclocal $ACLOCAL_FLAGS
 automake
