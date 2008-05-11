@@ -1,6 +1,7 @@
 # Optional features
 m4_include([autoconf/include/sstream.m4])
 m4_include([autoconf/include/exceptions.m4])
+m4_include([autoconf/include/fork.m4])
 m4_include([autoconf/include/rtti.m4])
 m4_include([autoconf/include/cxx_demangle.m4])
 m4_include([autoconf/include/cxx_current_exception_type.m4])
