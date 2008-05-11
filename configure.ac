@@ -1,4 +1,4 @@
-AC_INIT(Copper, 0.4, jmillikin@gmail.com)
+AC_INIT(Copper, 0.4.1, jmillikin@gmail.com)
 AC_CONFIG_SRCDIR(copper/test.cpp)
 
 # Store autoconf cruft in a separate directory
