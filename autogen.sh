@@ -3,5 +3,5 @@
 libtoolize --force --copy
 autoheader
 aclocal $ACLOCAL_FLAGS
-automake
+automake --add-missing
 autoconf
