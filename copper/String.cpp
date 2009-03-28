@@ -61,19 +61,20 @@ namespace Copper {
 class String::Impl
 {
 public:
-	Impl (const char *str, size_t size, bool should_delete)
-	: str (str), size (size), should_delete (should_delete),
-	  references (1u)
+	Impl (const char *str, size_t size, bool have_size, bool should_delete)
+	: str (str), size (size), have_size (have_size),
+	  should_delete (should_delete), references (1u)
 	{}
 	
 	const char *str;
 	size_t size;
+	bool have_size;
 	const bool should_delete;
 	
 	static Impl *
 	Empty ()
 	{
-		static Impl empty ("", 0u, false);
+		static Impl empty ("", 0u, true, false);
 		return &empty;
 	}
 	
@@ -128,7 +129,7 @@ String::String (const char *string,
                 const size_t size)
 {
 	p = string[0]
-		? new Impl (copper_strndup (string, size), 0u, true)
+		? new Impl (copper_strndup (string, size), 0u, false, true)
 		: Impl::Empty ()->IncRef ();
 }
 
@@ -182,7 +183,7 @@ String::FromStatic (const char string[])
 {
 	String new_string;
 	new_string.p->DecRef ();
-	new_string.p = new Impl (string, 0u, false);
+	new_string.p = new Impl (string, 0u, false, false);
 	return new_string;
 }
 
@@ -200,7 +201,7 @@ String::NoCopy (const char *string)
 {
 	String new_string;
 	new_string.p->DecRef ();
-	new_string.p = new Impl (string, 0u, false);
+	new_string.p = new Impl (string, 0u, false, false);
 	return new_string;
 }
 
@@ -247,7 +248,7 @@ String::Build (const char *first, ...)
 	
 	String new_str;
 	new_str.p->DecRef ();
-	new_str.p = new Impl (new_c_str, size, true);
+	new_str.p = new Impl (new_c_str, size, true, true);
 	return new_str;
 }
 
@@ -259,10 +260,12 @@ String::Build (const char *first, ...)
 size_t
 String::Size () const
 {
-	if (!p->size)
-		// I know this is evil, but it allows size to be
-		// calculated only for strings that need it.
+	if (!p->have_size)
+	{
 		p->size = strlen (p->str);
+		p->have_size = true;
+	}
+	
 	return p->size;
 }
 
