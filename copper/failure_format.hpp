@@ -7,6 +7,9 @@
 #define COPPER_FAILURE_FORMAT_HPP
 
 #include <copper/util/formatters.hpp>
+#if HAVE_STD_STRING
+#	include <string>
+#endif
 
 namespace Copper {
 	template <class Value>
@@ -39,6 +42,12 @@ namespace Copper {
 	COPPER_EXPORT
 	String
 	failure_format (const char *v) throw ();
+
+#if HAVE_STD_STRING
+	COPPER_EXPORT
+	String
+	failure_format (const std::string &v) throw ();
+#endif
 
 	template <class Value>
 	String

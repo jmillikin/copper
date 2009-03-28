@@ -5,6 +5,10 @@
 
 #include <copper.hpp>
 
+#if HAVE_STD_STRING
+#	include <string>
+#endif
+
 using Copper::failure_format;
 
 SUITE (failure_format_tests)
@@ -18,6 +22,13 @@ SUITE (failure_format_tests)
 	{
 		ASSERT (equal ("\"a\"", failure_format ("a")));
 	}
+
+#if HAVE_STD_STRING
+	TEST (std_string)
+	{
+		ASSERT (equal ("\"a\"", failure_format (std::string ("a"))));
+	}
+#endif
 
 	TEST (null_string)
 	{

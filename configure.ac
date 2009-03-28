@@ -74,6 +74,13 @@ else
   AC_DEFINE(HAVE_FORK, 1, [fork() is available.])
 fi
 
+COPPER_CHECK_STD_STRING
+if test "$copper_std_string_support" = "yes"; then
+  AC_DEFINE(HAVE_STD_STRING, 0, [std::string is not available.])
+else
+  AC_DEFINE(HAVE_STD_STRING, 1, [std::string is available.])
+fi
+
 AC_MSG_CHECKING([if sstreams should be tested])
 if test "$enable_sstream" = "yes"; then
   AC_MSG_RESULT([yes])

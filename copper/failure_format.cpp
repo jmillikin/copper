@@ -44,5 +44,13 @@ namespace Copper {
 		else
 			return String::from_static ("NULL");
 	}
+
+#if HAVE_STD_STRING
+	String
+	failure_format (const std::string &v) throw ()
+	{
+		return failure_format (v.c_str());
+	}
+#endif
 }
 
