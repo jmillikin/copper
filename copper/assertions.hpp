@@ -21,7 +21,7 @@
  */
 template <class First, class Second>
 Copper::AssertionResult
-equal (const First &first, const Second &second) throw ()
+equal (const First &first, const Second &second)
 {
 	using namespace Copper;
 
@@ -41,7 +41,7 @@ equal (const First &first, const Second &second) throw ()
  */
 COPPER_EXPORT
 Copper::AssertionResult
-equal (const char *first, const char *second) throw ();
+equal (const char *first, const char *second);
 
 /**
  * @brief Overloaded equal ()
@@ -49,7 +49,7 @@ equal (const char *first, const char *second) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-equal (const char *first, char second[]) throw ();
+equal (const char *first, char second[]);
 
 /**
  * @brief Overloaded equal ()
@@ -57,7 +57,7 @@ equal (const char *first, char second[]) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-equal (char first[], const char *second) throw ();
+equal (char first[], const char *second);
 
 /**
  * @brief Overloaded equal ()
@@ -65,7 +65,7 @@ equal (char first[], const char *second) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-equal (char first[], char second[]) throw ();
+equal (char first[], char second[]);
 
 /**
  * @brief Overloaded for performance
@@ -73,7 +73,7 @@ equal (char first[], char second[]) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-equal (const char *first, const Copper::String &second) throw ();
+equal (const char *first, const Copper::String &second);
 
 /**
  * @brief Overloaded for performance
@@ -81,7 +81,7 @@ equal (const char *first, const Copper::String &second) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-equal (char first[], const Copper::String &second) throw ();
+equal (char first[], const Copper::String &second);
 
 /**
  * @brief Assert two values are nearly equal, within a certain delta.
@@ -97,7 +97,7 @@ template <class Value>
 Copper::AssertionResult
 equal_within (const Value &expected,
               const Value &actual,
-              const Value &delta) throw ()
+              const Value &delta)
 {
 	using namespace Copper;
 
@@ -129,7 +129,7 @@ equal_within (const Value &expected,
  */
 template <class First, class Second>
 Copper::AssertionResult
-unequal (const First &first, const Second &second) throw ()
+unequal (const First &first, const Second &second)
 {
 	using namespace Copper;
 
@@ -149,7 +149,7 @@ unequal (const First &first, const Second &second) throw ()
  */
 COPPER_EXPORT
 Copper::AssertionResult
-unequal (const char *first, const char *second) throw ();
+unequal (const char *first, const char *second);
 
 /**
  * @brief Overloaded unequal ()
@@ -157,7 +157,7 @@ unequal (const char *first, const char *second) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-unequal (const char *first, char second[]) throw ();
+unequal (const char *first, char second[]);
 
 /**
  * @brief Overloaded unequal ()
@@ -165,7 +165,7 @@ unequal (const char *first, char second[]) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-unequal (char first[], const char *second) throw ();
+unequal (char first[], const char *second);
 
 /**
  * @brief Overloaded unequal ()
@@ -173,7 +173,7 @@ unequal (char first[], const char *second) throw ();
  */
 COPPER_EXPORT
 Copper::AssertionResult
-unequal (char first[], char second[]) throw ();
+unequal (char first[], char second[]);
 
 /**
  * @brief Assert some pointer is NULL.
@@ -184,7 +184,7 @@ unequal (char first[], char second[]) throw ();
  */
 template <class Value>
 Copper::AssertionResult
-is_null (const Value *value) throw ()
+is_null (const Value *value)
 {
 	using namespace Copper;
 
@@ -207,7 +207,7 @@ is_null (const Value *value) throw ()
  */
 template <class Value>
 Copper::AssertionResult
-not_null (const Value *value) throw ()
+not_null (const Value *value)
 {
 	using namespace Copper;
 
@@ -231,7 +231,7 @@ not_null (const Value *value) throw ()
  */
 template <class Value>
 Copper::AssertionResult
-greater_than (const Value &value, const Value &limit) throw ()
+greater_than (const Value &value, const Value &limit)
 {
 	using namespace Copper;
 
@@ -255,7 +255,7 @@ greater_than (const Value &value, const Value &limit) throw ()
  */
 template <class Value>
 Copper::AssertionResult
-greater_than_or_equal (const Value &value, const Value &limit) throw ()
+greater_than_or_equal (const Value &value, const Value &limit)
 {
 	using namespace Copper;
 
@@ -279,7 +279,7 @@ greater_than_or_equal (const Value &value, const Value &limit) throw ()
  */
 template <class Value>
 Copper::AssertionResult
-less_than (const Value &value, const Value &limit) throw ()
+less_than (const Value &value, const Value &limit)
 {
 	using namespace Copper;
 
@@ -303,7 +303,7 @@ less_than (const Value &value, const Value &limit) throw ()
  */
 template <class Value>
 Copper::AssertionResult
-less_than_or_equal (const Value &value, const Value &limit) throw ()
+less_than_or_equal (const Value &value, const Value &limit)
 {
 	using namespace Copper;
 

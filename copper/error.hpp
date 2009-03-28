@@ -13,15 +13,15 @@ namespace Copper
 	class Error
 	{
 	public:
-		Error (const String &message) throw ();
+		Error (const String &message);
 
-		~Error () throw ();
+		~Error ();
 
 		const String message;
 
 	private:
 		Error &
-		operator= (const Error&) throw ();
+		operator= (const Error&);
 	};
 }
 

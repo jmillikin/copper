@@ -18,7 +18,7 @@ namespace Copper
 		Test (const char name[],
 		      const char suite[],
 		      const char file_name[],
-		      const unsigned int line) throw ();
+		      const unsigned int line);
 
 		virtual
 		~Test ();
@@ -30,11 +30,11 @@ namespace Copper
 		static
 		Test *
 		find (const String &suite_name,
-		      const String &test_name) throw ();
+		      const String &test_name);
 
 		static
 		List<Test>
-		in_suite (const String &suite_name) throw ();
+		in_suite (const String &suite_name);
 
 		/** Run the test */
 		virtual
@@ -59,9 +59,9 @@ namespace Copper
 
 	private:
 		Test &
-		operator= (const Test&) throw ();
+		operator= (const Test&);
 
-		Test (const Test&) throw ();
+		Test (const Test&);
 	};
 }
 

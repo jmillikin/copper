@@ -14,19 +14,19 @@ namespace Copper
 	class COPPER_EXPORT DefaultOutputHandler : public OutputHandler
 	{
 	public:
-		DefaultOutputHandler (int &argc, char **&argv) throw ();
+		DefaultOutputHandler (int &argc, char **&argv);
 
-		~DefaultOutputHandler () throw ();
+		~DefaultOutputHandler ();
 
-		void begin (const Test *test) throw ();
+		void begin (const Test *test);
 
-		void pass (const Test *test) throw ();
-
-		void
-		fail(const Test *test, const Failure *assertion) throw ();
+		void pass (const Test *test);
 
 		void
-		error(const Test *test, const Error *error) throw ();
+		fail(const Test *test, const Failure *assertion);
+
+		void
+		error(const Test *test, const Error *error);
 
 		int
 		run();
@@ -34,10 +34,10 @@ namespace Copper
 	private:
 		class DefaultOutputHandlerPrivate *priv;
 
-		DefaultOutputHandler (const DefaultOutputHandler&) throw ();
+		DefaultOutputHandler (const DefaultOutputHandler&);
 
 		DefaultOutputHandler &
-		operator= (const DefaultOutputHandler&) throw ();
+		operator= (const DefaultOutputHandler&);
 	};
 }
 

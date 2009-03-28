@@ -29,7 +29,7 @@ namespace Copper
 	/**
 	 * @brief Default constructor
 	 */
-	ExceptionProtector::ExceptionProtector () throw ():
+	ExceptionProtector::ExceptionProtector ():
 	                                        Protector ()
 	{
 	}
@@ -37,7 +37,7 @@ namespace Copper
 	/**
 	 * @brief Default destructor
 	 */
-	ExceptionProtector::~ExceptionProtector () throw ()
+	ExceptionProtector::~ExceptionProtector ()
 	{
 	}
 

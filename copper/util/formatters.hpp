@@ -19,30 +19,30 @@ namespace Copper {
 #if HAVE_BOOLEAN
 	COPPER_EXPORT
 	String
-	format(const bool &v) throw ();
+	format(const bool &v);
 #endif
 
 	COPPER_EXPORT
 	String
-	format(const char &v) throw ();
+	format(const char &v);
 
 	COPPER_EXPORT
 	String
-	format (const signed char &v) throw ();
+	format (const signed char &v);
 
 	COPPER_EXPORT
 	String
-	format (const unsigned char &v) throw ();
+	format (const unsigned char &v);
 
 	COPPER_EXPORT
 	String
-	format(const String &v) throw ();
+	format(const String &v);
 
 #if HAVE_SSTREAM
 
 	template <class C>
 	String
-	format (const C &v) throw ()
+	format (const C &v)
 	{
 		std::stringstream ss;
 		ss << v;
@@ -53,39 +53,39 @@ namespace Copper {
 
 	COPPER_EXPORT
 	String
-	format (const signed short &v) throw ();
+	format (const signed short &v);
 
 	COPPER_EXPORT
 	String
-	format (const unsigned short &v) throw ();
+	format (const unsigned short &v);
 
 	COPPER_EXPORT
 	String
-	format (const signed int &v) throw ();
+	format (const signed int &v);
 
 	COPPER_EXPORT
 	String
-	format (const unsigned int &v) throw ();
+	format (const unsigned int &v);
 
 	COPPER_EXPORT
 	String
-	format (const signed long &v) throw ();
+	format (const signed long &v);
 
 	COPPER_EXPORT
 	String
-	format (const unsigned long &v) throw ();
+	format (const unsigned long &v);
 
 	COPPER_EXPORT
 	String
-	format (const float &v) throw ();
+	format (const float &v);
 
 	COPPER_EXPORT
 	String
-	format (const double &v) throw ();
+	format (const double &v);
 
 	COPPER_EXPORT
 	String
-	format (const char *v) throw ();
+	format (const char *v);
 #endif /* HAVE_SSTREAM */
 }
 

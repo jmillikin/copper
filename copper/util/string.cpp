@@ -26,7 +26,7 @@ namespace Copper
 	 *         delete[].
 	 */
 	char *
-	strndup (const char *string, const size_t size) throw ()
+	strndup (const char *string, const size_t size)
 	{
 		size_t string_len;
 
@@ -54,7 +54,7 @@ namespace Copper
 	/**
 	 * @brief Construct an empty string
 	 */
-	String::String () throw ():
+	String::String ():
 	                str (""),
 	                _size (0u),
 	                should_delete (false)
@@ -69,7 +69,7 @@ namespace Copper
 	 *             the source string.
 	 */
 	String::String (const char *string,
-	                const std::size_t size) throw ():
+	                const std::size_t size):
 	                str (""),
 	                _size (0u),
 	                should_delete (false)
@@ -86,7 +86,7 @@ namespace Copper
 	 * 
 	 * @param other The string to copy.
 	 */
-	String::String (const String &other) throw ():
+	String::String (const String &other):
 	                _size (other._size),
 	                should_delete (other.should_delete)
 	{
@@ -100,7 +100,7 @@ namespace Copper
 	/**
 	 * @brief Deallocate resources used by this string.
 	 */
-	String::~String () throw () {
+	String::~String () {
 		if (should_delete)
 			delete[] str;
 	}
@@ -114,7 +114,7 @@ namespace Copper
 	 * @param string The static character data to store.
 	 */
 	String
-	String::from_static (const char string[]) throw ()
+	String::from_static (const char string[])
 	{
 		String new_string;
 		new_string.str = const_cast<char *> (string);
@@ -131,7 +131,7 @@ namespace Copper
 	 * @param string The data to store in this string.
 	 */
 	String
-	String::no_copy (const char *string) throw ()
+	String::no_copy (const char *string)
 	{
 		String new_string;
 		new_string.str = const_cast<char *> (string);
@@ -157,7 +157,7 @@ namespace Copper
 	 *         together.
 	 */
 	String
-	String::build (const std::size_t count, ...) throw ()
+	String::build (const std::size_t count, ...)
 	{
 		va_list args;
 		va_start (args, count);
@@ -201,7 +201,7 @@ namespace Copper
 	 * @return the size of this string, in bytes.
 	 */
 	size_t
-	String::size () const throw ()
+	String::size () const
 	{
 		if (!_size)
 			// I know this is evil, but it allows size to be
@@ -216,7 +216,7 @@ namespace Copper
 	 * @return a char * representation of this string.
 	 */
 	const char *
-	String::c_str () const throw ()
+	String::c_str () const
 	{
 		return str;
 	}
@@ -230,7 +230,7 @@ namespace Copper
 	 * @return whether the strings are equal.
 	 */
 	bool
-	operator== (const String &first, const String &second) throw ()
+	operator== (const String &first, const String &second)
 	{
 		return (first.size () == second.size ()) &&
 		       (strcmp (first.c_str (), second.c_str ()) == 0);

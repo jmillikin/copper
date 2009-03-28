@@ -69,7 +69,7 @@ namespace Copper
 	 * @param argc The argument count.
 	 * @param argv The arguments.
 	 */
-	DefaultOutputHandler::DefaultOutputHandler (int &argc, char **&argv) throw ():
+	DefaultOutputHandler::DefaultOutputHandler (int &argc, char **&argv):
 	                                            OutputHandler ()
 	{
 		priv = new DOHP (parse_test_args (argc - 1, argv + 1));
@@ -88,7 +88,7 @@ namespace Copper
 	/**
 	 * @brief Default destructor
 	 */
-	DefaultOutputHandler::~DefaultOutputHandler () throw ()
+	DefaultOutputHandler::~DefaultOutputHandler ()
 	{
 		delete priv->tests;
 		delete priv;
@@ -98,7 +98,7 @@ namespace Copper
 	 * @brief Does nothing
 	 */
 	void
-	DefaultOutputHandler::begin (const Test *) throw ()
+	DefaultOutputHandler::begin (const Test *)
 	{
 	}
 
@@ -108,7 +108,7 @@ namespace Copper
 	 * Also keeps track of how many tests passed.
 	 */
 	void
-	DefaultOutputHandler::pass (const Test *) throw ()
+	DefaultOutputHandler::pass (const Test *)
 	{
 		++priv->num_passed;
 	}
@@ -123,7 +123,7 @@ namespace Copper
 	 */
 	void
 	DefaultOutputHandler::fail (const Test *test,
-	                            const Failure *failure) throw ()
+	                            const Failure *failure)
 	{
 		++priv->num_failed;
 
@@ -148,7 +148,7 @@ namespace Copper
 	 */
 	void
 	DefaultOutputHandler::error (const Test *test,
-	                             const Error *error) throw ()
+	                             const Error *error)
 	{
 		++priv->num_errors;
 

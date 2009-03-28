@@ -18,14 +18,14 @@ namespace Copper
 		Failure (const String &text,
 		         const String &message,
 		         const String &file,
-		         const unsigned int line) throw ();
+		         const unsigned int line);
 
 		Failure (const char *text,
 		         const char *message,
 		         const char *file,
-		         const unsigned int line) throw ();
+		         const unsigned int line);
 
-		~Failure () throw ();
+		~Failure ();
 
 		const String text;
 
@@ -37,7 +37,7 @@ namespace Copper
 
 	private:
 		Failure &
-		operator= (const Failure &) throw ();
+		operator= (const Failure &);
 	};
 }
 

@@ -17,29 +17,29 @@ namespace Copper
 	class COPPER_EXPORT AssertionResult
 	{
 	public:
-		~AssertionResult () throw ();
+		~AssertionResult ();
 
 		static
 		AssertionResult
-		pass () throw ();
+		pass ();
 
 		static
 		AssertionResult
-		fail (const String &message) throw ();
+		fail (const String &message);
 
 		const bool passed;
 
 		const String failure_message;
 
-		operator bool () const throw ();
+		operator bool () const;
 
 	private:
-		AssertionResult () throw ();
+		AssertionResult ();
 
-		AssertionResult (const String &message) throw ();
+		AssertionResult (const String &message);
 
 		const AssertionResult &
-		operator= (const AssertionResult &other) throw ();
+		operator= (const AssertionResult &other);
 	};
 }
 

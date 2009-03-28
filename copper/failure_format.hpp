@@ -21,32 +21,32 @@ namespace Copper {
 
 	COPPER_EXPORT
 	String
-	failure_format(const char &v) throw ();
+	failure_format(const char &v);
 
 	COPPER_EXPORT
 	String
-	failure_format (const signed char &v) throw ();
+	failure_format (const signed char &v);
 
 	COPPER_EXPORT
 	String
-	failure_format (const unsigned char &v) throw ();
+	failure_format (const unsigned char &v);
 
 	COPPER_EXPORT
 	String
-	failure_format(const String &v) throw ();
+	failure_format(const String &v);
 
 	COPPER_EXPORT
 	String
-	failure_format (char *v) throw ();
+	failure_format (char *v);
 
 	COPPER_EXPORT
 	String
-	failure_format (const char *v) throw ();
+	failure_format (const char *v);
 
 #if HAVE_STD_STRING
 	COPPER_EXPORT
 	String
-	failure_format (const std::string &v) throw ();
+	failure_format (const std::string &v);
 #endif
 
 	template <class Value>

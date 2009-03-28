@@ -69,7 +69,7 @@ namespace Copper
 		/**
 		 * @brief Constructs a new, empty list.
 		 */
-		List () throw ():
+		List ():
 		      _root (NULL),
 		      _size (0)
 		{
@@ -83,7 +83,7 @@ namespace Copper
 		 * 
 		 * @param other The list to copy.
 		 */
-		List (const List &other) throw ():
+		List (const List &other):
 		      _root (NULL),
 		      _size (0)
 		{
@@ -101,7 +101,7 @@ namespace Copper
 		 * @return a reference to this list.
 		 */
 		List &
-		operator= (const List &other) throw ()
+		operator= (const List &other)
 		{
 			clear ();
 			extend (other);
@@ -114,7 +114,7 @@ namespace Copper
 		 * Note that this does not deallocate data items - that
 		 * must be done manually.
 		 */
-		~List () throw ()
+		~List ()
 		{
 			clear ();
 		}
@@ -128,7 +128,7 @@ namespace Copper
 		 * @param value The item to append
 		 */
 		void
-		append (C *value) throw ()
+		append (C *value)
 		{
 			if (_root)
 			{
@@ -205,7 +205,7 @@ namespace Copper
 		 *         empty.
 		 */
 		const ListNode<C> *
-		root () const throw ()
+		root () const
 		{
 			return _root;
 		}
@@ -216,7 +216,7 @@ namespace Copper
 		 * @return the size of the list.
 		 */
 		std::size_t
-		size () const throw ()
+		size () const
 		{
 			return _size;
 		}
@@ -273,7 +273,7 @@ namespace Copper
 		}
 		
 	private:
-		void clear () throw ()
+		void clear ()
 		{
 			ListNode<C> *node = _root, *next;
 			while (node)

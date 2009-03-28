@@ -38,7 +38,7 @@ namespace Copper
 	Failure::Failure (const String &text,
 	                  const String &message,
 	                  const String &file,
-	                  const unsigned int line) throw ():
+	                  const unsigned int line):
 
 	                  text (text),
 	                  message (message),
@@ -60,7 +60,7 @@ namespace Copper
 	Failure::Failure (const char *text,
 	                  const char *message,
 	                  const char *file,
-	                  const unsigned int line) throw ():
+	                  const unsigned int line):
 
 	                  text (text),
 	                  message (message),
@@ -72,7 +72,7 @@ namespace Copper
 	/**
 	 * @brief Default destructor
 	 */
-	Failure::~Failure () throw ()
+	Failure::~Failure ()
 	{
 	}
 }

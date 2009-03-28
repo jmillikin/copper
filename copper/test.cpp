@@ -8,7 +8,7 @@
 namespace Copper
 {
 	List<Test> &
-	all_tests () throw ()
+	all_tests ()
 	{
 		static List<Test> _tests;
 		return _tests;
@@ -50,7 +50,7 @@ namespace Copper
 	Test::Test (const char name[],
 	            const char suite[],
 	            const char file_name[],
-	            const unsigned int line) throw ():
+	            const unsigned int line):
 
 	            name (String::from_static (name)),
 	            suite (String::from_static (suite)),
@@ -104,7 +104,7 @@ namespace Copper
 	 */
 	Test *
 	Test::find (const String &suite_name,
-	            const String &test_name) throw ()
+	            const String &test_name)
 	{
 		const ListNode<Test> *node;
 		MatchInfo info = { &suite_name, &test_name };
@@ -132,7 +132,7 @@ namespace Copper
 	 * @return a list of tests in the suite.
 	 */
 	List<Test>
-	Test::in_suite (const String &suite_name) throw ()
+	Test::in_suite (const String &suite_name)
 	{
 		MatchInfo info = { &suite_name, NULL };
 		return all_tests ().filter (suite_matcher, &info);

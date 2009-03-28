@@ -13,9 +13,9 @@ namespace Copper
 {
 	class COPPER_EXPORT ExceptionProtector : public Protector {
 	public:
-		ExceptionProtector () throw ();
+		ExceptionProtector ();
 
-		~ExceptionProtector () throw ();
+		~ExceptionProtector ();
 
 	protected:
 		virtual

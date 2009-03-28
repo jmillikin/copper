@@ -14,37 +14,37 @@ namespace Copper
 {
 	COPPER_EXPORT
 	char *
-	strndup (const char *string, const std::size_t size = 0) throw ();
+	strndup (const char *string, const std::size_t size = 0);
 
 	class COPPER_EXPORT String
 	{
 	public:
-		String () throw ();
+		String ();
 
 		String (const char *string,
-		        const std::size_t size = 0) throw ();
+		        const std::size_t size = 0);
 
-		String (const String &other) throw ();
+		String (const String &other);
 
-		~String () throw ();
-
-		static
-		String
-		from_static (const char string[]) throw ();
+		~String ();
 
 		static
 		String
-		no_copy (const char *string) throw ();
+		from_static (const char string[]);
 
 		static
 		String
-		build (const std::size_t count, ...) throw ();
+		no_copy (const char *string);
+
+		static
+		String
+		build (const std::size_t count, ...);
 
 		std::size_t
-		size () const throw ();
+		size () const;
 
 		const char *
-		c_str () const throw ();
+		c_str () const;
 
 	private:
 		const String &
@@ -57,7 +57,7 @@ namespace Copper
 
 	COPPER_EXPORT
 	bool
-	operator== (const String &first, const String &second) throw ();
+	operator== (const String &first, const String &second);
 }
 
 #endif /* COPPER_UTIL_STRING_HPP */

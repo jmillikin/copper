@@ -11,14 +11,14 @@ namespace Copper {
 
 #if HAVE_BOOLEAN
 	String
-	format(const bool &v) throw ()
+	format(const bool &v)
 	{
 		return String::from_static (v ? "true" : "false");
 	}
 #endif /* HAVE_BOOLEAN */
 
 	String
-	format(const char &v) throw ()
+	format(const char &v)
 	{
 		if (v < ' ' || v > '~')
 		{
@@ -30,25 +30,25 @@ namespace Copper {
 	}
 
 	String
-	format (const signed char &v) throw ()
+	format (const signed char &v)
 	{
 		return format (static_cast<char>(v));
 	}
 
 	String
-	format (const unsigned char &v) throw ()
+	format (const unsigned char &v)
 	{
 		return format (static_cast<char>(v));
 	}
 
 	String
-	format(const String &v) throw ()
+	format(const String &v)
 	{
 		return v;
 	}
 
 	String
-	format (const signed short &v) throw ()
+	format (const signed short &v)
 	{
 		char buffer[50];
 		std::sprintf (buffer, "%hd", v);
@@ -56,7 +56,7 @@ namespace Copper {
 	}
 
 	String
-	format (const unsigned short &v) throw ()
+	format (const unsigned short &v)
 	{
 		char buffer[50];
 		std::sprintf (buffer, "%hu", v);
@@ -64,7 +64,7 @@ namespace Copper {
 	}
 
 	String
-	format (const signed int &v) throw ()
+	format (const signed int &v)
 	{
 		char buffer[50];
 		std::sprintf (buffer, "%d", v);
@@ -72,7 +72,7 @@ namespace Copper {
 	}
 
 	String
-	format (const unsigned int &v) throw ()
+	format (const unsigned int &v)
 	{
 		char buffer[50];
 		std::sprintf (buffer, "%u", v);
@@ -80,7 +80,7 @@ namespace Copper {
 	}
 
 	String
-	format (const signed long &v) throw ()
+	format (const signed long &v)
 	{
 		char buffer[50];
 		std::sprintf (buffer, "%ld", v);
@@ -88,7 +88,7 @@ namespace Copper {
 	}
 
 	String
-	format (const unsigned long &v) throw ()
+	format (const unsigned long &v)
 	{
 		char buffer[50];
 		std::sprintf (buffer, "%lu", v);
@@ -97,14 +97,14 @@ namespace Copper {
 
 	/* FIXME, see format (double) */
 	String
-	format (const float &v) throw ()
+	format (const float &v)
 	{
 		return format (static_cast<double>(v));
 	}
 
 	/* FIXME I'm pretty sure this will break for weird values */
 	String
-	format (const double &v) throw ()
+	format (const double &v)
 	{
 		char buffer[100]; /* FIXME: enough? */
 		std::sprintf (buffer, "%g", v);
@@ -112,7 +112,7 @@ namespace Copper {
 	}
 
 	String
-	format (const char *v) throw ()
+	format (const char *v)
 	{
 		return String (v);
 	}

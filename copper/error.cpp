@@ -24,7 +24,7 @@ namespace Copper
 	 * 
 	 * @param message The error string.
 	 */
-	Error::Error (const String &message) throw ():
+	Error::Error (const String &message):
 	              message (message)
 	{
 	}
@@ -32,7 +32,7 @@ namespace Copper
 	/**
 	 * @brief Default, empty destructor
 	 */
-	Error::~Error () throw ()
+	Error::~Error ()
 	{
 	}
 }

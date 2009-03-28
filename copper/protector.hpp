@@ -18,10 +18,10 @@ namespace Copper
 	class COPPER_EXPORT Protector
 	{
 	public:
-		Protector () throw ();
+		Protector ();
 
 		virtual
-		~Protector () throw ();
+		~Protector ();
 
 		static
 		void

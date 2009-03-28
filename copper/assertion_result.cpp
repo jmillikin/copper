@@ -28,7 +28,7 @@ namespace Copper
 	/**
 	 * @brief Initialize a result for an assertion that passed.
 	 */
-	AssertionResult::AssertionResult () throw ():
+	AssertionResult::AssertionResult ():
 	                                  passed (true),
 	                                  failure_message (String::from_static ("No Error"))
 	{
@@ -39,7 +39,7 @@ namespace Copper
 	 * 
 	 * @param message The failure message.
 	 */
-	AssertionResult::AssertionResult (const String &message) throw ():
+	AssertionResult::AssertionResult (const String &message):
 	                                  passed (false),
 	                                  failure_message (message)
 	{
@@ -48,7 +48,7 @@ namespace Copper
 	/**
 	 * @brief Deallocate used memory.
 	 */
-	AssertionResult::~AssertionResult () throw ()
+	AssertionResult::~AssertionResult ()
 	{
 	}
 
@@ -58,7 +58,7 @@ namespace Copper
 	 * @return a result marked as passed.
 	 */
 	AssertionResult
-	AssertionResult::pass () throw ()
+	AssertionResult::pass ()
 	{
 		return AssertionResult ();
 	}
@@ -74,7 +74,7 @@ namespace Copper
 	 * @return a result marked as passed, with the given message.
 	 */
 	AssertionResult
-	AssertionResult::fail (const String &message) throw ()
+	AssertionResult::fail (const String &message)
 	{
 		return AssertionResult (message);
 	}
@@ -84,7 +84,7 @@ namespace Copper
 	 * 
 	 * @return whether the assertion has passed or failed.
 	 */
-	AssertionResult::operator bool () const throw ()
+	AssertionResult::operator bool () const
 	{
 		return passed;
 	}

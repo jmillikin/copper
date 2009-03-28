@@ -22,7 +22,7 @@ namespace Copper
 	 */
 
 	List<Protector>&
-	protectors () throw ()
+	protectors ()
 	{
 		static List<Protector> _protectors;
 		return _protectors;
@@ -33,7 +33,7 @@ namespace Copper
 	 * 
 	 * This automatically adds the protector to the stack.
 	 */
-	Protector::Protector () throw ()
+	Protector::Protector ()
 	{
 		add (this);
 	}
@@ -41,7 +41,7 @@ namespace Copper
 	/**
 	 * @brief Default destructor
 	 */
-	Protector::~Protector () throw ()
+	Protector::~Protector ()
 	{
 	}
 

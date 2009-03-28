@@ -11,7 +11,7 @@ using Copper::AssertionResult;
 
 static
 Copper::AssertionResult
-check_equal_strings (const char *first, const char *second) throw ()
+check_equal_strings (const char *first, const char *second)
 {
 	// Both of the values are NULL
 	// assert (null ()) should be used instead
@@ -28,7 +28,7 @@ check_equal_strings (const char *first, const char *second) throw ()
 
 static
 Copper::AssertionResult
-check_unequal_strings (const char *first, const char *second) throw ()
+check_unequal_strings (const char *first, const char *second)
 {
 	// Both of the values are NULL
 	// assert (not_null ()) should be used instead
@@ -46,7 +46,7 @@ check_unequal_strings (const char *first, const char *second) throw ()
 // Overloads for equal ()
 
 Copper::AssertionResult
-_equal (const char *first, const char *second) throw ()
+_equal (const char *first, const char *second)
 {
 	if (!first || !second)
 		return check_equal_strings (first, second);
@@ -57,37 +57,37 @@ _equal (const char *first, const char *second) throw ()
 }
 
 Copper::AssertionResult
-equal (const char *first, const char *second) throw ()
+equal (const char *first, const char *second)
 {
 	return _equal (first, second);
 }
 
 Copper::AssertionResult
-equal (const char *first, char second[]) throw ()
+equal (const char *first, char second[])
 {
 	return _equal (first, second);
 }
 
 Copper::AssertionResult
-equal (char first[], const char *second) throw ()
+equal (char first[], const char *second)
 {
 	return _equal (first, second);
 }
 
 Copper::AssertionResult
-equal (char first[], char second[]) throw ()
+equal (char first[], char second[])
 {
 	return _equal (first, second);
 }
 
 Copper::AssertionResult
-equal (const char *first, const String &second) throw ()
+equal (const char *first, const String &second)
 {
 	return equal (String::no_copy (first), second);
 }
 
 Copper::AssertionResult
-equal (char first[], const String &second) throw ()
+equal (char first[], const String &second)
 {
 	return equal (String::no_copy (first), second);
 }
@@ -96,7 +96,7 @@ equal (char first[], const String &second) throw ()
 
 static
 Copper::AssertionResult
-_unequal (const char *first, const char *second) throw ()
+_unequal (const char *first, const char *second)
 {
 	if (!first || !second)
 		return check_unequal_strings (first, second);
@@ -107,25 +107,25 @@ _unequal (const char *first, const char *second) throw ()
 }
 
 Copper::AssertionResult
-unequal (const char *first, const char *second) throw ()
+unequal (const char *first, const char *second)
 {
 	return _unequal (first, second);
 }
 
 Copper::AssertionResult
-unequal (const char *first, char second[]) throw ()
+unequal (const char *first, char second[])
 {
 	return _unequal (first, second);
 }
 
 Copper::AssertionResult
-unequal (char first[], const char *second) throw ()
+unequal (char first[], const char *second)
 {
 	return _unequal (first, second);
 }
 
 Copper::AssertionResult
-unequal (char first[], char second[]) throw ()
+unequal (char first[], char second[])
 {
 	return _unequal (first, second);
 }

@@ -7,37 +7,37 @@
 
 namespace Copper {
 	String
-	failure_format(const char &v) throw ()
+	failure_format(const char &v)
 	{
 		return String::build (3, "'", format (v).c_str (), "'");
 	}
 
 	String
-	failure_format (const signed char &v) throw ()
+	failure_format (const signed char &v)
 	{
 		return failure_format (static_cast<char>(v));
 	}
 
 	String
-	failure_format (const unsigned char &v) throw ()
+	failure_format (const unsigned char &v)
 	{
 		return failure_format (static_cast<char>(v));
 	}
 
 	String
-	failure_format(const String &v) throw ()
+	failure_format(const String &v)
 	{
 		return String::build (3, "\"", v.c_str (), "\"");
 	}
 
 	String
-	failure_format (char *v) throw ()
+	failure_format (char *v)
 	{
 		return failure_format (static_cast <const char *> (v));
 	}
 
 	String
-	failure_format (const char *v) throw ()
+	failure_format (const char *v)
 	{
 		if (v)
 			return failure_format (String::no_copy (v));
@@ -47,7 +47,7 @@ namespace Copper {
 
 #if HAVE_STD_STRING
 	String
-	failure_format (const std::string &v) throw ()
+	failure_format (const std::string &v)
 	{
 		return failure_format (v.c_str());
 	}
