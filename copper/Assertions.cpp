@@ -3,8 +3,8 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include "assertions.hpp"
-#include "util/string.hpp"
+#include <copper/Assertions.hpp>
+#include <copper/String.hpp>
 
 using Copper::String;
 using Copper::AssertionResult;

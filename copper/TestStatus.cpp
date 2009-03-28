@@ -5,7 +5,7 @@
 
 #include <cassert>
 
-#include "test_status.hpp"
+#include <copper/TestStatus.hpp>
 
 namespace Copper
 {

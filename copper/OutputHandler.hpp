@@ -6,12 +6,12 @@
 #ifndef COPPER_OUTPUT_HANDLER_HPP
 #define COPPER_OUTPUT_HANDLER_HPP
 
-#include <copper/test.hpp>
-#include <copper/error.hpp>
+#include <copper/Test.hpp>
+#include <copper/Error.hpp>
+#include <copper/Failure.hpp>
+#include <copper/List.hpp>
+#include <copper/String.hpp>
 #include <copper/export.hpp>
-#include <copper/failure.hpp>
-#include <copper/util/list.hpp>
-#include <copper/util/string.hpp>
 
 namespace Copper
 {

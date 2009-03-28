@@ -6,9 +6,9 @@
 #ifndef COPPER_TEST_STATUS_HPP
 #define COPPER_TEST_STATUS_HPP
 
-#include <copper/assertion_result.hpp>
+#include <copper/AssertionResult.hpp>
+#include <copper/Failure.hpp>
 #include <copper/export.hpp>
-#include <copper/failure.hpp>
 
 namespace Copper
 {

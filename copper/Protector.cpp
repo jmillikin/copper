@@ -5,9 +5,9 @@
 
 #include <cassert>
 
-#include "protector.hpp"
-#include "test.hpp"
-#include "util/list.hpp"
+#include <copper/Protector.hpp>
+#include <copper/Test.hpp>
+#include <copper/List.hpp>
 
 namespace Copper
 {

@@ -7,8 +7,8 @@
 #include <cstdarg>
 #include <cstring>
 
-#include "../compat.hpp"
-#include "string.hpp"
+#include <copper/compat.hpp>
+#include <copper/String.hpp>
 
 using namespace std;
 

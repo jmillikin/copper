@@ -6,8 +6,8 @@
 #ifndef COPPER_TEST_HPP
 #define COPPER_TEST_HPP
 
-#include <copper/util/list.hpp>
-#include <copper/util/string.hpp>
+#include <copper/List.hpp>
+#include <copper/String.hpp>
 #include <copper/export.hpp>
 
 namespace Copper

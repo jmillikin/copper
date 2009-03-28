@@ -3,9 +3,9 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <copper/assertion_result.hpp>
+#include <copper/AssertionResult.hpp>
+#include <copper/String.hpp>
 #include <copper/export.hpp>
-#include <copper/util/string.hpp>
 
 #ifndef COPPER_FAILURE_HPP
 #define COPPER_FAILURE_HPP

@@ -8,7 +8,7 @@
 
 #include <copper/compat.hpp>
 #include <copper/export.hpp>
-#include <copper/util/string.hpp>
+#include <copper/String.hpp>
 
 namespace Copper
 {

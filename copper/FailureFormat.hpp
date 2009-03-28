@@ -6,7 +6,7 @@
 #ifndef COPPER_FAILURE_FORMAT_HPP
 #define COPPER_FAILURE_FORMAT_HPP
 
-#include <copper/util/formatters.hpp>
+#include <copper/Formatters.hpp>
 #if HAVE_STD_STRING
 #	include <string>
 #endif

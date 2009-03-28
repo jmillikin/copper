@@ -7,7 +7,7 @@
 #include <cstring>
 #include <cstdlib>
 
-#include <copper/output_handler.hpp>
+#include <copper/OutputHandler.hpp>
 
 // Various self-tests of the framework, to try and avoid bugs
 SUITE (self_tests)

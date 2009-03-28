@@ -7,7 +7,7 @@
 #define COPPER_DEFAULT_OUTPUT_HANDLER_HPP
 
 #include <copper/export.hpp>
-#include <copper/output_handler.hpp>
+#include <copper/OutputHandler.hpp>
 
 namespace Copper
 {

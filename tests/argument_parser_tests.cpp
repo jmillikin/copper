@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <copper/output_handler.hpp>
+#include <copper/OutputHandler.hpp>
 #include <copper.hpp>
 #include <cstdio>
 

@@ -6,7 +6,7 @@
 #include <cstdio>
 #include <cstring>
 
-#include "default_output_handler.hpp"
+#include <copper/DefaultOutputHandler.hpp>
 
 using namespace std;
 

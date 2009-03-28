@@ -7,8 +7,8 @@
 #include <cstdlib>
 #include <cstddef>
 
-#include "output_handler.hpp"
-#include "test_runner.hpp"
+#include <copper/OutputHandler.hpp>
+#include <copper/TestRunner.hpp>
 
 using namespace std;
 

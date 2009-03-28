@@ -6,7 +6,7 @@
 #ifndef COPPER_ERROR_HPP
 #define COPPER_ERROR_HPP
 
-#include <copper/util/string.hpp>
+#include <copper/String.hpp>
 
 namespace Copper
 {

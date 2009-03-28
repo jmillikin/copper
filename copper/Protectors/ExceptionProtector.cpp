@@ -6,9 +6,9 @@
 #include <stdexcept>
 #include <cstdlib>
 
-#include "../compat.hpp"
-#include "exception_protector.hpp"
-#include "../safe_exception.hpp"
+#include <copper/compat.hpp>
+#include <copper/Protectors/ExceptionProtector.hpp>
+#include <copper/SafeException.hpp>
 
 #if HAVE_CXA_CURRENT_EXCEPTION_TYPE
 #	include <cxxabi.h>

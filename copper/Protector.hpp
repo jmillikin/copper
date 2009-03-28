@@ -6,8 +6,8 @@
 #ifndef COPPER_PROTECTOR_HPP
 #define COPPER_PROTECTOR_HPP
 
+#include <copper/Error.hpp>
 #include <copper/compat.hpp>
-#include <copper/error.hpp>
 #include <copper/export.hpp>
 
 namespace Copper

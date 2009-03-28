@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include "failure_format.hpp"
+#include <copper/FailureFormat.hpp>
 
 namespace Copper {
 	String

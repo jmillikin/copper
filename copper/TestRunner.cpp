@@ -8,13 +8,13 @@
 #include <cstdlib>
 #include <cstring>
 
-#include "error.hpp"
-#include "failure.hpp"
-#include "protector.hpp"
-#include "safe_exception.hpp"
-#include "test.hpp"
-#include "test_runner.hpp"
-#include "test_status.hpp"
+#include <copper/Error.hpp>
+#include <copper/Failure.hpp>
+#include <copper/Protector.hpp>
+#include <copper/SafeException.hpp>
+#include <copper/Test.hpp>
+#include <copper/TestRunner.hpp>
+#include <copper/TestStatus.hpp>
 
 using Copper::String;
 using Copper::Failure;
@@ -31,7 +31,7 @@ using Copper::Test;
 #include <fcntl.h>
 #include <errno.h>
 
-#include "util/formatters.hpp"
+#include <copper/Formatters.hpp>
 using Copper::format;
 
 struct FailureHandlerData

@@ -6,10 +6,10 @@
 #ifndef COPPER_ASSERTIONS_HPP
 #define COPPER_ASSERTIONS_HPP
 
-#include <copper/assertion_result.hpp>
+#include <copper/AssertionResult.hpp>
+#include <copper/FailureFormat.hpp>
 #include <copper/compat.hpp>
 #include <copper/export.hpp>
-#include <copper/failure_format.hpp>
 
 /**
  * @brief Assert two values are equal.

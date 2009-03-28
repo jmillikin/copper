@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include "test.hpp"
+#include <copper/Test.hpp>
 
 namespace Copper
 {

@@ -6,9 +6,9 @@
 #ifndef COPPER_UTIL_FORMATTERS_HPP
 #define COPPER_UTIL_FORMATTERS_HPP
 
+#include <copper/String.hpp>
 #include <copper/compat.hpp>
 #include <copper/export.hpp>
-#include <copper/util/string.hpp>
 
 #if HAVE_SSTREAM
 #	include <sstream>

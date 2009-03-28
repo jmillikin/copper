@@ -6,7 +6,7 @@
 #include <cstring>
 #include <cstdlib>
 
-#include "assertion_result.hpp"
+#include <copper/AssertionResult.hpp>
 
 namespace Copper
 {

@@ -6,7 +6,7 @@
 #ifndef COPPER_EXCEPTION_PROTECTOR_HPP
 #define COPPER_EXCEPTION_PROTECTOR_HPP
 
-#include <copper/protector.hpp>
+#include <copper/Protector.hpp>
 #include <copper/export.hpp>
 
 namespace Copper
