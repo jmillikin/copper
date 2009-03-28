@@ -4,6 +4,7 @@
  */
 
 #include <stdexcept>
+#include <cstdlib>
 
 #include "../compat.hpp"
 #include "exception_protector.hpp"
