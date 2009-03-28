@@ -53,22 +53,20 @@ namespace Copper {
 	String
 	failure_format (const Value &value, const char *rest)
 	{
-		return String::build (3,
-		                      failure_format (value).c_str (),
+		return String::Build (failure_format (value).CStr (),
 		                      " ",
-		                      rest);
+		                      rest, NULL);
 	}
 
 	template <class A, class B>
 	String
 	failure_format (const A &a, const char *join, const B &b)
 	{
-		return String::build (5,
-		                      failure_format (a).c_str (),
+		return String::Build (failure_format (a).CStr (),
 		                      " ",
 		                      join,
 		                      " ",
-		                      failure_format (b).c_str ());
+		                      failure_format (b).CStr (), NULL);
 	}
 }
 

@@ -132,10 +132,10 @@ namespace Copper
 		        "%s.%s:\n"
 		        "\t%s\n"
 		        "\t%s\n\n",
-		        test->file_name.c_str(), failure->line,
-		        test->suite.c_str(), test->name.c_str(),
-		        failure->text.c_str(),
-		        failure->message.c_str());
+		        test->file_name.CStr(), failure->line,
+		        test->suite.CStr(), test->name.CStr(),
+		        failure->text.CStr(),
+		        failure->message.CStr());
 	}
 
 	/**
@@ -156,9 +156,9 @@ namespace Copper
 		        "ERROR in %s:\n"
 		        "%s.%s:\n"
 		        "\t%s\n\n",
-		        test->file_name.c_str(),
-		        test->suite.c_str(), test->name.c_str(),
-		        error->message.c_str());
+		        test->file_name.CStr(),
+		        test->suite.CStr(), test->name.CStr(),
+		        error->message.CStr());
 	}
 
 	/**

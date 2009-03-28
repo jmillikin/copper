@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <cassert>
+#include <assert.h>
 #include <cctype>
 #include <cstdlib>
 #include <cstring>
@@ -130,19 +130,19 @@ serialize_failure (const Failure *failure)
 	/* Example: "7:failure 6:0 == 1 2:10 18:values are unequal" */
 	String line_str = format (failure->line),
 
-	       line_len = format (line_str.size ()),
-	       text_len = format (failure->text.size ()),
-	       message_len = format (failure->message.size ());
+	       line_len = format (line_str.Size ()),
+	       text_len = format (failure->text.Size ()),
+	       message_len = format (failure->message.Size ());
 
-	return String::build (10, "7:failure ",
-	                      text_len.c_str (), ":",
-	                      failure->text.c_str (),
+	return String::Build ("7:failure ",
+	                      text_len.CStr (), ":",
+	                      failure->text.CStr (),
 
-	                      line_len.c_str (), ":",
-	                      line_str.c_str (),
+	                      line_len.CStr (), ":",
+	                      line_str.CStr (),
 
-	                      message_len.c_str (), ":",
-	                      failure->message.c_str ());
+	                      message_len.CStr (), ":",
+	                      failure->message.CStr (), NULL);
 }
 
 String
@@ -150,17 +150,17 @@ serialize_error (const Error *error)
 {
 	/* 5:error message */
 	/* Example: "5:error 18:segmentation fault" */
-	String message_len = format (error->message.size ());
+	String message_len = format (error->message.Size ());
 
-	return String::build (4, "5:error ",
-	                      message_len.c_str (), ":",
-	                      error->message.c_str ());
+	return String::Build ("5:error ",
+	                      message_len.CStr (), ":",
+	                      error->message.CStr (), NULL);
 }
 
 String
 serialize_pass ()
 {
-	return String::from_static ("6:passed");
+	return String::FromStatic ("6:passed");
 }
 
 String
@@ -199,7 +199,7 @@ unserialize (const char *c_message, Failure **failure, Error **error)
 		       line_str = parse_token (c_message, &c_message),
 		       message = parse_token (c_message, &c_message);
 
-		line = strtoul (line_str.c_str (), NULL, 10);
+		line = strtoul (line_str.CStr (), NULL, 10);
 
 		*failure = new Failure (text, message, "", line);
 	}
@@ -242,9 +242,9 @@ write_message (int fd, const String &message)
 {
 	char buf[30];
 
-	sprintf (buf, "%-10u", message.size ());
+	sprintf (buf, "%-10u", message.Size ());
 	write (fd, buf, 10);
-	write (fd, message.c_str (), message.size ());
+	write (fd, message.CStr (), message.Size ());
 }
 
 void

@@ -1,5 +1,5 @@
-/* string.hpp -- Simple string to avoid dependency on std::string
- * Copyright (C) 2006-2007 John Millikin
+/* String.hpp -- Simple string to avoid dependency on std::string
+ * Copyright (C) 2006-2009 John Millikin
  * For conditions of distribution and use, see COPYING
  */
 
@@ -9,54 +9,50 @@
 #include <cstddef>
 #include <copper/FuncAttrs.hpp>
 
-namespace Copper
+namespace Copper {
+
+class COPPER_FUNCATTR_EXPORT String
 {
-	COPPER_FUNCATTR_EXPORT
-	char *
-	strndup (const char *string, const std::size_t size = 0);
-
-	class COPPER_FUNCATTR_EXPORT String
-	{
-	public:
-		String ();
-
-		String (const char *string,
-		        const std::size_t size = 0);
-
-		String (const String &other);
-
-		~String ();
-
-		static
-		String
-		from_static (const char string[]);
-
-		static
-		String
-		no_copy (const char *string);
-
-		static
-		String
-		build (const std::size_t count, ...);
-
-		std::size_t
-		size () const;
-
-		const char *
-		c_str () const;
-
-	private:
-		const String &
-		operator= (const String &other);
-
-		const char *str;
-		mutable std::size_t _size;
-		bool should_delete;
-	};
-
-	COPPER_FUNCATTR_EXPORT
+public:
+	String ();
+	
+	String (const char *string,
+	        const std::size_t size = 0);
+	
+	String (const String &other);
+	
+	~String ();
+	
+	String &
+	operator= (const String &other);
+	
 	bool
-	operator== (const String &first, const String &second);
+	operator== (const String &other) const;
+	
+	bool
+	operator!= (const String &other) const;
+	
+	static String
+	FromStatic (const char string[]);
+	
+	static String
+	NoCopy (const char *string);
+	
+	static String
+	COPPER_FUNCATTR_NULL_TERMINATED
+	Build (const char *first, ...);
+	
+	std::size_t
+	Size () const;
+	
+	const char *
+	CStr () const;
+	
+private:
+	class Impl;
+	Impl *p;
+};
+
 }
 
-#endif /* COPPER_UTIL_STRING_HPP */
+#endif

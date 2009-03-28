@@ -52,9 +52,9 @@ namespace Copper
 	            const char file_name[],
 	            const unsigned int line):
 
-	            name (String::from_static (name)),
-	            suite (String::from_static (suite)),
-	            file_name (String::from_static (file_name)),
+	            name (String::FromStatic (name)),
+	            suite (String::FromStatic (suite)),
+	            file_name (String::FromStatic (file_name)),
 	            line (line)
 	{
 		all_tests ().append (this);

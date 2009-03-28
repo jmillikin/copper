@@ -1,238 +1,280 @@
-/* string.cpp -- Simple string to avoid dependency on std::string
- * Copyright (C) 2006-2007 John Millikin
+/* String.cpp -- Simple string to avoid dependency on std::string
+ * Copyright (C) 2006-2009 John Millikin
  * For conditions of distribution and use, see COPYING
  */
+
+#include <copper/String.hpp>
 
 #include <cassert>
 #include <cstdarg>
 #include <cstring>
 
-#include <copper/compat.hpp>
-#include <copper/String.hpp>
+using std::size_t;
+using std::strcmp;
+using std::strlen;
+using std::strncpy;
 
-using namespace std;
+namespace {
 
-namespace Copper
+/**
+ * @brief A version of strdup that takes an optional size
+ *        parameter.
+ * 
+ * @param string The source string to duplicate.
+ * @param size If > 0, only this many bytes will be copied from
+ *             the source string.
+ * 
+ * @return a new character array, which must be deallocated with
+ *         delete[].
+ */
+char *
+COPPER_FUNCATTR_MALLOC
+copper_strndup (const char *string, const size_t size)
 {
-	/**
-	 * @brief A version of strdup that takes an optional size
-	 *        parameter.
-	 * 
-	 * @param string The source string to duplicate.
-	 * @param size If > 0, only this many bytes will be copied from
-	 *             the source string.
-	 * 
-	 * @return a new character array, which must be deallocated with
-	 *         delete[].
-	 */
-	char *
-	strndup (const char *string, const size_t size)
+	size_t string_len;
+
+	assert (string != NULL);
+	string_len = strlen (string);
+
+	if (size && size < string_len)
 	{
-		size_t string_len;
-
-		assert (string != NULL);
-		string_len = strlen (string);
-
-		if (size && size < string_len)
-		{
-			string_len = size;
-		}
-
-		char *new_str = new char [string_len + 1];
-		strncpy (new_str, string, string_len);
-		new_str[string_len] = 0;
-		return new_str;
+		string_len = size;
 	}
 
-	/** @class String
-	 * @brief Immutable string class.
-	 * 
-	 * This is a simple String class to have some of the benefits of
-	 * RAII without having to depend on std::string.
-	 */
+	char *new_str = new char [string_len + 1];
+	strncpy (new_str, string, string_len);
+	new_str[string_len] = 0;
+	return new_str;
+}
 
-	/**
-	 * @brief Construct an empty string
-	 */
-	String::String ():
-	                str (""),
-	                _size (0u),
-	                should_delete (false)
+char *
+copper_strpcpy (char *dest, const char *src)
+{
+	while ((*dest++ = *src++)) {}
+	return dest - 1;
+}
+
+}
+
+namespace Copper {
+
+class String::Impl
+{
+public:
+	Impl (const char *str, size_t size, bool should_delete)
+	: str (str), size (size), should_delete (should_delete),
+	  references (1u)
+	{}
+	
+	const char *str;
+	size_t size;
+	const bool should_delete;
+	
+	static Impl *
+	Empty ()
 	{
+		static Impl empty ("", 0u, false);
+		return &empty;
 	}
-
-	/**
-	 * @brief Construct a new string.
-	 * 
-	 * @param string The source string to be stored.
-	 * @param size If > 0, only this many bytes will be copied from
-	 *             the source string.
-	 */
-	String::String (const char *string,
-	                const std::size_t size):
-	                str (""),
-	                _size (0u),
-	                should_delete (false)
+	
+	Impl *
+	IncRef ()
 	{
-		if (string[0])
-		{
-			str = strndup (string, size);
-			should_delete = true;
-		}
+		++references;
+		return this;
 	}
-
-	/**
-	 * @brief Copy an existing string.
-	 * 
-	 * @param other The string to copy.
-	 */
-	String::String (const String &other):
-	                _size (other._size),
-	                should_delete (other.should_delete)
+	
+	void
+	DecRef ()
 	{
-		if (should_delete)
-			str = strndup (other.str);
-
-		else
-			str = other.str;
+		if (--references == 0u) { delete this; }
 	}
-
-	/**
-	 * @brief Deallocate resources used by this string.
-	 */
-	String::~String () {
-		if (should_delete)
+	
+private:
+	unsigned int references;
+	
+	~Impl ()
+	{
+		if (should_delete) {
+			assert (references == 0u);
 			delete[] str;
-	}
-
-	/**
-	 * @brief Construct a new string from static data.
-	 * 
-	 * This function is provided for performance reasons, to avoid
-	 * copying static character data.
-	 * 
-	 * @param string The static character data to store.
-	 */
-	String
-	String::from_static (const char string[])
-	{
-		String new_string;
-		new_string.str = const_cast<char *> (string);
-		return new_string;
-	}
-
-	/**
-	 * @brief Construct a new string without copying data.
-	 * 
-	 * This function is provided for performance reasons, to avoid
-	 * copying character data if the data is guaranteed to exist for the
-	 * lifetime of the String object.
-	 * 
-	 * @param string The data to store in this string.
-	 */
-	String
-	String::no_copy (const char *string)
-	{
-		String new_string;
-		new_string.str = const_cast<char *> (string);
-		return new_string;
-	}
-
-	struct BuilderInfo
-	{
-		char *str;
-		size_t len;
-	};
-
-	/**
-	 * @brief Builds a string from several character arrays.
-	 * 
-	 * Concatenates all the character arrays into one string, and
-	 * returns it.
-	 * 
-	 * @param count How many character arrays were passed.
-	 * @param ... The character arrays to concatenate.
-	 * 
-	 * @return a string containing all the arrays, concatenated
-	 *         together.
-	 */
-	String
-	String::build (const std::size_t count, ...)
-	{
-		va_list args;
-		va_start (args, count);
-		size_t full_size = 0, ii, idx = 0;
-		String new_str;
-		BuilderInfo *strings = new BuilderInfo[count];
-		char *new_c_str;
-
-		/* Find the total size */
-		for (ii = 0; ii < count; ii++)
-		{
-			strings[ii].str = va_arg (args, char *);
-			strings[ii].len = strlen (strings[ii].str);
-			full_size += strings[ii].len;
 		}
-
-		va_end (args);
-
-		/* Build the new string */
-		new_c_str = new char[full_size + 1];
-
-		for (ii = 0; ii < count; ii++)
-		{
-			strcpy (new_c_str + idx, strings[ii].str);
-			idx += strings[ii].len;
-		}
-
-		new_c_str[full_size] = 0;
-
-		delete[] strings;
-
-		new_str.str = new_c_str;
-		new_str._size = full_size;
-		new_str.should_delete = true;
-		return new_str;
 	}
+};
 
-	/**
-	 * @brief Get the size of the string.
-	 * 
-	 * @return the size of this string, in bytes.
-	 */
-	size_t
-	String::size () const
+/** @class String
+ * @brief Immutable string class.
+ * 
+ * This is a simple String class to have some of the benefits of
+ * RAII without having to depend on std::string.
+ */
+
+/**
+ * @brief Construct an empty string
+ */
+String::String ()
+: p (Impl::Empty ()->IncRef ())
+{
+}
+
+/**
+ * @brief Construct a new string.
+ * 
+ * @param string The source string to be stored.
+ * @param size If > 0, only this many bytes will be copied from
+ *             the source string.
+ */
+String::String (const char *string,
+                const size_t size)
+{
+	p = string[0]
+		? new Impl (copper_strndup (string, size), 0u, true)
+		: Impl::Empty ()->IncRef ();
+}
+
+String::String (const String &other)
+: p (other.p->IncRef ())
+{
+}
+
+String::~String ()
+{
+	p->DecRef ();
+}
+
+String &
+String::operator= (const String &other)
+{
+	if (this != &other)
 	{
-		if (!_size)
-			// I know this is evil, but it allows size to be
-			// calculated only for strings that need it.
-			_size = strlen (str);
-		return _size;
+		p->DecRef ();
+		p = other.p->IncRef ();
 	}
+	
+	return *this;
+}
 
-	/**
-	 * @brief Get a char * representation of this string.
-	 * 
-	 * @return a char * representation of this string.
-	 */
-	const char *
-	String::c_str () const
-	{
-		return str;
-	}
+bool
+String::operator== (const String &second) const
+{
+	if (p == second.p) { return true; }
+	
+	return (Size () == second.Size () &&
+	        strcmp (CStr (), second.CStr ()) == 0);
+}
 
-	/**
-	 * @brief Compare two strings for equality.
-	 * 
-	 * @param first The first string to compare.
-	 * @param second The second string to compare.
-	 * 
-	 * @return whether the strings are equal.
-	 */
-	bool
-	operator== (const String &first, const String &second)
+bool
+String::operator!= (const String &second) const
+{
+	return !(operator== (second));
+}
+
+/**
+ * @brief Construct a new string from static data.
+ * 
+ * This function is provided for performance reasons, to avoid
+ * copying static character data.
+ * 
+ * @param string The static character data to store.
+ */
+String
+String::FromStatic (const char string[])
+{
+	String new_string;
+	new_string.p->DecRef ();
+	new_string.p = new Impl (string, 0u, false);
+	return new_string;
+}
+
+/**
+ * @brief Construct a new string without copying data.
+ * 
+ * This function is provided for performance reasons, to avoid
+ * copying character data if the data is guaranteed to exist for the
+ * lifetime of the String object.
+ * 
+ * @param string The data to store in this string.
+ */
+String
+String::NoCopy (const char *string)
+{
+	String new_string;
+	new_string.p->DecRef ();
+	new_string.p = new Impl (string, 0u, false);
+	return new_string;
+}
+
+/**
+ * @brief Builds a string from several character arrays.
+ * 
+ * Concatenates all the character arrays into one string, and
+ * returns it.
+ * 
+ * @param first The first character array.
+ * @param ... The remaining character arrays.
+ * 
+ * @return a string containing all the arrays, concatenated
+ *         together.
+ */
+String
+String::Build (const char *first, ...)
+{
+	va_list args;
+	size_t size;
+	char *new_c_str, *part, *ii;
+	
+	assert (first != NULL);
+	
+	/* Find the total size */
+	size = strlen (first);
+	va_start (args, first);
+	while ((part = va_arg (args, char *)))
 	{
-		return (first.size () == second.size ()) &&
-		       (strcmp (first.c_str (), second.c_str ()) == 0);
+		size += strlen (part);
 	}
+	va_end (args);
+	
+	/* Build the new string */
+	ii = new_c_str = new char[size + 1];
+	ii = copper_strpcpy (ii, first);
+	va_start (args, first);
+	while ((part = va_arg (args, char *)))
+	{
+		ii = copper_strpcpy (ii, part);
+	}
+	
+	*ii = 0;
+	
+	String new_str;
+	new_str.p->DecRef ();
+	new_str.p = new Impl (new_c_str, size, true);
+	return new_str;
+}
+
+/**
+ * @brief Get the size of the string.
+ * 
+ * @return the size of this string, in bytes.
+ */
+size_t
+String::Size () const
+{
+	if (!p->size)
+		// I know this is evil, but it allows size to be
+		// calculated only for strings that need it.
+		p->size = strlen (p->str);
+	return p->size;
+}
+
+/**
+ * @brief Get a char * representation of this string.
+ * 
+ * @return a char * representation of this string.
+ */
+const char *
+String::CStr () const
+{
+	return p->str;
+}
+
 }

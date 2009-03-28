@@ -103,15 +103,14 @@ equal_within (const Value &expected,
 
 	if ((actual < expected - delta) || (actual > expected + delta))
 	{
-		String message (String::build (7,
-		                              "'",
-		                              format (actual).c_str (),
-		                              "'",
-		                              " is not within '",
-		                              format (delta).c_str (),
-		                              "' of '",
-		                              format (expected).c_str (),
-		                              "'"));
+		String message (String::Build ("'",
+		                               format (actual).CStr (),
+		                               "'",
+		                               " is not within '",
+		                               format (delta).CStr (),
+		                               "' of '",
+		                               format (expected).CStr (),
+		                               "'", NULL));
 		return AssertionResult::fail (message);
 	}
 

@@ -41,7 +41,7 @@ namespace Copper
 	{
 		if (!result.passed)
 		{
-			do_fail_test (text, result.failure_message.c_str (),
+			do_fail_test (text, result.failure_message.CStr (),
 			              file, line);
 		}
 	}
@@ -131,10 +131,9 @@ namespace Copper
 	{
 		if (result.passed)
 		{
-			String message (String::build (3,
-			                               "Unexpected success "
+			String message (String::Build ("Unexpected success "
 			                               "of assertion '",
-			                               text, "'"));
+			                               text, "'", NULL));
 			return AssertionResult::fail (message);
 		}
 
@@ -157,10 +156,9 @@ namespace Copper
 	{
 		if (passed)
 		{
-			String message (String::build (3,
-			                               "Unexpected success "
+			String message (String::Build ("Unexpected success "
 			                               "of assertion '",
-			                               text, "'"));
+			                               text, "'", NULL));
 			return AssertionResult::fail (message);
 		}
 

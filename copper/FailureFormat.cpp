@@ -9,7 +9,7 @@ namespace Copper {
 	String
 	failure_format(const char &v)
 	{
-		return String::build (3, "'", format (v).c_str (), "'");
+		return String::Build ("'", format (v).CStr (), "'", NULL);
 	}
 
 	String
@@ -27,7 +27,7 @@ namespace Copper {
 	String
 	failure_format(const String &v)
 	{
-		return String::build (3, "\"", v.c_str (), "\"");
+		return String::Build ("\"", v.CStr (), "\"", NULL);
 	}
 
 	String
@@ -40,16 +40,16 @@ namespace Copper {
 	failure_format (const char *v)
 	{
 		if (v)
-			return failure_format (String::no_copy (v));
+			return failure_format (String::NoCopy (v));
 		else
-			return String::from_static ("NULL");
+			return String::FromStatic ("NULL");
 	}
 
 #if HAVE_STD_STRING
 	String
 	failure_format (const std::string &v)
 	{
-		return failure_format (v.c_str());
+		return failure_format (v.c_str ());
 	}
 #endif
 }

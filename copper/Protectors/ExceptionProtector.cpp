@@ -69,9 +69,8 @@ namespace Copper
 
 		catch (const std::exception &e)
 		{
-			return new Error (String::build (2,
-			                                 "Unhandled exception: ",
-			                                 e.what ()));
+			return new Error (String::Build ("Unhandled exception: ",
+			                                 e.what (), NULL));
 		}
 
 		catch (...)
@@ -81,14 +80,13 @@ namespace Copper
 			info = ::abi::__cxa_current_exception_type ();
 
 			/* Unhandled exception of type 'type' */
-			String message = String::build (3,
-			                                "Unhandled exception of type '",
-			                                demangle (info->name ()).c_str (),
-			                                "'");
+			String message = String::Build ("Unhandled exception of type '",
+			                                demangle (info->name ()).CStr (),
+			                                "'", NULL);
 
 			return new Error (message);
 #	else
-			return new Error (String::from_static ("Unhandled exception with unknown type"));
+			return new Error (String::FromStatic ("Unhandled exception with unknown type"));
 #	endif /* HAVE_CXA_CURRENT_EXCEPTION_TYPE */
 		}
 #	endif /* HAVE_EXCEPTIONS */

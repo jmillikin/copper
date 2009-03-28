@@ -30,7 +30,7 @@ namespace Copper
 	 */
 	AssertionResult::AssertionResult ():
 	                                  passed (true),
-	                                  failure_message (String::from_static ("No Error"))
+	                                  failure_message (String::FromStatic ("No Error"))
 	{
 	}
 
