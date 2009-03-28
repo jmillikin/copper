@@ -160,11 +160,11 @@ if test "$enable_rtti" = "yes"; then
     )
   fi
 
-  RTTI_CPPFLAGS=""
+  RTTI_CXXFLAGS=""
 else
   AC_MSG_RESULT([no])
   # FIXME: gcc-specific
-  RTTI_CPPFLAGS="-fno-rtti"
+  RTTI_CXXFLAGS="-fno-rtti"
 fi
 
 AC_MSG_CHECKING([if exception handling is enabled])
@@ -184,7 +184,7 @@ if test "$enable_exceptions" = "yes"; then
     )
   fi
 
-  EXCEPTION_CPPFLAGS=""
+  EXCEPTION_CXXFLAGS=""
 else
   AC_MSG_RESULT([no])
   AC_DEFINE(HAVE_EXCEPTIONS, 0,
@@ -192,16 +192,16 @@ else
     )
 
   # FIXME: gcc-specific
-  EXCEPTION_CPPFLAGS="-fno-exceptions"
+  EXCEPTION_CXXFLAGS="-fno-exceptions"
 fi
 
-FEATURES_CPPFLAGS="$RTTI_CPPFLAGS $EXCEPTION_CPPFLAGS"
+FEATURES_CXXFLAGS="$RTTI_CXXFLAGS $EXCEPTION_CXXFLAGS"
 
 AC_MSG_CHECKING(if debugging is enabled[])
 if test "$enable_debug" = "yes"; then
   AC_MSG_RESULT([yes])
 
-  DEBUG_CPPFLAGS="-g3 -Wall -ansi -pedantic"
+  DEBUG_CXXFLAGS="-g3 -Wall -ansi -pedantic"
 else
   AC_MSG_RESULT([no])
 fi
@@ -210,15 +210,15 @@ AC_MSG_CHECKING([if optimizations are enabled])
 if test "$enable_optimizations" = "yes"; then
   AC_MSG_RESULT([yes])
 
-  OPTIMIZATION_CPPFLAGS="-O2"
+  OPTIMIZATION_CXXFLAGS="-O2"
 else
   AC_MSG_RESULT([no])
 
-  OPTIMIZATION_CPPFLAGS="-O0"
+  OPTIMIZATION_CXXFLAGS="-O0"
 fi
 
-CXXFLAGS="$FEATURES_CPPFLAGS $OPTIMIZATION_CPPFLAGS $DEBUG_CPPFLAGS $CXXFLAGS"
-LIBS="$OPTIMIZATION_LIBS $DEBUG_LIBS $LIBS"
+CXXFLAGS="$FEATURES_CXXFLAGS $OPTIMIZATION_CXXFLAGS $DEBUG_CXXFLAGS $EXTRA_CXXFLAGS"
+LIBS="$OPTIMIZATION_LIBS $DEBUG_LIBS $EXTRA_LIBS"
 
 AC_OUTPUT([
   Makefile
