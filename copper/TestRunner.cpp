@@ -21,7 +21,7 @@ using Copper::Failure;
 using Copper::Error;
 using Copper::Test;
 
-#ifdef HAVE_FORK
+#if HAVE_FORK
 
 #include <cstring>
 #include <cstdio>
@@ -97,21 +97,22 @@ namespace Copper
 	{
 		if (protect)
 		{
-#ifdef HAVE_FORK
+#if HAVE_FORK
 			fork_test (test, protect, failure, error);
 #else
 			set_failure_handler (on_thrown_failure, test);
-			*error = Copper::Protector::guard (test);
+			try { *error = Copper::Protector::guard (test); }
+			catch (const FailureException& e)
+			{
+				*failure = new Failure (e.failure);
+			}
 #endif
 		}
 		else
 		{
-			try
-			{
-				set_failure_handler (on_thrown_failure, test);
-				test->run ();
-			}
-
+			set_failure_handler (on_thrown_failure, test);
+			
+			try { test->run (); }
 			catch (const FailureException& e)
 			{
 				*failure = new Failure (e.failure);
@@ -120,7 +121,7 @@ namespace Copper
 	}
 }
 
-#ifdef HAVE_FORK
+#if HAVE_FORK
 
 String
 serialize_failure (const Failure *failure)

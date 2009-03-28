@@ -55,7 +55,7 @@ COPPER_CHECK_TEMPLATES
 
 # Optional features that don't have a ./configure option
 COPPER_CHECK_BOOLEAN
-if test "$coppper_boolean_support" = "no"; then
+if test "$copper_boolean_support" = "no"; then
   AC_MSG_WARN([Booleans are not distinct types])
 
   AC_DEFINE(HAVE_BOOLEAN, 0,
@@ -69,16 +69,16 @@ fi
 
 COPPER_CHECK_FORK
 if test "$copper_fork_support" = "yes"; then
-  AC_DEFINE(HAVE_FORK, 1, [fork() is not available.])
+  AC_DEFINE(HAVE_FORK, 1, [fork() is available.])
 else
-  AC_DEFINE(HAVE_FORK, 0, [fork() is available.])
+  AC_DEFINE(HAVE_FORK, 0, [fork() is not available.])
 fi
 
 COPPER_CHECK_STD_STRING
 if test "$copper_std_string_support" = "yes"; then
-  AC_DEFINE(HAVE_STD_STRING, 1, [std::string is not available.])
+  AC_DEFINE(HAVE_STD_STRING, 1, [std::string is available.])
 else
-  AC_DEFINE(HAVE_STD_STRING, 0, [std::string is available.])
+  AC_DEFINE(HAVE_STD_STRING, 0, [std::string is not available.])
 fi
 
 AC_MSG_CHECKING([if sstreams should be tested])
@@ -86,7 +86,7 @@ if test "$enable_sstream" = "yes"; then
   AC_MSG_RESULT([yes])
 
   COPPER_CHECK_SSTREAM
-  if test "$coppper_sstream_support" = "no"; then
+  if test "$copper_sstream_support" = "no"; then
     AC_MSG_WARN(
       [stringstreams are not supported, only some types may be converted])
 
@@ -106,13 +106,13 @@ else
 fi
 
 COPPER_CHECK_STRSIGNAL
-if test "$coppper_strsignal_support" = "no"; then
+if test "$copper_strsignal_support" = "no"; then
   AC_DEFINE(HAVE_STRSIGNAL, 0,
     [The compiler does not have the strsignal function]
   )
 
   COPPER_CHECK_SYS_SIGLIST
-  if test "$coppper_sys_siglist_support" = "no"; then
+  if test "$copper_sys_siglist_support" = "no"; then
     AC_DEFINE(HAVE_SYS_SIGLIST, 0,
       [The compiler does not have sys_siglist]
     )
@@ -137,7 +137,7 @@ if test "$enable_rtti" = "yes"; then
   # See exception_protector.cpp for details
   COPPER_CHECK_CXA_CURRENT_EXCEPTION_TYPE
 
-  if test "$coppper_cxa_current_exception_type_support" = "yes"; then
+  if test "$copper_cxa_current_exception_type_support" = "yes"; then
     AC_DEFINE(HAVE_CXA_CURRENT_EXCEPTION_TYPE, 1,
       [__cxa_current_exception_type() is supported]
     )
@@ -145,7 +145,7 @@ if test "$enable_rtti" = "yes"; then
     # Check if type names can be de-mangled
     COPPER_CHECK_CXA_DEMANGLE
 
-    if test "$coppper_cxa_demangle_support" = "yes"; then
+    if test "$copper_cxa_demangle_support" = "yes"; then
         AC_DEFINE(HAVE_CXA_DEMANGLE, 1,
           [__cxa_demangle() is supported]
         )
@@ -174,7 +174,7 @@ if test "$enable_exceptions" = "yes"; then
   # Check whether exceptions are actually supported
   COPPER_CHECK_EXCEPTIONS
 
-  if test "$coppper_exception_support" = "yes"; then
+  if test "$copper_exception_support" = "yes"; then
     AC_DEFINE(HAVE_EXCEPTIONS, 1,
       [The compiler supports exceptions]
     )

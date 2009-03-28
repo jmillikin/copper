@@ -3,7 +3,7 @@ AC_DEFUN([COPPER_CHECK_CXA_CURRENT_EXCEPTION_TYPE],[
 
   AC_CACHE_CHECK(
     [if __cxa_current_exception_type() is supported],
-    [coppper_cxa_current_exception_type_support],
+    [copper_cxa_current_exception_type_support],
     [AC_COMPILE_IFELSE(
       [AC_LANG_PROGRAM(
         [
@@ -21,8 +21,8 @@ AC_DEFUN([COPPER_CHECK_CXA_CURRENT_EXCEPTION_TYPE],[
           return 0;
         ]
       )],
-      [coppper_cxa_current_exception_type_support=yes], # Test passed
-      [coppper_cxa_current_exception_type_support=no]   # Test failed
+      [copper_cxa_current_exception_type_support=yes], # Test passed
+      [copper_cxa_current_exception_type_support=no]   # Test failed
     )]
   )
 
