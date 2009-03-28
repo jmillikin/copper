@@ -7,16 +7,15 @@
 #define COPPER_UTIL_STRING_HPP
 
 #include <cstddef>
-
-#include <copper/export.hpp>
+#include <copper/FuncAttrs.hpp>
 
 namespace Copper
 {
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	char *
 	strndup (const char *string, const std::size_t size = 0);
 
-	class COPPER_EXPORT String
+	class COPPER_FUNCATTR_EXPORT String
 	{
 	public:
 		String ();
@@ -55,7 +54,7 @@ namespace Copper
 		bool should_delete;
 	};
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	bool
 	operator== (const String &first, const String &second);
 }

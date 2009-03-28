@@ -7,11 +7,11 @@
 #define COPPER_EXCEPTION_PROTECTOR_HPP
 
 #include <copper/Protector.hpp>
-#include <copper/export.hpp>
+#include <copper/FuncAttrs.hpp>
 
 namespace Copper
 {
-	class COPPER_EXPORT ExceptionProtector : public Protector {
+	class COPPER_FUNCATTR_EXPORT ExceptionProtector : public Protector {
 	public:
 		ExceptionProtector ();
 

@@ -9,7 +9,7 @@
 #include <copper/AssertionResult.hpp>
 #include <copper/FailureFormat.hpp>
 #include <copper/compat.hpp>
-#include <copper/export.hpp>
+#include <copper/FuncAttrs.hpp>
 
 /**
  * @brief Assert two values are equal.
@@ -39,7 +39,7 @@ equal (const First &first, const Second &second)
  * @brief Overloaded equal ()
  * @overload
  */
-COPPER_EXPORT
+COPPER_FUNCATTR_EXPORT
 Copper::AssertionResult
 equal (const char *first, const char *second);
 
@@ -47,7 +47,7 @@ equal (const char *first, const char *second);
  * @brief Overloaded equal ()
  * @overload
  */
-COPPER_EXPORT
+COPPER_FUNCATTR_EXPORT
 Copper::AssertionResult
 equal (const char *first, char second[]);
 
@@ -55,7 +55,7 @@ equal (const char *first, char second[]);
  * @brief Overloaded equal ()
  * @overload
  */
-COPPER_EXPORT
+COPPER_FUNCATTR_EXPORT
 Copper::AssertionResult
 equal (char first[], const char *second);
 
@@ -63,7 +63,7 @@ equal (char first[], const char *second);
  * @brief Overloaded equal ()
  * @overload
  */
-COPPER_EXPORT
+COPPER_FUNCATTR_EXPORT
 Copper::AssertionResult
 equal (char first[], char second[]);
 
@@ -71,7 +71,7 @@ equal (char first[], char second[]);
  * @brief Overloaded for performance
  * @overload
  */
-COPPER_EXPORT
+COPPER_FUNCATTR_EXPORT
 Copper::AssertionResult
 equal (const char *first, const Copper::String &second);
 
@@ -79,7 +79,7 @@ equal (const char *first, const Copper::String &second);
  * @brief Overloaded for performance
  * @overload
  */
-COPPER_EXPORT
+COPPER_FUNCATTR_EXPORT
 Copper::AssertionResult
 equal (char first[], const Copper::String &second);
 
@@ -147,7 +147,7 @@ unequal (const First &first, const Second &second)
  * @brief Overloaded unequal ()
  * @overload
  */
-COPPER_EXPORT
+COPPER_FUNCATTR_EXPORT
 Copper::AssertionResult
 unequal (const char *first, const char *second);
 
@@ -155,7 +155,7 @@ unequal (const char *first, const char *second);
  * @brief Overloaded unequal ()
  * @overload
  */
-COPPER_EXPORT
+COPPER_FUNCATTR_EXPORT
 Copper::AssertionResult
 unequal (const char *first, char second[]);
 
@@ -163,7 +163,7 @@ unequal (const char *first, char second[]);
  * @brief Overloaded unequal ()
  * @overload
  */
-COPPER_EXPORT
+COPPER_FUNCATTR_EXPORT
 Copper::AssertionResult
 unequal (char first[], const char *second);
 
@@ -171,7 +171,7 @@ unequal (char first[], const char *second);
  * @brief Overloaded unequal ()
  * @overload
  */
-COPPER_EXPORT
+COPPER_FUNCATTR_EXPORT
 Copper::AssertionResult
 unequal (char first[], char second[]);
 

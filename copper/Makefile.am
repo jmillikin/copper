@@ -8,10 +8,10 @@ copper_include_real_HEADERS = \
 	copper.hpp \
 	DefaultOutputHandler.hpp \
 	Error.hpp \
-	export.hpp \
 	FailureFormat.hpp \
 	Failure.hpp \
 	Formatters.hpp \
+	FuncAttrs.hpp \
 	List.hpp \
 	macros.hpp \
 	OutputHandler.hpp \

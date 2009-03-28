@@ -8,7 +8,7 @@
 
 #include <copper/String.hpp>
 #include <copper/compat.hpp>
-#include <copper/export.hpp>
+#include <copper/FuncAttrs.hpp>
 
 #if HAVE_SSTREAM
 #	include <sstream>
@@ -17,24 +17,24 @@
 namespace Copper {
 
 #if HAVE_BOOLEAN
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format(const bool &v);
 #endif
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format(const char &v);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format (const signed char &v);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format (const unsigned char &v);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format(const String &v);
 
@@ -51,39 +51,39 @@ namespace Copper {
 
 #else /* No sstream, only support standard C types + Copper::String */
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format (const signed short &v);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format (const unsigned short &v);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format (const signed int &v);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format (const unsigned int &v);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format (const signed long &v);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format (const unsigned long &v);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format (const float &v);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format (const double &v);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	String
 	format (const char *v);
 #endif /* HAVE_SSTREAM */

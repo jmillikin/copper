@@ -8,54 +8,54 @@
 
 #include <copper/AssertionResult.hpp>
 #include <copper/Failure.hpp>
-#include <copper/export.hpp>
+#include <copper/FuncAttrs.hpp>
 
 namespace Copper
 {
 	typedef void (FailureHandler)(const Failure &failure, void *data);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	void
 	do_assert (const AssertionResult &result,
 	           const char *text,
 	           const char *file,
 	           const unsigned int line);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	void
 	do_assert (const bool passed,
 	           const char *text,
 	           const char *file,
 	           const unsigned int line);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	void
 	do_assert ();
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	void
 	do_fail_test (const char *text,
 	              const char *message,
 	              const char *file,
 	              const unsigned int line);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	void
 	do_fail_test (const char *message,
 	              const char *file,
 	              const unsigned int line);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	AssertionResult
 	do_failed (const AssertionResult &result,
 	           const char *text);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	AssertionResult
 	do_failed (const bool passed,
 	           const char *text);
 
-	COPPER_EXPORT
+	COPPER_FUNCATTR_EXPORT
 	void
 	set_failure_handler (FailureHandler *new_handler, void *data);
 }

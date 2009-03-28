@@ -11,11 +11,11 @@
 #include <copper/Failure.hpp>
 #include <copper/List.hpp>
 #include <copper/String.hpp>
-#include <copper/export.hpp>
+#include <copper/FuncAttrs.hpp>
 
 namespace Copper
 {
-	class COPPER_EXPORT OutputHandler
+	class COPPER_FUNCATTR_EXPORT OutputHandler
 	{
 	public:
 		OutputHandler ();

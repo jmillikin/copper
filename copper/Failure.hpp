@@ -3,16 +3,16 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <copper/AssertionResult.hpp>
-#include <copper/String.hpp>
-#include <copper/export.hpp>
-
 #ifndef COPPER_FAILURE_HPP
 #define COPPER_FAILURE_HPP
 
+#include <copper/AssertionResult.hpp>
+#include <copper/String.hpp>
+#include <copper/FuncAttrs.hpp>
+
 namespace Copper
 {
-	class COPPER_EXPORT Failure
+	class COPPER_FUNCATTR_EXPORT Failure
 	{
 	public:
 		Failure (const String &text,

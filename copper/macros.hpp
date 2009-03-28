@@ -40,8 +40,8 @@
 #define SUITE(NAME) \
 	namespace suite_namespace_##NAME \
 	{ \
-		COPPER_UNUSED static const void (*_copper_set_up) () = 0; \
-		COPPER_UNUSED static const void (*_copper_tear_down) () = 0; \
+		COPPER_FUNCATTR_UNUSED static void (*_copper_set_up) () = 0; \
+		COPPER_FUNCATTR_UNUSED static void (*_copper_tear_down) () = 0; \
 		static const char _copper_current_suite[] = #NAME; \
 	} \
 	namespace suite_namespace_##NAME

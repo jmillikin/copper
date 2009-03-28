@@ -6,15 +6,15 @@
 #ifndef COPPER_ASSERTION_RESULT_HPP
 #define COPPER_ASSERTION_RESULT_HPP
 
-#include <copper/compat.hpp>
-#include <copper/export.hpp>
 #include <copper/String.hpp>
+#include <copper/compat.hpp>
+#include <copper/FuncAttrs.hpp>
 
 namespace Copper
 {
 	class String;
 
-	class COPPER_EXPORT AssertionResult
+	class COPPER_FUNCATTR_EXPORT AssertionResult
 	{
 	public:
 		~AssertionResult ();
