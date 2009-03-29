@@ -5,17 +5,17 @@
 
 #include <copper.hpp>
 
-SUITE (list_tests)
+COPPER_SUITE (list_tests)
 {
-	TEST (constructor)
+	COPPER_TEST (constructor)
 	{
 		Copper::List<int> a;
 
-		ASSERT (is_null (a.root ()));
-		ASSERT (equal (0u, a.size ()));
+		COPPER_ASSERT (is_null (a.root ()));
+		COPPER_ASSERT (equal (0u, a.size ()));
 	}
 
-	TEST (copy_constructor)
+	COPPER_TEST (copy_constructor)
 	{
 		int i;
 		Copper::List<int> a;
@@ -23,20 +23,20 @@ SUITE (list_tests)
 
 		Copper::List<int> b (a);
 
-		ASSERT (not_null (b.root ()));
-		ASSERT (equal (b.root ()->value, &i));
-		ASSERT (equal (1u, b.size ()));
+		COPPER_ASSERT (not_null (b.root ()));
+		COPPER_ASSERT (equal (b.root ()->value, &i));
+		COPPER_ASSERT (equal (1u, b.size ()));
 	}
 
-	TEST (copy_constructor_empty)
+	COPPER_TEST (copy_constructor_empty)
 	{
 		Copper::List<int> a, b (a);
 
-		ASSERT (is_null (b.root ()));
-		ASSERT (equal (0u, b.size ()));
+		COPPER_ASSERT (is_null (b.root ()));
+		COPPER_ASSERT (equal (0u, b.size ()));
 	}
 
-	TEST (assignment)
+	COPPER_TEST (assignment)
 	{
 		int i, j;
 		Copper::List<int> a, b;
@@ -45,12 +45,12 @@ SUITE (list_tests)
 
 		a = b;
 
-		ASSERT (not_null (a.root ()));
-		ASSERT (equal (a.root ()->value, &j));
-		ASSERT (equal (1u, a.size ()));
+		COPPER_ASSERT (not_null (a.root ()));
+		COPPER_ASSERT (equal (a.root ()->value, &j));
+		COPPER_ASSERT (equal (1u, a.size ()));
 	}
 
-	TEST (assignment_empty)
+	COPPER_TEST (assignment_empty)
 	{
 		int i;
 		Copper::List<int> a, b;
@@ -58,22 +58,22 @@ SUITE (list_tests)
 
 		a = b;
 
-		ASSERT (is_null (a.root ()));
-		ASSERT (equal (0u, a.size ()));
+		COPPER_ASSERT (is_null (a.root ()));
+		COPPER_ASSERT (equal (0u, a.size ()));
 	}
 
-	TEST (append)
+	COPPER_TEST (append)
 	{
 		int i;
 		Copper::List<int> a;
 		a.append (&i);
 
-		ASSERT (not_null (a.root ()));
-		ASSERT (equal (a.root ()->value, &i));
-		ASSERT (equal (1u, a.size ()));
+		COPPER_ASSERT (not_null (a.root ()));
+		COPPER_ASSERT (equal (a.root ()->value, &i));
+		COPPER_ASSERT (equal (1u, a.size ()));
 	}
 
-	TEST (extend)
+	COPPER_TEST (extend)
 	{
 		int i, j;
 		Copper::List<int> a, b;
@@ -81,9 +81,9 @@ SUITE (list_tests)
 		b.append (&j);
 
 		a.extend (b);
-		ASSERT (not_null (a.root ()));
-		ASSERT (equal (2u, a.size ()));
-		ASSERT (equal (a.root ()->value, &i));
-		ASSERT (equal (a.root ()->next->value, &j));
+		COPPER_ASSERT (not_null (a.root ()));
+		COPPER_ASSERT (equal (2u, a.size ()));
+		COPPER_ASSERT (equal (a.root ()->value, &i));
+		COPPER_ASSERT (equal (a.root ()->next->value, &j));
 	}
 }

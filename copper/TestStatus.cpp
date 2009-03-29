@@ -117,56 +117,6 @@ namespace Copper
 	}
 
 	/**
-	 * Check that an assertion was false. If it was true, the current
-	 * failure handler will be executed.
-	 * 
-	 * @see failed ()
-	 * 
-	 * @param result The result of the assertion.
-	 * @param text The code that this Assertion tests.
-	 */
-	AssertionResult
-	do_failed (const AssertionResult &result,
-	           const char *text)
-	{
-		if (result.passed)
-		{
-			String message (String::Build ("Unexpected success "
-			                               "of assertion '",
-			                               text, "'", NULL));
-			return AssertionResult::fail (message);
-		}
-
-		else
-			return AssertionResult::pass ();
-	}
-
-	/**
-	 * Check that an assertion was false. If it was true, the current
-	 * failure handler will be executed.
-	 * 
-	 * @see failed ()
-	 * 
-	 * @param passed Whether the assertion passed.
-	 * @param text The code that this Assertion tests.
-	 */
-	AssertionResult
-	do_failed (const bool passed,
-	           const char *text)
-	{
-		if (passed)
-		{
-			String message (String::Build ("Unexpected success "
-			                               "of assertion '",
-			                               text, "'", NULL));
-			return AssertionResult::fail (message);
-		}
-
-		else
-			return AssertionResult::pass ();
-	}
-
-	/**
 	 * Set the current failure handler function. This should be called once,
 	 * before a test is executed.
 	 * 

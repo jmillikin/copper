@@ -174,6 +174,14 @@ COPPER_FUNCATTR_EXPORT
 Copper::AssertionResult
 unequal (char first[], char second[]);
 
+COPPER_FUNCATTR_EXPORT
+Copper::AssertionResult
+failed (const bool result);
+
+COPPER_FUNCATTR_EXPORT
+Copper::AssertionResult
+failed (const Copper::AssertionResult &result);
+
 /**
  * @brief Assert some pointer is NULL.
  * 

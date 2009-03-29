@@ -129,3 +129,39 @@ unequal (char first[], char second[])
 {
 	return _unequal (first, second);
 }
+
+/**
+ * Check that an assertion was false. If it was true, the current
+ * failure handler will be executed.
+ * 
+ * @see failed ()
+ * 
+ * @param result The result of the assertion.
+ */
+AssertionResult
+failed (const AssertionResult &result)
+{
+	if (result.passed)
+	{ return AssertionResult::fail ("Negative assertion succeeded"); }
+	
+	return AssertionResult::pass ();
+}
+
+/**
+ * Check that an assertion was false. If it was true, the current
+ * failure handler will be executed.
+ * 
+ * @see failed ()
+ * 
+ * @param passed Whether the assertion passed.
+ * @param text The code that this Assertion tests.
+ */
+AssertionResult
+failed (const bool passed)
+{
+	if (passed)
+	{ return AssertionResult::fail ("Negative assertion succeeded"); }
+	
+	return AssertionResult::pass ();
+}
+

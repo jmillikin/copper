@@ -46,16 +46,6 @@ namespace Copper
 	              const unsigned int line);
 
 	COPPER_FUNCATTR_EXPORT
-	AssertionResult
-	do_failed (const AssertionResult &result,
-	           const char *text);
-
-	COPPER_FUNCATTR_EXPORT
-	AssertionResult
-	do_failed (const bool passed,
-	           const char *text);
-
-	COPPER_FUNCATTR_EXPORT
 	void
 	set_failure_handler (FailureHandler *new_handler, void *data);
 }
