@@ -3,6 +3,14 @@
  * For conditions of distribution and use, see COPYING
  */
 
+#ifdef HAVE_CONFIG_H
+#	include <config.h>
+#endif
+
+#if !(HAVE_FORK or HAVE_EXCEPTIONS)
+#error Either exception handling or fork() is required
+#endif
+
 #include <assert.h>
 #include <cctype>
 #include <cstdlib>
@@ -61,6 +69,7 @@ public:
 	const Failure failure;
 };
 
+#if HAVE_EXCEPTIONS
 void
 on_thrown_failure (const Failure &failure, void *data)
 {
@@ -70,6 +79,7 @@ on_thrown_failure (const Failure &failure, void *data)
 	test->tear_down ();
 	throw FailureException (failure);
 }
+#endif
 
 /**
  * Sent to set_failure_handler by all types of test execution. When the child
@@ -95,29 +105,18 @@ namespace Copper
 	           Failure **failure,
 	           Error **error)
 	{
-		if (protect)
-		{
 #if HAVE_FORK
-			fork_test (test, protect, failure, error);
-#else
-			set_failure_handler (on_thrown_failure, test);
-			try { *error = Copper::Protector::guard (test); }
-			catch (const FailureException& e)
-			{
-				*failure = new Failure (e.failure);
-			}
-#endif
-		}
-		else
+		fork_test (test, protect, failure, error);
+#elif HAVE_EXCEPTIONS
+		set_failure_handler (on_thrown_failure, test);
+		try
 		{
-			set_failure_handler (on_thrown_failure, test);
-			
-			try { test->run (); }
-			catch (const FailureException& e)
-			{
-				*failure = new Failure (e.failure);
-			}
+			if (protect) { *error = Copper::Protector::guard (test); }
+			else { test->run (); }
 		}
+		catch (const FailureException& e)
+		{ *failure = new Failure (e.failure); }
+#endif
 	}
 }
 

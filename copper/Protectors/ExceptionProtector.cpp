@@ -54,7 +54,7 @@ namespace Copper
 	ExceptionProtector::_guard (Test *test)
 	{
 #	if !HAVE_EXCEPTIONS
-		return next_protector (test, error);
+		return next_protector (test);
 #	else
 		try
 		{
