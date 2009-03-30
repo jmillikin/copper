@@ -18,7 +18,7 @@ namespace Copper
 	class DefaultOutputHandlerPrivate
 	{
 	public:
-		DefaultOutputHandlerPrivate (List<Test> *tests):
+		DefaultOutputHandlerPrivate (List<Test> tests):
 		                             num_passed (0),
 		                             num_failed (0),
 		                             num_errors (0),
@@ -50,7 +50,7 @@ namespace Copper
 		/*
 		 * @brief A list of which tests to run.
 		 */
-		List<Test> *tests;
+		List<Test> tests;
 	};
 
 	typedef DefaultOutputHandlerPrivate DOHP;
@@ -90,7 +90,6 @@ namespace Copper
 	 */
 	DefaultOutputHandler::~DefaultOutputHandler ()
 	{
-		delete priv->tests;
 		delete priv;
 	}
 
@@ -132,10 +131,10 @@ namespace Copper
 		        "%s.%s:\n"
 		        "\t%s\n"
 		        "\t%s\n\n",
-		        test->file_name.CStr(), failure->line,
-		        test->suite.CStr(), test->name.CStr(),
-		        failure->text.CStr(),
-		        failure->message.CStr());
+		        test->FileName.CStr(), failure->Line,
+		        test->Suite.CStr(), test->Name.CStr(),
+		        failure->Text.CStr(),
+		        failure->Message.CStr());
 	}
 
 	/**
@@ -156,9 +155,9 @@ namespace Copper
 		        "ERROR in %s:\n"
 		        "%s.%s:\n"
 		        "\t%s\n\n",
-		        test->file_name.CStr(),
-		        test->suite.CStr(), test->name.CStr(),
-		        error->message.CStr());
+		        test->FileName.CStr(),
+		        test->Suite.CStr(), test->Name.CStr(),
+		        error->Message.CStr());
 	}
 
 	/**
@@ -184,7 +183,8 @@ namespace Copper
 		        priv->num_passed,
 		        priv->num_failed,
 		        priv->num_errors);
-
-		return priv->num_failed + priv->num_errors;
+		
+		if ((priv->num_failed + priv->num_errors) > 0) { return 1; }
+		return 0;
 	}
 }

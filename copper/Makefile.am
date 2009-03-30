@@ -1,4 +1,4 @@
-SUBDIRS=Protectors
+#SUBDIRS=Protectors
 
 copper_include_HEADERS = copper.hpp
 copper_include_real_HEADERS = \
@@ -8,8 +8,9 @@ copper_include_real_HEADERS = \
 	copper.hpp \
 	DefaultOutputHandler.hpp \
 	Error.hpp \
-	FailureFormat.hpp \
 	Failure.hpp \
+	FailureFormat.hpp \
+	ForkingTestRunner.hpp \
 	Formatters.hpp \
 	FuncAttrs.hpp \
 	List.hpp \
@@ -19,8 +20,8 @@ copper_include_real_HEADERS = \
 	SafeException.hpp \
 	String.hpp \
 	Test.hpp \
-	TestRunner.hpp \
-	TestStatus.hpp
+	TestRun.hpp \
+	TestRunner.hpp
 
 
 copper_includedir = $(includedir)/copper-0
@@ -36,12 +37,13 @@ libcopper_la_SOURCES = \
 	Error.cpp \
 	Failure.cpp \
 	FailureFormat.cpp \
+	ForkingTestRunner.cpp \
 	Formatters.cpp \
 	OutputHandler.cpp \
 	Protector.cpp \
 	String.cpp \
 	Test.cpp \
-	TestRunner.cpp \
-	TestStatus.cpp
+	TestRun.cpp \
+	TestRunner.cpp
 
-libcopper_la_LIBADD = Protectors/libcopper_protectors.la
+#libcopper_la_LIBADD = Protectors/libcopper_protectors.la

@@ -1,4 +1,4 @@
-/* exception_protector.hpp -- Guards against unexpected exceptions
+/* ExceptionProtector.hpp -- Guards against unexpected exceptions
  * Copyright (C) 2006-2007 John Millikin
  * For conditions of distribution and use, see COPYING
  */
@@ -9,19 +9,19 @@
 #include <copper/Protector.hpp>
 #include <copper/FuncAttrs.hpp>
 
-namespace Copper
+namespace Copper {
+
+class COPPER_FUNCATTR_EXPORT ExceptionProtector : public Protector
 {
-	class COPPER_FUNCATTR_EXPORT ExceptionProtector : public Protector {
-	public:
-		ExceptionProtector ();
+public:
+	ExceptionProtector ();
+	~ForkProtector ();
+	
+protected:
+	virtual Error *
+	_guard (Test *test);
+};
 
-		~ExceptionProtector ();
-
-	protected:
-		virtual
-		Error *
-		_guard (Test *test);
-	} exception_protector_instance;
 }
 
-#endif /* COPPER_EXCEPTION_PROTECTOR_HPP */
+#endif

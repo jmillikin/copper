@@ -4,6 +4,7 @@
  */
 
 #include <copper/Test.hpp>
+#include <copper/Fixture.hpp>
 
 namespace Copper
 {
@@ -52,10 +53,10 @@ namespace Copper
 	            const char file_name[],
 	            const unsigned int line):
 
-	            name (String::FromStatic (name)),
-	            suite (String::FromStatic (suite)),
-	            file_name (String::FromStatic (file_name)),
-	            line (line)
+	            Name (String::FromStatic (name)),
+	            Suite (String::FromStatic (suite)),
+	            FileName (String::FromStatic (file_name)),
+	            Line (line)
 	{
 		all_tests ().append (this);
 	}
@@ -89,8 +90,8 @@ namespace Copper
 	full_matcher (const Test *key, const void *data)
 	{
 		const MatchInfo *info = static_cast <const MatchInfo *> (data);
-		return (key->name == *(info->test_name)) &&
-		       (key->suite == *(info->suite_name));
+		return (key->Name == *(info->test_name)) &&
+		       (key->Suite == *(info->suite_name));
 	}
 
 	/**
@@ -121,7 +122,7 @@ namespace Copper
 	suite_matcher (const Test *key, const void *data)
 	{
 		const MatchInfo *info = static_cast <const MatchInfo *> (data);
-		return (key->suite == *(info->suite_name));
+		return (key->Suite == *(info->suite_name));
 	}
 
 	/**
@@ -137,20 +138,32 @@ namespace Copper
 		MatchInfo info = { &suite_name, NULL };
 		return all_tests ().filter (suite_matcher, &info);
 	}
-
-	/**
-	 * @brief Does nothing
-	 */
+	
 	void
-	Test::set_up ()
+	Test::Run (TestRun *run)
 	{
+		SetUp ();
+		Copper_RunImpl (run);
+		TearDown ();
 	}
-
-	/**
-	 * @brief Does nothing
-	 */
+	
 	void
-	Test::tear_down ()
+	Test::SetUp ()
 	{
+		Fixture *fixture = Copper_GetFixture ();
+		if (fixture) { fixture->Copper_SetUpImpl (); }
+	}
+	
+	void
+	Test::TearDown ()
+	{
+		Fixture *fixture = Copper_GetFixture ();
+		if (fixture) { fixture->Copper_TearDownImpl (); }
+	}
+	
+	Fixture *
+	Test::Copper_GetFixture ()
+	{
+		return NULL;
 	}
 }

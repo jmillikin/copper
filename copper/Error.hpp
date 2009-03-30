@@ -14,14 +14,7 @@ namespace Copper
 	{
 	public:
 		Error (const String &message);
-
-		~Error ();
-
-		const String message;
-
-	private:
-		Error &
-		operator= (const Error&);
+		String Message;
 	};
 }
 

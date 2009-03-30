@@ -9,7 +9,7 @@
 
 typedef Copper::List<Copper::Test> TestList;
 
-TestList *
+TestList
 parse_test_args (int argc, char* argv[])
 {
 	return Copper::OutputHandler::parse_test_args (argc, argv);
@@ -23,10 +23,9 @@ COPPER_SUITE (argument_parser_tests)
 		int argc = 0;
 		char argv_0[] = "";
 		char *argv[] = {argv_0};
-		TestList *tests = parse_test_args (argc, argv);
+		TestList tests = parse_test_args (argc, argv);
 
-		COPPER_ASSERT (equal (Copper::Test::all ().size (), tests->size ()));
-		delete tests;
+		COPPER_ASSERT (equal (Copper::Test::all ().size (), tests.size ()));
 	}
 
 	COPPER_TEST (entire_suite)
@@ -34,10 +33,9 @@ COPPER_SUITE (argument_parser_tests)
 		int argc = 1;
 		char argv_0[] = "argument_parser_tests";
 		char *argv[] = {argv_0};
-		TestList *tests = parse_test_args (argc, argv);
+		TestList tests = parse_test_args (argc, argv);
 
-		COPPER_ASSERT (equal (7u, tests->size ()));
-		delete tests;
+		COPPER_ASSERT (equal (7u, tests.size ()));
 	}
 
 	COPPER_TEST (single_test)
@@ -45,10 +43,9 @@ COPPER_SUITE (argument_parser_tests)
 		int argc = 1;
 		char argv_0[] = "argument_parser_tests.single_test";
 		char *argv[] = {argv_0};
-		TestList *tests = parse_test_args (argc, argv);
+		TestList tests = parse_test_args (argc, argv);
 
-		COPPER_ASSERT (equal (1u, tests->size ()));
-		delete tests;
+		COPPER_ASSERT (equal (1u, tests.size ()));
 	}
 
 	COPPER_TEST (multiple_tests)
@@ -57,10 +54,9 @@ COPPER_SUITE (argument_parser_tests)
 		char argv_0[] = "argument_parser_tests.single_test";
 		char argv_1[] = "argument_parser_tests.multiple_tests";
 		char *argv[] = {argv_0, argv_1};
-		TestList *tests = parse_test_args (argc, argv);
+		TestList tests = parse_test_args (argc, argv);
 
-		COPPER_ASSERT (equal (2u, tests->size ()));
-		delete tests;
+		COPPER_ASSERT (equal (2u, tests.size ()));
 	}
 
 	COPPER_TEST (invalid_suite)
@@ -68,10 +64,9 @@ COPPER_SUITE (argument_parser_tests)
 		int argc = 1;
 		char argv_0[] = "nonexistant_suite";
 		char *argv[] = {argv_0};
-		TestList *tests = parse_test_args (argc, argv);
+		TestList tests = parse_test_args (argc, argv);
 
-		COPPER_ASSERT (equal (Copper::Test::all ().size (), tests->size ()));
-		delete tests;
+		COPPER_ASSERT (equal (Copper::Test::all ().size (), tests.size ()));
 	}
 
 	COPPER_TEST (invalid_test)
@@ -79,10 +74,9 @@ COPPER_SUITE (argument_parser_tests)
 		int argc = 1;
 		char argv_0[] = "argument_parser_tests.nonexistant_test";
 		char *argv[] = {argv_0};
-		TestList *tests = parse_test_args (argc, argv);
+		TestList tests = parse_test_args (argc, argv);
 
-		COPPER_ASSERT (equal (Copper::Test::all ().size (), tests->size ()));
-		delete tests;
+		COPPER_ASSERT (equal (Copper::Test::all ().size (), tests.size ()));
 	}
 
 	COPPER_TEST (mixed_valid_and_invalid)
@@ -91,9 +85,8 @@ COPPER_SUITE (argument_parser_tests)
 		char argv_0[] = "argument_parser_tests.single_test";
 		char argv_1[] = "argument_parser_tests.nonexistant_test";
 		char *argv[] = {argv_0, argv_1};
-		TestList *tests = parse_test_args (argc, argv);
+		TestList tests = parse_test_args (argc, argv);
 
-		COPPER_ASSERT (equal (1u, tests->size ()));
-		delete tests;
+		COPPER_ASSERT (equal (1u, tests.size ()));
 	}
 }

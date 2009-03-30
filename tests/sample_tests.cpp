@@ -73,9 +73,9 @@ COPPER_SUITE (sample_suite)
 
 	// Fixtures are used for multiple tests that should use the same data.
 	// Fixture data is automatically available on the stack, though it
-	// should be initialized in COPPER_SET_UP to avoid dirty data shared between
-	// tests using the same fixture. Dynamically allocated memory or
-	// opened files should be closed in COPPER_TEAR_DOWN, if needed.
+	// might need to be initialized in COPPER_SET_UP. Dynamically
+	// allocated memory or opened files should be closed inCOPPER_TEAR_DOWN,
+	// if needed.
 	COPPER_FIXTURE (the_fixture)
 	{
 		int fixture_var = 0;
@@ -85,7 +85,7 @@ COPPER_SUITE (sample_suite)
 			fixture_var = 1;
 			set_up_finished = true;
 		}
-	}
+	};
 
 	COPPER_FIXTURE_TEST (test_with_a_fixture, the_fixture)
 	{

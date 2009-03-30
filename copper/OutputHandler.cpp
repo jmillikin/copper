@@ -8,7 +8,7 @@
 #include <cstddef>
 
 #include <copper/OutputHandler.hpp>
-#include <copper/TestRunner.hpp>
+#include <copper/ForkingTestRunner.hpp>
 
 using namespace std;
 
@@ -55,10 +55,10 @@ namespace Copper
 	 * @return A list of tests that match the given arguments. This list
 	 *         must be deleted when it is no longer needed.
 	 */
-	List<Test> *
+	List<Test>
 	OutputHandler::parse_test_args (int argc, char **argv)
 	{
-		List<Test> *tests = new List<Test>;
+		List<Test> tests;
 
 		for (int ii = 0; ii < argc; ii++)
 		{
@@ -75,60 +75,21 @@ namespace Copper
 				                         test_name);
 				if (test)
 				{
-					tests->append (test);
+					tests.append (test);
 				}
 			}
 
 			else
 			{
 				// No test name, append everything in the suite
-				tests->extend (Test::in_suite (name));
+				tests.extend (Test::in_suite (name));
 			}
 		}
 
-		if (!tests->size ())
-			tests->extend (Test::all ());
+		if (!tests.size ())
+			tests.extend (Test::all ());
 
 		return tests;
-	}
-
-	/**
-	 * @brief Run a single test.
-	 * 
-	 * This will try to run a test. begin () will be called before the
-	 * test starts. After the test completes, one of error (), fail (),
-	 * or pass () will be called with the proper arguments.
-	 * 
-	 * @param test The test to run.
-	 * @param protect Whether to use Protectors to guard against runtime
-	 *                errors.
-	 */
-	void
-	OutputHandler::run_test (Test *test, bool protect)
-	{
-		begin (test);
-
-		Failure *failure = NULL;
-		Error *test_error = NULL;
-
-		exec_test (test, protect, &failure, &test_error);
-
-		if (test_error)
-		{
-			error (test, test_error);
-			delete test_error;
-		}
-
-		else if (failure)
-		{
-			fail (test, failure);
-			delete failure;
-		}
-
-		else
-		{
-			pass (test);
-		}
 	}
 
 	/**
@@ -141,10 +102,10 @@ namespace Copper
 	 *                runtime errors.
 	 */
 	void
-	OutputHandler::run_tests (const List<Test> *tests, bool protect)
+	OutputHandler::run_tests (const List<Test> &tests, bool protect)
 	{
-		const ListNode<Test> *node = NULL;
-		while (tests->each (&node))
-			run_test (node->value, protect);
+		List<Protector> protectors;
+		ForkingTestRunner runner;
+		runner.RunTests (this, tests, protectors);
 	}
 }

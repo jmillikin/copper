@@ -237,7 +237,7 @@ namespace Copper
 		/**
 		 * @brief Iterate through the list
 		 * 
-		 * C value;
+		 * ListNode<C> value;
 		 * while (list.each (&value))
 		 * {
 		 *   ...

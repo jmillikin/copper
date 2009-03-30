@@ -5,6 +5,7 @@
 
 #include <copper.hpp>
 #include <cstring>
+#include <iostream>
 
 using std::strcmp;
 
@@ -22,6 +23,7 @@ COPPER_SUITE (string_tests)
 	
 	COPPER_TEST (construct_empty)
 	{
+		std::cout << "test run\n";
 		Copper::String str;
 		COPPER_ASSERT (equal (str.Size (), 0u));
 		COPPER_ASSERT (StrcmpEqual (str.CStr (), ""));

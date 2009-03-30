@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <copper.hpp>
+#include <copper/copper.hpp>
 #include <cstring>
 #include <cstdlib>
 
@@ -14,14 +14,14 @@ COPPER_SUITE (self_tests)
 {
 	COPPER_FIXTURE (the_fixture)
 	{
-		int fixture_var = 0;
-		bool set_up_finished = false;
+		int fixture_var;
+		bool set_up_finished;
 
 		COPPER_SET_UP {
 			fixture_var = 1;
 			set_up_finished = true;
 		}
-	}
+	};
 
 	COPPER_FIXTURE_TEST (fixture_test, the_fixture)
 	{
@@ -53,10 +53,10 @@ COPPER_SUITE (self_tests)
 	{
 		Copper::Failure f ("text", "message", "filename", 12345);
 
-		COPPER_ASSERT (equal (f.text, "text"));
-		COPPER_ASSERT (equal (f.message, "message"));
-		COPPER_ASSERT (equal (f.file, "filename"));
-		COPPER_ASSERT (equal (f.line, 12345u));
+		COPPER_ASSERT (equal (f.Text, "text"));
+		COPPER_ASSERT (equal (f.Message, "message"));
+		COPPER_ASSERT (equal (f.File, "filename"));
+		COPPER_ASSERT (equal (f.Line, 12345u));
 	}
 
 	COPPER_TEST (reverse_passed_assertion)
@@ -77,18 +77,5 @@ COPPER_SUITE (self_tests)
 		                reversed_ar = failed (ar);
 
 		COPPER_ASSERT (reversed_ar.passed);
-	}
-
-	int
-	external_function ()
-	{
-		COPPER_ASSERT (true);
-		COPPER_ASSERT (failed (false));
-		return 0;
-	}
-
-	COPPER_TEST (external_function_COPPER_ASSERT)
-	{
-		COPPER_ASSERT (equal (0, external_function ()));
 	}
 }

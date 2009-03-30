@@ -15,7 +15,7 @@ namespace Copper
 	 * would not be expected.
 	 */
 
-	/** @var Error::message
+	/** @var Error::Message
 	 * @brief The error that occurred.
 	 */
 
@@ -25,14 +25,7 @@ namespace Copper
 	 * @param message The error string.
 	 */
 	Error::Error (const String &message):
-	              message (message)
-	{
-	}
-
-	/**
-	 * @brief Default, empty destructor
-	 */
-	Error::~Error ()
+	              Message (message)
 	{
 	}
 }

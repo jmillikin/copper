@@ -1,4 +1,4 @@
-/* test_runner.hpp -- Functions for safely and portably running a test
+/* TestRunner.hpp -- Runs a list of tests and reports the results
  * Copyright (C) 2007 John Millikin
  * For conditions of distribution and use, see COPYING
  */
@@ -6,17 +6,30 @@
 #ifndef COPPER_TEST_RUNNER_HPP
 #define COPPER_TEST_RUNNER_HPP
 
-namespace Copper
-{
-	class Test;
-	class Error;
-	class Failure;
+#include <copper/List.hpp>
+#include <copper/FuncAttrs.hpp>
 
+namespace Copper {
+
+class Test;
+class TestRun;
+class Protector;
+class OutputHandler;
+
+class COPPER_FUNCATTR_EXPORT TestRunner
+{
+public:
 	void
-	exec_test (Test *test,
-	           bool protect,
-	           Failure **failure,
-	           Error **error);
+	RunTests (OutputHandler *output,
+	          const List<Test> &tests,
+	          const List<Protector> &protectors);
+	
+	virtual void
+	RunTest (OutputHandler *output,
+	         Test *test,
+	         const List<Protector> &protectors);
+};
+
 }
 
-#endif /* COPPER_TEST_RUNNER_HPP */
+#endif
