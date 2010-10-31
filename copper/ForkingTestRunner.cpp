@@ -261,6 +261,11 @@ void RunParent (Test *test, int fd, pid_t child_pid, Copper::OutputHandler *outp
 		}
 		
 	}
+	else
+	{
+		Error error = ProcessError(status);
+		output->error(test, &error);
+	}
 }
 
 bool RunChild (Test *test, int fd, Copper::List<Copper::Protector> protectors)
