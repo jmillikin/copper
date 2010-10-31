@@ -15,6 +15,7 @@
 
 #include <cstring>
 #include <cstdlib>
+#include <cstdio>
 
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -27,6 +28,8 @@ using Copper::Test;
 
 using std::strtoul;
 using std::strcmp;
+using std::sprintf;
+using std::sscanf;
 
 namespace {
 

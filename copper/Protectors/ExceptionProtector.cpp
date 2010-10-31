@@ -9,10 +9,13 @@
 #include <copper/compat.hpp>
 #include <copper/Protectors/ExceptionProtector.hpp>
 #include <copper/SafeException.hpp>
+#include <copper/String.hpp>
 
 #if HAVE_CXA_CURRENT_EXCEPTION_TYPE
 #	include <cxxabi.h>
 #endif
+
+using Copper::String;
 
 namespace {
 

@@ -15,7 +15,7 @@ class COPPER_FUNCATTR_EXPORT ExceptionProtector : public Protector
 {
 public:
 	ExceptionProtector ();
-	~ForkProtector ();
+	~ExceptionProtector ();
 	
 protected:
 	virtual Error *
