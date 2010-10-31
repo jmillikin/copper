@@ -78,8 +78,8 @@ COPPER_SUITE (sample_suite)
 	// if needed.
 	COPPER_FIXTURE (the_fixture)
 	{
-		int fixture_var = 0;
-		bool set_up_finished = false;
+		int fixture_var;
+		bool set_up_finished;
 
 		COPPER_SET_UP {
 			fixture_var = 1;
