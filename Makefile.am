@@ -52,9 +52,9 @@ include_copper_priv_HEADERS = \
 
 # self-tests
 TESTS = copper_tests
-noinst_PROGRAMS = copper_tests
+check_PROGRAMS = copper_tests
 
-copper_tests_CPPFLAGS = -Icopper
+copper_tests_CPPFLAGS = -I $(top_srcdir)/copper
 copper_tests_LDADD = libcopper.la
 copper_tests_SOURCES = \
 	tests/argument_parser_tests.cpp \
