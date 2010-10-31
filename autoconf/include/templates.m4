@@ -3,7 +3,7 @@ AC_DEFUN([COPPER_CHECK_TEMPLATES],[
 
   AC_CACHE_CHECK(
     [if templates are supported],
-    [coppper_template_support],
+    [copper_template_support],
     [AC_COMPILE_IFELSE(
       [AC_LANG_PROGRAM(
         [
@@ -17,13 +17,13 @@ AC_DEFUN([COPPER_CHECK_TEMPLATES],[
         ],
         [Test<int> test; return test.func();]
       )],
-      [coppper_template_support=yes], # Test passed
-      [coppper_template_support=no]   # Test failed
+      [copper_template_support=yes], # Test passed
+      [copper_template_support=no]   # Test failed
     )]
   )
 
   AC_LANG_POP([C++])
-  if test "$coppper_template_support" = "no"; then
+  if test "$copper_template_support" = "no"; then
     AC_MSG_ERROR([Template support is required for compiling Copper])
   fi
 ])

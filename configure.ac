@@ -1,5 +1,5 @@
 AC_INIT(Copper, 0.4.1, jmillikin@gmail.com)
-AC_CONFIG_SRCDIR(copper/test.cpp)
+AC_CONFIG_SRCDIR(copper/Test.cpp)
 
 # Store autoconf cruft in a separate directory
 AC_CONFIG_AUX_DIR(autoconf)
@@ -55,7 +55,7 @@ COPPER_CHECK_TEMPLATES
 
 # Optional features that don't have a ./configure option
 COPPER_CHECK_BOOLEAN
-if test "$coppper_boolean_support" = "no"; then
+if test "$copper_boolean_support" = "no"; then
   AC_MSG_WARN([Booleans are not distinct types])
 
   AC_DEFINE(HAVE_BOOLEAN, 0,
@@ -69,16 +69,16 @@ fi
 
 COPPER_CHECK_FORK
 if test "$copper_fork_support" = "yes"; then
-  AC_DEFINE(HAVE_FORK, 0, [fork() is not available.])
-else
   AC_DEFINE(HAVE_FORK, 1, [fork() is available.])
+else
+  AC_DEFINE(HAVE_FORK, 0, [fork() is not available.])
 fi
 
 COPPER_CHECK_STD_STRING
 if test "$copper_std_string_support" = "yes"; then
-  AC_DEFINE(HAVE_STD_STRING, 0, [std::string is not available.])
-else
   AC_DEFINE(HAVE_STD_STRING, 1, [std::string is available.])
+else
+  AC_DEFINE(HAVE_STD_STRING, 0, [std::string is not available.])
 fi
 
 AC_MSG_CHECKING([if sstreams should be tested])
@@ -86,7 +86,7 @@ if test "$enable_sstream" = "yes"; then
   AC_MSG_RESULT([yes])
 
   COPPER_CHECK_SSTREAM
-  if test "$coppper_sstream_support" = "no"; then
+  if test "$copper_sstream_support" = "no"; then
     AC_MSG_WARN(
       [stringstreams are not supported, only some types may be converted])
 
@@ -106,13 +106,13 @@ else
 fi
 
 COPPER_CHECK_STRSIGNAL
-if test "$coppper_strsignal_support" = "no"; then
+if test "$copper_strsignal_support" = "no"; then
   AC_DEFINE(HAVE_STRSIGNAL, 0,
     [The compiler does not have the strsignal function]
   )
 
   COPPER_CHECK_SYS_SIGLIST
-  if test "$coppper_sys_siglist_support" = "no"; then
+  if test "$copper_sys_siglist_support" = "no"; then
     AC_DEFINE(HAVE_SYS_SIGLIST, 0,
       [The compiler does not have sys_siglist]
     )
@@ -137,7 +137,7 @@ if test "$enable_rtti" = "yes"; then
   # See exception_protector.cpp for details
   COPPER_CHECK_CXA_CURRENT_EXCEPTION_TYPE
 
-  if test "$coppper_cxa_current_exception_type_support" = "yes"; then
+  if test "$copper_cxa_current_exception_type_support" = "yes"; then
     AC_DEFINE(HAVE_CXA_CURRENT_EXCEPTION_TYPE, 1,
       [__cxa_current_exception_type() is supported]
     )
@@ -145,7 +145,7 @@ if test "$enable_rtti" = "yes"; then
     # Check if type names can be de-mangled
     COPPER_CHECK_CXA_DEMANGLE
 
-    if test "$coppper_cxa_demangle_support" = "yes"; then
+    if test "$copper_cxa_demangle_support" = "yes"; then
         AC_DEFINE(HAVE_CXA_DEMANGLE, 1,
           [__cxa_demangle() is supported]
         )
@@ -160,11 +160,11 @@ if test "$enable_rtti" = "yes"; then
     )
   fi
 
-  RTTI_CPPFLAGS=""
+  RTTI_CXXFLAGS=""
 else
   AC_MSG_RESULT([no])
   # FIXME: gcc-specific
-  RTTI_CPPFLAGS="-fno-rtti"
+  RTTI_CXXFLAGS="-fno-rtti"
 fi
 
 AC_MSG_CHECKING([if exception handling is enabled])
@@ -174,7 +174,7 @@ if test "$enable_exceptions" = "yes"; then
   # Check whether exceptions are actually supported
   COPPER_CHECK_EXCEPTIONS
 
-  if test "$coppper_exception_support" = "yes"; then
+  if test "$copper_exception_support" = "yes"; then
     AC_DEFINE(HAVE_EXCEPTIONS, 1,
       [The compiler supports exceptions]
     )
@@ -184,7 +184,7 @@ if test "$enable_exceptions" = "yes"; then
     )
   fi
 
-  EXCEPTION_CPPFLAGS=""
+  EXCEPTION_CXXFLAGS=""
 else
   AC_MSG_RESULT([no])
   AC_DEFINE(HAVE_EXCEPTIONS, 0,
@@ -192,16 +192,16 @@ else
     )
 
   # FIXME: gcc-specific
-  EXCEPTION_CPPFLAGS="-fno-exceptions"
+  EXCEPTION_CXXFLAGS="-fno-exceptions"
 fi
 
-FEATURES_CPPFLAGS="$RTTI_CPPFLAGS $EXCEPTION_CPPFLAGS"
+FEATURES_CXXFLAGS="$RTTI_CXXFLAGS $EXCEPTION_CXXFLAGS"
 
 AC_MSG_CHECKING(if debugging is enabled[])
 if test "$enable_debug" = "yes"; then
   AC_MSG_RESULT([yes])
 
-  DEBUG_CPPFLAGS="-g3 -Wall -ansi -pedantic"
+  DEBUG_CXXFLAGS="-g3 -Wall -ansi -pedantic"
 else
   AC_MSG_RESULT([no])
 fi
@@ -210,21 +210,20 @@ AC_MSG_CHECKING([if optimizations are enabled])
 if test "$enable_optimizations" = "yes"; then
   AC_MSG_RESULT([yes])
 
-  OPTIMIZATION_CPPFLAGS="-O2"
+  OPTIMIZATION_CXXFLAGS="-O2"
 else
   AC_MSG_RESULT([no])
 
-  OPTIMIZATION_CPPFLAGS="-O0"
+  OPTIMIZATION_CXXFLAGS="-O0"
 fi
 
-CXXFLAGS="$FEATURES_CPPFLAGS $OPTIMIZATION_CPPFLAGS $DEBUG_CPPFLAGS $CXXFLAGS"
-LIBS="$OPTIMIZATION_LIBS $DEBUG_LIBS $LIBS"
+CXXFLAGS="$FEATURES_CXXFLAGS $OPTIMIZATION_CXXFLAGS $DEBUG_CXXFLAGS $EXTRA_CXXFLAGS"
+LIBS="$OPTIMIZATION_LIBS $DEBUG_LIBS $EXTRA_LIBS"
 
 AC_OUTPUT([
   Makefile
   copper/Makefile
-  copper/protectors/Makefile
-  copper/util/Makefile
+  copper/Protectors/Makefile
   tests/Makefile
   copper.pc
 ])

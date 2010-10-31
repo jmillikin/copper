@@ -23,17 +23,8 @@
 #	define HAVE_EXCEPTIONS 1
 #endif
 
-#ifdef __GNUC__
-#	define COPPER_UNUSED __attribute__((__unused__))
-#else
-#	define COPPER_UNUSED
-#endif
-
 // For visual studio
 #ifdef _MSC_VER
-	// Disable warnings about throw specifications
-#	pragma warning (disable: 4290)
-
 	// Disable warnings about ANSI C functions being deprecated
 #	pragma warning (disable: 4996)
 #endif /* _MSC_VER */

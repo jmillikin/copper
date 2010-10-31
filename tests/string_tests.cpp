@@ -4,118 +4,147 @@
  */
 
 #include <copper.hpp>
+#include <cstring>
+#include <iostream>
 
-SUITE (string_tests)
+using std::strcmp;
+
+COPPER_SUITE (string_tests)
 {
-	TEST (construct_with_size)
+	Copper::AssertionResult StrcmpEqual (const char *a, const char *b)
 	{
-		Copper::String a ("test", 3), b ("test", 5);
-		ASSERT (equal ("tes", a));
-		ASSERT (equal ("test", b));
+		return equal (0, strcmp (a, b));
 	}
-
-	FIXTURE (str_fixture)
+	
+	Copper::AssertionResult AddressEqual (const char *a, const char *b)
 	{
-		const Copper::String
-			var1 = "test",
-			var2 = "test",
-			var3 = "other",
-			var4 = "other";
-		char *cvar1, *cvar2, *cvar3, *cvar4;
-
-		SET_UP {
-			cvar1 = Copper::strndup (var1.c_str());
-			cvar2 = Copper::strndup (var2.c_str());
-			cvar3 = Copper::strndup (var3.c_str());
-			cvar4 = Copper::strndup (var4.c_str());
-		}
-
-		TEAR_DOWN {
-			delete[] cvar1;
-			delete[] cvar2;
-			delete[] cvar3;
-			delete[] cvar4;
-		}
+		return equal ((int)a, (int)b);
 	}
-
-	FIXTURE_TEST (Copper_String_equal, str_fixture)
+	
+	COPPER_TEST (construct_empty)
 	{
-		ASSERT (equal (var1, var2));
+		std::cout << "test run\n";
+		Copper::String str;
+		COPPER_ASSERT (equal (str.Size (), 0u));
+		COPPER_ASSERT (StrcmpEqual (str.CStr (), ""));
 	}
-
-	FIXTURE_TEST (Copper_String_equal_fail, str_fixture)
+	
+	COPPER_TEST (construct_no_size)
 	{
-		ASSERT (failed (equal (var1, var3)));
+		Copper::String str ("test");
+		COPPER_ASSERT (equal (str.Size (), 4u));
+		COPPER_ASSERT (StrcmpEqual (str.CStr (), "test"));
 	}
-
-	FIXTURE_TEST (char_star_equal, str_fixture)
+	
+	COPPER_TEST (construct_smaller_size)
 	{
-		// Confirm that the addresses are not being compared
-		ASSERT (cvar1 != cvar2);
-
-		ASSERT (equal ("test", "test"));
-		ASSERT (equal (cvar1, "test"));
-		ASSERT (equal (cvar1, cvar2));
+		Copper::String str ("test", 3);
+		COPPER_ASSERT (equal (str.Size (), 3u));
+		COPPER_ASSERT (StrcmpEqual (str.CStr (), "tes"));
 	}
-
-	FIXTURE_TEST (char_star_equal_fail, str_fixture)
+	
+	COPPER_TEST (construct_larger_size)
 	{
-		ASSERT (failed (equal (cvar1, cvar3)));
+		Copper::String str ("test", 5);
+		COPPER_ASSERT (equal (str.Size (), 4u));
+		COPPER_ASSERT (StrcmpEqual (str.CStr (), "test"));
 	}
-
-	FIXTURE_TEST (mixed_string_equality, str_fixture)
+	
+	COPPER_TEST (copy_constructor)
 	{
-		ASSERT (equal (var1, cvar1));
-		ASSERT (equal (var2, cvar1));
+		Copper::String first ("test");
+		Copper::String str (first);
+		
+		COPPER_ASSERT (equal (str.Size (), 4u));
+		COPPER_ASSERT (StrcmpEqual (str.CStr (), "test"));
 	}
-
-	FIXTURE_TEST (mixed_string_equality_fail, str_fixture)
+	
+	COPPER_TEST (copy_shared_string_data)
 	{
-		ASSERT (failed (equal (var1, cvar3)));
+		Copper::String first ("test");
+		Copper::String str (first);
+		
+		// Check that the string wasn't actually copied
+		COPPER_ASSERT (AddressEqual (str.CStr (), first.CStr ()));
 	}
-
-	FIXTURE_TEST (Copper_String_unequal, str_fixture)
+	
+	COPPER_TEST (from_static_ptr)
 	{
-		ASSERT (unequal (var1, var3));
+		const char *cstr = "test";
+		Copper::String str = Copper::String::NoCopy (cstr);
+		
+		COPPER_ASSERT (AddressEqual (str.CStr (), cstr));
 	}
-
-	FIXTURE_TEST (Copper_String_unequal_fail, str_fixture)
+	
+	COPPER_TEST (from_static_array)
 	{
-		ASSERT (failed (unequal (var3, var4)));
+		const char cstr[] = "test";
+		Copper::String str = Copper::String::FromStatic (cstr);
+		
+		COPPER_ASSERT (AddressEqual (str.CStr (), cstr));
 	}
-
-	FIXTURE_TEST (char_star_unequal, str_fixture) {
-		ASSERT (unequal ("test", "other"));
-		ASSERT (unequal (cvar1, "other"));
-		ASSERT (unequal (cvar1, cvar3));
-	}
-
-	FIXTURE_TEST (char_star_unequal_fail, str_fixture)
+	
+	COPPER_TEST (build_empty)
 	{
-		ASSERT (failed (unequal (cvar3, cvar4)));
+		Copper::String str = Copper::String::Build ("", NULL);
+		
+		COPPER_ASSERT (equal (str.Size (), 0u));
+		COPPER_ASSERT (StrcmpEqual (str.CStr (), ""));
 	}
-
-	FIXTURE_TEST (mixed_string_inequality, str_fixture)
+	
+	COPPER_TEST (build)
 	{
-		ASSERT (unequal (var1, cvar3));
+		Copper::String str = Copper::String::Build ("te", "st", NULL);
+		
+		COPPER_ASSERT (equal (str.Size (), 4u));
+		COPPER_ASSERT (equal (str.CStr (), "test"));
+		COPPER_ASSERT (StrcmpEqual (str.CStr (), "test"));
 	}
-
-	FIXTURE_TEST (mixed_string_inequality_fail, str_fixture)
+	
+	COPPER_TEST (assignment)
 	{
-		ASSERT (failed (unequal (var1, cvar2)));
+		Copper::String first ("test");
+		Copper::String str;
+		str = first;
+		
+		COPPER_ASSERT (equal (str.Size (), 4u));
+		COPPER_ASSERT (StrcmpEqual (str.CStr (), "test"));
 	}
-
-	TEST (compare_to_NULL)
+	
+	COPPER_TEST (assign_shared_string_data)
 	{
-		ASSERT (unequal ("test", (char *)0));
-		ASSERT (failed (equal ("test", (char *)0)));
+		Copper::String first ("test");
+		Copper::String str;
+		str = first;
+		
+		// Check that the string wasn't actually copied
+		COPPER_ASSERT (AddressEqual (str.CStr (), first.CStr ()));
 	}
-
-	TEST (build)
+	
+	COPPER_TEST (assign_to_self)
 	{
-		using Copper::String;
-		String str = String::build (4, "a", " b ", "c", "d");
-
-		ASSERT (equal ("a b cd", str));
+		Copper::String str ("test");
+		const char *before = str.CStr ();
+		str = str;
+		
+		COPPER_ASSERT (equal (str.Size (), 4u));
+		COPPER_ASSERT (StrcmpEqual (str.CStr (), "test"));
+		
+		// Check that the string wasn't actually copied
+		COPPER_ASSERT (AddressEqual (str.CStr (), before));
+	}
+	
+	COPPER_TEST (equality)
+	{
+		Copper::String a1 ("a"), a2 ("a"), b ("b");
+		COPPER_ASSERT (a1 == a2);
+		COPPER_ASSERT (!(a1 == b));
+	}
+	
+	COPPER_TEST (inequality)
+	{
+		Copper::String a1 ("a"), a2 ("a"), b ("b");
+		COPPER_ASSERT (a1 != b);
+		COPPER_ASSERT (!(a1 != a2));
 	}
 }

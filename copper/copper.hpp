@@ -3,8 +3,9 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <copper/test.hpp>
-#include <copper/assertions.hpp>
-#include <copper/test_status.hpp>
+#include <copper/Test.hpp>
+#include <copper/Assertions.hpp>
+#include <copper/TestRun.hpp>
+#include <copper/Fixture.hpp>
 #include <copper/compat.hpp>
 #include <copper/macros.hpp>

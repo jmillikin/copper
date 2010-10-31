@@ -11,56 +11,56 @@
 
 using Copper::failure_format;
 
-SUITE (failure_format_tests)
+COPPER_SUITE (failure_format_tests)
 {
-	TEST (integer)
+	COPPER_TEST (integer)
 	{
-		ASSERT (equal ("1", failure_format (1)));
+		COPPER_ASSERT (equal ("1", failure_format (1)));
 	}
 
-	TEST (string)
+	COPPER_TEST (string)
 	{
-		ASSERT (equal ("\"a\"", failure_format ("a")));
+		COPPER_ASSERT (equal ("\"a\"", failure_format ("a")));
 	}
 
 #if HAVE_STD_STRING
-	TEST (std_string)
+	COPPER_TEST (std_string)
 	{
-		ASSERT (equal ("\"a\"", failure_format (std::string ("a"))));
+		COPPER_ASSERT (equal ("\"a\"", failure_format (std::string ("a"))));
 	}
 #endif
 
-	TEST (null_string)
+	COPPER_TEST (null_string)
 	{
 		char *a = 0;
 		const char *b = 0;
-		ASSERT (equal ("NULL", failure_format (a)));
-		ASSERT (equal ("NULL", failure_format (b)));
+		COPPER_ASSERT (equal ("NULL", failure_format (a)));
+		COPPER_ASSERT (equal ("NULL", failure_format (b)));
 	}
 
-	TEST (character)
+	COPPER_TEST (character)
 	{
-		ASSERT (equal ("'a'", failure_format ('a')));
+		COPPER_ASSERT (equal ("'a'", failure_format ('a')));
 	}
 
-	TEST (integer_and_join)
+	COPPER_TEST (integer_and_join)
 	{
-		ASSERT (equal ("1 test", failure_format (1, "test")));
+		COPPER_ASSERT (equal ("1 test", failure_format (1, "test")));
 	}
 
-	TEST (string_and_join)
+	COPPER_TEST (string_and_join)
 	{
-		ASSERT (equal ("\"a\" test", failure_format ("a", "test")));
+		COPPER_ASSERT (equal ("\"a\" test", failure_format ("a", "test")));
 	}
 
-	TEST (integers)
+	COPPER_TEST (integers)
 	{
-		ASSERT (equal ("1 test 2", failure_format (1, "test", 2)));
+		COPPER_ASSERT (equal ("1 test 2", failure_format (1, "test", 2)));
 	}
 
-	TEST (strings)
+	COPPER_TEST (strings)
 	{
-		ASSERT (equal ("\"a\" test \"b\"",
+		COPPER_ASSERT (equal ("\"a\" test \"b\"",
 		               failure_format ("a", "test", "b")));
 	}
 }

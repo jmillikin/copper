@@ -7,166 +7,166 @@
 #include <cstring>
 #include <cstdlib>
 
-SUITE (assertion_tests)
+COPPER_SUITE (assertion_tests)
 {
-	TEST (boolean_true)
+	COPPER_TEST (boolean_true)
 	{
-		ASSERT (true);
+		COPPER_ASSERT (true);
 	}
 
-	TEST (ASSERT_failed)
+	COPPER_TEST (COPPER_ASSERT_failed)
 	{
 		// Check that a failed test will result in a pass
-		ASSERT (failed (false));
+		COPPER_ASSERT (failed (false));
 	}
 
-	TEST (ASSERT_failed_fail)
+	COPPER_TEST (COPPER_ASSERT_failed_fail)
 	{
 		// Check that a passing test will result in a fail
-		ASSERT (failed (failed (true)));
+		COPPER_ASSERT (failed (failed (true)));
 	}
 
-	TEST (integer_equals)
+	COPPER_TEST (integer_equals)
 	{
-		ASSERT (equal (2, 2));
+		COPPER_ASSERT (equal (2, 2));
 	}
 
-	TEST (integer_equals_fail)
+	COPPER_TEST (integer_equals_fail)
 	{
-		ASSERT (failed (equal (1, 2)));
+		COPPER_ASSERT (failed (equal (1, 2)));
 	}
 
-	TEST (equal_within)
+	COPPER_TEST (equal_within)
 	{
-		ASSERT (equal_within (2.0, 2.0001, 0.001));
+		COPPER_ASSERT (equal_within (2.0, 2.0001, 0.001));
 	}
 
-	TEST (equal_within_fail)
+	COPPER_TEST (equal_within_fail)
 	{
-		ASSERT (failed (equal_within (2.0, 2.01, 0.001)));
+		COPPER_ASSERT (failed (equal_within (2.0, 2.01, 0.001)));
 	}
 
-	TEST (unequal)
+	COPPER_TEST (unequal)
 	{
-		ASSERT (unequal (1, 2));
+		COPPER_ASSERT (unequal (1, 2));
 	}
 
-	TEST (unequal_fail)
+	COPPER_TEST (unequal_fail)
 	{
-		ASSERT (failed (unequal (2, 2)));
+		COPPER_ASSERT (failed (unequal (2, 2)));
 	}
 
-	TEST (is_null)
-	{
-		int *var = NULL;
-		ASSERT (is_null (var));
-	}
-
-	TEST (is_null_fail)
-	{
-		int var;
-		ASSERT (failed (is_null (&var)));
-	}
-
-	TEST (not_null)
-	{
-		int var;
-		ASSERT (not_null (&var));
-	}
-
-	TEST (not_null_fail)
+	COPPER_TEST (is_null)
 	{
 		int *var = NULL;
-		ASSERT (failed (not_null (var)));
+		COPPER_ASSERT (is_null (var));
 	}
 
-	TEST (greater_than)
+	COPPER_TEST (is_null_fail)
 	{
-		ASSERT (greater_than (2, 1));
+		int var;
+		COPPER_ASSERT (failed (is_null (&var)));
 	}
 
-	TEST (greater_than_fail)
+	COPPER_TEST (not_null)
 	{
-		ASSERT (failed (greater_than (2, 2)));
-		ASSERT (failed (greater_than (2, 3)));
+		int var;
+		COPPER_ASSERT (not_null (&var));
 	}
 
-	TEST (greater_than_or_equal)
+	COPPER_TEST (not_null_fail)
 	{
-		ASSERT (greater_than_or_equal (2, 2));
-		ASSERT (greater_than_or_equal (2, 1));
+		int *var = NULL;
+		COPPER_ASSERT (failed (not_null (var)));
 	}
 
-	TEST (greater_than_or_equal_fail)
+	COPPER_TEST (greater_than)
 	{
-		ASSERT (failed (greater_than_or_equal (1, 2)));
+		COPPER_ASSERT (greater_than (2, 1));
 	}
 
-	TEST (less_than)
+	COPPER_TEST (greater_than_fail)
 	{
-		ASSERT (less_than (1, 2));
+		COPPER_ASSERT (failed (greater_than (2, 2)));
+		COPPER_ASSERT (failed (greater_than (2, 3)));
 	}
 
-	TEST (less_than_fail)
+	COPPER_TEST (greater_than_or_equal)
 	{
-		ASSERT (failed (less_than (2, 2)));
-		ASSERT (failed (less_than (2, 1)));
+		COPPER_ASSERT (greater_than_or_equal (2, 2));
+		COPPER_ASSERT (greater_than_or_equal (2, 1));
 	}
 
-	TEST (less_than_or_equal)
+	COPPER_TEST (greater_than_or_equal_fail)
 	{
-		ASSERT (less_than_or_equal (1, 2));
-		ASSERT (less_than_or_equal (2, 2));
+		COPPER_ASSERT (failed (greater_than_or_equal (1, 2)));
 	}
 
-	TEST (less_than_or_equal_fail)
+	COPPER_TEST (less_than)
 	{
-		ASSERT (failed (less_than_or_equal (2, 1)));
+		COPPER_ASSERT (less_than (1, 2));
 	}
 
-	TEST (not_operator)
+	COPPER_TEST (less_than_fail)
 	{
-		ASSERT (!equal (1, 2));
-		ASSERT (failed (!equal (1, 1)));
+		COPPER_ASSERT (failed (less_than (2, 2)));
+		COPPER_ASSERT (failed (less_than (2, 1)));
 	}
 
-	TEST (and_operator)
+	COPPER_TEST (less_than_or_equal)
 	{
-		ASSERT (   equal (1, 1) &&  equal (1, 1));
-		ASSERT (!(!equal (1, 1) &&  equal (1, 1)));
-		ASSERT (!( equal (1, 1) && !equal (1, 1)));
-		ASSERT (!(!equal (1, 1) && !equal (1, 1)));
+		COPPER_ASSERT (less_than_or_equal (1, 2));
+		COPPER_ASSERT (less_than_or_equal (2, 2));
 	}
 
-	TEST (or_operator)
+	COPPER_TEST (less_than_or_equal_fail)
 	{
-		ASSERT (   equal (1, 1) ||  equal (1, 1));
-		ASSERT (  !equal (1, 1) ||  equal (1, 1));
-		ASSERT (   equal (1, 1) || !equal (1, 1));
-		ASSERT (!(!equal (1, 1) || !equal (1, 1)));
+		COPPER_ASSERT (failed (less_than_or_equal (2, 1)));
 	}
 
-	TEST (and_operator_booleans)
+	COPPER_TEST (not_operator)
 	{
-		ASSERT (true && equal (1, 1));
-		ASSERT (equal (1, 1) && true);
-
-		ASSERT (!(true && equal (1, 2)));
-		ASSERT (!(equal (1, 1) &&  false));
-
-		ASSERT (!(false && equal (1, 1)));
-		ASSERT (!(equal (1, 2) && false));
+		COPPER_ASSERT (!equal (1, 2));
+		COPPER_ASSERT (failed (!equal (1, 1)));
 	}
 
-	TEST (or_operator_booleans)
+	COPPER_TEST (and_operator)
 	{
-		ASSERT (true || equal (1, 1));
-		ASSERT (equal (1, 1) || true);
+		COPPER_ASSERT (   equal (1, 1) &&  equal (1, 1));
+		COPPER_ASSERT (!(!equal (1, 1) &&  equal (1, 1)));
+		COPPER_ASSERT (!( equal (1, 1) && !equal (1, 1)));
+		COPPER_ASSERT (!(!equal (1, 1) && !equal (1, 1)));
+	}
 
-		ASSERT (true || equal (1, 2));
-		ASSERT (equal (1, 2) || true);
+	COPPER_TEST (or_operator)
+	{
+		COPPER_ASSERT (   equal (1, 1) ||  equal (1, 1));
+		COPPER_ASSERT (  !equal (1, 1) ||  equal (1, 1));
+		COPPER_ASSERT (   equal (1, 1) || !equal (1, 1));
+		COPPER_ASSERT (!(!equal (1, 1) || !equal (1, 1)));
+	}
 
-		ASSERT (false || equal (1, 1));
-		ASSERT (equal (1, 1) || false);
+	COPPER_TEST (and_operator_booleans)
+	{
+		COPPER_ASSERT (true && equal (1, 1));
+		COPPER_ASSERT (equal (1, 1) && true);
+
+		COPPER_ASSERT (!(true && equal (1, 2)));
+		COPPER_ASSERT (!(equal (1, 1) &&  false));
+
+		COPPER_ASSERT (!(false && equal (1, 1)));
+		COPPER_ASSERT (!(equal (1, 2) && false));
+	}
+
+	COPPER_TEST (or_operator_booleans)
+	{
+		COPPER_ASSERT (true || equal (1, 1));
+		COPPER_ASSERT (equal (1, 1) || true);
+
+		COPPER_ASSERT (true || equal (1, 2));
+		COPPER_ASSERT (equal (1, 2) || true);
+
+		COPPER_ASSERT (false || equal (1, 1));
+		COPPER_ASSERT (equal (1, 1) || false);
 	}
 }
