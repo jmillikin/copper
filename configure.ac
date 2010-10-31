@@ -1,19 +1,20 @@
 AC_INIT(Copper, 0.4.1, jmillikin@gmail.com)
-AC_CONFIG_SRCDIR(copper/Test.cpp)
+AC_PREREQ(2.67)
 
-# Store autoconf cruft in a separate directory
-AC_CONFIG_AUX_DIR(autoconf)
-AC_CONFIG_MACRO_DIR(autoconf)
+AC_CONFIG_SRCDIR([copper/Test.cpp])
+AC_CONFIG_AUX_DIR([autoconf/aux])
+AC_CONFIG_MACRO_DIR([autoconf/macro])
 
-# Initialize automake
-AM_INIT_AUTOMAKE(AC_PACKAGE_NAME, AC_PACKAGE_VERSION)
-AC_CONFIG_HEADERS(config.h)
+AM_INIT_AUTOMAKE([subdir-objects])
+AC_CONFIG_HEADERS([config.h])
 
 # Enable maintainer mode flag
 AM_MAINTAINER_MODE
 
 AC_PROG_CXX
 AM_PROG_LIBTOOL
+
+AC_SUBST(csourcedir, $srcdir/copper)
 
 AC_ARG_ENABLE(debug,
   AS_HELP_STRING(--enable-debug, Enables various options which aid debugging),
@@ -220,10 +221,9 @@ fi
 CXXFLAGS="$FEATURES_CXXFLAGS $OPTIMIZATION_CXXFLAGS $DEBUG_CXXFLAGS $EXTRA_CXXFLAGS"
 LIBS="$OPTIMIZATION_LIBS $DEBUG_LIBS $EXTRA_LIBS"
 
-AC_OUTPUT([
+AC_CONFIG_FILES([
   Makefile
-  copper/Makefile
-  copper/Protectors/Makefile
-  tests/Makefile
   copper.pc
 ])
+
+AC_OUTPUT

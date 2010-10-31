@@ -18,7 +18,7 @@ COPPER_SUITE (string_tests)
 	
 	Copper::AssertionResult AddressEqual (const char *a, const char *b)
 	{
-		return equal ((int)a, (int)b);
+		return equal ((void*)a, (void*)b);
 	}
 	
 	COPPER_TEST (construct_empty)
