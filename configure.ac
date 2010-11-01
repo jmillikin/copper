@@ -1,7 +1,7 @@
 AC_INIT(Copper, 0.4.1, jmillikin@gmail.com)
 AC_PREREQ(2.67)
 
-AC_CONFIG_SRCDIR([copper/Test.cpp])
+AC_CONFIG_SRCDIR([src/Test.cpp])
 AC_CONFIG_AUX_DIR([autoconf/aux])
 AC_CONFIG_MACRO_DIR([autoconf/macro])
 
@@ -14,8 +14,6 @@ AM_MAINTAINER_MODE
 AC_PROG_CXX
 AM_DISABLE_SHARED
 AM_PROG_LIBTOOL
-
-AC_SUBST(csourcedir, $srcdir/copper)
 
 AC_ARG_ENABLE(debug,
   AS_HELP_STRING(--enable-debug, Enables various options which aid debugging),

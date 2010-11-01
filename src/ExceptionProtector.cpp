@@ -7,7 +7,7 @@
 #include <cstdlib>
 
 #include <copper/compat.hpp>
-#include <copper/Protectors/ExceptionProtector.hpp>
+#include <copper/ExceptionProtector.hpp>
 #include <copper/SafeException.hpp>
 #include <copper/String.hpp>
 

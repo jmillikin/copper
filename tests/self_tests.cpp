@@ -3,7 +3,7 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#include <copper/copper.hpp>
+#include <copper.hpp>
 #include <cstring>
 #include <cstdlib>
 
