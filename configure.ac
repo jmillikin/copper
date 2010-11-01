@@ -5,7 +5,7 @@ AC_CONFIG_SRCDIR([src/Test.cpp])
 AC_CONFIG_AUX_DIR([autoconf/aux])
 AC_CONFIG_MACRO_DIR([autoconf/macro])
 
-AM_INIT_AUTOMAKE([subdir-objects])
+AM_INIT_AUTOMAKE([subdir-objects foreign])
 AC_CONFIG_HEADERS([config.h])
 
 # Enable maintainer mode flag
