@@ -3,7 +3,7 @@ AC_DEFUN([COPPER_CHECK_STRSIGNAL],[
 
   AC_CACHE_CHECK(
     [if strsignal is supported],
-    [copper_strsignal_support],
+    [copper_cv_strsignal_support],
     [AC_COMPILE_IFELSE(
       [AC_LANG_PROGRAM(
         [#ifndef _GNU_SOURCE

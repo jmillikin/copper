@@ -3,7 +3,7 @@ AC_DEFUN([COPPER_CHECK_FORK],[
 
   AC_CACHE_CHECK(
     [if fork is supported],
-    [copper_fork_support],
+    [copper_cv_fork_support],
     [AC_COMPILE_IFELSE(
       [AC_LANG_PROGRAM(
         [#include <sys/types.h>

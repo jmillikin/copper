@@ -3,7 +3,7 @@ AC_DEFUN([COPPER_CHECK_RTTI],[
 
   AC_CACHE_CHECK(
     [if RTTI is supported],
-    [copper_rtti_support],
+    [copper_cv_rtti_support],
     [AC_COMPILE_IFELSE(
       [AC_LANG_PROGRAM(
         [#include <typeinfo>],

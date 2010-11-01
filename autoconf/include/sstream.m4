@@ -3,7 +3,7 @@ AC_DEFUN([COPPER_CHECK_SSTREAM],[
 
   AC_CACHE_CHECK(
     [if sstream is supported],
-    [copper_sstream_support],
+    [copper_cv_sstream_support],
     [AC_COMPILE_IFELSE(
       [AC_LANG_PROGRAM(
         [#include <sstream>],

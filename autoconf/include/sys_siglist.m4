@@ -3,7 +3,7 @@ AC_DEFUN([COPPER_CHECK_SYS_SIGLIST],[
 
   AC_CACHE_CHECK(
     [if sys_siglist is supported],
-    [copper_sys_siglist_support],
+    [copper_cv_sys_siglist_support],
     [AC_COMPILE_IFELSE(
       [AC_LANG_PROGRAM(
         [#include <string.h>],

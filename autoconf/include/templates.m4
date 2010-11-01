@@ -3,7 +3,7 @@ AC_DEFUN([COPPER_CHECK_TEMPLATES],[
 
   AC_CACHE_CHECK(
     [if templates are supported],
-    [copper_template_support],
+    [copper_cv_template_support],
     [AC_COMPILE_IFELSE(
       [AC_LANG_PROGRAM(
         [

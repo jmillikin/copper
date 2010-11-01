@@ -3,7 +3,7 @@ AC_DEFUN([COPPER_CHECK_BOOLEAN],[
 
   AC_CACHE_CHECK(
     [if booleans are a distinct type],
-    [copper_boolean_support],
+    [copper_cv_boolean_support],
     [AC_RUN_IFELSE(
       [AC_LANG_PROGRAM(
         [],

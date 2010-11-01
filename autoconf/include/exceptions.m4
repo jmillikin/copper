@@ -3,7 +3,7 @@ AC_DEFUN([COPPER_CHECK_EXCEPTIONS],[
 
   AC_CACHE_CHECK(
     [if exceptions are supported],
-    [copper_exception_support],
+    [copper_cv_exception_support],
     [AC_RUN_IFELSE(
       [AC_LANG_PROGRAM(
         [],

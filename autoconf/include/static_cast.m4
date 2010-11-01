@@ -3,7 +3,7 @@ AC_DEFUN([COPPER_CHECK_STATIC_CAST],[
 
   AC_CACHE_CHECK(
     [if static_cast is supported],
-    [copper_static_cast_support],
+    [copper_cv_static_cast_support],
     [AC_COMPILE_IFELSE(
       [AC_LANG_PROGRAM(
         [],

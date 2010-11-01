@@ -3,7 +3,7 @@ AC_DEFUN([COPPER_CHECK_CXA_DEMANGLE],[
 
   AC_CACHE_CHECK(
     [if __cxa_demangle() is supported],
-    [copper_cxa_demangle_support],
+    [copper_cv_cxa_demangle_support],
     [AC_COMPILE_IFELSE(
       [AC_LANG_PROGRAM(
         [

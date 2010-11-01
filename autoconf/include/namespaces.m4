@@ -3,7 +3,7 @@ AC_DEFUN([COPPER_CHECK_NAMESPACES],[
 
   AC_CACHE_CHECK(
     [if namespaces are supported],
-    [copper_namespace_support],
+    [copper_cv_namespace_support],
     [AC_COMPILE_IFELSE(
       [AC_LANG_PROGRAM(
         [namespace foo { int bar = 0; }],
