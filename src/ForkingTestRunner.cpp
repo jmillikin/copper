@@ -12,10 +12,13 @@
 #include <copper/AssertionResult.hpp>
 #include <copper/Test.hpp>
 #include <copper/OutputHandler.hpp>
+#include <copper/config.h>
 
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
+#include <ctype.h>
+#include <unistd.h>
 
 #include <sys/types.h>
 #include <sys/wait.h>
@@ -157,7 +160,7 @@ WriteMessage (int fd, const String &message)
 class ForkedTestRun : public Copper::TestRun
 {
 public:
-	ForkedTestRun (int pipe_fd, Test *test)
+	ForkedTestRun (int pipe_fd, Test &test)
 	: Copper::TestRun (test), fd (pipe_fd), got_error (false) {}
 	
 	virtual bool
@@ -217,7 +220,7 @@ private:
 	int fd;
 };
 
-void RunParent (Test *test, int fd, pid_t child_pid, Copper::OutputHandler *output)
+void RunParent (Test &test, int fd, pid_t child_pid, Copper::OutputHandler &output)
 {
 	unsigned int message_len;
 	char *message;
@@ -245,30 +248,30 @@ void RunParent (Test *test, int fd, pid_t child_pid, Copper::OutputHandler *outp
 		
 		if (failure != NULL)
 		{
-			output->fail (test, failure);
+			output.fail (test, *failure);
 			delete failure;
 		}
 		
 		if (error != NULL)
 		{
-			output->error (test, error);
+			output.error (test, *error);
 			delete error;
 		}
 		
 		if (failure == NULL && error == NULL)
 		{
-			output->pass (test);
+			output.pass (test);
 		}
 		
 	}
 	else
 	{
 		Error error = ProcessError(status);
-		output->error(test, &error);
+		output.error(test, error);
 	}
 }
 
-bool RunChild (Test *test, int fd, Copper::List<Copper::Protector> protectors)
+bool RunChild (Test &test, int fd, Copper::List<Copper::Protector> protectors)
 {
 	ForkedTestRun test_run (fd, test);
 	
@@ -283,8 +286,8 @@ bool RunChild (Test *test, int fd, Copper::List<Copper::Protector> protectors)
 namespace Copper {
 
 void
-ForkingTestRunner::RunTest (OutputHandler *output,
-                            Test *test,
+ForkingTestRunner::RunTest (OutputHandler &output,
+                            Test &test,
                             const List<Protector> &protectors)
 {
 	pid_t pid;

@@ -6,8 +6,8 @@
 #ifndef COPPER_UTIL_FORMATTERS_HPP
 #define COPPER_UTIL_FORMATTERS_HPP
 
+#include <copper/config.h>
 #include <copper/String.hpp>
-#include <copper/compat.hpp>
 #include <copper/FuncAttrs.hpp>
 
 #if HAVE_SSTREAM

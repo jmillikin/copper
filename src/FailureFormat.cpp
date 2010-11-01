@@ -4,6 +4,7 @@
  */
 
 #include <copper/FailureFormat.hpp>
+#include <copper/config.h>
 
 namespace Copper {
 	String

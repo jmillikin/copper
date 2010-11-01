@@ -18,15 +18,15 @@ namespace Copper
 
 		~DefaultOutputHandler ();
 
-		void begin (const Test *test);
+		void begin (const Test &test);
 
-		void pass (const Test *test);
-
-		void
-		fail(const Test *test, const Failure *assertion);
+		void pass (const Test &test);
 
 		void
-		error(const Test *test, const Error *error);
+		fail(const Test &test, const Failure &assertion);
+
+		void
+		error(const Test &test, const Error &error);
 
 		int
 		run();

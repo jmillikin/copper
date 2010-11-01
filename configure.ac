@@ -6,7 +6,7 @@ AC_CONFIG_AUX_DIR([autoconf/aux])
 AC_CONFIG_MACRO_DIR([autoconf/macro])
 
 AM_INIT_AUTOMAKE([subdir-objects foreign])
-AC_CONFIG_HEADERS([config.h])
+AC_CONFIG_HEADERS([include/copper/config.h])
 
 # Enable maintainer mode flag
 AM_MAINTAINER_MODE

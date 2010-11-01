@@ -16,7 +16,7 @@ class AssertionResult;
 class COPPER_FUNCATTR_EXPORT TestRun
 {
 public:
-	TestRun (Test *test);
+	TestRun (Test &test);
 	virtual ~TestRun ();
 	
 	virtual bool
@@ -46,7 +46,7 @@ public:
 	Run ();
 	
 protected:
-	Test *test;
+	Test &test;
 };
 
 }

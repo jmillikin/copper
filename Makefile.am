@@ -5,7 +5,7 @@ pkgconfigdir = $(libdir)/pkgconfig
 pkgconfig_DATA = copper.pc
 lib_LTLIBRARIES = libcopper.la
 
-libcopper_la_CPPFLAGS = -I $(top_srcdir)/include
+libcopper_la_CPPFLAGS = -I $(top_srcdir)/include/ -I ./include/
 libcopper_la_SOURCES = \
 	src/AssertionResult.cpp \
 	src/Assertions.cpp \
@@ -32,7 +32,7 @@ include_copper_privdir = $(include_copperdir)/copper
 include_copper_priv_HEADERS = \
 	include/copper/AssertionResult.hpp \
 	include/copper/Assertions.hpp \
-	include/copper/compat.hpp \
+	include/copper/config.h \
 	include/copper/DefaultOutputHandler.hpp \
 	include/copper/Error.hpp \
 	include/copper/Failure.hpp \
@@ -55,7 +55,7 @@ include_copper_priv_HEADERS = \
 TESTS = copper_tests
 check_PROGRAMS = copper_tests
 
-copper_tests_CPPFLAGS = -I $(top_srcdir)/include
+copper_tests_CPPFLAGS = -I $(top_srcdir)/include/ -I ./include/
 copper_tests_LDADD = libcopper.la
 copper_tests_SOURCES = \
 	tests/argument_parser_tests.cpp \

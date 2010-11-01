@@ -8,7 +8,6 @@
 
 #include <copper/AssertionResult.hpp>
 #include <copper/FailureFormat.hpp>
-#include <copper/compat.hpp>
 #include <copper/FuncAttrs.hpp>
 
 /**

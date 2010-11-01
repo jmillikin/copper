@@ -19,7 +19,7 @@ public:
 	
 protected:
 	virtual Error *
-	_guard (Test *test);
+	_guard (Test &test);
 };
 
 }

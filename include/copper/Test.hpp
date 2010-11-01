@@ -36,7 +36,7 @@ public:
 	static List<Test>
 	in_suite (const String &suite_name);
 	
-	void Run (TestRun *);
+	void Run (TestRun &);
 	void SetUp ();
 	void TearDown ();
 	
@@ -51,7 +51,7 @@ public:
 	
 protected:
 	virtual void
-	Copper_RunImpl (TestRun *) = 0;
+	Copper_RunImpl (TestRun &) = 0;
 	
 	virtual Fixture *
 	Copper_GetFixture ();

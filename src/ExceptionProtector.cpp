@@ -6,7 +6,7 @@
 #include <stdexcept>
 #include <cstdlib>
 
-#include <copper/compat.hpp>
+#include <copper/config.h>
 #include <copper/ExceptionProtector.hpp>
 #include <copper/SafeException.hpp>
 #include <copper/String.hpp>
@@ -75,7 +75,7 @@ ExceptionProtector::~ExceptionProtector ()
  *         description. If no error occurred, returns NULL.
 */
 Error *
-ExceptionProtector::_guard (Test *test)
+ExceptionProtector::_guard (Test &test)
 {
 	try
 	{

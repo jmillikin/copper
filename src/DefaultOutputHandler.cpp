@@ -97,7 +97,7 @@ namespace Copper
 	 * @brief Does nothing
 	 */
 	void
-	DefaultOutputHandler::begin (const Test *)
+	DefaultOutputHandler::begin (const Test &)
 	{
 	}
 
@@ -107,7 +107,7 @@ namespace Copper
 	 * Also keeps track of how many tests passed.
 	 */
 	void
-	DefaultOutputHandler::pass (const Test *)
+	DefaultOutputHandler::pass (const Test &)
 	{
 		++priv->num_passed;
 	}
@@ -121,8 +121,8 @@ namespace Copper
 	 * @param failure Details of the failed assertion.
 	 */
 	void
-	DefaultOutputHandler::fail (const Test *test,
-	                            const Failure *failure)
+	DefaultOutputHandler::fail (const Test &test,
+	                            const Failure &failure)
 	{
 		++priv->num_failed;
 
@@ -131,10 +131,10 @@ namespace Copper
 		        "%s.%s:\n"
 		        "\t%s\n"
 		        "\t%s\n\n",
-		        test->FileName.CStr(), failure->Line,
-		        test->Suite.CStr(), test->Name.CStr(),
-		        failure->Text.CStr(),
-		        failure->Message.CStr());
+		        test.FileName.CStr(), failure.Line,
+		        test.Suite.CStr(), test.Name.CStr(),
+		        failure.Text.CStr(),
+		        failure.Message.CStr());
 	}
 
 	/**
@@ -146,8 +146,8 @@ namespace Copper
 	 * @param error The error that occurred.
 	 */
 	void
-	DefaultOutputHandler::error (const Test *test,
-	                             const Error *error)
+	DefaultOutputHandler::error (const Test &test,
+	                             const Error &error)
 	{
 		++priv->num_errors;
 
@@ -155,9 +155,9 @@ namespace Copper
 		        "ERROR in %s:\n"
 		        "%s.%s:\n"
 		        "\t%s\n\n",
-		        test->FileName.CStr(),
-		        test->Suite.CStr(), test->Name.CStr(),
-		        error->Message.CStr());
+		        test.FileName.CStr(),
+		        test.Suite.CStr(), test.Name.CStr(),
+		        error.Message.CStr());
 	}
 
 	/**

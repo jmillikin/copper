@@ -64,7 +64,7 @@ Protector::add (Protector *protector)
  *         If no error occurred, returns NULL.
  */
 Error *
-Protector::guard (Test *test)
+Protector::guard (Test &test)
 {
 	if (protectors ().size () > 0)
 	{
@@ -95,7 +95,7 @@ test_matcher (const Protector *key, const void *data)
  *         If no error occurred, returns NULL.
  */
 Error *
-Protector::next_protector (Test *test)
+Protector::next_protector (Test &test)
 {
 	const ListNode<Protector>* node;
 	node = protectors ().find (test_matcher, this);

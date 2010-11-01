@@ -3,10 +3,6 @@
  * For conditions of distribution and use, see COPYING
  */
 
-#ifdef HAVE_CONFIG_H
-#	include <config.h>
-#endif
-
 #ifndef COPPER_MACROS_HPP
 #define COPPER_MACROS_HPP
 
@@ -33,9 +29,9 @@
 			#NAME, Copper_CurrentSuiteName, \
 			__FILE__, __LINE__){} \
 	protected: \
-		void Copper_RunImpl (Copper::TestRun *); \
+		void Copper_RunImpl (Copper::TestRun &); \
 	} Copper_TestInstance_##NAME; \
-	void Copper_Test_##NAME::Copper_RunImpl (Copper::TestRun *Copper_TestRun)
+	void Copper_Test_##NAME::Copper_RunImpl (Copper::TestRun &Copper_TestRun)
 
 /**
  * Define a new fixture, with the given name.
@@ -74,9 +70,9 @@
 			__FILE__, __LINE__){} \
 	protected: \
 		Copper::Fixture *Copper_GetFixture () { return this; } \
-		void Copper_RunImpl (Copper::TestRun *); \
+		void Copper_RunImpl (Copper::TestRun &); \
 	} Copper_TestInstance_##NAME; \
-	void Copper_Test_##NAME::Copper_RunImpl (Copper::TestRun *Copper_TestRun)
+	void Copper_Test_##NAME::Copper_RunImpl (Copper::TestRun &Copper_TestRun)
 
 /**
  * Assert that something is true. If an assertion fails, the test will
@@ -86,7 +82,7 @@
 **/
 #define COPPER_ASSERT(ASSERTION) \
 	do { \
-		if (!(Copper_TestRun->Assert (ASSERTION, #ASSERTION, __FILE__, __LINE__))) { \
+		if (!(Copper_TestRun.Assert (ASSERTION, #ASSERTION, __FILE__, __LINE__))) { \
 			return; }} while (0)
 
 /**
@@ -96,7 +92,7 @@
 **/
 #define COPPER_FAIL(MESSAGE) \
 	do { \
-		if (!(Copper_TestRun->Fail (#MESSAGE, __FILE__, __LINE__))) { \
+		if (!(Copper_TestRun.Fail (#MESSAGE, __FILE__, __LINE__))) { \
 			return; }} while (0)
 
 /**
@@ -112,7 +108,7 @@
 		try { CODE } \
 		catch (const TYPE &) { Copper_ExceptionThrown = true; } \
 		if (!Copper_ExceptionThrown) { \
-			if (!(Copper_TestRun->AssertThrowsFailed (#TYPE, #CODE, __FILE__, __LINE__))) { \
+			if (!(Copper_TestRun.AssertThrowsFailed (#TYPE, #CODE, __FILE__, __LINE__))) { \
 				return; }}} while (0)
 
 #endif

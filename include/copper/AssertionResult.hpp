@@ -7,7 +7,6 @@
 #define COPPER_ASSERTION_RESULT_HPP
 
 #include <copper/String.hpp>
-#include <copper/compat.hpp>
 #include <copper/FuncAttrs.hpp>
 
 namespace Copper

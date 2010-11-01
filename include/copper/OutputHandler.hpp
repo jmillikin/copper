@@ -30,7 +30,7 @@ namespace Copper
 		 */
 		virtual
 		void
-		begin (const Test *test) = 0;
+		begin (const Test &test) = 0;
 
 		/**
 		 * This function is called whenever a test passes.
@@ -39,7 +39,7 @@ namespace Copper
 		 */
 		virtual
 		void
-		pass (const Test *test) = 0;
+		pass (const Test &test) = 0;
 
 		/**
 		 * This function is called whenever a test fails.
@@ -49,7 +49,7 @@ namespace Copper
 		 */
 		virtual
 		void
-		fail (const Test *test, const Failure *failure) = 0;
+		fail (const Test &test, const Failure &failure) = 0;
 
 		/**
 		 * This function is called whenever a test encounters an error
@@ -60,7 +60,7 @@ namespace Copper
 		 */
 		virtual
 		void
-		error (const Test *test, const Error *error) = 0;
+		error (const Test &test, const Error &error) = 0;
 
 		/**
 		 * Run this output handler. The simplest implementations

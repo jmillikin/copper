@@ -20,13 +20,13 @@ class COPPER_FUNCATTR_EXPORT TestRunner
 {
 public:
 	void
-	RunTests (OutputHandler *output,
+	RunTests (OutputHandler &output,
 	          const List<Test> &tests,
 	          const List<Protector> &protectors);
 	
 	virtual void
-	RunTest (OutputHandler *output,
-	         Test *test,
+	RunTest (OutputHandler &output,
+	         Test &test,
 	         const List<Protector> &protectors);
 };
 

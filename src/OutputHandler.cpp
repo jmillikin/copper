@@ -106,6 +106,6 @@ namespace Copper
 	{
 		List<Protector> protectors;
 		ForkingTestRunner runner;
-		runner.RunTests (this, tests, protectors);
+		runner.RunTests (*this, tests, protectors);
 	}
 }

@@ -9,7 +9,7 @@
 
 namespace Copper {
 
-TestRun::TestRun (Test *test): test (test) {}
+TestRun::TestRun (Test &test): test (test) {}
 
 TestRun::~TestRun () {}
 
@@ -26,7 +26,7 @@ TestRun::Assert (bool result,
 void
 TestRun::Run ()
 {
-	test->Run (this);
+	test.Run (*this);
 }
 
 }

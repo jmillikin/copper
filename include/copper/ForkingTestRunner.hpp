@@ -15,8 +15,8 @@ class COPPER_FUNCATTR_EXPORT ForkingTestRunner : public TestRunner
 {
 public:
 	void
-	RunTest (OutputHandler *output,
-	         Test *test,
+	RunTest (OutputHandler &output,
+	         Test &test,
 	         const List<Protector> &protectors);
 };
 

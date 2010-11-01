@@ -7,7 +7,6 @@
 #define COPPER_PROTECTOR_HPP
 
 #include <copper/Error.hpp>
-#include <copper/compat.hpp>
 #include <copper/FuncAttrs.hpp>
 
 namespace Copper {
@@ -27,11 +26,11 @@ public:
 	add (Protector *protector);
 	
 	static Error *
-	guard (Test *test);
+	guard (Test &test);
 	
 protected:
 	Error *
-	next_protector (Test *test);
+	next_protector (Test &test);
 	
 	/**
 	 * Guard a test with this Protector. It is important that
@@ -44,7 +43,7 @@ protected:
 	 *         description. If no error occurred, returns NULL.
 	 */
 	virtual Error *
-	_guard (Test *test) = 0;
+	_guard (Test &test) = 0;
 };
 
 }

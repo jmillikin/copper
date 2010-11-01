@@ -140,7 +140,7 @@ namespace Copper
 	}
 	
 	void
-	Test::Run (TestRun *run)
+	Test::Run (TestRun &run)
 	{
 		SetUp ();
 		Copper_RunImpl (run);
