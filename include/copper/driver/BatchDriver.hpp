@@ -6,12 +6,10 @@
 #ifndef COPPER_BATCH_DRIVER_HPP
 #define COPPER_BATCH_DRIVER_HPP
 
-#include <copper/FuncAttrs.hpp>
-
 namespace Copper
 {
 
-class COPPER_FUNCATTR_EXPORT BatchDriver
+class BatchDriver
 {
 public:
 	static int

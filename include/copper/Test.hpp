@@ -8,14 +8,13 @@
 
 #include <copper/List.hpp>
 #include <copper/String.hpp>
-#include <copper/FuncAttrs.hpp>
 
 namespace Copper {
 
 class TestRun;
 class Fixture;
 
-class COPPER_FUNCATTR_EXPORT Test
+class Test
 {
 public:
 	Test (const char name[],

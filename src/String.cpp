@@ -14,6 +14,12 @@ using std::strcmp;
 using std::strlen;
 using std::strncpy;
 
+#if __GNUC__ > 3
+#	define COPPER_FUNCATTR_MALLOC __attribute__((__malloc__))
+#else
+#	define COPPER_FUNCATTR_MALLOC
+#endif
+
 namespace {
 
 /**

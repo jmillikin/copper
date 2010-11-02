@@ -6,8 +6,6 @@
 #ifndef COPPER_TEST_RUN_HPP
 #define COPPER_TEST_RUN_HPP
 
-#include <copper/FuncAttrs.hpp>
-
 namespace Copper {
 
 class AssertionResult;
@@ -16,7 +14,7 @@ class Failure;
 class String;
 class Test;
 
-class COPPER_FUNCATTR_EXPORT TestRun
+class TestRun
 {
 public:
 	// Called by test drivers

@@ -7,13 +7,12 @@
 #define COPPER_ASSERTION_RESULT_HPP
 
 #include <copper/String.hpp>
-#include <copper/FuncAttrs.hpp>
 
 namespace Copper
 {
 	class String;
 
-	class COPPER_FUNCATTR_EXPORT AssertionResult
+	class AssertionResult
 	{
 	public:
 		~AssertionResult ();

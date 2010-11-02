@@ -6,11 +6,9 @@
 #ifndef COPPER_FIXTURE_HPP
 #define COPPER_FIXTURE_HPP
 
-#include <copper/FuncAttrs.hpp>
-
 namespace Copper {
 
-class COPPER_FUNCATTR_EXPORT Fixture
+class Fixture
 {
 public:
 	virtual void

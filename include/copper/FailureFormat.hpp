@@ -21,32 +21,25 @@ namespace Copper {
 		return format (value);
 	}
 
-	COPPER_FUNCATTR_EXPORT
 	String
 	failure_format(const char &v);
 
-	COPPER_FUNCATTR_EXPORT
 	String
 	failure_format (const signed char &v);
 
-	COPPER_FUNCATTR_EXPORT
 	String
 	failure_format (const unsigned char &v);
 
-	COPPER_FUNCATTR_EXPORT
 	String
 	failure_format(const String &v);
 
-	COPPER_FUNCATTR_EXPORT
 	String
 	failure_format (char *v);
 
-	COPPER_FUNCATTR_EXPORT
 	String
 	failure_format (const char *v);
 
 #if HAVE_STD_STRING
-	COPPER_FUNCATTR_EXPORT
 	String
 	failure_format (const std::string &v);
 #endif

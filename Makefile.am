@@ -33,7 +33,6 @@ include_copper_priv_HEADERS = \
 	include/copper/FailureFormat.hpp \
 	include/copper/Fixture.hpp \
 	include/copper/Formatters.hpp \
-	include/copper/FuncAttrs.hpp \
 	include/copper/List.hpp \
 	include/copper/macros.hpp \
 	include/copper/String.hpp \

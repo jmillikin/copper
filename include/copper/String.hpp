@@ -7,11 +7,16 @@
 #define COPPER_UTIL_STRING_HPP
 
 #include <cstddef>
-#include <copper/FuncAttrs.hpp>
+
+#if __GNUC__ >= 4
+#	define COPPER_FUNCATTR_NULL_TERMINATED __attribute__((__sentinel__))
+#else
+#	define COPPER_FUNCATTR_NULL_TERMINATED
+#endif
 
 namespace Copper {
 
-class COPPER_FUNCATTR_EXPORT String
+class String
 {
 public:
 	String ();

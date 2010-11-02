@@ -7,11 +7,10 @@
 #define COPPER_FAILURE_HPP
 
 #include <copper/String.hpp>
-#include <copper/FuncAttrs.hpp>
 
 namespace Copper
 {
-	class COPPER_FUNCATTR_EXPORT Failure
+	class Failure
 	{
 	public:
 		Failure (const String &text,
