@@ -9,13 +9,12 @@ libcopper_la_CPPFLAGS = -I $(top_srcdir)/include/ -I ./include/
 libcopper_la_SOURCES = \
 	src/AssertionResult.cpp \
 	src/Assertions.cpp \
-	src/DefaultOutputHandler.cpp \
+	src/driver/BatchDriver.cpp \
 	src/Error.cpp \
 	src/Failure.cpp \
 	src/FailureFormat.cpp \
 	src/Fixture.cpp \
 	src/Formatters.cpp \
-	src/OutputHandler.cpp \
 	src/String.cpp \
 	src/Test.cpp \
 	src/TestRun.cpp
@@ -29,7 +28,6 @@ include_copper_priv_HEADERS = \
 	include/copper/AssertionResult.hpp \
 	include/copper/Assertions.hpp \
 	include/copper/config.h \
-	include/copper/DefaultOutputHandler.hpp \
 	include/copper/Error.hpp \
 	include/copper/Failure.hpp \
 	include/copper/FailureFormat.hpp \
@@ -38,10 +36,13 @@ include_copper_priv_HEADERS = \
 	include/copper/FuncAttrs.hpp \
 	include/copper/List.hpp \
 	include/copper/macros.hpp \
-	include/copper/OutputHandler.hpp \
 	include/copper/String.hpp \
 	include/copper/Test.hpp \
 	include/copper/TestRun.hpp
+
+include_copper_driverdir = $(include_copperdir)/copper/driver
+include_copper_driver_HEADERS = \
+	include/copper/driver/BatchDriver.hpp
 
 # self-tests
 TESTS = copper_tests
@@ -50,7 +51,6 @@ check_PROGRAMS = copper_tests
 copper_tests_CPPFLAGS = -I $(top_srcdir)/include/ -I ./include/
 copper_tests_LDADD = libcopper.la
 copper_tests_SOURCES = \
-	tests/argument_parser_tests.cpp \
 	tests/assertion_tests.cpp \
 	tests/failure_format_tests.cpp \
 	tests/format_tests.cpp \
