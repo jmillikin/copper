@@ -37,13 +37,6 @@ public:
 	static const List<Test> &
 	all ();
 	
-	static Test *
-	find (const String &suite_name,
-	      const String &test_name);
-	
-	static List<Test>
-	in_suite (const String &suite_name);
-	
 	void Run (TestRun &);
 	void SetUp ();
 	void TearDown ();

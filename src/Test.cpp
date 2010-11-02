@@ -84,66 +84,6 @@ void Fixture::Copper_TearDownImpl()
 		return all_tests ();
 	}
 
-	struct MatchInfo
-	{
-		const String *suite_name;
-		const String *test_name;
-	};
-
-	static
-	bool
-	full_matcher (const Test *key, const void *data)
-	{
-		const MatchInfo *info = static_cast <const MatchInfo *> (data);
-		return (key->Name == *(info->test_name)) &&
-		       (key->Suite == *(info->suite_name));
-	}
-
-	/**
-	 * @brief Find a named test.
-	 * 
-	 * @param suite_name The name of the suite containing this test.
-	 * @param test_name The name of the test.
-	 * 
-	 * @return The test with the given name, or NULL if no such
-	 *         test exists.
-	 */
-	Test *
-	Test::find (const String &suite_name,
-	            const String &test_name)
-	{
-		const ListNode<Test> *node;
-		MatchInfo info = { &suite_name, &test_name };
-		node = all_tests ().find (full_matcher, &info);
-
-		if (node)
-			return node->value;
-
-		return NULL;
-	}
-
-	static
-	bool
-	suite_matcher (const Test *key, const void *data)
-	{
-		const MatchInfo *info = static_cast <const MatchInfo *> (data);
-		return (key->Suite == *(info->suite_name));
-	}
-
-	/**
-	 * @brief Find all tests in a suite.
-	 * 
-	 * @param suite_name The name of the suite to find tests in.
-	 * 
-	 * @return a list of tests in the suite.
-	 */
-	List<Test>
-	Test::in_suite (const String &suite_name)
-	{
-		MatchInfo info = { &suite_name, NULL };
-		return all_tests ().filter (suite_matcher, &info);
-	}
-	
 	void
 	Test::Run (TestRun &run)
 	{

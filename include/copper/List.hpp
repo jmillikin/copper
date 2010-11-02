@@ -164,7 +164,7 @@ namespace Copper
 		 *         if the key was not found.
 		 */
 		const ListNode<C> *
-		find (type_matcher *matches, const void *data)
+		find (type_matcher *matches, const void *data) const
 		{
 			const ListNode<C> *node = NULL;
 			while (each (&node))
@@ -187,7 +187,7 @@ namespace Copper
 		 * @return a list of values matching the given function.
 		 */
 		List<C>
-		filter (type_matcher *matches, const void *data)
+		filter (type_matcher *matches, const void *data) const
 		{
 			List<C> new_list;
 			const ListNode<C> *node = NULL;

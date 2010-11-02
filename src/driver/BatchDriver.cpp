@@ -14,6 +14,47 @@
 namespace Copper
 {
 
+struct MatchInfo
+{
+	const String &suite_name;
+	const String &test_name;
+};
+
+static bool full_matcher(const Test *key, const void *data)
+{
+	const MatchInfo *info = static_cast <const MatchInfo *>(data);
+	return (key->Name == info->test_name) &&
+	       (key->Suite == info->suite_name);
+}
+
+static bool suite_matcher(const Test *key, const void *data)
+{
+	const MatchInfo *info = static_cast <const MatchInfo *>(data);
+	return (key->Suite == info->suite_name);
+}
+
+static Test *find_test
+	( const String &suite_name
+	, const String &test_name
+	)
+{
+	const ListNode<Test> *node;
+	MatchInfo info = { suite_name, test_name };
+	node = Test::all().find (full_matcher, &info);
+	
+	if (node)
+	{ return node->value; }
+	
+	return NULL;
+}
+
+
+static List<Test> find_suite(const String &suite_name)
+{
+	MatchInfo info = { suite_name, "" };
+	return Test::all().filter (suite_matcher, &info);
+}
+
 static List<Test> parse_test_args(int argc, char **argv)
 {
 	if (argc == 0)
@@ -33,7 +74,7 @@ static List<Test> parse_test_args(int argc, char **argv)
 			String suite_name(name, midpoint - name);
 			String test_name(midpoint + 1);
 			
-			Test *test = Test::find(suite_name, test_name);
+			Test *test = find_test(suite_name, test_name);
 			if (test != NULL)
 			{
 				tests.append(test);
@@ -43,7 +84,7 @@ static List<Test> parse_test_args(int argc, char **argv)
 		else
 		{
 			// No test name, append everything in the suite
-			tests.extend(Test::in_suite(name));
+			tests.extend(find_suite(name));
 		}
 	}
 	
