@@ -6,5 +6,4 @@
 #include <copper/Test.hpp>
 #include <copper/Assertions.hpp>
 #include <copper/TestRun.hpp>
-#include <copper/Fixture.hpp>
 #include <copper/macros.hpp>

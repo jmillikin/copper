@@ -11,7 +11,6 @@ libcopper_la_SOURCES = \
 	src/Assertions.cpp \
 	src/driver/BatchDriver.cpp \
 	src/FailureFormat.cpp \
-	src/Fixture.cpp \
 	src/Formatters.cpp \
 	src/String.cpp \
 	src/Test.cpp \
@@ -27,7 +26,6 @@ include_copper_priv_HEADERS = \
 	include/copper/Assertions.hpp \
 	include/copper/config.h \
 	include/copper/FailureFormat.hpp \
-	include/copper/Fixture.hpp \
 	include/copper/Formatters.hpp \
 	include/copper/List.hpp \
 	include/copper/macros.hpp \

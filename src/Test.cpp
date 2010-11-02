@@ -4,7 +4,6 @@
  */
 
 #include <copper/Test.hpp>
-#include <copper/Fixture.hpp>
 
 namespace Copper
 {
@@ -14,6 +13,12 @@ namespace Copper
 		static List<Test> _tests;
 		return _tests;
 	}
+
+void Fixture::Copper_SetUpImpl()
+{}
+
+void Fixture::Copper_TearDownImpl()
+{}
 
 	/** @class Test
 	 * @brief Abstract base class for tests.

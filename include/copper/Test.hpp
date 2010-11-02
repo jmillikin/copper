@@ -12,7 +12,16 @@
 namespace Copper {
 
 class TestRun;
-class Fixture;
+
+class Fixture
+{
+public:
+	virtual void
+	Copper_SetUpImpl ();
+	
+	virtual void
+	Copper_TearDownImpl ();
+};
 
 class Test
 {
