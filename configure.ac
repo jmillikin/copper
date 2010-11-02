@@ -128,7 +128,7 @@ if test "$enable_rtti" = "yes"; then
   AC_MSG_RESULT([yes])
 
   # With RTTI, exception handling can contain magic
-  # See exception_protector.cpp for details
+  # See TestRun.cpp for details
   COPPER_CHECK_CXA_CURRENT_EXCEPTION_TYPE
 
   if test "$copper_cxa_current_exception_type_support" = "yes"; then
@@ -154,20 +154,16 @@ if test "$enable_rtti" = "yes"; then
     )
   fi
 
-  RTTI_CXXFLAGS=""
 else
   AC_MSG_RESULT([no])
   # FIXME: gcc-specific
-  RTTI_CXXFLAGS="-fno-rtti"
+  CXXFLAGS="$CXXFLAGS -fno-rtti"
 fi
-
-FEATURES_CXXFLAGS="$RTTI_CXXFLAGS $EXCEPTION_CXXFLAGS"
 
 AC_MSG_CHECKING(if debugging is enabled[])
 if test "$enable_debug" = "yes"; then
   AC_MSG_RESULT([yes])
-
-  DEBUG_CXXFLAGS="-g3 -Wall -ansi -pedantic"
+  CXXFLAGS="$CXXFLAGS -g3 -Wall -Wextra -ansi -pedantic"
 else
   AC_MSG_RESULT([no])
 fi
@@ -175,16 +171,11 @@ fi
 AC_MSG_CHECKING([if optimizations are enabled])
 if test "$enable_optimizations" = "yes"; then
   AC_MSG_RESULT([yes])
-
-  OPTIMIZATION_CXXFLAGS="-O2"
+  CXXFLAGS="$CXXFLAGS -O2"
 else
   AC_MSG_RESULT([no])
-
-  OPTIMIZATION_CXXFLAGS="-O0"
+  CXXFLAGS="$CXXFLAGS -O0"
 fi
-
-CXXFLAGS="$FEATURES_CXXFLAGS $OPTIMIZATION_CXXFLAGS $DEBUG_CXXFLAGS $EXTRA_CXXFLAGS"
-LIBS="$OPTIMIZATION_LIBS $DEBUG_LIBS $EXTRA_LIBS"
 
 AC_CONFIG_FILES([
   Makefile
