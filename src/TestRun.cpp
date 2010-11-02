@@ -5,8 +5,6 @@
 
 #include <copper/TestRun.hpp>
 #include <copper/AssertionResult.hpp>
-#include <copper/Error.hpp>
-#include <copper/Failure.hpp>
 #include <copper/Formatters.hpp>
 #include <copper/FailureFormat.hpp>
 #include <copper/Test.hpp>
@@ -401,6 +399,69 @@ void TestRun::send_error(const String &message)
 TestRun::TestRun(int fd)
 	: self_fd(fd)
 	, self_error(false)
+{
+}
+
+/** @class Failure
+ * @brief Stores information on a failed assertion.
+ */
+
+/** @var Failure::Text
+ * @brief The code that this Assertion tests.
+ */
+
+/** @var Failure::Message
+ * @brief The human-readable failure message.
+ */
+
+/** @var Failure::File
+ * @brief The name of the file containing the assertion.
+ */
+
+/** @var Failure::Line
+ * @brief The line the assertion is located on.
+ */
+
+/**
+ * @brief Create a new failure record.
+ * 
+ * @param text The code that was asserted.
+ * @param message The human-readable failure message.
+ * @param file The name of the file containing the assertion.
+ * @param line The line the assertion is located on.
+ */
+Failure::Failure
+	( const String &text
+	, const String &message
+	, const String &file
+	, unsigned int line
+	)
+	: Text (text)
+	, Message (message)
+	, File (file)
+	, Line (line)
+{
+}
+
+/** @class Error
+ * @brief Stores information on an unexpected error.
+ * 
+ * This is used to indicate that something unexpected went wrong
+ * running a test. Errors should only be used for problems that
+ * would not be expected.
+ */
+
+/** @var Error::Message
+ * @brief The error that occurred.
+ */
+
+/**
+ * @brief Initialize a new error.
+ * 
+ * @param message The error string.
+ */
+Error::Error(const String &message)
+	: Message (message)
 {
 }
 

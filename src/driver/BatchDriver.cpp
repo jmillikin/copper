@@ -7,8 +7,6 @@
 #include <cstring>
 
 #include <copper/driver/BatchDriver.hpp>
-#include <copper/Error.hpp>
-#include <copper/Failure.hpp>
 #include <copper/List.hpp>
 #include <copper/Test.hpp>
 #include <copper/TestRun.hpp>

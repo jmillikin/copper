@@ -6,12 +6,13 @@
 #ifndef COPPER_TEST_RUN_HPP
 #define COPPER_TEST_RUN_HPP
 
+#include <copper/String.hpp>
+
 namespace Copper {
 
 class AssertionResult;
 class Error;
 class Failure;
-class String;
 class Test;
 
 class TestRun
@@ -77,6 +78,27 @@ private:
 	
 	int self_fd;
 	bool self_error;
+};
+
+class Failure
+{
+public:
+	Failure (const String &text,
+	         const String &message,
+	         const String &file,
+	         const unsigned int line);
+	
+	String Text;
+	String Message;
+	String File;
+	unsigned int Line;
+};
+
+class Error
+{
+public:
+	Error (const String &message);
+	String Message;
 };
 
 }

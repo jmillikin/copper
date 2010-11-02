@@ -7,8 +7,6 @@
 #include <cstring>
 #include <cstdlib>
 
-#include <copper/Failure.hpp>
-
 // Various self-tests of the framework, to try and avoid bugs
 COPPER_SUITE (self_tests)
 {
