@@ -10,43 +10,75 @@
 
 namespace Copper {
 
-class Test;
 class AssertionResult;
+class Error;
+class Failure;
+class String;
+class Test;
 
 class COPPER_FUNCATTR_EXPORT TestRun
 {
 public:
-	TestRun (Test &test);
-	virtual ~TestRun ();
+	// Called by test drivers
+	//
+	// Runs a test once, in a separate process. Sets 'out_failure' if
+	// the test failed, 'out_error' if something unexpected went wrong,
+	// or neither if the test passed.
+	//
+	// 'out_failure' and 'out_error', if set, must be deleted by the
+	// caller.
+	static void run_test
+		( Test &test
+		, Failure *&out_failure
+		, Error *&out_error
+		);
 	
-	virtual bool
-	Assert (const AssertionResult &result,
-	        const char *text,
-	        const char *file,
-	        unsigned int line) = 0;
+	// Called from tests
+	//
+	// Checks whether the assertion passed or failed, then writes a
+	// message to the pipe and (if necessary) terminates the test
+	// process.
+	void assert
+		( const AssertionResult &result
+		, const char *text
+		, const char *file
+		, unsigned int line
+		);
 	
-	virtual bool
-	Assert (bool result,
-	        const char *text,
-	        const char *file,
-	        unsigned int line);
+	void assert
+		( bool result
+		, const char *text
+		, const char *file
+		, unsigned int line
+		);
 	
-	virtual bool
-	Fail (const char *message,
-	      const char *file,
-	      unsigned int line) = 0;
+	void fail
+		( const char *message
+		, const char *file
+		, unsigned int line
+		);
 	
-	virtual bool
-	AssertThrowsFailed (const char *exc_type,
-	                    const char *code,
-	                    const char *file,
-	                    unsigned int line) = 0;
+	void fail_throws
+		( const char *exc_type
+		, const char *code
+		, const char *file
+		, unsigned int line
+		);
 	
-	virtual void
-	Run ();
+private:
+	TestRun (int fd);
 	
-protected:
-	Test &test;
+	void send_fail
+		( const String &text
+		, const String &message
+		, const String &file
+		, unsigned int line
+		);
+	
+	void send_error(const String &message);
+	
+	int self_fd;
+	bool self_error;
 };
 
 }

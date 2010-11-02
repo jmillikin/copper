@@ -8,7 +8,7 @@
 #include <cstddef>
 
 #include <copper/OutputHandler.hpp>
-#include <copper/ForkingTestRunner.hpp>
+#include <copper/TestRun.hpp>
 
 using namespace std;
 
@@ -104,8 +104,30 @@ namespace Copper
 	void
 	OutputHandler::run_tests (const List<Test> &tests, bool protect)
 	{
-		List<Protector> protectors;
-		ForkingTestRunner runner;
-		runner.RunTests (*this, tests, protectors);
+		const ListNode<Test> *node = NULL;
+		while (tests.each (&node))
+		{
+			Test &test = *(node->value);
+			Failure *failure;
+			Error *error;
+			
+			begin(test);
+			TestRun::run_test(test, failure, error);
+			
+			if (failure != NULL)
+			{
+				fail(test, *failure);
+				delete failure;
+			}
+			
+			else if (error != NULL)
+			{
+				this->error(test, *error);
+				delete error;
+			}
+			
+			else
+			{ pass(test); }
+		}
 	}
 }

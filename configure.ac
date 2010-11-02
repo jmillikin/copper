@@ -52,6 +52,7 @@ AC_ARG_ENABLE(sstream,
 COPPER_CHECK_NAMESPACES
 COPPER_CHECK_STATIC_CAST
 COPPER_CHECK_TEMPLATES
+COPPER_CHECK_FORK
 
 # Optional features that don't have a ./configure option
 COPPER_CHECK_BOOLEAN
@@ -65,13 +66,6 @@ else
   AC_DEFINE(HAVE_BOOLEAN, 1,
     [The compiler has a distinct boolean type]
   )
-fi
-
-COPPER_CHECK_FORK
-if test "$copper_fork_support" = "yes"; then
-  AC_DEFINE(HAVE_FORK, 1, [fork() is available.])
-else
-  AC_DEFINE(HAVE_FORK, 0, [fork() is not available.])
 fi
 
 COPPER_CHECK_STD_STRING
@@ -165,34 +159,6 @@ else
   AC_MSG_RESULT([no])
   # FIXME: gcc-specific
   RTTI_CXXFLAGS="-fno-rtti"
-fi
-
-AC_MSG_CHECKING([if exception handling is enabled])
-if test "$enable_exceptions" = "yes"; then
-  AC_MSG_RESULT([yes])
-
-  # Check whether exceptions are actually supported
-  COPPER_CHECK_EXCEPTIONS
-
-  if test "$copper_exception_support" = "yes"; then
-    AC_DEFINE(HAVE_EXCEPTIONS, 1,
-      [The compiler supports exceptions]
-    )
-  else
-    AC_DEFINE(HAVE_EXCEPTIONS, 0,
-      [The compiler does not support exceptions]
-    )
-  fi
-
-  EXCEPTION_CXXFLAGS=""
-else
-  AC_MSG_RESULT([no])
-  AC_DEFINE(HAVE_EXCEPTIONS, 0,
-      [The compiler does not support exceptions]
-    )
-
-  # FIXME: gcc-specific
-  EXCEPTION_CXXFLAGS="-fno-exceptions"
 fi
 
 FEATURES_CXXFLAGS="$RTTI_CXXFLAGS $EXCEPTION_CXXFLAGS"

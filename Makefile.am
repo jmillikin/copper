@@ -11,18 +11,14 @@ libcopper_la_SOURCES = \
 	src/Assertions.cpp \
 	src/DefaultOutputHandler.cpp \
 	src/Error.cpp \
-	src/ExceptionProtector.cpp \
 	src/Failure.cpp \
 	src/FailureFormat.cpp \
 	src/Fixture.cpp \
-	src/ForkingTestRunner.cpp \
 	src/Formatters.cpp \
 	src/OutputHandler.cpp \
-	src/Protector.cpp \
 	src/String.cpp \
 	src/Test.cpp \
-	src/TestRun.cpp \
-	src/TestRunner.cpp
+	src/TestRun.cpp
 
 # headers
 include_copperdir = $(includedir)/copper-0
@@ -38,18 +34,14 @@ include_copper_priv_HEADERS = \
 	include/copper/Failure.hpp \
 	include/copper/FailureFormat.hpp \
 	include/copper/Fixture.hpp \
-	include/copper/ForkingTestRunner.hpp \
 	include/copper/Formatters.hpp \
 	include/copper/FuncAttrs.hpp \
 	include/copper/List.hpp \
 	include/copper/macros.hpp \
 	include/copper/OutputHandler.hpp \
-	include/copper/Protector.hpp \
-	include/copper/SafeException.hpp \
 	include/copper/String.hpp \
 	include/copper/Test.hpp \
-	include/copper/TestRun.hpp \
-	include/copper/TestRunner.hpp
+	include/copper/TestRun.hpp
 
 # self-tests
 TESTS = copper_tests

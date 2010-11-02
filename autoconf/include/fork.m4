@@ -16,4 +16,8 @@ AC_DEFUN([COPPER_CHECK_FORK],[
   )
 
   AC_LANG_POP([C++])
+
+  if test "$copper_fork_support" = "no"; then
+    AC_MSG_ERROR([fork() support is required for compiling Copper])
+  fi
 ])

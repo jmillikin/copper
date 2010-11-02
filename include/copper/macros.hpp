@@ -80,20 +80,14 @@
  * 
  * @param ASSERTION The assertion to test.
 **/
-#define COPPER_ASSERT(ASSERTION) \
-	do { \
-		if (!(Copper_TestRun.Assert (ASSERTION, #ASSERTION, __FILE__, __LINE__))) { \
-			return; }} while (0)
+#define COPPER_ASSERT(ASSERTION) Copper_TestRun.assert ((ASSERTION), #ASSERTION, __FILE__, __LINE__)
 
 /**
  * When this macro is called, it will force the test to fail.
  * 
  * @param MESSAGE The error message to fail with.
 **/
-#define COPPER_FAIL(MESSAGE) \
-	do { \
-		if (!(Copper_TestRun.Fail (#MESSAGE, __FILE__, __LINE__))) { \
-			return; }} while (0)
+#define COPPER_FAIL(MESSAGE) Copper_TestRun.fail (MESSAGE, __FILE__, __LINE__)
 
 /**
  * Used to check if some code throws a certain type of exception.
@@ -108,7 +102,7 @@
 		try { CODE } \
 		catch (const TYPE &) { Copper_ExceptionThrown = true; } \
 		if (!Copper_ExceptionThrown) { \
-			if (!(Copper_TestRun.AssertThrowsFailed (#TYPE, #CODE, __FILE__, __LINE__))) { \
-				return; }}} while (0)
+			Copper_TestRun.fail_throws(#TYPE, #CODE, __FILE__, __LINE__) \
+		}} while (0)
 
 #endif
