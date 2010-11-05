@@ -10,8 +10,7 @@ libcopper_la_SOURCES = \
 	src/AssertionResult.cpp \
 	src/Assertions.cpp \
 	src/driver/BatchDriver.cpp \
-	src/FailureFormat.cpp \
-	src/Formatters.cpp \
+	src/repr.cpp \
 	src/String.cpp \
 	src/Test.cpp \
 	src/TestRun.cpp
@@ -25,10 +24,9 @@ include_copper_priv_HEADERS = \
 	include/copper/AssertionResult.hpp \
 	include/copper/Assertions.hpp \
 	include/copper/config.h \
-	include/copper/FailureFormat.hpp \
-	include/copper/Formatters.hpp \
 	include/copper/List.hpp \
 	include/copper/macros.hpp \
+	include/copper/repr.hpp \
 	include/copper/String.hpp \
 	include/copper/Test.hpp \
 	include/copper/TestRun.hpp
@@ -45,8 +43,7 @@ copper_tests_CPPFLAGS = -I $(top_srcdir)/include/ -I ./include/
 copper_tests_LDADD = libcopper.la
 copper_tests_SOURCES = \
 	tests/assertion_tests.cpp \
-	tests/failure_format_tests.cpp \
-	tests/format_tests.cpp \
+	tests/repr_tests.cpp \
 	tests/list_tests.cpp \
 	tests/main.cpp \
 	tests/self_tests.cpp \

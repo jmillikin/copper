@@ -5,8 +5,7 @@
 
 #include <copper/TestRun.hpp>
 #include <copper/AssertionResult.hpp>
-#include <copper/Formatters.hpp>
-#include <copper/FailureFormat.hpp>
+#include <copper/repr.hpp>
 #include <copper/Test.hpp>
 
 #include <cstring>
@@ -314,7 +313,7 @@ void TestRun::fail
 {
 	String source = String::Build
 		( "COPPER_FAIL("
-		, failure_format(message).CStr()
+		, repr(message).CStr()
 		, ")"
 		, NULL
 		);
@@ -359,11 +358,11 @@ void TestRun::send_fail
 	self_error = true;
 	
 	/* 4:fail text line message */
-	String line_str = format(line),
-	       line_len = format(line_str.Size()),
-	       text_len = format(text.Size()),
-	       file_len = format(file.Size()),
-	       message_len = format(message.Size());
+	String line_str = repr(line),
+	       line_len = repr(line_str.Size()),
+	       text_len = repr(text.Size()),
+	       file_len = repr(file.Size()),
+	       message_len = repr(message.Size());
 	
 	String result = String::Build
 		( "4:fail "
@@ -383,7 +382,7 @@ void TestRun::send_error(const String &message)
 	
 	/* 5:error message */
 	/* Example: "5:error 18:segmentation fault" */
-	String message_len = format(message.Size());
+	String message_len = repr(message.Size());
 	
 	String result = String::Build
 		("5:error "
