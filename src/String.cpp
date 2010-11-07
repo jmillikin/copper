@@ -15,7 +15,6 @@
 
 #include <copper/String.hpp>
 
-#include <cassert>
 #include <cstdarg>
 #include <cstring>
 
@@ -35,7 +34,6 @@ static char *copper_strndup(const char *string, const size_t size)
 {
 	size_t string_len;
 	
-	assert(string != NULL);
 	string_len = strlen(string);
 	
 	if (size && size < string_len)
@@ -97,7 +95,6 @@ private:
 	~Impl()
 	{
 		if (should_delete) {
-			assert(references == 0u);
 			delete[] str;
 		}
 	}
@@ -171,8 +168,6 @@ String::Build(const char *first, ...)
 	va_list args;
 	size_t size;
 	char *new_c_str, *part, *ii;
-	
-	assert(first != NULL);
 	
 	/* Find the total size */
 	size = strlen(first);
