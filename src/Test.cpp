@@ -18,11 +18,10 @@
 namespace Copper
 {
 
-static List<Test> &
-all_tests()
+static TestList &all_tests()
 {
-	static List<Test> _tests;
-	return _tests;
+	static TestList tests;
+	return tests;
 }
 
 void Fixture::Copper_SetUpImpl()
@@ -42,14 +41,14 @@ Test::Test
 	, file_name(String::peek(file_name))
 	, line(line)
 {
-	all_tests().append(this);
+	all_tests().append(*this);
 }
 
 Test::~Test()
 {
 }
 
-const List<Test> &Test::all()
+const TestList &Test::all()
 {
 	return all_tests();
 }
@@ -77,4 +76,102 @@ Fixture *Test::Copper_GetFixture()
 {
 	return NULL;
 }
+
+class TestList::Node
+{
+public:
+	Node(Test &test)
+		: test(&test)
+	{}
+	
+	Test *test;
+	Node *next;
+};
+
+TestList::TestList()
+	: root(NULL)
+{
+}
+
+TestList::TestList(const TestList &other)
+	: root(NULL)
+{
+	extend(other);
+}
+
+TestList::~TestList()
+{
+	clear();
+}
+
+TestList &TestList::operator=(const TestList &other)
+{
+	clear();
+	extend(other);
+	return *this;
+}
+
+bool TestList::each(iterator &iter, Test **out_test) const
+{
+	if (not iter.started)
+	{
+		iter.node = root;
+		iter.started = true;
+	}
+	
+	if (iter.node)
+	{
+		*out_test = iter.node->test;
+		iter.node = iter.node->next;
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+void TestList::append(Test &test)
+{
+	if (root)
+	{
+		Node *last = root;
+		while (last->next)
+		{ last = last->next; }
+		
+		last->next = new Node(test);
+	}
+	else
+	{
+		root = new Node(test);
+	}
+}
+
+void TestList::extend(const TestList &other)
+{
+	TestList::iterator iter;
+	
+	Test *test;
+	while (other.each(iter, &test))
+	{ append(*test); }
+}
+
+void TestList::clear()
+{
+	Node *node = root, *next;
+	root = NULL;
+	while (node)
+	{
+		next = node->next;
+		delete node;
+		node = next;
+	}
+}
+
+TestList::iterator::iterator()
+	: started(false)
+	, node(NULL)
+{
+}
+
 }

@@ -116,12 +116,12 @@ String repr(const String &v)
 
 String repr(signed char v)
 {
-	return repr(static_cast<char>(v));
+	return repr((char)v);
 }
 
 String repr(unsigned char v)
 {
-	return repr(static_cast<char>(v));
+	return repr((char)v);
 }
 
 String repr(signed short v)

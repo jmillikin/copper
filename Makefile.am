@@ -24,7 +24,6 @@ include_copper_priv_HEADERS = \
 	include/copper/AssertionResult.hpp \
 	include/copper/Assertions.hpp \
 	include/copper/config.h \
-	include/copper/List.hpp \
 	include/copper/macros.hpp \
 	include/copper/repr.hpp \
 	include/copper/String.hpp \
@@ -44,7 +43,6 @@ copper_tests_LDADD = libcopper.la
 copper_tests_SOURCES = \
 	tests/assertion_tests.cpp \
 	tests/repr_tests.cpp \
-	tests/list_tests.cpp \
 	tests/main.cpp \
 	tests/self_tests.cpp \
 	tests/string_tests.cpp

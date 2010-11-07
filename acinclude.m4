@@ -11,5 +11,4 @@ m4_include([autoconf/include/sys_siglist.m4])
 # Required features
 m4_include([autoconf/include/templates.m4])
 m4_include([autoconf/include/namespaces.m4])
-m4_include([autoconf/include/static_cast.m4])
 m4_include([autoconf/include/fork.m4])

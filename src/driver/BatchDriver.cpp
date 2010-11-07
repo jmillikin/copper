@@ -17,7 +17,6 @@
 #include <cstring>
 
 #include <copper/driver/BatchDriver.hpp>
-#include <copper/List.hpp>
 #include <copper/Test.hpp>
 #include <copper/TestRun.hpp>
 
@@ -26,55 +25,51 @@ using std::strchr;
 namespace Copper
 {
 
-struct MatchInfo
-{
-	const String &suite_name;
-	const String &test_name;
-};
-
-static bool full_matcher(const Test *key, const void *data)
-{
-	const MatchInfo *info = static_cast <const MatchInfo *>(data);
-	return (key->name == info->test_name) &&
-	       (key->suite == info->suite_name);
-}
-
-static bool suite_matcher(const Test *key, const void *data)
-{
-	const MatchInfo *info = static_cast <const MatchInfo *>(data);
-	return (key->suite == info->suite_name);
-}
-
 static Test *find_test
 	( const String &suite_name
 	, const String &test_name
 	)
 {
-	const ListNode<Test> *node;
-	MatchInfo info = { suite_name, test_name };
-	node = Test::all().find (full_matcher, &info);
+	TestList::iterator iter;
 	
-	if (node)
-	{ return node->value; }
+	Test *test;
+	while (Test::all().each(iter, &test))
+	{
+		if (test->name == test_name &&
+		    test->suite == suite_name)
+		{
+			return test;
+		}
+	}
 	
 	return NULL;
 }
 
-
-static List<Test> find_suite(const String &suite_name)
+static TestList find_suite(const String &suite_name)
 {
-	MatchInfo info = { suite_name, String() };
-	return Test::all().filter (suite_matcher, &info);
+	TestList tests;
+	TestList::iterator iter;
+	
+	Test *test;
+	while (Test::all().each(iter, &test))
+	{
+		if (test->suite == suite_name)
+		{
+			tests.append(*test);
+		}
+	}
+	
+	return tests;
 }
 
-static List<Test> parse_test_args(int argc, char **argv)
+static TestList parse_test_args(int argc, char **argv)
 {
 	if (argc == 0)
 	{
 		return Test::all();
 	}
 	
-	List<Test> tests;
+	TestList tests;
 	for (int ii = 0; ii < argc; ii++)
 	{
 		const char *name = argv[ii];
@@ -89,7 +84,7 @@ static List<Test> parse_test_args(int argc, char **argv)
 			Test *test = find_test(suite_name, test_name);
 			if (test != NULL)
 			{
-				tests.append(test);
+				tests.append(*test);
 			}
 		}
 		
@@ -112,16 +107,16 @@ int BatchDriver::run (int argc, char **argv)
 	           , count_fail = 0
 	           , count_error = 0;
 	
-	List<Test> tests = parse_test_args(argc - 1, argv + 1);
+	TestList tests = parse_test_args(argc - 1, argv + 1);
+	TestList::iterator iter;
 	
-	const ListNode<Test> *node = NULL;
-	while (tests.each(&node))
+	Test *test;
+	while (tests.each(iter, &test))
 	{
-		Test &test = *(node->value);
 		Failure *failure;
 		Error *error;
 		
-		TestRun::run_test(test, failure, error);
+		TestRun::run_test(*test, failure, error);
 		
 		if (failure != NULL)
 		{
@@ -131,8 +126,8 @@ int BatchDriver::run (int argc, char **argv)
 			         "%s.%s:\n"
 			         "\t%s\n"
 			         "\t%s\n\n"
-			       , test.file_name.c_str(), failure->line
-			       , test.suite.c_str(), test.name.c_str()
+			       , test->file_name.c_str(), failure->line
+			       , test->suite.c_str(), test->name.c_str()
 			       , failure->text.c_str()
 			       , failure->message.c_str()
 			       );
@@ -146,8 +141,8 @@ int BatchDriver::run (int argc, char **argv)
 			       , "ERROR in %s:\n"
 			         "%s.%s:\n"
 			         "\t%s\n\n"
-			       , test.file_name.c_str()
-			       , test.suite.c_str(), test.name.c_str()
+			       , test->file_name.c_str()
+			       , test->suite.c_str(), test->name.c_str()
 			       , error->message.c_str()
 			       );
 			delete error;

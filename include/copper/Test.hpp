@@ -16,12 +16,12 @@
 #ifndef COPPER_TEST_HPP
 #define COPPER_TEST_HPP
 
-#include <copper/List.hpp>
 #include <copper/String.hpp>
 
 namespace Copper {
 
 class TestRun;
+class TestList;
 
 class Fixture
 {
@@ -43,7 +43,7 @@ public:
 	
 	virtual ~Test ();
 	
-	static const List<Test> &all();
+	static const TestList &all();
 	
 	void Run(TestRun &);
 	void SetUp();
@@ -58,6 +58,40 @@ protected:
 	virtual void Copper_RunImpl(TestRun &) = 0;
 	
 	virtual Fixture *Copper_GetFixture();
+};
+
+class TestList
+{
+public:
+	class iterator;
+	
+	TestList();
+	TestList(const TestList &);
+	~TestList();
+	
+	TestList &operator=(const TestList &);
+	
+	bool each(iterator &, Test **) const;
+	
+	void append(Test &);
+	void extend(const TestList &);
+	void clear();
+	
+private:
+	class Node;
+	Node *root;
+	
+public:
+	class iterator
+	{
+	public:
+		iterator();
+	private:
+		friend class TestList;
+		bool started;
+		TestList::Node *node;
+	};
+	
 };
 
 }
