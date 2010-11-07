@@ -55,16 +55,25 @@ COPPER_CHECK_TEMPLATES
 COPPER_CHECK_FORK
 
 # Optional features that don't have a ./configure option
-COPPER_CHECK_BOOLEAN
-if test "$copper_boolean_support" = "no"; then
-  AC_MSG_WARN([Booleans are not distinct types])
-
-  AC_DEFINE(HAVE_BOOLEAN, 0,
-    [The compiler does not have a distinct boolean type]
+COPPER_CHECK_DISTINCT_BOOL
+if test "$copper_cv_distinct_bool" = "no"; then
+  AC_DEFINE(HAVE_DISTINCT_BOOL, 0,
+    [The compiler does not have a distinct bool]
   )
 else
-  AC_DEFINE(HAVE_BOOLEAN, 1,
-    [The compiler has a distinct boolean type]
+  AC_DEFINE(HAVE_DISTINCT_BOOL, 1,
+    [The compiler has a distinct bool]
+  )
+fi
+
+COPPER_CHECK_DISTINCT_SIZE_T
+if test "$copper_cv_distinct_size_t" = "no"; then
+  AC_DEFINE(HAVE_DISTINCT_SIZE_T, 0,
+    [The compiler does not have a distinct size_t]
+  )
+else
+  AC_DEFINE(HAVE_DISTINCT_SIZE_T, 1,
+    [The compiler has a distinct size_t]
   )
 fi
 

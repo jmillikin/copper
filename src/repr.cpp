@@ -26,7 +26,7 @@ static const std::size_t SPRINTF_BUF_SIZE = 40;
 
 namespace Copper {
 
-#if HAVE_BOOLEAN
+#if HAVE_DISTINCT_BOOL
 String repr(bool v)
 {
 	return String::FromStatic (v ? "true" : "false");
@@ -166,6 +166,15 @@ String repr(unsigned long v)
 	std::sprintf(buffer, "%lu", v);
 	return String(buffer);
 }
+
+#if HAVE_DISTINCT_SIZE_T
+String repr(std::size_t v)
+{
+	char buffer[SPRINTF_BUF_SIZE];
+	std::sprintf(buffer, "%lu", v);
+	return String(buffer);
+}
+#endif
 
 String repr(float v)
 {

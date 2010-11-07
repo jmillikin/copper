@@ -29,7 +29,7 @@
 
 namespace Copper {
 
-#if HAVE_BOOLEAN
+#if HAVE_DISTINCT_BOOL
 String repr(bool v);
 #endif
 
@@ -70,6 +70,10 @@ String repr(unsigned short v);
 String repr(unsigned int v);
 
 String repr(unsigned long v);
+
+#if HAVE_DISTINCT_SIZE_T
+String repr(std::size_t v);
+#endif
 
 String repr(float v);
 
