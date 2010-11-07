@@ -27,13 +27,13 @@ static const std::size_t SPRINTF_BUF_SIZE = 40;
 namespace Copper {
 
 #if HAVE_BOOLEAN
-String repr(const bool v)
+String repr(bool v)
 {
 	return String::FromStatic (v ? "true" : "false");
 }
 #endif
 
-String repr(const char v)
+String repr(char v)
 {
 	char buffer[7] = {'\'', '\\', '\'', '\'', '\'', '\'', '\0'};
 	if (v < ' ' || v > '~')
@@ -115,66 +115,66 @@ String repr(const String &v)
 	return repr(v.CStr());
 }
 
-String repr(const signed char v)
+String repr(signed char v)
 {
 	return repr(static_cast<char>(v));
 }
 
-String repr(const unsigned char v)
+String repr(unsigned char v)
 {
 	return repr(static_cast<char>(v));
 }
 
-String repr(const signed short v)
+String repr(signed short v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%hd", v);
 	return String(buffer);
 }
 
-String repr(const signed int v)
+String repr(signed int v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%d", v);
 	return String(buffer);
 }
 
-String repr(const signed long v)
+String repr(signed long v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%ld", v);
 	return String(buffer);
 }
 
-String repr(const unsigned short v)
+String repr(unsigned short v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%hu", v);
 	return String(buffer);
 }
 
-String repr(const unsigned int v)
+String repr(unsigned int v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%u", v);
 	return String(buffer);
 }
 
-String repr(const unsigned long v)
+String repr(unsigned long v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%lu", v);
 	return String(buffer);
 }
 
-String repr(const float v)
+String repr(float v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%g", v);
 	return String(buffer);
 }
 
-String repr(const double v)
+String repr(double v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%g", v);

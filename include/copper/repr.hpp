@@ -30,18 +30,18 @@
 namespace Copper {
 
 #if HAVE_BOOLEAN
-String repr(const bool v);
+String repr(bool v);
 #endif
 
-String repr(const char v);
+String repr(char v);
 
 String repr(const char *v);
 
 String repr(const String &v);
 
-String repr(const signed char v);
+String repr(signed char v);
 
-String repr(const unsigned char v);
+String repr(unsigned char v);
 
 #if HAVE_STD_STRING
 String repr(const std::string &v);
@@ -59,21 +59,21 @@ String repr(const C &v)
 
 #else // No sstream, only support standard C types + Copper::String
 
-String repr(const signed short v);
+String repr(signed short v);
 
-String repr(const signed int v);
+String repr(signed int v);
 
-String repr(const signed long v);
+String repr(signed long v);
 
-String repr(const unsigned short v);
+String repr(unsigned short v);
 
-String repr(const unsigned int v);
+String repr(unsigned int v);
 
-String repr(const unsigned long v);
+String repr(unsigned long v);
 
-String repr(const float v);
+String repr(float v);
 
-String repr(const double v);
+String repr(double v);
 
 #endif
 
