@@ -384,6 +384,7 @@ void TestRun::send_fail
 		);
 	
 	write_message(self_fd, result);
+	exit(1);
 }
 
 void TestRun::send_error(const String &message)
@@ -401,6 +402,7 @@ void TestRun::send_error(const String &message)
 		);
 	
 	write_message(self_fd, result);
+	exit(1);
 }
 
 // }}}
