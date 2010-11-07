@@ -104,6 +104,13 @@ COPPER_FIXTURE_TEST(test_with_a_fixture, the_fixture)
 	COPPER_ASSERT(set_up_finished);
 }
 
+// Failures occur when an assertion's condition is not met
+
+COPPER_TEST(assertion_failure)
+{
+	COPPER_ASSERT(equal("the answer", "42"));
+}
+
 // Some systems also support catching various programming errors
 
 COPPER_TEST(NULL_pointer_dereference)
