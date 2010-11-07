@@ -9,8 +9,8 @@ AC_DEFUN([COPPER_CHECK_RTTI],[
         [#include <typeinfo>],
         [if (typeid(int).name()) return 0; else return 1;]
       )],
-      [copper_rtti_support=yes], # Test passed
-      [copper_rtti_support=no]   # Test failed
+      [copper_cv_rtti_support=yes], # Test passed
+      [copper_cv_rtti_support=no]   # Test failed
     )]
   )
 

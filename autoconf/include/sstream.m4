@@ -15,8 +15,8 @@ AC_DEFUN([COPPER_CHECK_SSTREAM],[
           return i;
         ]
       )],
-      [copper_sstream_support=yes], # Test passed
-      [copper_sstream_support=no]   # Test failed
+      [copper_cv_sstream_support=yes], # Test passed
+      [copper_cv_sstream_support=no]   # Test failed
     )]
   )
 

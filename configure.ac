@@ -78,7 +78,7 @@ else
 fi
 
 COPPER_CHECK_STD_STRING
-if test "$copper_std_string_support" = "yes"; then
+if test "$copper_cv_std_string_support" = "yes"; then
   AC_DEFINE(HAVE_STD_STRING, 1, [std::string is available.])
 else
   AC_DEFINE(HAVE_STD_STRING, 0, [std::string is not available.])
@@ -89,7 +89,7 @@ if test "$enable_sstream" = "yes"; then
   AC_MSG_RESULT([yes])
 
   COPPER_CHECK_SSTREAM
-  if test "$copper_sstream_support" = "no"; then
+  if test "$copper_cv_sstream_support" = "no"; then
     AC_MSG_WARN(
       [stringstreams are not supported, only some types may be converted])
 
@@ -109,13 +109,13 @@ else
 fi
 
 COPPER_CHECK_STRSIGNAL
-if test "$copper_strsignal_support" = "no"; then
+if test "$copper_cv_strsignal_support" = "no"; then
   AC_DEFINE(HAVE_STRSIGNAL, 0,
     [The compiler does not have the strsignal function]
   )
 
   COPPER_CHECK_SYS_SIGLIST
-  if test "$copper_sys_siglist_support" = "no"; then
+  if test "$copper_cv_sys_siglist_support" = "no"; then
     AC_DEFINE(HAVE_SYS_SIGLIST, 0,
       [The compiler does not have sys_siglist]
     )
@@ -140,7 +140,7 @@ if test "$enable_rtti" = "yes"; then
   # See TestRun.cpp for details
   COPPER_CHECK_CXA_CURRENT_EXCEPTION_TYPE
 
-  if test "$copper_cxa_current_exception_type_support" = "yes"; then
+  if test "$copper_cv_cxa_current_exception_type_support" = "yes"; then
     AC_DEFINE(HAVE_CXA_CURRENT_EXCEPTION_TYPE, 1,
       [__cxa_current_exception_type() is supported]
     )
@@ -148,7 +148,7 @@ if test "$enable_rtti" = "yes"; then
     # Check if type names can be de-mangled
     COPPER_CHECK_CXA_DEMANGLE
 
-    if test "$copper_cxa_demangle_support" = "yes"; then
+    if test "$copper_cv_cxa_demangle_support" = "yes"; then
         AC_DEFINE(HAVE_CXA_DEMANGLE, 1,
           [__cxa_demangle() is supported]
         )

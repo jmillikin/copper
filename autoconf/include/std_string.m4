@@ -12,8 +12,8 @@ AC_DEFUN([COPPER_CHECK_STD_STRING],[
           return s.size ();
         ]
       )],
-      [copper_std_string_support=yes], # Test passed
-      [copper_std_string_support=no]   # Test failed
+      [copper_cv_std_string_support=yes], # Test passed
+      [copper_cv_std_string_support=no]   # Test failed
     )]
   )
 

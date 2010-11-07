@@ -25,8 +25,8 @@ AC_DEFUN([COPPER_CHECK_CXA_DEMANGLE],[
           return 0;
         ]
       )],
-      [copper_cxa_demangle_support=yes], # Test passed
-      [copper_cxa_demangle_support=no]   # Test failed
+      [copper_cv_cxa_demangle_support=yes], # Test passed
+      [copper_cv_cxa_demangle_support=no]   # Test failed
     )]
   )
 

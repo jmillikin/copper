@@ -17,13 +17,13 @@ AC_DEFUN([COPPER_CHECK_TEMPLATES],[
         ],
         [Test<int> test; return test.func();]
       )],
-      [copper_template_support=yes], # Test passed
-      [copper_template_support=no]   # Test failed
+      [copper_cv_template_support=yes], # Test passed
+      [copper_cv_template_support=no]   # Test failed
     )]
   )
 
   AC_LANG_POP([C++])
-  if test "$copper_template_support" = "no"; then
+  if test "$copper_cv_template_support" = "no"; then
     AC_MSG_ERROR([Template support is required for compiling Copper])
   fi
 ])

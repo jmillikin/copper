@@ -9,14 +9,14 @@ AC_DEFUN([COPPER_CHECK_NAMESPACES],[
         [namespace foo { int bar = 0; }],
         [return foo::bar;]
       )],
-      [copper_namespace_support=yes], # Test passed
-      [copper_namespace_support=no]   # Test failed
+      [copper_cv_namespace_support=yes], # Test passed
+      [copper_cv_namespace_support=no]   # Test failed
     )]
   )
 
   AC_LANG_POP([C++])
 
-  if test "$copper_namespace_support" = "no"; then
+  if test "$copper_cv_namespace_support" = "no"; then
     AC_MSG_ERROR([Namespace support is required for compiling Copper])
   fi
 ])

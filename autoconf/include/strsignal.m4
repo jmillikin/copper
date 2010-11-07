@@ -12,8 +12,8 @@ AC_DEFUN([COPPER_CHECK_STRSIGNAL],[
          #include <cstring>],
         [if (strsignal) return 0; else return 1;]
       )],
-      [copper_strsignal_support=yes], # Test passed
-      [copper_strsignal_support=no]   # Test failed
+      [copper_cv_strsignal_support=yes], # Test passed
+      [copper_cv_strsignal_support=no]   # Test failed
     )]
   )
 

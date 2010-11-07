@@ -21,8 +21,8 @@ AC_DEFUN([COPPER_CHECK_CXA_CURRENT_EXCEPTION_TYPE],[
           return 0;
         ]
       )],
-      [copper_cxa_current_exception_type_support=yes], # Test passed
-      [copper_cxa_current_exception_type_support=no]   # Test failed
+      [copper_cv_cxa_current_exception_type_support=yes], # Test passed
+      [copper_cv_cxa_current_exception_type_support=no]   # Test failed
     )]
   )
 
