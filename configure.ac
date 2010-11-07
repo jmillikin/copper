@@ -166,13 +166,13 @@ if test "$enable_rtti" = "yes"; then
 else
   AC_MSG_RESULT([no])
   # FIXME: gcc-specific
-  CXXFLAGS="$CXXFLAGS -fno-rtti"
+  CXXFLAGS="-fno-rtti $CXXFLAGS"
 fi
 
 AC_MSG_CHECKING(if debugging is enabled[])
 if test "$enable_debug" = "yes"; then
   AC_MSG_RESULT([yes])
-  CXXFLAGS="$CXXFLAGS -g3 -Wall -Wextra -ansi -pedantic"
+  CXXFLAGS="-g3 -Wall -Wextra -ansi -pedantic $CXXFLAGS"
 else
   AC_MSG_RESULT([no])
 fi
@@ -180,10 +180,10 @@ fi
 AC_MSG_CHECKING([if optimizations are enabled])
 if test "$enable_optimizations" = "yes"; then
   AC_MSG_RESULT([yes])
-  CXXFLAGS="$CXXFLAGS -O2"
+  CXXFLAGS="-O2 $CXXFLAGS"
 else
   AC_MSG_RESULT([no])
-  CXXFLAGS="$CXXFLAGS -O0"
+  CXXFLAGS="-O0 $CXXFLAGS"
 fi
 
 AC_CONFIG_FILES([
