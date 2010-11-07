@@ -54,7 +54,7 @@ String repr(const C &v)
 {
 	std::stringstream ss;
 	ss << v;
-	return String (ss.str ().c_str ());
+	return String::copy(ss.str ().c_str ());
 }
 
 #else // No sstream, only support standard C types + Copper::String
@@ -85,8 +85,8 @@ String repr(double v);
 template <class Value>
 String repr_expr(const Value value, const char *rest)
 {
-	return String::Build
-		( repr(value).CStr()
+	return String::build
+		( repr(value).c_str()
 		, " "
 		, rest
 		, NULL
@@ -96,12 +96,12 @@ String repr_expr(const Value value, const char *rest)
 template <class A, class B>
 String repr_expr(const A a, const char *join, const B b)
 {
-	return String::Build
-		( repr(a).CStr()
+	return String::build
+		( repr(a).c_str()
 		, " "
 		, join
 		, " "
-		, repr(b).CStr()
+		, repr(b).c_str()
 		, NULL
 		);
 }

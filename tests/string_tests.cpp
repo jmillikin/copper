@@ -16,6 +16,7 @@
 #include <copper.hpp>
 #include <cstring>
 
+using Copper::String;
 using std::strcmp;
 
 COPPER_SUITE(string_tests)
@@ -33,126 +34,122 @@ Copper::AssertionResult AddressEqual(const char *a, const char *b)
 
 COPPER_TEST(construct_empty)
 {
-	Copper::String str;
-	COPPER_ASSERT(equal(str.Size(), 0u));
-	COPPER_ASSERT(StrcmpEqual(str.CStr(), ""));
+	String str;
+	COPPER_ASSERT(equal(str.size(), 0u));
+	COPPER_ASSERT(StrcmpEqual(str.c_str(), ""));
 }
 
 COPPER_TEST(construct_no_size)
 {
-	Copper::String str("test");
-	COPPER_ASSERT(equal(str.Size(), 4u));
-	COPPER_ASSERT(StrcmpEqual(str.CStr(), "test"));
+	String str = String::copy("test");
+	COPPER_ASSERT(equal(str.size(), 4u));
+	COPPER_ASSERT(StrcmpEqual(str.c_str(), "test"));
 }
 
 COPPER_TEST(construct_smaller_size)
 {
-	Copper::String str("test", 3);
-	COPPER_ASSERT(equal(str.Size(), 3u));
-	COPPER_ASSERT(StrcmpEqual(str.CStr(), "tes"));
+	String str = String::copy("test", 3);
+	COPPER_ASSERT(equal(str.size(), 3u));
+	COPPER_ASSERT(StrcmpEqual(str.c_str(), "tes"));
 }
 
 COPPER_TEST(construct_larger_size)
 {
-	Copper::String str("test", 5);
-	COPPER_ASSERT(equal(str.Size(), 4u));
-	COPPER_ASSERT(StrcmpEqual(str.CStr(), "test"));
+	String str = String::copy("test", 5);
+	COPPER_ASSERT(equal(str.size(), 4u));
+	COPPER_ASSERT(StrcmpEqual(str.c_str(), "test"));
 }
 
 COPPER_TEST(copy_constructor)
 {
-	Copper::String first("test");
-	Copper::String str(first);
+	String first = String::copy("test");
+	String str(first);
 	
-	COPPER_ASSERT(equal(str.Size(), 4u));
-	COPPER_ASSERT(StrcmpEqual(str.CStr(), "test"));
+	COPPER_ASSERT(equal(str.size(), 4u));
+	COPPER_ASSERT(StrcmpEqual(str.c_str(), "test"));
 }
 
 COPPER_TEST(copy_shared_string_data)
 {
-	Copper::String first("test");
-	Copper::String str(first);
+	String first = String::copy("test");
+	String str(first);
 	
 	// Check that the string wasn't actually copied
-	COPPER_ASSERT(AddressEqual(str.CStr(), first.CStr()));
+	COPPER_ASSERT(AddressEqual(str.c_str(), first.c_str()));
 }
 
-COPPER_TEST(from_static_ptr)
+COPPER_TEST(from_static)
 {
 	const char *cstr = "test";
-	Copper::String str = Copper::String::NoCopy(cstr);
+	String str = String::peek(cstr);
 	
-	COPPER_ASSERT(AddressEqual(str.CStr(), cstr));
-}
-
-COPPER_TEST(from_static_array)
-{
-	const char cstr[] = "test";
-	Copper::String str = Copper::String::FromStatic(cstr);
-	
-	COPPER_ASSERT(AddressEqual(str.CStr(), cstr));
+	COPPER_ASSERT(AddressEqual(str.c_str(), cstr));
 }
 
 COPPER_TEST(build_empty)
 {
-	Copper::String str = Copper::String::Build("", NULL);
+	String str = String::build("", NULL);
 	
-	COPPER_ASSERT(equal(str.Size(), 0u));
-	COPPER_ASSERT(StrcmpEqual(str.CStr(), ""));
+	COPPER_ASSERT(equal(str.size(), 0u));
+	COPPER_ASSERT(StrcmpEqual(str.c_str(), ""));
 }
 
 COPPER_TEST(build)
 {
-	Copper::String str = Copper::String::Build("te", "st", NULL);
+	String str = String::build("te", "st", NULL);
 	
-	COPPER_ASSERT(equal(str.Size(), 4u));
-	COPPER_ASSERT(equal(str.CStr(), "test"));
-	COPPER_ASSERT(StrcmpEqual(str.CStr(), "test"));
+	COPPER_ASSERT(equal(str.size(), 4u));
+	COPPER_ASSERT(equal(str.c_str(), "test"));
+	COPPER_ASSERT(StrcmpEqual(str.c_str(), "test"));
 }
 
 COPPER_TEST(assignment)
 {
-	Copper::String first("test");
-	Copper::String str;
+	String first = String::copy("test");
+	String str;
 	str = first;
 	
-	COPPER_ASSERT(equal(str.Size(), 4u));
-	COPPER_ASSERT(StrcmpEqual(str.CStr(), "test"));
+	COPPER_ASSERT(equal(str.size(), 4u));
+	COPPER_ASSERT(StrcmpEqual(str.c_str(), "test"));
 }
 
 COPPER_TEST(assign_shared_string_data)
 {
-	Copper::String first("test");
-	Copper::String str;
+	String first = String::copy("test");
+	String str;
 	str = first;
 	
 	// Check that the string wasn't actually copied
-	COPPER_ASSERT(AddressEqual(str.CStr(), first.CStr()));
+	COPPER_ASSERT(AddressEqual(str.c_str(), first.c_str()));
 }
 
 COPPER_TEST(assign_to_self)
 {
-	Copper::String str("test");
-	const char *before = str.CStr();
+	String str = String::copy("test");
+	const char *before = str.c_str();
 	str = str;
 	
-	COPPER_ASSERT(equal(str.Size(), 4u));
-	COPPER_ASSERT(StrcmpEqual(str.CStr(), "test"));
+	COPPER_ASSERT(equal(str.size(), 4u));
+	COPPER_ASSERT(StrcmpEqual(str.c_str(), "test"));
 	
 	// Check that the string wasn't actually copied
-	COPPER_ASSERT(AddressEqual(str.CStr(), before));
+	COPPER_ASSERT(AddressEqual(str.c_str(), before));
 }
 
 COPPER_TEST(equality)
 {
-	Copper::String a1("a"), a2("a"), b("b");
+	String a1 = String::copy("a")
+	     , a2 = String::copy("a")
+	     , b = String::copy("b");
 	COPPER_ASSERT(a1 == a2);
 	COPPER_ASSERT(!(a1 == b));
 }
 
 COPPER_TEST(inequality)
 {
-	Copper::String a1("a"), a2("a"), b("b");
+	String a1 = String::copy("a")
+	     , a2 = String::copy("a")
+	     , b = String::copy("b");
 	COPPER_ASSERT(a1 != b);
 	COPPER_ASSERT(!(a1 != a2));
 }

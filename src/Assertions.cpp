@@ -20,32 +20,23 @@ using Copper::String;
 using Copper::AssertionResult;
 using Copper::repr_expr;
 
-// Overloads for equal ()
+// Overloads for equal()
 
 static AssertionResult cstr_equal(const char *first, const char *second)
 {
 	if (first == second)
-	{ return AssertionResult::pass (); }
+	{ return AssertionResult::pass(); }
 	
 	if (first == NULL || second == NULL)
 	{ return AssertionResult::fail(repr_expr(first, "!=", second)); }
 	
 	return equal
-		( String::NoCopy(first)
-		, String::NoCopy(second)
+		( String::peek(first)
+		, String::peek(second)
 		);
 }
 
 AssertionResult equal(const char *first, const char *second)
-{ return cstr_equal(first, second); }
-
-AssertionResult equal(const char *first, char second[])
-{ return cstr_equal(first, second); }
-
-AssertionResult equal(char first[], const char *second)
-{ return cstr_equal(first, second); }
-
-AssertionResult equal(char first[], char second[])
 { return cstr_equal(first, second); }
 
 AssertionResult equal(const char *first, const String &second)
@@ -53,13 +44,13 @@ AssertionResult equal(const char *first, const String &second)
 	if (first == NULL)
 	{ return AssertionResult::fail(repr_expr(first, "!=", second)); }
 	
-	return equal (String::NoCopy (first), second);
+	return equal(String::peek(first), second);
 }
 
 AssertionResult equal(char first[], const String &second)
-{ return equal(String::NoCopy(first), second); }
+{ return equal(String::peek(first), second); }
 
-// Overloads for unequal ()
+// Overloads for unequal()
 
 static AssertionResult cstr_unequal(const char *first, const char *second)
 {
@@ -67,31 +58,30 @@ static AssertionResult cstr_unequal(const char *first, const char *second)
 	{ return AssertionResult::fail(repr_expr(first, "==", second)); }
 	
 	if (first == NULL || second == NULL)
-	{ return AssertionResult::pass (); }
+	{ return AssertionResult::pass(); }
 	
 	return unequal
-		( String::NoCopy(first)
-		, String::NoCopy(second)
+		( String::peek(first)
+		, String::peek(second)
 		);
 }
 
 AssertionResult unequal(const char *first, const char *second)
 { return cstr_unequal(first, second); }
 
-AssertionResult unequal(const char *first, char second[])
-{ return cstr_unequal(first, second); }
-
-AssertionResult unequal(char first[], const char *second)
-{ return cstr_unequal(first, second); }
-
-AssertionResult unequal(char first[], char second[])
-{ return cstr_unequal(first, second); }
+AssertionResult unequal(const char *first, const String &second)
+{
+	if (first == NULL)
+	{ return AssertionResult::pass(); }
+	
+	return unequal(String::peek(first), second);
+}
 
 /**
  * Check that an assertion was false. If it was true, the current
  * failure handler will be executed.
  * 
- * @see failed ()
+ * @see failed()
  * 
  * @param result The result of the assertion.
  */
@@ -102,7 +92,7 @@ AssertionResult failed(const AssertionResult &result)
  * Check that an assertion was false. If it was true, the current
  * failure handler will be executed.
  * 
- * @see failed ()
+ * @see failed()
  * 
  * @param passed Whether the assertion passed.
  * @param text The code that this Assertion tests.
@@ -110,8 +100,8 @@ AssertionResult failed(const AssertionResult &result)
 AssertionResult failed(const bool passed)
 {
 	if (passed)
-	{ return AssertionResult::fail("Negative assertion succeeded"); }
+	{ return AssertionResult::fail(String::peek("Negative assertion succeeded")); }
 	
-	return AssertionResult::pass ();
+	return AssertionResult::pass();
 }
 

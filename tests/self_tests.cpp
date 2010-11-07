@@ -17,6 +17,9 @@
 #include <cstring>
 #include <cstdlib>
 
+using Copper::AssertionResult;
+using Copper::String;
+
 // Various self-tests of the framework, to try and avoid bugs
 COPPER_SUITE(self_tests)
 {
@@ -42,7 +45,6 @@ COPPER_FIXTURE_TEST(fixture_test, the_fixture)
 
 COPPER_TEST(assertion_result_pass)
 {
-	using Copper::AssertionResult;
 	AssertionResult ar = AssertionResult::pass();
 	
 	COPPER_ASSERT(ar.passed);
@@ -51,8 +53,7 @@ COPPER_TEST(assertion_result_pass)
 
 COPPER_TEST(assertion_result_failure)
 {
-	using Copper::AssertionResult;
-	AssertionResult ar = AssertionResult::fail("Error goes here");
+	AssertionResult ar = AssertionResult::fail(String::peek("Error goes here"));
 	
 	COPPER_ASSERT(!ar.passed);
 	COPPER_ASSERT(equal("Error goes here", ar.message));
@@ -60,17 +61,21 @@ COPPER_TEST(assertion_result_failure)
 
 COPPER_TEST(failure)
 {
-	Copper::Failure f("text", "message", "filename", 12345);
+	Copper::Failure f
+		( String::peek("text")
+		, String::peek("message")
+		, String::peek("filename")
+		, 12345
+		);
 	
-	COPPER_ASSERT(equal(f.Text, "text"));
-	COPPER_ASSERT(equal(f.Message, "message"));
-	COPPER_ASSERT(equal(f.File, "filename"));
-	COPPER_ASSERT(equal(f.Line, 12345u));
+	COPPER_ASSERT(equal(f.text, "text"));
+	COPPER_ASSERT(equal(f.message, "message"));
+	COPPER_ASSERT(equal(f.file, "filename"));
+	COPPER_ASSERT(equal(f.line, 12345u));
 }
 
 COPPER_TEST(reverse_passed_assertion)
 {
-	using Copper::AssertionResult;
 	AssertionResult ar = AssertionResult::pass(),
 	                reversed_ar = failed(ar);
 	
@@ -81,8 +86,7 @@ COPPER_TEST(reverse_passed_assertion)
 
 COPPER_TEST(reverse_failed_assertion)
 {
-	using Copper::AssertionResult;
-	AssertionResult ar = AssertionResult::fail(""),
+	AssertionResult ar = AssertionResult::fail(String::peek("")),
 	                reversed_ar = failed(ar);
 	
 	COPPER_ASSERT(reversed_ar.passed);

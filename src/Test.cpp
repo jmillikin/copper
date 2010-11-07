@@ -32,15 +32,15 @@ void Fixture::Copper_TearDownImpl()
 {}
 
 Test::Test
-	( const char name[]
-	, const char suite[]
-	, const char file_name[]
+	( const char *name
+	, const char *suite
+	, const char *file_name
 	, const unsigned int line
 	)
-	: Name(String::FromStatic(name))
-	, Suite(String::FromStatic(suite))
-	, FileName(String::FromStatic(file_name))
-	, Line(line)
+	: name(String::peek(name))
+	, suite(String::peek(suite))
+	, file_name(String::peek(file_name))
+	, line(line)
 {
 	all_tests().append(this);
 }

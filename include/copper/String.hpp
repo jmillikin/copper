@@ -30,29 +30,34 @@ class String
 {
 public:
 	String();
-	String(const char *string, std::size_t size = 0);
 	String(const String &other);
 	
 	~String();
 	
+	bool operator==(const String &other) const;
+	bool operator==(const char *other) const;
+	
+	bool operator!=(const String &other) const;
+	bool operator!=(const char *other) const;
+	
 	String &operator=(const String &other);
 	
-	bool operator==(const String &other) const;
-	bool operator!=(const String &other) const;
-	
-	static String FromStatic(const char string[]);
-	
-	static String NoCopy(const char *string);
+	static String peek(const char *string);
+	static String copy(const char *string);
+	static String copy(const char *string, std::size_t size);
+	static String steal(char *string);
+	static String steal(char *string, std::size_t size);
 	
 	COPPER_FUNCATTR_NULL_TERMINATED
-	static String Build(const char *first, ...);
+	static String build(const char *first, ...);
 	
-	std::size_t Size() const;
+	std::size_t size() const;
 	
-	const char *CStr() const;
+	const char *c_str() const;
 	
 private:
 	class Impl;
+	String(Impl *p);
 	Impl *p;
 };
 

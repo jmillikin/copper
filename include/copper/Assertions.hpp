@@ -40,26 +40,6 @@ Copper::AssertionResult equal
 
 Copper::AssertionResult equal
 	( const char *first
-	, char second[]
-	);
-
-Copper::AssertionResult equal
-	( char first[]
-	, const char *second
-	);
-
-Copper::AssertionResult equal
-	( char first[]
-	, char second[]
-	);
-
-Copper::AssertionResult equal
-	( const char *first
-	, const Copper::String &second
-	);
-
-Copper::AssertionResult equal
-	( char first[]
 	, const Copper::String &second
 	);
 
@@ -75,12 +55,12 @@ Copper::AssertionResult equal_within
 	if ((expected - delta < actual) && (expected + delta > actual))
 	{ return AssertionResult::pass(); }
 	
-	String message = String::Build
-		( repr(actual).CStr ()
+	String message = String::build
+		( repr(actual).c_str()
 		, " is not within "
-		, repr(delta).CStr()
+		, repr(delta).c_str()
 		, " of "
-		, repr(expected).CStr()
+		, repr(expected).c_str()
 		, NULL
 		);
 	return AssertionResult::fail(message);
@@ -107,17 +87,7 @@ Copper::AssertionResult unequal
 
 Copper::AssertionResult unequal
 	( const char *first
-	, char second[]
-	);
-
-Copper::AssertionResult unequal
-	( char first[]
-	, const char *second
-	);
-
-Copper::AssertionResult unequal
-	( char first[]
-	, char second[]
+	, const Copper::String &second
 	);
 
 Copper::AssertionResult failed(const bool result);

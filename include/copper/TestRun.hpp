@@ -100,17 +100,17 @@ public:
 		, const unsigned int line
 		);
 	
-	String Text;
-	String Message;
-	String File;
-	unsigned int Line;
+	const String text;
+	const String message;
+	const String file;
+	unsigned int line;
 };
 
 class Error
 {
 public:
 	Error(const String &message);
-	String Message;
+	const String message;
 };
 
 }

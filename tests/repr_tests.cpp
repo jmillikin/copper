@@ -160,7 +160,7 @@ COPPER_TEST(Copper_String)
 {
 	COPPER_ASSERT(equal
 		( "\"some_string\""
-		, repr(Copper::String("some_string"))
+		, repr(Copper::String::peek("some_string"))
 		));
 }
 

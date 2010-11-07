@@ -35,14 +35,14 @@ struct MatchInfo
 static bool full_matcher(const Test *key, const void *data)
 {
 	const MatchInfo *info = static_cast <const MatchInfo *>(data);
-	return (key->Name == info->test_name) &&
-	       (key->Suite == info->suite_name);
+	return (key->name == info->test_name) &&
+	       (key->suite == info->suite_name);
 }
 
 static bool suite_matcher(const Test *key, const void *data)
 {
 	const MatchInfo *info = static_cast <const MatchInfo *>(data);
-	return (key->Suite == info->suite_name);
+	return (key->suite == info->suite_name);
 }
 
 static Test *find_test
@@ -63,7 +63,7 @@ static Test *find_test
 
 static List<Test> find_suite(const String &suite_name)
 {
-	MatchInfo info = { suite_name, "" };
+	MatchInfo info = { suite_name, String() };
 	return Test::all().filter (suite_matcher, &info);
 }
 
@@ -83,8 +83,8 @@ static List<Test> parse_test_args(int argc, char **argv)
 		if (midpoint != NULL)
 		{
 			// This name includes a test name
-			String suite_name(name, midpoint - name);
-			String test_name(midpoint + 1);
+			String suite_name = String::copy(name, midpoint - name);
+			String test_name = String::copy(midpoint + 1);
 			
 			Test *test = find_test(suite_name, test_name);
 			if (test != NULL)
@@ -96,7 +96,7 @@ static List<Test> parse_test_args(int argc, char **argv)
 		else
 		{
 			// No test name, append everything in the suite
-			tests.extend(find_suite(name));
+			tests.extend(find_suite(String::peek(name)));
 		}
 	}
 	
@@ -131,10 +131,10 @@ int BatchDriver::run (int argc, char **argv)
 			         "%s.%s:\n"
 			         "\t%s\n"
 			         "\t%s\n\n"
-			       , test.FileName.CStr(), failure->Line
-			       , test.Suite.CStr(), test.Name.CStr()
-			       , failure->Text.CStr()
-			       , failure->Message.CStr()
+			       , test.file_name.c_str(), failure->line
+			       , test.suite.c_str(), test.name.c_str()
+			       , failure->text.c_str()
+			       , failure->message.c_str()
 			       );
 			delete failure;
 		}
@@ -146,9 +146,9 @@ int BatchDriver::run (int argc, char **argv)
 			       , "ERROR in %s:\n"
 			         "%s.%s:\n"
 			         "\t%s\n\n"
-			       , test.FileName.CStr()
-			       , test.Suite.CStr(), test.Name.CStr()
-			       , error->Message.CStr()
+			       , test.file_name.c_str()
+			       , test.suite.c_str(), test.name.c_str()
+			       , error->message.c_str()
 			       );
 			delete error;
 		}

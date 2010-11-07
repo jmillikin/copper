@@ -29,7 +29,7 @@ namespace Copper {
 #if HAVE_DISTINCT_BOOL
 String repr(bool v)
 {
-	return String::FromStatic (v ? "true" : "false");
+	return String::peek(v ? "true" : "false");
 }
 #endif
 
@@ -53,7 +53,7 @@ String repr(char v)
 		buffer[1] = v;
 		buffer[3] = '\0';
 	}
-	return String(buffer);
+	return String::copy(buffer);
 }
 
 String repr(const char *v)
@@ -61,7 +61,7 @@ String repr(const char *v)
 	using std::size_t;
 	
 	if (v == NULL)
-	{ return String::NoCopy("NULL"); }
+	{ return String::peek("NULL"); }
 	
 	size_t len = 0;
 	bool clean = true;
@@ -75,10 +75,10 @@ String repr(const char *v)
 	}
 	
 	if (clean)
-	{ return String::Build("\"", v, "\"", NULL); }
+	{ return String::build("\"", v, "\"", NULL); }
 	
-	// Each char can expand to \xAA; two chars for quotes
-	char *buf = new char[(len * 4) + 2];
+	// Each char can expand to \xAA; two chars for quotes and one for \0
+	char *buf = new char[(len * 4) + 2 + 1];
 	
 	size_t buf_len = 0;
 	buf[buf_len++] = '\"';
@@ -105,14 +105,13 @@ String repr(const char *v)
 	}
 	buf[buf_len++] = '\"';
 	
-	String result = String(buf, buf_len);
-	delete[] buf;
+	String result = String::steal(buf, buf_len);
 	return result;
 }
 
 String repr(const String &v)
 {
-	return repr(v.CStr());
+	return repr(v.c_str());
 }
 
 String repr(signed char v)
@@ -129,42 +128,42 @@ String repr(signed short v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%hd", v);
-	return String(buffer);
+	return String::copy(buffer);
 }
 
 String repr(signed int v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%d", v);
-	return String(buffer);
+	return String::copy(buffer);
 }
 
 String repr(signed long v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%ld", v);
-	return String(buffer);
+	return String::copy(buffer);
 }
 
 String repr(unsigned short v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%hu", v);
-	return String(buffer);
+	return String::copy(buffer);
 }
 
 String repr(unsigned int v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%u", v);
-	return String(buffer);
+	return String::copy(buffer);
 }
 
 String repr(unsigned long v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%lu", v);
-	return String(buffer);
+	return String::copy(buffer);
 }
 
 #if HAVE_DISTINCT_SIZE_T
@@ -172,7 +171,7 @@ String repr(std::size_t v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%lu", v);
-	return String(buffer);
+	return String::copy(buffer);
 }
 #endif
 
@@ -180,14 +179,14 @@ String repr(float v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%g", v);
-	return String(buffer);
+	return String::copy(buffer);
 }
 
 String repr(double v)
 {
 	char buffer[SPRINTF_BUF_SIZE];
 	std::sprintf(buffer, "%g", v);
-	return String(buffer);
+	return String::copy(buffer);
 }
 
 }

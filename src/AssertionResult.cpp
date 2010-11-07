@@ -34,7 +34,7 @@ AssertionResult::operator bool() const
 
 AssertionResult AssertionResult::pass()
 {
-	return AssertionResult(true, "");
+	return AssertionResult(true, String::peek(""));
 }
 
 AssertionResult AssertionResult::fail(const String &message)

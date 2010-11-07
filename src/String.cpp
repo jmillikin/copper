@@ -41,7 +41,7 @@ static char *copper_strndup(const char *string, size_t size)
 		string_len = size;
 	}
 	
-	char *new_str = new char [string_len + 1];
+	char *new_str = new char[string_len + 1];
 	strncpy(new_str, string, string_len);
 	new_str[string_len] = 0;
 	return new_str;
@@ -72,19 +72,19 @@ public:
 	bool have_size;
 	const bool should_delete;
 	
-	static Impl *Empty()
+	static Impl *empty()
 	{
 		static Impl empty("", 0u, true, false);
-		return &empty;
+		return empty.ref();
 	}
 	
-	Impl *IncRef()
+	Impl *ref()
 	{
 		++references;
 		return this;
 	}
 	
-	void DecRef()
+	void unref()
 	{
 		if (--references == 0u) { delete this; }
 	}
@@ -101,69 +101,94 @@ private:
 };
 
 String::String()
-: p(Impl::Empty()->IncRef())
+: p(Impl::empty())
 {
 }
 
-String::String(const char *string, size_t size)
+String::String(Impl *p)
+: p(p)
 {
-	p = string[0]
-		? new Impl(copper_strndup(string, size), 0u, false, true)
-		: Impl::Empty()->IncRef();
 }
 
 String::String(const String &other)
-: p(other.p->IncRef())
+: p(other.p->ref())
 {
 }
 
 String::~String()
 {
-	p->DecRef();
+	p->unref();
 }
 
 String &String::operator=(const String &other)
 {
 	if (this != &other)
 	{
-		p->DecRef();
-		p = other.p->IncRef();
+		p->unref();
+		p = other.p->ref();
 	}
 	
 	return *this;
 }
 
-bool String::operator==(const String &second) const
+bool String::operator==(const String &other) const
 {
-	if (p == second.p) { return true; }
+	if (p == other.p) { return true; }
 	
-	return (Size() == second.Size() &&
-	        strcmp(CStr(), second.CStr()) == 0);
+	return (size() == other.size() &&
+	        strcmp(p->str, other.p->str) == 0);
 }
 
-bool String::operator!=(const String &second) const
+bool String::operator==(const char *other) const
 {
-	return !(operator==(second));
+	if (p->str == other) { return true; }
+	return (strcmp(p->str, other) == 0);
 }
 
-String String::FromStatic(const char string[])
+bool String::operator!=(const String &other) const
 {
-	String new_string;
-	new_string.p->DecRef();
-	new_string.p = new Impl(string, 0u, false, false);
-	return new_string;
+	return not (operator==(other));
 }
 
-String String::NoCopy(const char *string)
+bool String::operator!=(const char *other) const
 {
-	String new_string;
-	new_string.p->DecRef();
-	new_string.p = new Impl(string, 0u, false, false);
-	return new_string;
+	return not (operator==(other));
+}
+
+String String::peek(const char *string)
+{
+	return String(new Impl(string, 0u, false, false));
+}
+
+String String::copy(const char *string)
+{
+	return String(string[0] == 0
+		? Impl::empty()
+		: new Impl(copper_strndup(string, 0), 0u, false, true)
+		);
+}
+
+String String::copy(const char *string, std::size_t size)
+{
+	return String(string[0] == 0
+		? Impl::empty()
+		: new Impl(copper_strndup(string, size), size, false, true)
+		);
+}
+
+String String::steal(char *string)
+{
+	return String(new Impl(string, 0u, false, true));
+}
+
+String String::steal(char *string, std::size_t size)
+{
+	string[size] = 0;
+	return String(new Impl(string, 0u, false, true));
 }
 
 String
-String::Build(const char *first, ...)
+String::build(const char *first, ...)
 {
 	// Work around namespace bug in TenDRA
 	using namespace std;
@@ -190,17 +215,12 @@ String::Build(const char *first, ...)
 		ii = copper_strpcpy(ii, part);
 	}
 	
-	*ii = 0;
-	
-	String new_str;
-	new_str.p->DecRef();
-	new_str.p = new Impl(new_c_str, size, true, true);
-	return new_str;
+	return steal(new_c_str, size);
 }
 
-size_t String::Size() const
+size_t String::size() const
 {
-	if (!p->have_size)
+	if (not p->have_size)
 	{
 		p->size = strlen(p->str);
 		p->have_size = true;
@@ -209,7 +229,7 @@ size_t String::Size() const
 	return p->size;
 }
 
-const char *String::CStr() const
+const char *String::c_str() const
 {
 	return p->str;
 }

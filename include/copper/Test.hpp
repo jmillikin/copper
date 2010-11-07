@@ -49,10 +49,10 @@ public:
 	void SetUp();
 	void TearDown();
 	
-	const String Name;
-	const String Suite;
-	const String FileName;
-	const unsigned int Line;
+	const String name;
+	const String suite;
+	const String file_name;
+	const unsigned int line;
 	
 protected:
 	virtual void Copper_RunImpl(TestRun &) = 0;

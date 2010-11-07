@@ -55,13 +55,13 @@ static String demangle_typename(const char *name)
 	
 	if (demangle_status == 0)
 	{
-		String type_name = demangled_name;
+		String type_name = String::copy(demangled_name);
 		free(demangled_name);
 		return type_name;
 	}
 	
 	// De-mangling the name failed
-	return name;
+	return String::copy(name);
 }
 
 static String error_unknown_exception()
@@ -71,13 +71,13 @@ static String error_unknown_exception()
 		info = ::abi::__cxa_current_exception_type ();
 		
 		// Unhandled exception of type 'type'
-		return String::Build
+		return String::build
 			( "Unhandled exception of type '"
-			, demangle_typename(info->name()).CStr()
+			, demangle_typename(info->name()).c_str()
 			, "'", NULL
 			);
 #else
-		return String::FromStatic("Unhandled exception with unknown type");
+		return String::peek("Unhandled exception with unknown type");
 #endif
 }
 
@@ -89,9 +89,9 @@ static void write_message(int fd, const String &message)
 {
 	char buf[30];
 	
-	sprintf(buf, "%-10lu", message.Size());
+	sprintf(buf, "%-10lu", message.size());
 	write(fd, buf, 10);
-	write(fd, message.CStr(), message.Size());
+	write(fd, message.c_str(), message.size());
 }
 
 static String read_message(int fd)
@@ -108,9 +108,7 @@ static String read_message(int fd)
 	message = new char[message_len + 1];
 	
 	read(fd, message, message_len);
-	String retval(message, message_len);
-	delete[] message;
-	return retval;
+	return String::steal(message, message_len);
 }
 
 static String read_token
@@ -128,7 +126,7 @@ static String read_token
 	String token;
 	if (size > 0)
 	{
-		token = String(next, size);
+		token = String::copy(next, size);
 		next += size;
 	}
 	
@@ -146,7 +144,7 @@ static void child_postmortem
 	)
 {
 	String message = read_message(fd);
-	const char *c_message = message.CStr();
+	const char *c_message = message.c_str();
 	
 	String type = read_token(c_message, &c_message);
 	
@@ -162,7 +160,7 @@ static void child_postmortem
 		       file_str = read_token(c_message, &c_message),
 		       message  = read_token(c_message, &c_message);
 		
-		line = strtoul(line_str.CStr(), NULL, 10);
+		line = strtoul(line_str.c_str(), NULL, 10);
 		
 		out_failure = new Failure(text, message, file_str, line);
 	}
@@ -190,7 +188,7 @@ static Error *child_aborted(int status)
 #endif
 	}
 	
-	return new Error(message);
+	return new Error(String::copy(message));
 }
 
 void TestRun::run_test
@@ -207,13 +205,13 @@ void TestRun::run_test
 	
 	if (pipe(pipes) == -1)
 	{
-		out_error = new Error("Can't start test: pipe() returned -1");
+		out_error = new Error(String::peek("Can't start test: pipe() returned -1"));
 		return;
 	}
 	
 	if ((pid = fork()) == -1)
 	{
-		out_error = new Error("Can't start test: fork() returned -1");
+		out_error = new Error(String::peek("Can't start test: fork() returned -1"));
 		close(pipes[0]);
 		close(pipes[1]);
 		return;
@@ -231,7 +229,7 @@ void TestRun::run_test
 		}
 		catch (const std::exception &e)
 		{
-			error_msg = String::Build
+			error_msg = String::build
 				( "Unhandled exception: "
 				, e.what (), NULL
 				);
@@ -242,7 +240,7 @@ void TestRun::run_test
 			error_msg = error_unknown_exception();
 		}
 		
-		if (error_msg.Size() > 0)
+		if (error_msg.size() > 0)
 		{
 			result.send_error(error_msg);
 		}
@@ -252,7 +250,7 @@ void TestRun::run_test
 		{
 			write_message
 				( result.self_fd
-				, String::FromStatic("4:pass")
+				, String::peek("4:pass")
 				);
 			exit_code = 0;
 		}
@@ -294,9 +292,9 @@ void TestRun::assert
 	if (not result.passed)
 	{
 		send_fail
-			( String::NoCopy(text)
+			( String::peek(text)
 			, result.message
-			, String::NoCopy(file), line
+			, String::peek(file), line
 			);
 	}
 }
@@ -310,7 +308,7 @@ void TestRun::assert
 {
 	if (not result)
 	{
-		assert(AssertionResult::fail("Boolean assertion failed"),
+		assert(AssertionResult::fail(String::peek("Boolean assertion failed")),
 		       text, file, line);
 	}
 }
@@ -321,16 +319,16 @@ void TestRun::fail
 	, unsigned int line
 	)
 {
-	String source = String::Build
+	String source = String::build
 		( "COPPER_FAIL("
-		, repr(message).CStr()
+		, repr(message).c_str()
 		, ")"
 		, NULL
 		);
 	send_fail
 		( source
-		, String::NoCopy(message)
-		, String::NoCopy(file), line
+		, String::peek(message)
+		, String::peek(file), line
 		);
 }
 
@@ -342,20 +340,20 @@ TestRun::fail_throws
 	, unsigned int line
 	)
 {
-	String text = String::Build
+	String text = String::build
 		( "throws (", exc_type, ", "
 		, code, ")"
 		, NULL
 		);
 	
-	String message = String::Build
+	String message = String::build
 		("\"", code
 		, "\" didn't throw an exception of type \""
 		, exc_type, "\""
 		, NULL
 		);
 	
-	send_fail(text, message, String::NoCopy(file), line);
+	send_fail(text, message, String::peek(file), line);
 }
 
 void TestRun::send_fail
@@ -369,17 +367,17 @@ void TestRun::send_fail
 	
 	// 4:fail text line message
 	String line_str = repr(line),
-	       line_len = repr(line_str.Size()),
-	       text_len = repr(text.Size()),
-	       file_len = repr(file.Size()),
-	       message_len = repr(message.Size());
+	       line_len = repr(line_str.size()),
+	       text_len = repr(text.size()),
+	       file_len = repr(file.size()),
+	       message_len = repr(message.size());
 	
-	String result = String::Build
+	String result = String::build
 		( "4:fail "
-		, text_len.CStr(), ":", text.CStr()
-		, line_len.CStr(), ":", line_str.CStr()
-		, file_len.CStr(), ":", file.CStr()
-		, message_len.CStr(), ":", message.CStr()
+		, text_len.c_str(), ":", text.c_str()
+		, line_len.c_str(), ":", line_str.c_str()
+		, file_len.c_str(), ":", file.c_str()
+		, message_len.c_str(), ":", message.c_str()
 		, NULL
 		);
 	
@@ -393,11 +391,11 @@ void TestRun::send_error(const String &message)
 	
 	// 5:error message
 	// Example: "5:error 18:segmentation fault"
-	String message_len = repr(message.Size());
+	String message_len = repr(message.size());
 	
-	String result = String::Build
+	String result = String::build
 		("5:error "
-		, message_len.CStr(), ":", message.CStr()
+		, message_len.c_str(), ":", message.c_str()
 		, NULL
 		);
 	
@@ -419,15 +417,15 @@ Failure::Failure
 	, const String &file
 	, unsigned int line
 	)
-	: Text(text)
-	, Message(message)
-	, File(file)
-	, Line(line)
+	: text(text)
+	, message(message)
+	, file(file)
+	, line(line)
 {
 }
 
 Error::Error(const String &message)
-	: Message(message)
+	: message(message)
 {
 }
 
