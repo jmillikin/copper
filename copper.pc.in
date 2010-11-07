@@ -8,4 +8,4 @@ Version: @VERSION@
 Description: Copper unit testing library for C++
 Requires:
 Libs: -L${libdir} -lcopper
-Cflags: -I${includedir}/copper-0
+Cflags: -I${includedir}/copper0.5

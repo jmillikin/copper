@@ -16,7 +16,7 @@ libcopper_la_SOURCES = \
 	src/TestRun.cpp
 
 # headers
-include_copperdir = $(includedir)/copper-0
+include_copperdir = $(includedir)/copper0.5
 include_copper_HEADERS = include/copper.hpp
 
 include_copper_privdir = $(include_copperdir)/copper
