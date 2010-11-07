@@ -21,6 +21,8 @@
 #include <copper/Test.hpp>
 #include <copper/TestRun.hpp>
 
+using std::strchr;
+
 namespace Copper
 {
 
@@ -103,6 +105,9 @@ static List<Test> parse_test_args(int argc, char **argv)
 
 int BatchDriver::run (int argc, char **argv)
 {
+	// Work around namespace bug in TenDRA
+	using namespace std;
+	
 	unsigned int count_pass = 0
 	           , count_fail = 0
 	           , count_error = 0;

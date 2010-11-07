@@ -30,7 +30,7 @@ class String
 {
 public:
 	String();
-	String(const char *string, const std::size_t size = 0);
+	String(const char *string, std::size_t size = 0);
 	String(const String &other);
 	
 	~String();

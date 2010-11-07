@@ -30,7 +30,7 @@ using std::strncpy;
 #endif
 
 COPPER_FUNCATTR_MALLOC
-static char *copper_strndup(const char *string, const size_t size)
+static char *copper_strndup(const char *string, size_t size)
 {
 	size_t string_len;
 	
@@ -105,7 +105,7 @@ String::String()
 {
 }
 
-String::String(const char *string, const size_t size)
+String::String(const char *string, size_t size)
 {
 	p = string[0]
 		? new Impl(copper_strndup(string, size), 0u, false, true)
@@ -165,6 +165,9 @@ String String::NoCopy(const char *string)
 String
 String::Build(const char *first, ...)
 {
+	// Work around namespace bug in TenDRA
+	using namespace std;
+	
 	va_list args;
 	size_t size;
 	char *new_c_str, *part, *ii;
