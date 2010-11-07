@@ -155,13 +155,20 @@ int BatchDriver::run (int argc, char **argv)
 	}
 	
 	// Print statistics
-	printf( "%u tests passed\n"
-	        "%u tests failed\n"
-	        "%u errors\n"
-	      , count_pass
-	      , count_fail
-	      , count_error
-	      );
+	if (count_pass == 1)
+	{ printf("1 test passed\n"); }
+	else
+	{ printf("%u tests passed\n", count_pass); }
+	
+	if (count_fail == 1)
+	{ printf("1 test failed\n"); }
+	else
+	{ printf("%u tests failed\n", count_fail); }
+	
+	if (count_error == 1)
+	{ printf("1 error\n"); }
+	else
+	{ printf("%u errors\n", count_error); }
 	
 	if ((count_fail + count_error) > 0)
 	{ return 1; }

@@ -39,7 +39,7 @@ after installing Copper, you may build and run the included sample tests with::
   	Floating point exception
   
   10 tests passed
-  0 tests failed
+  1 test failed
   2 errors
 
 Development
