@@ -82,6 +82,7 @@ private:
 	Node *root;
 	
 public:
+	friend class iterator;
 	class iterator
 	{
 	public:
