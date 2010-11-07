@@ -1,7 +1,17 @@
-/* assertion_result.hpp -- The result of a single assertion
- * Copyright (C) 2006-2007 John Millikin
- * For conditions of distribution and use, see COPYING
- */
+// Copyright (C) 2006-2010 John Millikin <jmillikin@gmail.com>
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #ifndef COPPER_ASSERTION_RESULT_HPP
 #define COPPER_ASSERTION_RESULT_HPP
@@ -10,35 +20,22 @@
 
 namespace Copper
 {
-	class String;
 
-	class AssertionResult
-	{
-	public:
-		~AssertionResult ();
+class AssertionResult
+{
+public:
+	static AssertionResult pass();
+	static AssertionResult fail(const String &message);
+	
+	operator bool() const;
+	
+	const bool passed;
+	const String message;
+	
+private:
+	AssertionResult(bool passed, const String &message);
+};
 
-		static
-		AssertionResult
-		pass ();
-
-		static
-		AssertionResult
-		fail (const String &message);
-
-		const bool passed;
-
-		const String failure_message;
-
-		operator bool () const;
-
-	private:
-		AssertionResult ();
-
-		AssertionResult (const String &message);
-
-		const AssertionResult &
-		operator= (const AssertionResult &other);
-	};
 }
 
-#endif /* COPPER_ASSERTION_RESULT_HPP */
+#endif

@@ -1,18 +1,29 @@
-/* test.cpp -- Runs a single unit test
- * Copyright (C) 2006-2007 John Millikin
- * For conditions of distribution and use, see COPYING
- */
+// Copyright (C) 2006-2010 John Millikin <jmillikin@gmail.com>
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <copper/Test.hpp>
 
 namespace Copper
 {
-	List<Test> &
-	all_tests ()
-	{
-		static List<Test> _tests;
-		return _tests;
-	}
+
+static List<Test> &
+all_tests()
+{
+	static List<Test> _tests;
+	return _tests;
+}
 
 void Fixture::Copper_SetUpImpl()
 {}
@@ -20,95 +31,50 @@ void Fixture::Copper_SetUpImpl()
 void Fixture::Copper_TearDownImpl()
 {}
 
-	/** @class Test
-	 * @brief Abstract base class for tests.
-	 * 
-	 * Does nothing interesting by itself, but is subclassed to provide
-	 * runnable test classes.
-	 */
+Test::Test
+	( const char name[]
+	, const char suite[]
+	, const char file_name[]
+	, const unsigned int line
+	)
+	: Name(String::FromStatic(name))
+	, Suite(String::FromStatic(suite))
+	, FileName(String::FromStatic(file_name))
+	, Line(line)
+{
+	all_tests().append(this);
+}
 
-	/** @var Test::name
-	 * @brief The name of this test.
-	 */
+Test::~Test()
+{
+}
 
-	/** @var Test::suite
-	 * @brief The suite this test is part of.
-	 */
+const List<Test> &Test::all()
+{
+	return all_tests();
+}
 
-	/** @var Test::file_name
-	 * @brief The file this test's implementation is in.
-	 */
+void Test::Run(TestRun &run)
+{
+	SetUp();
+	Copper_RunImpl(run);
+	TearDown();
+}
 
-	/** @var Test::line
-	 * @brief The line this test was defined on.
-	 */
+void Test::SetUp()
+{
+	Fixture *fixture = Copper_GetFixture();
+	if (fixture) { fixture->Copper_SetUpImpl(); }
+}
 
-	/**
-	 * @brief Constructs a new test.
-	 * 
-	 * @param name The name of this test. This must be static data.
-	 * @param suite The suite this test is part of. This must be
-	 *              static data.
-	 * @param file_name The file this test's implementation is in.
-	 *                  This must be static data.
-	 * @param line The line this test was defined on.
-	 */
-	Test::Test (const char name[],
-	            const char suite[],
-	            const char file_name[],
-	            const unsigned int line):
+void Test::TearDown()
+{
+	Fixture *fixture = Copper_GetFixture();
+	if (fixture) { fixture->Copper_TearDownImpl(); }
+}
 
-	            Name (String::FromStatic (name)),
-	            Suite (String::FromStatic (suite)),
-	            FileName (String::FromStatic (file_name)),
-	            Line (line)
-	{
-		all_tests ().append (this);
-	}
-
-	/**
-	 * @brief Default destructor
-	 */
-	Test::~Test ()
-	{
-	}
-
-	/**
-	 * @brief Get a list of all tests
-	 * 
-	 * @return a list of all tests.
-	 */
-	const List<Test> &
-	Test::all ()
-	{
-		return all_tests ();
-	}
-
-	void
-	Test::Run (TestRun &run)
-	{
-		SetUp ();
-		Copper_RunImpl (run);
-		TearDown ();
-	}
-	
-	void
-	Test::SetUp ()
-	{
-		Fixture *fixture = Copper_GetFixture ();
-		if (fixture) { fixture->Copper_SetUpImpl (); }
-	}
-	
-	void
-	Test::TearDown ()
-	{
-		Fixture *fixture = Copper_GetFixture ();
-		if (fixture) { fixture->Copper_TearDownImpl (); }
-	}
-	
-	Fixture *
-	Test::Copper_GetFixture ()
-	{
-		return NULL;
-	}
+Fixture *Test::Copper_GetFixture()
+{
+	return NULL;
+}
 }

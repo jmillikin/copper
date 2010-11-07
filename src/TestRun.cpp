@@ -1,7 +1,17 @@
-/* TestRun.cpp -- Information on one run of a test
- * Copyright (C) 2009 John Millikin
- * For conditions of distribution and use, see COPYING
- */
+// Copyright (C) 2009-2010 John Millikin <jmillikin@gmail.com>
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <copper/TestRun.hpp>
 #include <copper/AssertionResult.hpp>
@@ -50,7 +60,7 @@ static String demangle_typename(const char *name)
 		return type_name;
 	}
 	
-	/* De-mangling the name failed */
+	// De-mangling the name failed
 	return name;
 }
 
@@ -60,7 +70,7 @@ static String error_unknown_exception()
 		std::type_info *info;
 		info = ::abi::__cxa_current_exception_type ();
 		
-		/* Unhandled exception of type 'type' */
+		// Unhandled exception of type 'type'
 		return String::Build
 			( "Unhandled exception of type '"
 			, demangle_typename(info->name()).CStr()
@@ -112,9 +122,9 @@ static String read_token
 	unsigned int size;
 	
 	size = strtoul(message, &next, 10);
-	next++; /* Skip the colon */
+	next++; // Skip the colon
 	
-	/* Read the actual string */
+	// Read the actual string
 	String token;
 	if (size > 0)
 	{
@@ -122,7 +132,7 @@ static String read_token
 		next += size;
 	}
 	
-	/* Skip whitespace */
+	// Skip whitespace
 	while (isspace(next[0])) { ++next; }
 	
 	if (out_next) { *out_next = next; }
@@ -285,7 +295,7 @@ void TestRun::assert
 	{
 		send_fail
 			( String::NoCopy(text)
-			, result.failure_message
+			, result.message
 			, String::NoCopy(file), line
 			);
 	}
@@ -357,7 +367,7 @@ void TestRun::send_fail
 {
 	self_error = true;
 	
-	/* 4:fail text line message */
+	// 4:fail text line message
 	String line_str = repr(line),
 	       line_len = repr(line_str.Size()),
 	       text_len = repr(text.Size()),
@@ -380,8 +390,8 @@ void TestRun::send_error(const String &message)
 {
 	self_error = true;
 	
-	/* 5:error message */
-	/* Example: "5:error 18:segmentation fault" */
+	// 5:error message
+	// Example: "5:error 18:segmentation fault"
 	String message_len = repr(message.Size());
 	
 	String result = String::Build
@@ -401,66 +411,21 @@ TestRun::TestRun(int fd)
 {
 }
 
-/** @class Failure
- * @brief Stores information on a failed assertion.
- */
-
-/** @var Failure::Text
- * @brief The code that this Assertion tests.
- */
-
-/** @var Failure::Message
- * @brief The human-readable failure message.
- */
-
-/** @var Failure::File
- * @brief The name of the file containing the assertion.
- */
-
-/** @var Failure::Line
- * @brief The line the assertion is located on.
- */
-
-/**
- * @brief Create a new failure record.
- * 
- * @param text The code that was asserted.
- * @param message The human-readable failure message.
- * @param file The name of the file containing the assertion.
- * @param line The line the assertion is located on.
- */
 Failure::Failure
 	( const String &text
 	, const String &message
 	, const String &file
 	, unsigned int line
 	)
-	: Text (text)
-	, Message (message)
-	, File (file)
-	, Line (line)
+	: Text(text)
+	, Message(message)
+	, File(file)
+	, Line(line)
 {
 }
 
-/** @class Error
- * @brief Stores information on an unexpected error.
- * 
- * This is used to indicate that something unexpected went wrong
- * running a test. Errors should only be used for problems that
- * would not be expected.
- */
-
-/** @var Error::Message
- * @brief The error that occurred.
- */
-
-/**
- * @brief Initialize a new error.
- * 
- * @param message The error string.
- */
 Error::Error(const String &message)
-	: Message (message)
+	: Message(message)
 {
 }
 

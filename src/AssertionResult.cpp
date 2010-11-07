@@ -1,7 +1,17 @@
-/* assertion_result.cpp -- The result of a single assertion
- * Copyright (C) 2006-2007 John Millikin
- * For conditions of distribution and use, see COPYING
- */
+// Copyright (C) 2006-2010 John Millikin <jmillikin@gmail.com>
+// 
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// any later version.
+// 
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+// 
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 #include <cstring>
 #include <cstdlib>
@@ -10,82 +20,26 @@
 
 namespace Copper
 {
-	/** @class AssertionResult
-	 * @brief Detailed information about an assertion.
-	 * 
-	 * Used for returning whether an assertion passed or not.
-	 */
 
-	/** @var AssertionResult::passed
-	 * @brief Whether the assertion passed.
-	 */
+AssertionResult::AssertionResult(bool passed, const String &message)
+	: passed(passed)
+	, message(message)
+{
+}
 
-	/** @var AssertionResult::failure_message
-	 * @brief If the assertion failed, this will contain the failure
-	 *        message.
-	 */
+AssertionResult::operator bool() const
+{
+	return passed;
+}
 
-	/**
-	 * @brief Initialize a result for an assertion that passed.
-	 */
-	AssertionResult::AssertionResult ():
-	                                  passed (true),
-	                                  failure_message (String::FromStatic ("No Error"))
-	{
-	}
+AssertionResult AssertionResult::pass()
+{
+	return AssertionResult(true, "");
+}
 
-	/**
-	 * @brief Initialize a result for an assertion that failed.
-	 * 
-	 * @param message The failure message.
-	 */
-	AssertionResult::AssertionResult (const String &message):
-	                                  passed (false),
-	                                  failure_message (message)
-	{
-	}
+AssertionResult AssertionResult::fail(const String &message)
+{
+	return AssertionResult(false, message);
+}
 
-	/**
-	 * @brief Deallocate used memory.
-	 */
-	AssertionResult::~AssertionResult ()
-	{
-	}
-
-	/** 
-	 * @brief Create a result that marks an assertion as passed.
-	 * 
-	 * @return a result marked as passed.
-	 */
-	AssertionResult
-	AssertionResult::pass ()
-	{
-		return AssertionResult ();
-	}
-
-	/**
-	 * @brief Mark that the Assertion has failed.
-	 * 
-	 * If this function is called after this result has been marked as
-	 * finished, nothing will happen.
-	 * 
-	 * @param message The failure message.
-	 * 
-	 * @return a result marked as passed, with the given message.
-	 */
-	AssertionResult
-	AssertionResult::fail (const String &message)
-	{
-		return AssertionResult (message);
-	}
-
-	/**
-	 * @brief Automatic boolean conversion
-	 * 
-	 * @return whether the assertion has passed or failed.
-	 */
-	AssertionResult::operator bool () const
-	{
-		return passed;
-	}
 }
