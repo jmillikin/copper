@@ -83,6 +83,13 @@ else
   AC_DEFINE(HAVE_STD_STRING, 0, [std::string is not available.])
 fi
 
+COPPER_CHECK_CONST_WRITE
+if test "$copper_cv_const_write" = "yes"; then
+  AC_DEFINE(HAVE_CONST_WRITE, 1, [write() accepts const buffer.])
+else
+  AC_DEFINE(HAVE_CONST_WRITE, 0, [write() doesn't accept const buffer.])
+fi
+
 AC_MSG_CHECKING([if sstreams should be tested])
 if test "$enable_sstream" = "yes"; then
   AC_MSG_RESULT([yes])

@@ -1,4 +1,5 @@
 # Optional features
+m4_include([autoconf/include/const_write.m4])
 m4_include([autoconf/include/sstream.m4])
 m4_include([autoconf/include/rtti.m4])
 m4_include([autoconf/include/cxx_demangle.m4])

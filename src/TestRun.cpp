@@ -91,7 +91,13 @@ static void write_message(int fd, const String &message)
 	
 	sprintf(buf, "%-10lu", message.size());
 	write(fd, buf, 10);
-	write(fd, message.c_str(), message.size());
+	
+#if HAVE_CONST_WRITE
+	const char *c_msg = message.c_str();
+#else
+	char *c_msg = (char*)message.c_str();
+#endif
+	write(fd, c_msg, message.size());
 }
 
 static String read_message(int fd)
