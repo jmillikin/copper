@@ -28,8 +28,12 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 
-#if HAVE_CXA_CURRENT_EXCEPTION_TYPE
+#if COPPER_CONFIG_CXA_CURRENT_EXCEPTION_TYPE
 #	include <cxxabi.h>
+#endif
+
+#if COPPER_CONFIG_SYS_SIGLIST
+#	include <signal.h>
 #endif
 
 using std::strtoul;
@@ -46,7 +50,7 @@ static String demangle_typename(const char *name)
 	int demangle_status = -1;
 	char *demangled_name = NULL;
 	
-#if HAVE_CXA_DEMANGLE
+#if COPPER_CONFIG_CXA_DEMANGLE
 	demangled_name = ::abi::__cxa_demangle
 		( name, NULL, NULL
 		, &demangle_status
@@ -66,7 +70,7 @@ static String demangle_typename(const char *name)
 
 static String error_unknown_exception()
 {
-#if HAVE_CXA_CURRENT_EXCEPTION_TYPE
+#if COPPER_CONFIG_CXA_CURRENT_EXCEPTION_TYPE
 		std::type_info *info;
 		info = ::abi::__cxa_current_exception_type ();
 		
@@ -92,7 +96,7 @@ static void write_message(int fd, const String &message)
 	sprintf(buf, "%-10lu", message.size());
 	write(fd, buf, 10);
 	
-#if HAVE_CONST_WRITE
+#if COPPER_CONFIG_CONST_WRITE
 	const char *c_msg = message.c_str();
 #else
 	char *c_msg = (char*)message.c_str();
@@ -185,9 +189,9 @@ static Error *child_aborted(int status)
 	{
 		int sig = WTERMSIG (status);
 		
-#if HAVE_STRSIGNAL
+#if COPPER_CONFIG_STRSIGNAL
 		message = strsignal (sig);
-#elif HAVE_SYS_SIGLIST
+#elif COPPER_CONFIG_SYS_SIGLIST
 		message = sys_siglist[sig];
 #else
 		message = "Unknown signal";

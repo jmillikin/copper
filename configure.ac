@@ -55,39 +55,39 @@ COPPER_CHECK_FORK
 
 # Optional features that don't have a ./configure option
 COPPER_CHECK_DISTINCT_BOOL
-if test "$copper_cv_distinct_bool" = "no"; then
-  AC_DEFINE(HAVE_DISTINCT_BOOL, 0,
-    [The compiler does not have a distinct bool]
+if test "$copper_cv_distinct_bool" = "yes"; then
+  AC_DEFINE(COPPER_CONFIG_DISTINCT_BOOL, 1,
+    [The compiler has a distinct bool]
   )
 else
-  AC_DEFINE(HAVE_DISTINCT_BOOL, 1,
-    [The compiler has a distinct bool]
+  AC_DEFINE(COPPER_CONFIG_DISTINCT_BOOL, 0,
+    [The compiler does not have a distinct bool]
   )
 fi
 
 COPPER_CHECK_DISTINCT_SIZE_T
-if test "$copper_cv_distinct_size_t" = "no"; then
-  AC_DEFINE(HAVE_DISTINCT_SIZE_T, 0,
-    [The compiler does not have a distinct size_t]
+if test "$copper_cv_distinct_size_t" = "yes"; then
+  AC_DEFINE(COPPER_CONFIG_DISTINCT_SIZE_T, 1,
+    [The compiler has a distinct size_t]
   )
 else
-  AC_DEFINE(HAVE_DISTINCT_SIZE_T, 1,
-    [The compiler has a distinct size_t]
+  AC_DEFINE(COPPER_CONFIG_DISTINCT_SIZE_T, 0,
+    [The compiler does not have a distinct size_t]
   )
 fi
 
 COPPER_CHECK_STD_STRING
 if test "$copper_cv_std_string_support" = "yes"; then
-  AC_DEFINE(HAVE_STD_STRING, 1, [std::string is available.])
+  AC_DEFINE(COPPER_CONFIG_STD_STRING, 1, [std::string is available.])
 else
-  AC_DEFINE(HAVE_STD_STRING, 0, [std::string is not available.])
+  AC_DEFINE(COPPER_CONFIG_STD_STRING, 0, [std::string is not available.])
 fi
 
 COPPER_CHECK_CONST_WRITE
 if test "$copper_cv_const_write" = "yes"; then
-  AC_DEFINE(HAVE_CONST_WRITE, 1, [write() accepts const buffer.])
+  AC_DEFINE(COPPER_CONFIG_CONST_WRITE, 1, [write() accepts const buffer.])
 else
-  AC_DEFINE(HAVE_CONST_WRITE, 0, [write() doesn't accept const buffer.])
+  AC_DEFINE(COPPER_CONFIG_CONST_WRITE, 0, [write() doesn't accept const buffer.])
 fi
 
 AC_MSG_CHECKING([if sstreams should be tested])
@@ -95,45 +95,44 @@ if test "$enable_sstream" = "yes"; then
   AC_MSG_RESULT([yes])
 
   COPPER_CHECK_SSTREAM
-  if test "$copper_cv_sstream_support" = "no"; then
+  if test "$copper_cv_sstream_support" = "yes"; then
+    AC_DEFINE(COPPER_CONFIG_SSTREAM, 1,
+      [std::stringstream is available]
+    )
+  else
     AC_MSG_WARN(
       [stringstreams are not supported, only some types may be converted])
 
-    AC_DEFINE(HAVE_SSTREAM, 0,
-      [The compiler does not have the sstream header]
-    )
-  else
-    AC_DEFINE(HAVE_SSTREAM, 1,
-      [The compiler has the sstream header]
+    AC_DEFINE(COPPER_CONFIG_SSTREAM, 0,
+      [std::stringstream is not available]
     )
   fi
 else
   AC_MSG_RESULT([no])
-  AC_DEFINE(HAVE_SSTREAM, 0,
-    [The user has disabled sstream]
+  AC_DEFINE(COPPER_CONFIG_SSTREAM, 0,
+    [std::stringstream is not available]
   )
 fi
 
 COPPER_CHECK_STRSIGNAL
-if test "$copper_cv_strsignal_support" = "no"; then
-  AC_DEFINE(HAVE_STRSIGNAL, 0,
-    [The compiler does not have the strsignal function]
+if test "$copper_cv_strsignal_support" = "yes"; then
+  AC_DEFINE(COPPER_CONFIG_STRSIGNAL, 1,
+    [strsignal() is available]
   )
-
-  COPPER_CHECK_SYS_SIGLIST
-  if test "$copper_cv_sys_siglist_support" = "no"; then
-    AC_DEFINE(HAVE_SYS_SIGLIST, 0,
-      [The compiler does not have sys_siglist]
-    )
-  else
-    AC_DEFINE(HAVE_SYS_SIGLIST, 1,
-      [The compiler has sys_siglist]
-    )
-  fi
-
 else
-  AC_DEFINE(HAVE_STRSIGNAL, 1,
-    [The compiler has the strsignal function]
+  AC_DEFINE(COPPER_CONFIG_STRSIGNAL, 0,
+    [strsignal() is not available]
+  )
+fi
+
+COPPER_CHECK_SYS_SIGLIST
+if test "$copper_cv_sys_siglist_support" = "yes"; then
+  AC_DEFINE(COPPER_CONFIG_SYS_SIGLIST, 1,
+    [sys_siglist is available]
+  )
+else
+  AC_DEFINE(COPPER_CONFIG_SYS_SIGLIST, 0,
+    [sys_siglist is not available]
   )
 fi
 
@@ -147,25 +146,25 @@ if test "$enable_rtti" = "yes"; then
   COPPER_CHECK_CXA_CURRENT_EXCEPTION_TYPE
 
   if test "$copper_cv_cxa_current_exception_type_support" = "yes"; then
-    AC_DEFINE(HAVE_CXA_CURRENT_EXCEPTION_TYPE, 1,
-      [__cxa_current_exception_type() is supported]
+    AC_DEFINE(COPPER_CONFIG_CXA_CURRENT_EXCEPTION_TYPE, 1,
+      [__cxa_current_exception_type() is available]
     )
 
     # Check if type names can be de-mangled
     COPPER_CHECK_CXA_DEMANGLE
 
     if test "$copper_cv_cxa_demangle_support" = "yes"; then
-        AC_DEFINE(HAVE_CXA_DEMANGLE, 1,
-          [__cxa_demangle() is supported]
+        AC_DEFINE(COPPER_CONFIG_CXA_DEMANGLE, 1,
+          [__cxa_demangle() is available]
         )
     else
-        AC_DEFINE(HAVE_CXA_DEMANGLE, 0,
-          [__cxa_demangle() is not supported]
+        AC_DEFINE(COPPER_CONFIG_CXA_DEMANGLE, 0,
+          [__cxa_demangle() is not available]
         )
     fi
   else
-    AC_DEFINE(HAVE_CXA_CURRENT_EXCEPTION_TYPE, 0,
-      [__cxa_current_exception_type() is supported]
+    AC_DEFINE(COPPER_CONFIG_CXA_CURRENT_EXCEPTION_TYPE, 0,
+      [__cxa_current_exception_type() is not available]
     )
   fi
 

@@ -19,17 +19,17 @@
 #include <copper/config.h>
 #include <copper/String.hpp>
 
-#if HAVE_SSTREAM
+#if COPPER_CONFIG_SSTREAM
 #	include <sstream>
 #endif
 
-#if HAVE_STD_STRING
+#if COPPER_CONFIG_STD_STRING
 #	include <string>
 #endif
 
 namespace Copper {
 
-#if HAVE_DISTINCT_BOOL
+#if COPPER_CONFIG_DISTINCT_BOOL
 String repr(bool v);
 #endif
 
@@ -43,11 +43,11 @@ String repr(signed char v);
 
 String repr(unsigned char v);
 
-#if HAVE_STD_STRING
+#if COPPER_CONFIG_STD_STRING
 String repr(const std::string &v);
 #endif
 
-#if HAVE_SSTREAM
+#if COPPER_CONFIG_SSTREAM
 
 template <class C>
 String repr(const C &v)
@@ -71,7 +71,7 @@ String repr(unsigned int v);
 
 String repr(unsigned long v);
 
-#if HAVE_DISTINCT_SIZE_T
+#if COPPER_CONFIG_DISTINCT_SIZE_T
 String repr(std::size_t v);
 #endif
 

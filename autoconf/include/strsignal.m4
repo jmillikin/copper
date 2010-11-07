@@ -6,10 +6,7 @@ AC_DEFUN([COPPER_CHECK_STRSIGNAL],[
     [copper_cv_strsignal_support],
     [AC_COMPILE_IFELSE(
       [AC_LANG_PROGRAM(
-        [#ifndef _GNU_SOURCE
-         #  define _GNU_SOURCE
-         #endif
-         #include <cstring>],
+        [#include <cstring>],
         [if (strsignal) return 0; else return 1;]
       )],
       [copper_cv_strsignal_support=yes], # Test passed

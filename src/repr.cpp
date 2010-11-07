@@ -26,7 +26,7 @@ static const std::size_t SPRINTF_BUF_SIZE = 40;
 
 namespace Copper {
 
-#if HAVE_DISTINCT_BOOL
+#if COPPER_CONFIG_DISTINCT_BOOL
 String repr(bool v)
 {
 	return String::peek(v ? "true" : "false");
@@ -166,7 +166,7 @@ String repr(unsigned long v)
 	return String::copy(buffer);
 }
 
-#if HAVE_DISTINCT_SIZE_T
+#if COPPER_CONFIG_DISTINCT_SIZE_T
 String repr(std::size_t v)
 {
 	char buffer[SPRINTF_BUF_SIZE];

@@ -6,7 +6,7 @@ AC_DEFUN([COPPER_CHECK_SYS_SIGLIST],[
     [copper_cv_sys_siglist_support],
     [AC_COMPILE_IFELSE(
       [AC_LANG_PROGRAM(
-        [#include <string.h>],
+        [#include <signal.h>],
         [if (sys_siglist) return 0; else return 1;]
       )],
       [copper_cv_sys_siglist_support=yes], # Test passed
