@@ -89,6 +89,20 @@ static String error_unknown_exception()
 
 // fork()-based test spawning {{{
 
+static long read_full(int fd, char *buf, long count)
+{
+	long done = 0;
+	while (done < count)
+	{
+		done = read(fd, buf + done, count - done);
+		
+		if (done <= 0)
+		{ return -1; }
+	}
+	
+	return done;
+}
+
 static void write_message(int fd, const String &message)
 {
 	char buf[30];
@@ -110,14 +124,20 @@ static String read_message(int fd)
 	char *message;
 	char buf[30];
 	
-	read(fd, buf, 10);
+	if (read_full(fd, buf, 10) == -1)
+	{ return String(); }
 	
 	buf[10] = 0;
 	
 	sscanf(buf, "%lu ", &message_len);
 	message = new char[message_len + 1];
 	
-	read(fd, message, message_len);
+	if (read_full(fd, message, message_len) == -1)
+	{
+		delete message;
+		return String();
+	}
+	
 	return String::steal(message, message_len);
 }
 
@@ -154,6 +174,11 @@ static void child_postmortem
 	)
 {
 	String message = read_message(fd);
+	if (message.size() == 0)
+	{
+		out_error = new Error(String::peek("Couldn't read() from test process: exit() called?"));
+	}
+	
 	const char *c_message = message.c_str();
 	
 	String type = read_token(c_message, &c_message);
