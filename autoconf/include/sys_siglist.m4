@@ -1,5 +1,5 @@
 AC_DEFUN([COPPER_CHECK_SYS_SIGLIST],[
-  AC_LANG_PUSH([C])
+  AC_LANG_PUSH([C++])
 
   AC_CACHE_CHECK(
     [if sys_siglist is supported],
@@ -14,5 +14,5 @@ AC_DEFUN([COPPER_CHECK_SYS_SIGLIST],[
     )]
   )
 
-  AC_LANG_POP([C])
+  AC_LANG_POP([C++])
 ])
