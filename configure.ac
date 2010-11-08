@@ -1,4 +1,4 @@
-AC_INIT(Copper, 0.5, jmillikin@gmail.com)
+AC_INIT(Copper, 0.5.1, jmillikin@gmail.com)
 AC_PREREQ(2.67)
 
 AC_CONFIG_SRCDIR([src/Test.cpp])
