@@ -82,6 +82,7 @@ class TestList::Node
 public:
 	Node(Test &test)
 		: test(&test)
+		, next(NULL)
 	{}
 	
 	Test *test;
